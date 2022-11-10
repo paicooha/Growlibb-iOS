@@ -6,17 +6,34 @@
 //
 
 import UIKit
+import RxSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var appCoordinator: AppCoordinator?
+    var appComponent: AppComponent?
+    var disposeBag = DisposeBag()
 
+    func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options connectionOptions: UIScene.ConnectionOptions)
+    {
+        guard let windowScene = (scene as? UIWindowScene)
+        else { return }
+        let window = UIWindow(windowScene: windowScene)
+        window.overrideUserInterfaceStyle = .light
+        AppContext.shared.safeAreaInsets = window.safeAreaInsets
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        let appComponent = AppComponent()
+        let appCoordinator = AppCoordinator(component: appComponent, window: window)
+        appCoordinator.start()
+
+        self.window = window
+        self.appComponent = appComponent
+        self.appCoordinator = appCoordinator
+
+//        if let userActivity = connectionOptions.userActivities.first {
+//            self.scene(scene, continue: userActivity)
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

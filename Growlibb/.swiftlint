@@ -1,0 +1,5 @@
+included:
+  - Growlibb
+variable_name:
+  min_length: # only min_length
+    error: 4 # only error

@@ -14,7 +14,6 @@ import UIKit
 
 class BaseViewController: UIViewController {
     // MARK: Lifecycle
-
     init() {
         Log.d(tag: .lifeCycle, "VC Initialized")
         super.init(nibName: nil, bundle: nil)
@@ -35,6 +34,8 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .white
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -44,9 +45,6 @@ class BaseViewController: UIViewController {
 // MARK: - Base Functions
 
 extension BaseViewController: UIGestureRecognizerDelegate {
-    func setBackgroundColor() {
-        view.backgroundColor = .darkG7
-    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
