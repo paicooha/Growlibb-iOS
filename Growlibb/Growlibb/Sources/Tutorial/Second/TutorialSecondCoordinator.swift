@@ -1,0 +1,68 @@
+//
+//  TutorialSecondCoordinator.swift
+//  Growlibb
+//
+//  Created by 이유리 on 2022/11/10.
+//
+
+import Foundation
+import RxSwift
+
+enum TutorialSecondResult {
+    case backward
+}
+
+final class TutorialSecondCoordinator: BasicCoordinator<TutorialSecondResult> {
+    // MARK: Lifecycle
+    
+
+    init(component: TutorialSecondComponent, navController: UINavigationController) {
+        self.component = component
+        super.init(navController: navController)
+    }
+
+    // MARK: Internal
+
+    var component: TutorialSecondComponent
+
+    override func start(animated _: Bool = true) {
+        let scene = component.scene
+        
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                Log.d(tag: .lifeCycle, "VC poped")
+
+                switch result {
+                case .backward:
+                    self?.navigationController.popViewController(animated: true)
+                }
+            })
+            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.backward
+            .map { TutorialSecondResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
+
+
+        scene.VM.routes.next
+            .subscribe(onNext: { [weak self] in
+                UserDefaults.standard.set(true, forKey: "isPassedTutorial") //튜토리얼을 봤으면 다시 안보여주기 위함
+                self?.pushLoginScene()
+            })
+            .disposed(by: sceneDisposeBag)
+    }
+
+    private func pushLoginScene() {
+        let comp = component.loginComponent()
+        let coord = LoginCoordinator(component: comp, navController: navigationController)
+
+//        coordinate(coordinator: coord, animated: animated) { coordResult in
+//            switch coordResult {
+//            case let .backward(id, needUpdate):
+//                vm.routeInputs.needUpdate.onNext(needUpdate)
+//                vm.routeInputs.detailClosed.onNext(())
+//            }
+//        }
+    }
+}

@@ -34,6 +34,21 @@ internal enum L10n {
       /// 회고가 처음이시라구요?
       internal static let title = L10n.tr("Localizable", "Tutorial.First.Title", fallback: "회고가 처음이시라구요?")
     }
+    internal enum Second {
+      /// 회고를 함으로써 크고 작은 목표를 달성하기까지
+      /// 잘한 점과 아쉬운 점 그리고 지켜봐야 할 점을
+      /// 찾아내고 이를 기반으로 개선을 위한 아이디어와
+      /// 구체적인 실행 방안을 도출할 수 있습니다.
+      /// 
+      /// 즉 어제보다 더 나은 내일을 만들어 나갈 수 있는
+      /// 것이죠!
+      /// 
+      /// 회고의 의미와 해야 되는 이유를 알았으니
+      /// 그로우립 사용할 준비가 완료되었습니다!
+      internal static let description = L10n.tr("Localizable", "Tutorial.Second.description", fallback: "회고를 함으로써 크고 작은 목표를 달성하기까지\n잘한 점과 아쉬운 점 그리고 지켜봐야 할 점을\n찾아내고 이를 기반으로 개선을 위한 아이디어와\n구체적인 실행 방안을 도출할 수 있습니다.\n\n즉 어제보다 더 나은 내일을 만들어 나갈 수 있는\n것이죠!\n\n회고의 의미와 해야 되는 이유를 알았으니\n그로우립 사용할 준비가 완료되었습니다!")
+      /// 회고를 해야 되는 이유는요!
+      internal static let title = L10n.tr("Localizable", "Tutorial.Second.Title", fallback: "회고를 해야 되는 이유는요!")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

@@ -11,6 +11,7 @@
 		DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */; };
 		DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCC2912717700878BA3 /* BaseResponse.swift */; };
 		DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */; };
+		DA69D3BF291E1D30007B982A /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69D3BE291E1D30007B982A /* TextField.swift */; };
 		DA6E2015291D223200F78173 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACF8216291C1EAF00AA74E8 /* Pretendard-SemiBold.otf */; };
 		DA6E2016291D223200F78173 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAC86A8E29140938006F54A1 /* Pretendard-Medium.otf */; };
 		DA6E2018291D25D300F78173 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6E2017291D25D300F78173 /* Images.xcassets */; };
@@ -63,6 +64,7 @@
 		DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCC2912717700878BA3 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		DA69D3BE291E1D30007B982A /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		DA6E2017291D25D300F78173 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA6E2023291D2B6500F78173 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA6E2025291D2B9800F78173 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -142,6 +144,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DA69D3BD291E15BC007B982A /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		DA945F10291D3C6B0050F54E /* Generated */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,8 +210,9 @@
 				DAC1854529196203009D7181 /* Common */,
 				DA95BC3D29116DB5003C81CE /* Base */,
 				DACF81F6291BDC8300AA74E8 /* MainTabbar */,
-				DAC86A8D2914052D006F54A1 /* Login */,
 				DAC86A8C29140522006F54A1 /* Tutorial */,
+				DAC86A8D2914052D006F54A1 /* Login */,
+				DA69D3BD291E15BC007B982A /* SignUp */,
 				DACF81FF291BDE0B00AA74E8 /* Home */,
 				DACF8200291BDE1700AA74E8 /* Retrospect */,
 				DACF8201291BDE1F00AA74E8 /* My */,
@@ -252,6 +262,7 @@
 				DACF81DB291BBF1A00AA74E8 /* KeyChain */,
 				DAC1854629196213009D7181 /* NavBar.swift */,
 				DACF820F291C11D700AA74E8 /* BottomButton.swift */,
+				DA69D3BE291E1D30007B982A /* TextField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -534,6 +545,7 @@
 				DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */,
 				DACF81D8291BBE7200AA74E8 /* AppComponent.swift in Sources */,
 				DACF81DA291BBE8C00AA74E8 /* AppCoordinator.swift in Sources */,
+				DA69D3BF291E1D30007B982A /* TextField.swift in Sources */,
 				DACF81EE291BC7B500AA74E8 /* TutorialFirstComponent.swift in Sources */,
 				DACF81D6291BBE6300AA74E8 /* AppContext.swift in Sources */,
 				DACF81FA291BDC9800AA74E8 /* MainTabbarCoordinator.swift in Sources */,
