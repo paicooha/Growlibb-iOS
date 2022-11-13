@@ -1,14 +1,14 @@
 //
-//  BottomButton.swift
+//  CommonButton.swift
 //  Growlibb
 //
-//  Created by 이유리 on 2022/11/10.
+//  Created by 이유리 on 2022/11/14.
 //
 
 import SnapKit
 import UIKit
 
-final class BottomButton: UIButton {
+final class CommonButton: UIButton {
     // MARK: Lifecycle
 
     init() {
@@ -24,13 +24,13 @@ final class BottomButton: UIButton {
 
 // MARK: - Layout
 
-extension BottomButton {
+extension CommonButton {
     private func setupViews() {
         self.backgroundColor = .primaryBlue
-        self.titleLabel?.font = .pretendardSemibold20
+        self.titleLabel?.font = .pretendardMedium14
         
         self.snp.makeConstraints{ make in
-            make.height.equalTo(50)
+            make.height.equalTo(57)
         }
     }
 }
