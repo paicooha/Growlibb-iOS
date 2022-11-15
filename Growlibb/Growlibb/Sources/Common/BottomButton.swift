@@ -28,6 +28,8 @@ extension BottomButton {
     private func setupViews() {
         self.backgroundColor = .primaryBlue
         self.titleLabel?.font = .pretendardSemibold20
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 9
         
         self.snp.makeConstraints{ make in
             make.height.equalTo(50)

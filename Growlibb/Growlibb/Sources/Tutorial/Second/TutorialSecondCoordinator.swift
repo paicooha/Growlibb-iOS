@@ -25,8 +25,10 @@ final class TutorialSecondCoordinator: BasicCoordinator<TutorialSecondResult> {
 
     var component: TutorialSecondComponent
 
-    override func start(animated _: Bool = true) {
+    override func start(animated: Bool = true) {
         let scene = component.scene
+        
+        navigationController.pushViewController(scene.VC, animated: animated)
         
         closeSignal
             .subscribe(onNext: { [weak self] result in
