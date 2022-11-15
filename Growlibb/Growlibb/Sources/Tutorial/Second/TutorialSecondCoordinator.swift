@@ -14,7 +14,9 @@ enum TutorialSecondResult {
 
 final class TutorialSecondCoordinator: BasicCoordinator<TutorialSecondResult> {
     // MARK: Lifecycle
-    
+    var window: UIWindow?
+    var appCoordinator: AppCoordinator?
+    var appComponent: AppComponent?
 
     init(component: TutorialSecondComponent, navController: UINavigationController) {
         self.component = component
@@ -56,15 +58,18 @@ final class TutorialSecondCoordinator: BasicCoordinator<TutorialSecondResult> {
     }
 
     private func pushLoginScene() {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        
+        self.window = window
+        let navController = UINavigationController()
+        window.rootViewController = navController
+        AppContext.shared.rootNavigationController = navController
+        
+        window.makeKeyAndVisible()
+        
         let comp = component.loginComponent()
-        let coord = LoginCoordinator(component: comp, navController: navigationController)
+        let coord = LoginCoordinator(component:comp, navController: navigationController)
 
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .backward(id, needUpdate):
-//                vm.routeInputs.needUpdate.onNext(needUpdate)
-//                vm.routeInputs.detailClosed.onNext(())
-//            }
-//        }
+        coordinate(coordinator: coord)
     }
 }

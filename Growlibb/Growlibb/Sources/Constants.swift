@@ -9,12 +9,17 @@ import Alamofire
 
 struct Constants {
     // MARK: Network
-    static let BASE_URL = "https://www.atflee-admin.com"
+    static let BASE_URL = "http://3.229.102.197/"
+    
+    var loginKeyChainService: LoginKeyChainService
+    var token:String
 
-    static var HEADERS: HTTPHeaders {
-        return [
-            "Content-Type": "application/json",
-//            "X-ACCESS-TOKEN": UserManager.shared.jwt
-        ]
+    var HEADERS: HTTPHeaders {
+        ["x-access-token": token]
+    }
+
+    init() {
+        loginKeyChainService = BasicLoginKeyChainService.shared
+        token = loginKeyChainService.token?.jwt ?? ""
     }
 }

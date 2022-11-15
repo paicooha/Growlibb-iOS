@@ -15,6 +15,58 @@ internal enum L10n {
   /// 
   ///   Created by 이유리 on 2022/11/10.
   internal static let locale = L10n.tr("Localizable", "Locale", fallback: "Ko-kr")
+  internal enum Login {
+    /// 반가워요!
+    /// GROW.LIBB에 로그인 해주시면
+    /// 다양한 컨텐츠를 이용하실 수 있어요!
+    internal static let title = L10n.tr("Localizable", "Login.Title", fallback: "반가워요!\nGROW.LIBB에 로그인 해주시면\n다양한 컨텐츠를 이용하실 수 있어요!")
+    internal enum Button {
+      /// 로그인
+      internal static let title = L10n.tr("Localizable", "Login.button.title", fallback: "로그인")
+    }
+    internal enum Email {
+      /// 이메일을 입력해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "Login.email.placeholder", fallback: "이메일을 입력해주세요.")
+      /// 이메일
+      internal static let title = L10n.tr("Localizable", "Login.email.title", fallback: "이메일")
+    }
+    internal enum Forget {
+      /// 이메일 찾기 / 비밀번호 재설정하기
+      internal static let find = L10n.tr("Localizable", "Login.forget.find", fallback: "이메일 찾기 / 비밀번호 재설정하기")
+      /// 이메일/비밀번호를 까먹으셨다면!
+      internal static let title = L10n.tr("Localizable", "Login.forget.title", fallback: "이메일/비밀번호를 까먹으셨다면!")
+    }
+    internal enum Incorrect {
+      /// 이메일 혹은 비밀번호를 다시 입력해주세요.
+      internal static let guidelabel = L10n.tr("Localizable", "Login.incorrect.guidelabel", fallback: "이메일 혹은 비밀번호를 다시 입력해주세요.")
+    }
+    internal enum Notmember {
+      /// 회원가입 하러가기
+      internal static let gotoSignup = L10n.tr("Localizable", "Login.notmember.gotoSignup", fallback: "회원가입 하러가기")
+      /// 아직 회원이 아니신가요?
+      internal static let title = L10n.tr("Localizable", "Login.notmember.title", fallback: "아직 회원이 아니신가요?")
+    }
+    internal enum Password {
+      /// 비밀번호를 입력해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "Login.password.placeholder", fallback: "비밀번호를 입력해주세요.")
+      /// 비밀번호
+      internal static let title = L10n.tr("Localizable", "Login.password.title", fallback: "비밀번호")
+    }
+  }
+  internal enum Main {
+    internal enum HomeTab {
+      /// 홈
+      internal static let title = L10n.tr("Localizable", "Main.HomeTab.Title", fallback: "홈")
+    }
+    internal enum MyPage {
+      /// 내 메뉴
+      internal static let title = L10n.tr("Localizable", "Main.MyPage.Title", fallback: "내 메뉴")
+    }
+    internal enum RetrospectTab {
+      /// 회고
+      internal static let title = L10n.tr("Localizable", "Main.RetrospectTab.Title", fallback: "회고")
+    }
+  }
   internal enum Next {
     internal enum Button {
       /// 다음

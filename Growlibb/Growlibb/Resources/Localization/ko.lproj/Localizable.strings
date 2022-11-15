@@ -23,8 +23,14 @@
 "Login.password.title" = "비밀번호";
 "Login.email.placeholder" = "이메일을 입력해주세요.";
 "Login.password.placeholder" = "비밀번호를 입력해주세요.";
+"Login.incorrect.guidelabel" = "이메일 혹은 비밀번호를 다시 입력해주세요.";
 "Login.notmember.title" = "아직 회원이 아니신가요?";
 "Login.notmember.gotoSignup" = "회원가입 하러가기";
 "Login.forget.title" = "이메일/비밀번호를 까먹으셨다면!";
 "Login.forget.find" = "이메일 찾기 / 비밀번호 재설정하기";
-"Login.button.title" = "로그인"
+"Login.button.title" = "로그인";
+
+// MARK: - Main
+"Main.HomeTab.Title" = "홈";
+"Main.RetrospectTab.Title" = "회고";
+"Main.MyPage.Title" = "내 메뉴";
