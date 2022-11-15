@@ -24,6 +24,12 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal static let icArrowLeft = ImageAsset(name: "ic_arrow_left")
   internal static let icGrowlibbLogo = ImageAsset(name: "ic_growlibb_logo")
+  internal static let icHomeBlue = ImageAsset(name: "ic_home_blue")
+  internal static let icHomeGray = ImageAsset(name: "ic_home_gray")
+  internal static let icMyBlue = ImageAsset(name: "ic_my_blue")
+  internal static let icMyGray = ImageAsset(name: "ic_my_gray")
+  internal static let icRetrospectBlue = ImageAsset(name: "ic_retrospect_blue")
+  internal static let icRetrospectGray = ImageAsset(name: "ic_retrospect_gray")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

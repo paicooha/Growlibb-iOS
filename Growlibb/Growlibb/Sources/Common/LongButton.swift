@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class BottomButton: UIButton {
+final class LongButton: UIButton {
     // MARK: Lifecycle
 
     init() {
@@ -24,7 +24,7 @@ final class BottomButton: UIButton {
 
 // MARK: - Layout
 
-extension BottomButton {
+extension LongButton {
     private func setupViews() {
         self.backgroundColor = .primaryBlue
         self.titleLabel?.font = .pretendardSemibold20
@@ -34,5 +34,17 @@ extension BottomButton {
         self.snp.makeConstraints{ make in
             make.height.equalTo(50)
         }
+    }
+    
+    func setEnable(){
+        self.isEnabled = true
+        self.backgroundColor = .primaryBlue
+        self.titleLabel?.textColor = .veryLightBlue
+    }
+    
+    func setDisable(){
+        self.isEnabled = false
+        self.backgroundColor = .brownGray
+        self.titleLabel?.textColor = .veryLightGray
     }
 }

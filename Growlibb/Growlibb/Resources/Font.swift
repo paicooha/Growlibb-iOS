@@ -19,4 +19,12 @@ extension UIFont {
     class var pretendardMedium16: UIFont {
         return UIFont(name: "Pretendard-Medium", size: 16.0)!
     }
+    
+    class var pretendardMedium14: UIFont {
+        return UIFont(name: "Pretendard-Medium", size: 14.0)!
+    }
+    
+    class var pretendardMedium12: UIFont {
+        return UIFont(name: "Pretendard-Medium", size: 12.0)!
+    }
 }

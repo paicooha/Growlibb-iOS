@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class CommonButton: UIButton {
+final class ShortButton: UIButton {
     // MARK: Lifecycle
 
     init() {
@@ -24,13 +24,26 @@ final class CommonButton: UIButton {
 
 // MARK: - Layout
 
-extension CommonButton {
+extension ShortButton {
     private func setupViews() {
-        self.backgroundColor = .primaryBlue
         self.titleLabel?.font = .pretendardMedium14
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 9
         
         self.snp.makeConstraints{ make in
             make.height.equalTo(57)
         }
+    }
+    
+    func setEnable(){
+        self.isEnabled = true
+        self.backgroundColor = .primaryBlue
+        self.titleLabel?.textColor = .veryLightBlue
+    }
+    
+    func setDisable(){
+        self.isEnabled = false
+        self.backgroundColor = .brownGray
+        self.titleLabel?.textColor = .veryLightGray
     }
 }

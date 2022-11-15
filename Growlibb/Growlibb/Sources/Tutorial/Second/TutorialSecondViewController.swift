@@ -83,7 +83,7 @@ final class TutorialSecondViewController: BaseViewController {
         make.numberOfLines = 0
     }
     
-    private var button = BottomButton().then { make in
+    private var button = LongButton().then { make in
         make.setTitle(L10n.Next.Button.title, for: .normal)
         make.titleLabel?.textColor = .veryLightBlue
     }
