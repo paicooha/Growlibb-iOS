@@ -22,7 +22,7 @@ target 'Growlibb' do
   # Then
   pod 'Then'
   # Alamofire
-  pod 'Alamofire'
+  pod 'Alamofire', '~> 5.4.4'
   # SwiftKeychainWrapper
   pod 'SwiftKeychainWrapper'
   # SwiftGen
@@ -42,6 +42,12 @@ target 'Growlibb' do
 
   # Kingfisher
   pod 'Kingfisher', '~> 7.0'
+
+  # Dropdown
+  pod 'DropDown', '2.3.13'
+
+  # Alamofire Logger
+  pod 'AlamofireNetworkActivityLogger', '~> 3.4.0'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
