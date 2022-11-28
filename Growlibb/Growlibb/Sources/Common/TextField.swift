@@ -32,6 +32,7 @@ extension TextField {
         self.clipsToBounds = true
         self.layer.cornerRadius = 12
         
+        //왼쪽 여백
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: self.frame.height))
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always

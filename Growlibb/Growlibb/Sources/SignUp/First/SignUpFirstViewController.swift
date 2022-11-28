@@ -1,0 +1,814 @@
+//
+//  SignUpViewController.swift
+//  Growlibb
+//
+//  Created by 이유리 on 2022/11/13.
+//
+
+import RxCocoa
+import RxGesture
+import RxSwift
+import Then
+import UIKit
+import SnapKit
+import FirebaseAuth
+
+class SignUpFirstViewController: BaseViewController {
+    
+    var contentViewSize = CGSize()
+    
+    var phoneNumber = ""
+    var verificationId = ""
+    
+    var authTime = 180 //3분
+    var authTimer: Timer?
+    
+    var sendCodebuttonTime = 2 //2초
+    var sendCodeButtonTimer: Timer?
+    
+    //아이디, 비밀번호, 인증번호, 약관동의를 모두 했는지 확인하기 위한 배열
+    var validCheckArray = [false, false, false, false]
+    
+    //약관동의 - 서비스, 개인정보처리방침 약관동의 여부를 확인하기 위한 배열
+    var termsOfUseArray = [false, false]
+    
+    lazy var signUpDataManager = SignUpDataManager()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+                
+        //scroll에서 보여줄 영역
+        contentViewSize = CGSize(width: self.view.frame.width - 56, height: self.view.frame.height + 200)
+        
+        setupViews()
+        initialLayout()
+
+        viewModelInput()
+//        viewModelOutput()
+        
+        //실시간으로 textfield 입력하는 부분 이벤트 받아서 처리
+        emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordConfirmTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        phoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        authcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
+    }
+
+    init(viewModel: SignUpFirstViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField == emailTextField {
+            if !Regex().isValidEmail(input: emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+                emailGuideLabel.isHidden = false
+                emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
+                validCheckArray[0] = false
+            }
+            else{ //이메일 도메인 길이 체크
+                if ((emailTextField.text?.components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
+                    emailGuideLabel.isHidden = false
+                    emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
+                    validCheckArray[0] = false
+                }
+                validCheckArray[0] = true
+                emailGuideLabel.isHidden = true
+                checkAllPass()
+            }
+        }
+        else if textField == passwordTextField{
+            if !Regex().isValidPassword(input: passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+                passwordGuideLabel.isHidden = false
+            }
+            else{
+                passwordGuideLabel.isHidden = true
+            }
+        }
+        else if textField == passwordConfirmTextField {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " {
+                passwordConfirmGuideLabel.isHidden = false
+                validCheckArray[1] = false
+            }
+            else{
+                passwordConfirmGuideLabel.isHidden = true
+                validCheckArray[1] = true
+                checkAllPass()
+            }
+        }
+        else if textField == phoneTextField {
+            var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
+                phoneButton.setDisable()
+                if (textFieldText.count == 4){
+                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 3))
+                }
+                else if (textFieldText.count == 9){
+                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 8))
+                }
+            }
+            else{
+                phoneButton.setEnable()
+            }
+        }
+        else if textField == authcodeTextField {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+                authcodeButton.setEnable()
+            }
+            else{
+                authcodeButton.setDisable()
+            }
+        }
+    }
+    
+    @objc func authtimerCallback() {
+        authTimerLabel.isHidden = false
+        authTime -= 1
+        authTimerLabel.text = "\(Int((authTime / 60) % 60)):\(String(format:"%0d", Int(authTime % 60)))"
+        
+        if (authTime == 0){
+            authTimer?.invalidate()
+            authcodeButton.setDisable()
+        }
+    }
+    
+    @objc func sendCodeTimerCallback() {
+        sendCodebuttonTime -= 1
+        
+        if (sendCodebuttonTime == 0){
+            sendCodeButtonTimer?.invalidate()
+            phoneButton.setEnable()
+        }
+        
+    }
+
+    private var viewModel: SignUpFirstViewModel
+
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.tapBackward)
+            .disposed(by: disposeBag)
+        
+        phoneButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                //버튼 연타 방지
+                self.phoneButton.setDisable()
+                self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                
+                self.sendCodebuttonTime = 2
+                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
+                
+                //인증코드 타이머
+                self.authTime = 180
+                self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
+                
+                //재인증 시 초기 세팅하기 위해 한번 더 설정하는 부분
+                self.validCheckArray[2] = false //재인증할 수 있으므로 일단 false로 설정
+                
+                self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                self.phoneNumber = "+82\(self.phoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
+                print(self.phoneNumber)
+                
+                
+                PhoneAuthProvider.provider()
+                    .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
+                      if let error = error {
+                          AppContext.shared.makeToast("에러가 발생했습니다. 다시 시도해주세요")
+                          print(error)
+                        return
+                      }
+                      // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달
+                        self.verificationId = verificationID!
+                  }
+            })
+        
+        authcodeButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                
+                let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.verificationId,
+                                                                         verificationCode: self.authcodeTextField.text!)
+                
+                Auth.auth().signIn(with: credential) { (authData, error) in
+                    if error != nil {
+                        print("로그인 Error: \(error.debugDescription)")
+                        self.authGuideLabel.isHidden = false
+                        return
+                    }
+                    self.authGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
+                    self.authTimerLabel.isHidden = true
+                    self.authTimer?.invalidate()
+                    
+                    self.validCheckArray[2] = true
+
+                    print("인증성공 : \(authData)")
+                }
+                self.checkAllPass()
+            })
+        
+        allAgreeButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                if self.validCheckArray[3]{
+                    self.validCheckArray[3] = false
+                    self.termsOfUseArray[0] = false
+                    self.termsOfUseArray[1] = false
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                    self.serviceButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                    self.privacyButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{
+                    self.termsOfUseArray[0] = true
+                    self.termsOfUseArray[1] = true
+                    
+                    self.validCheckArray[3] = true
+                    self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    self.serviceButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    self.privacyButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                }
+                self.checkAllPass()
+            })
+        
+        serviceButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                if self.termsOfUseArray[0]{ //on -> off
+                    self.termsOfUseArray[0] = false
+                    self.validCheckArray[3] = false
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    self.serviceButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{ //off -> on
+                    self.termsOfUseArray[0] = true
+                    self.serviceButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    
+                    if self.termsOfUseArray[1] {
+                        self.validCheckArray[3] = true
+                        self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                    else{
+                        self.validCheckArray[3] = false
+                        self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+
+                }
+                self.checkAllPass()
+            })
+        
+        privacyButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                if self.termsOfUseArray[1]{ //on -> off
+                    self.termsOfUseArray[1] = false
+                    self.validCheckArray[3] = false
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    self.privacyButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{ //off -> on
+                    self.termsOfUseArray[1] = true
+                    self.privacyButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    
+                    if self.termsOfUseArray[0] {
+                        self.validCheckArray[3] = true
+                        self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                    else{
+                        self.validCheckArray[3] = false
+                        self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                }
+                self.checkAllPass()
+            })
+        
+        nextButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                self.signUpDataManager.postCheckEmail(viewController: self, email: (self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    func checkAllPass(){
+        if validCheckArray.allSatisfy({$0}){ //모두 true
+            nextButton.setEnable()
+        }
+        else{
+            print(validCheckArray)
+            nextButton.setDisable()
+        }
+    }
+//
+//    private func viewModelOutput() {
+//        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+//
+//        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
+//            [weak self] _, collectionView, indexPath, item in
+//
+//                guard let self = self,
+//                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
+//                else { return UICollectionViewCell() }
+//
+//                cell.postInfoView.bookMarkIcon.rx.tap
+//                    .map { indexPath.row }
+//                    .subscribe(onNext: { [weak self] idx in
+//                        self?.viewModel.inputs.tapPostBookMark.onNext(idx)
+//                    })
+//                    .disposed(by: cell.disposeBag)
+//
+//                cell.configure(with: item)
+//                return cell
+//        }
+//
+//        viewModel.outputs.posts
+//            .do(onNext: { [weak self] configs in
+//                self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
+//
+//                if configs.isEmpty {
+//                    self?.emptyLabel.isHidden = false
+//                    switch self?.runningTagInt {
+//                    case 0:
+//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
+//                    case 1:
+//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
+//                    default:
+//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
+//                    }
+//                } else {
+//                    self?.emptyLabel.isHidden = true
+//                }
+//            })
+//            .map { [BasicPostSection(items: $0)] }
+//            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+//            .disposed(by: disposeBag)
+//
+//        viewModel.toast
+//            .subscribe(onNext: { message in
+//                AppContext.shared.makeToast(message)
+//            })
+//            .disposed(by: disposeBag)
+//    }
+    private var scrollView = UIScrollView(frame: .zero).then { view in
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+    }
+    
+    private var contentView = UIView()
+    
+    private var navBar = NavBar().then{ make in
+        make.leftBtnItem.isHidden = false
+    }
+    
+    private var titleLabel = UILabel().then{ make in
+        make.font = .pretendardSemibold20
+        make.textColor = .black
+        make.text = L10n.SignUp.title
+    }
+    
+    private var guideLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.First.title
+        make.textColor = .black
+        make.font = .pretendardMedium14
+    }
+    
+    private var emailTitleLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Email.title
+        make.textColor = .black
+        make.font = .pretendardMedium14
+    }
+    
+    private var emailTextField = TextField().then { make in
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Email.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+            //placeholder 색 바꾸기
+        make.keyboardType = .emailAddress
+    }
+    
+    private var emailGuideLabel = UILabel().then{ make in
+//        make.text = L10n.SignUp.e
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium14
+        make.isHidden = true
+    }
+    
+    private var passwordTitleLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Password.title
+        make.textColor = .black
+        make.font = .pretendardMedium14
+    }
+    
+    private var passwordTextField = TextField().then { make in
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Password.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+            //placeholder 색 바꾸기
+        make.isSecureTextEntry = true //비밀번호 *로 표시
+        
+    }
+    
+    private var passwordGuideLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Password.guidelabel
+        make.numberOfLines = 0
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium14
+        make.isHidden = true
+    }
+    
+    private var passwordConfirmTitleLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Passwordconfirm.title
+        make.textColor = .black
+        make.font = .pretendardMedium14
+    }
+    
+    private var passwordConfirmTextField = TextField().then { make in
+        make.isSecureTextEntry = true //비밀번호 *로 표시
+        
+    }
+    
+    private var passwordConfirmGuideLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Passwordconfirm.guidelabel
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium14
+        make.isHidden = true
+    }
+    
+    private var phoneTitleLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Phone.title
+    }
+    
+    private var phoneTextField = TextField().then { make in
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Phone.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+            //placeholder 색 바꾸기
+        make.keyboardType = .phonePad
+    }
+    
+    private var phoneButton = ShortButton().then { make in
+        make.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
+        make.setDisable()
+    }
+    
+    private var authcodeLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Code.title
+    }
+    
+    private var authcodeTextField = TextField().then { make in
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Code.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+        make.keyboardType = .numberPad
+    }
+    
+    private var authTimerLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .primaryBlue
+        make.isHidden = true
+    }
+    
+    private var authcodeButton = ShortButton().then { make in
+        make.setTitle(L10n.Confirm.Button.title, for: .normal)
+        make.setDisable()
+    }
+    
+    private var authGuideLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .primaryBlue
+        make.text = L10n.SignUp.Code.guidelabel
+        make.isHidden = true
+    }
+    
+    private var codeConfirmGuideLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Code.guidelabel
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium14
+        make.isHidden = true
+    }
+    
+    private var agreeTitleLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Agree.title
+    }
+    
+    private var allAgreeTitle = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Agree.agreall
+    }
+    
+    private var allAgreeButton = UIButton().then{ make in
+        make.setImage(Asset.icCheckboxGray.image, for: .normal)
+    }
+    
+    private var serviceAgreeTitle = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.service)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 13, length: 4))
+        make.attributedText = attributedString
+    }
+    
+    private var seeServiceLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Agree.seecontent
+        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.seecontent)
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSRange.init(location: 0, length: 4))
+        make.attributedText = attributedString
+        
+    }
+    
+    private var serviceButton = UIButton().then{ make in
+        make.setImage(Asset.icCheckboxGray.image, for: .normal)
+    }
+    
+    private var privacyAgreeTitle = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.privacy)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 16, length: 4))
+        make.attributedText = attributedString
+    }
+    
+    private var seePrivacyLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Agree.seecontent
+        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.seecontent)
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSRange.init(location: 0, length: 4))
+        make.attributedText = attributedString
+    }
+    
+    private var privacyButton = UIButton().then{ make in
+        make.setImage(Asset.icCheckboxGray.image, for: .normal)
+    }
+    
+    private var nextButton = LongButton().then { make in
+        make.setTitle(L10n.Next.Button.title, for: .normal)
+        make.setDisable()
+    }
+    
+    
+}
+
+// MARK: - Layout
+
+extension SignUpFirstViewController {
+    
+    private func setupViews() {
+        
+        view.addSubviews([
+            navBar,
+            scrollView
+        ])
+        
+        //scrollview
+        scrollView.contentSize = contentViewSize
+        scrollView.frame = self.view.bounds
+        scrollView.addSubview(contentView)
+        
+        //contentview
+        contentView.frame.size = contentViewSize
+        contentView.addSubviews([
+            titleLabel,
+            guideLabel,
+            emailTitleLabel,
+            emailTextField,
+            emailGuideLabel,
+            passwordTitleLabel,
+            passwordTextField,
+            passwordGuideLabel,
+            passwordConfirmTitleLabel,
+            passwordConfirmTextField,
+            passwordConfirmGuideLabel,
+            phoneTitleLabel,
+            phoneTextField,
+            phoneButton,
+            authcodeLabel,
+            authcodeTextField,
+            authTimerLabel,
+            authGuideLabel,
+            authcodeButton,
+            codeConfirmGuideLabel,
+            agreeTitleLabel,
+            allAgreeTitle,
+            allAgreeButton,
+            serviceAgreeTitle,
+            seeServiceLabel,
+            serviceButton,
+            privacyAgreeTitle,
+            seePrivacyLabel,
+            privacyButton,
+            nextButton
+        ])
+    }
+
+    private func initialLayout() {
+        navBar.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+        }
+        
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints{ make in
+            make.top.width.equalToSuperview()
+            make.height.equalTo(contentViewSize.height)
+        }
+        
+        titleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(contentView.snp.top).offset(39)
+            make.leading.equalTo(contentView.snp.leading)
+        }
+        
+        guideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(13)
+            make.leading.equalTo(titleLabel.snp.leading)
+        }
+        
+        emailTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(guideLabel.snp.bottom).offset(45)
+            make.leading.equalTo(guideLabel.snp.leading)
+        }
+        
+        emailTextField.snp.makeConstraints{ make in
+            make.top.equalTo(emailTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(emailTitleLabel.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        emailGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(4)
+            make.leading.equalTo(emailTitleLabel.snp.leading)
+        }
+        
+        passwordTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(36)
+            make.leading.equalTo(guideLabel.snp.leading)
+        }
+        
+        passwordTextField.snp.makeConstraints{ make in
+            make.top.equalTo(passwordTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(passwordTitleLabel.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        passwordGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(4)
+            make.leading.equalTo(passwordTitleLabel.snp.leading)
+        }
+        
+        passwordConfirmTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(36)
+            make.leading.equalTo(guideLabel.snp.leading)
+        }
+        
+        passwordConfirmTextField.snp.makeConstraints{ make in
+            make.top.equalTo(passwordConfirmTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(passwordConfirmTitleLabel.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        passwordConfirmGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(4)
+            make.leading.equalTo(passwordConfirmTitleLabel.snp.leading)
+        }
+        
+        phoneTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(passwordConfirmTextField.snp.bottom).offset(36)
+            make.leading.equalTo(guideLabel.snp.leading)
+        }
+        
+        phoneTextField.snp.makeConstraints{ make in
+            make.top.equalTo(phoneTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(phoneTitleLabel.snp.leading)
+            make.trailing.equalTo(phoneButton.snp.leading).offset(-14)
+        }
+        
+        phoneButton.snp.makeConstraints{ make in
+            make.centerY.equalTo(phoneTextField.snp.centerY)
+            make.width.equalTo(98)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        authcodeLabel.snp.makeConstraints{ make in
+            make.top.equalTo(phoneTextField.snp.bottom).offset(36)
+            make.leading.equalTo(passwordConfirmTitleLabel.snp.leading)
+        }
+        
+        authcodeTextField.snp.makeConstraints{ make in
+            make.top.equalTo(authcodeLabel.snp.bottom).offset(5)
+            make.leading.equalTo(authcodeLabel.snp.leading)
+            make.trailing.equalTo(authcodeButton.snp.leading).offset(-14)
+        }
+        
+        authcodeButton.snp.makeConstraints{ make in
+            make.centerY.equalTo(authcodeTextField.snp.centerY)
+            make.width.equalTo(98)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        codeConfirmGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(authcodeTextField.snp.bottom).offset(36)
+            make.leading.equalTo(guideLabel.snp.leading)
+        }
+        
+        authTimerLabel.snp.makeConstraints{ make in
+            make.centerY.equalTo(authcodeTextField.snp.centerY)
+            make.trailing.equalTo(authcodeTextField.snp.trailing).offset(-20)
+        }
+        
+        authGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(authcodeTextField.snp.bottom).offset(5)
+            make.leading.equalTo(authcodeTextField.snp.leading)
+        }
+        
+        agreeTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(authcodeTextField.snp.bottom).offset(53)
+            make.leading.equalTo(authGuideLabel.snp.leading)
+        }
+        
+        allAgreeButton.snp.makeConstraints{ make in
+            make.width.height.equalTo(17)
+            make.leading.equalTo(agreeTitleLabel.snp.leading)
+            make.top.equalTo(agreeTitleLabel.snp.bottom).offset(13)
+        }
+        
+        allAgreeTitle.snp.makeConstraints{ make in
+            make.leading.equalTo(allAgreeButton.snp.trailing).offset(15)
+            make.centerY.equalTo(allAgreeButton.snp.centerY)
+        }
+        
+        serviceButton.snp.makeConstraints{ make in
+            make.width.height.equalTo(17)
+            make.leading.equalTo(allAgreeButton.snp.leading)
+            make.top.equalTo(allAgreeTitle.snp.bottom).offset(13)
+        }
+        
+        serviceAgreeTitle.snp.makeConstraints{ make in
+            make.leading.equalTo(serviceButton.snp.trailing).offset(15)
+            make.centerY.equalTo(serviceButton.snp.centerY)
+        }
+        
+        seeServiceLabel.snp.makeConstraints{ make in
+            make.centerY.equalTo(serviceAgreeTitle)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        privacyButton.snp.makeConstraints{ make in
+            make.width.height.equalTo(17)
+            make.leading.equalTo(agreeTitleLabel.snp.leading)
+            make.top.equalTo(serviceButton.snp.bottom).offset(13)
+        }
+        
+        privacyAgreeTitle.snp.makeConstraints{ make in
+            make.leading.equalTo(privacyButton.snp.trailing).offset(15)
+            make.centerY.equalTo(privacyButton.snp.centerY)
+        }
+        
+        seePrivacyLabel.snp.makeConstraints{ make in
+            make.centerY.equalTo(privacyAgreeTitle)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        nextButton.snp.makeConstraints{ make in
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-42)
+        }
+    }
+}
+
+extension SignUpFirstViewController {
+    func didSuccessCheckEmail(code:Int){
+        if code == 1000{
+            self.emailGuideLabel.isHidden = true
+            UserInfo.shared.email = self.emailTextField.text!
+            UserInfo.shared.password = self.passwordTextField.text!
+            UserInfo.shared.phoneNumber = self.phoneTextField.text!
+            self.viewModel.inputs.tapNext.onNext(())
+        }
+        else if code == 2012 {
+            self.emailGuideLabel.isHidden = false
+            self.emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.exist
+            validCheckArray[0] = false
+            nextButton.setDisable()
+            AppContext.shared.makeToast("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요")
+        }
+    }
+    
+    func failedToRequest(message: String) {
+        AppContext.shared.makeToast(message)
+    }
+}

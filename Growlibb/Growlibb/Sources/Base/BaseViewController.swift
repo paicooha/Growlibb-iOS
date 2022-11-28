@@ -39,6 +39,8 @@ class BaseViewController: UIViewController {
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        dismissKeyboardWhenTappedAround()
     }
 }
 

@@ -17,9 +17,10 @@ class LoginComponent {
         return LoginViewModel()
     }
     
-//    func SignUpFirstComponent() -> LoginComponent {
-//        return LoginComponent()
-//    }
+    func signupFirstComponent() -> SignUpFirstComponent {
+        return SignUpFirstComponent()
+    }
+    
     func mainComponent() -> MainTabComponent {
         return MainTabComponent()
     }

@@ -15,6 +15,30 @@ internal enum L10n {
   /// 
   ///   Created by 이유리 on 2022/11/10.
   internal static let locale = L10n.tr("Localizable", "Locale", fallback: "Ko-kr")
+  internal enum Confirm {
+    internal enum Button {
+      /// 확인
+      internal static let title = L10n.tr("Localizable", "Confirm.Button.title", fallback: "확인")
+    }
+  }
+  internal enum Job {
+    /// 사무관리직
+    internal static let des = L10n.tr("Localizable", "Job.DES", fallback: "사무관리직")
+    /// 주부
+    internal static let hou = L10n.tr("Localizable", "Job.HOU", fallback: "주부")
+    /// 기술직(IT/공학계열)
+    internal static let it = L10n.tr("Localizable", "Job.IT", fallback: "기술직(IT/공학계열)")
+    /// 무직(퇴직자 포함)
+    internal static let not = L10n.tr("Localizable", "Job.NOT", fallback: "무직(퇴직자 포함)")
+    /// 경찰/소방/군인
+    internal static let off = L10n.tr("Localizable", "Job.OFF", fallback: "경찰/소방/군인")
+    /// 공무원
+    internal static let pub = L10n.tr("Localizable", "Job.PUB", fallback: "공무원")
+    /// 자영업
+    internal static let sel = L10n.tr("Localizable", "Job.SEL", fallback: "자영업")
+    /// 학생
+    internal static let stu = L10n.tr("Localizable", "Job.STU", fallback: "학생")
+  }
   internal enum Login {
     /// 반가워요!
     /// GROW.LIBB에 로그인 해주시면
@@ -71,6 +95,121 @@ internal enum L10n {
     internal enum Button {
       /// 다음
       internal static let title = L10n.tr("Localizable", "Next.Button.title", fallback: "다음")
+    }
+  }
+  internal enum SignUp {
+    /// 회원가입
+    internal static let title = L10n.tr("Localizable", "SignUp.Title", fallback: "회원가입")
+    internal enum Final {
+      /// 시작하기
+      internal static let button = L10n.tr("Localizable", "SignUp.Final.button", fallback: "시작하기")
+      /// 지금부터 회고를 시작해볼까요?
+      internal static let guidelabel = L10n.tr("Localizable", "SignUp.Final.guidelabel", fallback: "지금부터 회고를 시작해볼까요?")
+      /// 님,
+      /// 회원가입에 성공했습니다.
+      internal static let title = L10n.tr("Localizable", "SignUp.Final.title", fallback: "님,\n회원가입에 성공했습니다.")
+    }
+    internal enum First {
+      /// 이메일, 비밀번호, 휴대폰 번호를 입력해주세요.
+      internal static let title = L10n.tr("Localizable", "SignUp.First.title", fallback: "이메일, 비밀번호, 휴대폰 번호를 입력해주세요.")
+    }
+    internal enum Second {
+      /// 닉네임, 성별, 생년월일, 직업을 입력해주세요.
+      internal static let title = L10n.tr("Localizable", "SignUp.Second.title", fallback: "닉네임, 성별, 생년월일, 직업을 입력해주세요.")
+    }
+    internal enum Agree {
+      /// 모두 동의
+      internal static let agreall = L10n.tr("Localizable", "SignUp.agree.agreall", fallback: "모두 동의")
+      /// 개인정보처리 방침 약관 동의 [필수]
+      internal static let privacy = L10n.tr("Localizable", "SignUp.agree.privacy", fallback: "개인정보처리 방침 약관 동의 [필수]")
+      /// 내용보기
+      internal static let seecontent = L10n.tr("Localizable", "SignUp.agree.seecontent", fallback: "내용보기")
+      /// 서비스 이용 약관 동의 [필수]
+      internal static let service = L10n.tr("Localizable", "SignUp.agree.service", fallback: "서비스 이용 약관 동의 [필수]")
+      /// 약관 동의
+      internal static let title = L10n.tr("Localizable", "SignUp.agree.title", fallback: "약관 동의")
+    }
+    internal enum Birth {
+      /// 생년월일을 올바르게 입력해주세요.
+      internal static let guidelabel = L10n.tr("Localizable", "SignUp.birth.guidelabel", fallback: "생년월일을 올바르게 입력해주세요.")
+      /// 생년월일 8자를 입력해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.birth.placeholder", fallback: "생년월일 8자를 입력해주세요.")
+      /// 생년월일
+      internal static let title = L10n.tr("Localizable", "SignUp.birth.title", fallback: "생년월일")
+    }
+    internal enum Code {
+      /// 인증번호를 다시 입력해주세요.
+      internal static let guidelabel = L10n.tr("Localizable", "SignUp.code.guidelabel", fallback: "인증번호를 다시 입력해주세요.")
+      /// 인증번호 6자리
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.code.placeholder", fallback: "인증번호 6자리")
+      /// 인증번호
+      internal static let title = L10n.tr("Localizable", "SignUp.code.title", fallback: "인증번호")
+    }
+    internal enum Email {
+      /// 이메일을 입력해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.email.placeholder", fallback: "이메일을 입력해주세요.")
+      /// 이메일
+      internal static let title = L10n.tr("Localizable", "SignUp.email.title", fallback: "이메일")
+      internal enum Guidelabel {
+        /// 이미 존재하는 이메일입니다
+        internal static let exist = L10n.tr("Localizable", "SignUp.email.guidelabel.exist", fallback: "이미 존재하는 이메일입니다")
+        /// 이메일 형식이 아닙니다.
+        internal static let notemail = L10n.tr("Localizable", "SignUp.email.guidelabel.notemail", fallback: "이메일 형식이 아닙니다.")
+        /// 이메일 길이를 초과하였습니다.
+        internal static let toolong = L10n.tr("Localizable", "SignUp.email.guidelabel.toolong", fallback: "이메일 길이를 초과하였습니다.")
+      }
+    }
+    internal enum Gender {
+      /// 남자
+      internal static let man = L10n.tr("Localizable", "SignUp.gender.man", fallback: "남자")
+      /// 성별
+      internal static let title = L10n.tr("Localizable", "SignUp.gender.title", fallback: "성별")
+      /// 여자
+      internal static let woman = L10n.tr("Localizable", "SignUp.gender.woman", fallback: "여자")
+    }
+    internal enum Job {
+      /// 직업을 선택해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.job.placeholder", fallback: "직업을 선택해주세요.")
+      /// 직업
+      internal static let title = L10n.tr("Localizable", "SignUp.job.title", fallback: "직업")
+    }
+    internal enum Nickname {
+      /// 중복확인
+      internal static let checkDuplicate = L10n.tr("Localizable", "SignUp.nickname.checkDuplicate", fallback: "중복확인")
+      /// 10글자 이내로 작성해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.nickname.placeholder", fallback: "10글자 이내로 작성해주세요.")
+      /// 닉네임
+      internal static let title = L10n.tr("Localizable", "SignUp.nickname.title", fallback: "닉네임")
+      internal enum Guidelabel {
+        /// 이미 존재하는 닉네임입니다.
+        internal static let exist = L10n.tr("Localizable", "SignUp.nickname.guidelabel.exist", fallback: "이미 존재하는 닉네임입니다.")
+        /// 사용 가능한 닉네임입니다.
+        internal static let valid = L10n.tr("Localizable", "SignUp.nickname.guidelabel.valid", fallback: "사용 가능한 닉네임입니다.")
+      }
+    }
+    internal enum Password {
+      /// 영문, 특수문자를 포함한 8자리 이상, 20자리 이하로 입력해주세요.
+      internal static let guidelabel = L10n.tr("Localizable", "SignUp.password.guidelabel", fallback: "영문, 특수문자를 포함한 8자리 이상, 20자리 이하로 입력해주세요.")
+      /// 영문, 특수문자를 포함한 8 - 20자리 이하
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.password.placeholder", fallback: "영문, 특수문자를 포함한 8 - 20자리 이하")
+      /// 비밀번호
+      internal static let title = L10n.tr("Localizable", "SignUp.password.title", fallback: "비밀번호")
+    }
+    internal enum Passwordconfirm {
+      /// 입력하신 비밀번호와 일치하지 않습니다.
+      internal static let guidelabel = L10n.tr("Localizable", "SignUp.passwordconfirm.guidelabel", fallback: "입력하신 비밀번호와 일치하지 않습니다.")
+      /// 비밀번호 확인
+      internal static let title = L10n.tr("Localizable", "SignUp.passwordconfirm.title", fallback: "비밀번호 확인")
+    }
+    internal enum Phone {
+      /// 숫자만 입력해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.phone.placeholder", fallback: "숫자만 입력해주세요.")
+      /// 재발송
+      internal static let resendCode = L10n.tr("Localizable", "SignUp.phone.resendCode", fallback: "재발송")
+      /// 인증번호 발송
+      internal static let sendCode = L10n.tr("Localizable", "SignUp.phone.sendCode", fallback: "인증번호 발송")
+      /// 휴대폰 번호
+      internal static let title = L10n.tr("Localizable", "SignUp.phone.title", fallback: "휴대폰 번호")
     }
   }
   internal enum Tutorial {

@@ -7,6 +7,7 @@
 
 import RxSwift
 import UIKit
+import FirebaseMessaging
 
 final class AppCoordinator: BasicCoordinator<Void> {
     var window: UIWindow
@@ -76,7 +77,7 @@ final class AppCoordinator: BasicCoordinator<Void> {
 extension AppCoordinator {
     func didSuccessGetJwt(result: GetJwtResult) {
         self.loginKeyChainService.setLoginInfo(loginType: LoginType.member, userID: result.userId, token: LoginToken(jwt: result.jwt))
-        self.showMain(animated: true)
+        self.showLogin(animated: true)
     }
     
     func didFailgetJwt(){

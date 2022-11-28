@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BBFFB9352FE012D2AC2DFBAF /* Pods_Growlibb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1966FD5FB58FB1B6445BA9 /* Pods_Growlibb.framework */; };
-		DA0597CC29213CBF005DFC79 /* SignUpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597CB29213CBF005DFC79 /* SignUpComponent.swift */; };
-		DA0597CE29213CC5005DFC79 /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597CD29213CC5005DFC79 /* SignUpCoordinator.swift */; };
-		DA0597D029213CCC005DFC79 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597CF29213CCC005DFC79 /* SignUpViewModel.swift */; };
-		DA0597D229213CD3005DFC79 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D129213CD3005DFC79 /* SignUpViewController.swift */; };
+		8E954FD623E19990B4A6972A /* Pods_Growlibb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C41E8429219ACBB89487DA /* Pods_Growlibb.framework */; };
+		DA0597CC29213CBF005DFC79 /* SignUpFirstComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597CB29213CBF005DFC79 /* SignUpFirstComponent.swift */; };
+		DA0597CE29213CC5005DFC79 /* SignUpFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597CD29213CC5005DFC79 /* SignUpFirstCoordinator.swift */; };
+		DA0597D029213CCC005DFC79 /* SignUpFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597CF29213CCC005DFC79 /* SignUpFirstViewModel.swift */; };
+		DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D129213CD3005DFC79 /* SignUpFirstViewController.swift */; };
 		DA0597D629213EF2005DFC79 /* ShortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D529213EF2005DFC79 /* ShortButton.swift */; };
 		DA0597D829213F2D005DFC79 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D729213F2D005DFC79 /* UIButton+.swift */; };
 		DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */; };
@@ -54,6 +54,21 @@
 		DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC185432919616F009D7181 /* TutorialFirstViewModel.swift */; };
 		DAC1854729196213009D7181 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1854629196213009D7181 /* NavBar.swift */; };
 		DAC86A8A2914046A006F54A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAC86A892914046A006F54A1 /* GoogleService-Info.plist */; };
+		DACF17AA292B4EB2002734AA /* SignUpSecondCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17A9292B4EB2002734AA /* SignUpSecondCoordinator.swift */; };
+		DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17AB292B4EB9002734AA /* SignUpSecondViewModel.swift */; };
+		DACF17AE292B4EC1002734AA /* SignUpSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17AD292B4EC1002734AA /* SignUpSecondViewController.swift */; };
+		DACF17B0292B7121002734AA /* SignUpFinalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17AF292B7121002734AA /* SignUpFinalComponent.swift */; };
+		DACF17B2292B7128002734AA /* SignUpFinalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17B1292B7128002734AA /* SignUpFinalCoordinator.swift */; };
+		DACF17B4292B7130002734AA /* SignUpFinalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17B3292B7130002734AA /* SignUpFinalViewModel.swift */; };
+		DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17B5292B7139002734AA /* SignUpFinalViewController.swift */; };
+		DACF17B8292B7488002734AA /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17B7292B7488002734AA /* Regex.swift */; };
+		DACF17BA292E12A2002734AA /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17B9292E12A2002734AA /* UITextField+.swift */; };
+		DACF17BE292E6E67002734AA /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17BD292E6E67002734AA /* UserInfo.swift */; };
+		DACF17C0292F560D002734AA /* SignUpDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17BF292F560D002734AA /* SignUpDataManager.swift */; };
+		DACF17C2292F56DF002734AA /* PostCheckNicknameRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17C1292F56DF002734AA /* PostCheckNicknameRequest.swift */; };
+		DACF17C4292F5726002734AA /* PostCheckEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17C3292F5726002734AA /* PostCheckEmailRequest.swift */; };
+		DACF17C6292F846C002734AA /* PostSignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17C5292F846C002734AA /* PostSignUpRequest.swift */; };
+		DACF17C8292F8611002734AA /* PostSignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17C7292F8611002734AA /* PostSignUpResponse.swift */; };
 		DACF81D1291BAB9400AA74E8 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF81D0291BAB9400AA74E8 /* Log.swift */; };
 		DACF81D3291BBDCE00AA74E8 /* BasicCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF81D2291BBDCE00AA74E8 /* BasicCoordinator.swift */; };
 		DACF81D6291BBE6300AA74E8 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF81D5291BBE6300AA74E8 /* AppContext.swift */; };
@@ -81,14 +96,17 @@
 		DACF8210291C11D700AA74E8 /* LongButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF820F291C11D700AA74E8 /* LongButton.swift */; };
 		DADA2F0A291D403C005E6B71 /* Localizable+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA2F08291D403C005E6B71 /* Localizable+Generated.swift */; };
 		DADA2F0B291D403C005E6B71 /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA2F09291D403C005E6B71 /* Assets+Generated.swift */; };
+		DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5833B2923FF45005F5D6F /* SignUpSecondComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1775F948F6B19111D9B6FBA4 /* Pods-Growlibb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Growlibb.release.xcconfig"; path = "Target Support Files/Pods-Growlibb/Pods-Growlibb.release.xcconfig"; sourceTree = "<group>"; };
-		DA0597CB29213CBF005DFC79 /* SignUpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpComponent.swift; sourceTree = "<group>"; };
-		DA0597CD29213CC5005DFC79 /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
-		DA0597CF29213CCC005DFC79 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		DA0597D129213CD3005DFC79 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		99D0C451BB4997063E7A7EA3 /* Pods-Growlibb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Growlibb.debug.xcconfig"; path = "Target Support Files/Pods-Growlibb/Pods-Growlibb.debug.xcconfig"; sourceTree = "<group>"; };
+		B6FE9F70971D260AAFDB6FD0 /* Pods-Growlibb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Growlibb.release.xcconfig"; path = "Target Support Files/Pods-Growlibb/Pods-Growlibb.release.xcconfig"; sourceTree = "<group>"; };
+		C6C41E8429219ACBB89487DA /* Pods_Growlibb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Growlibb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0597CB29213CBF005DFC79 /* SignUpFirstComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstComponent.swift; sourceTree = "<group>"; };
+		DA0597CD29213CC5005DFC79 /* SignUpFirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstCoordinator.swift; sourceTree = "<group>"; };
+		DA0597CF29213CCC005DFC79 /* SignUpFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewModel.swift; sourceTree = "<group>"; };
+		DA0597D129213CD3005DFC79 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 		DA0597D529213EF2005DFC79 /* ShortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortButton.swift; sourceTree = "<group>"; };
 		DA0597D729213F2D005DFC79 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +151,21 @@
 		DAC1854629196213009D7181 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		DAC86A892914046A006F54A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DAC86A8E29140938006F54A1 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		DACF17A9292B4EB2002734AA /* SignUpSecondCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondCoordinator.swift; sourceTree = "<group>"; };
+		DACF17AB292B4EB9002734AA /* SignUpSecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewModel.swift; sourceTree = "<group>"; };
+		DACF17AD292B4EC1002734AA /* SignUpSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewController.swift; sourceTree = "<group>"; };
+		DACF17AF292B7121002734AA /* SignUpFinalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFinalComponent.swift; sourceTree = "<group>"; };
+		DACF17B1292B7128002734AA /* SignUpFinalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFinalCoordinator.swift; sourceTree = "<group>"; };
+		DACF17B3292B7130002734AA /* SignUpFinalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFinalViewModel.swift; sourceTree = "<group>"; };
+		DACF17B5292B7139002734AA /* SignUpFinalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFinalViewController.swift; sourceTree = "<group>"; };
+		DACF17B7292B7488002734AA /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		DACF17B9292E12A2002734AA /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		DACF17BD292E6E67002734AA /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		DACF17BF292F560D002734AA /* SignUpDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDataManager.swift; sourceTree = "<group>"; };
+		DACF17C1292F56DF002734AA /* PostCheckNicknameRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCheckNicknameRequest.swift; sourceTree = "<group>"; };
+		DACF17C3292F5726002734AA /* PostCheckEmailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCheckEmailRequest.swift; sourceTree = "<group>"; };
+		DACF17C5292F846C002734AA /* PostSignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSignUpRequest.swift; sourceTree = "<group>"; };
+		DACF17C7292F8611002734AA /* PostSignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSignUpResponse.swift; sourceTree = "<group>"; };
 		DACF81D0291BAB9400AA74E8 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		DACF81D2291BBDCE00AA74E8 /* BasicCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCoordinator.swift; sourceTree = "<group>"; };
 		DACF81D5291BBE6300AA74E8 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
@@ -161,8 +194,7 @@
 		DACF8216291C1EAF00AA74E8 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		DADA2F08291D403C005E6B71 /* Localizable+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Localizable+Generated.swift"; sourceTree = "<group>"; };
 		DADA2F09291D403C005E6B71 /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
-		DB1966FD5FB58FB1B6445BA9 /* Pods_Growlibb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Growlibb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4C589260F659A507836E921 /* Pods-Growlibb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Growlibb.debug.xcconfig"; path = "Target Support Files/Pods-Growlibb/Pods-Growlibb.debug.xcconfig"; sourceTree = "<group>"; };
+		DAE5833B2923FF45005F5D6F /* SignUpSecondComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBFFB9352FE012D2AC2DFBAF /* Pods_Growlibb.framework in Frameworks */,
+				8E954FD623E19990B4A6972A /* Pods_Growlibb.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,16 +212,16 @@
 		42123473655BFCB680309B1C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F4C589260F659A507836E921 /* Pods-Growlibb.debug.xcconfig */,
-				1775F948F6B19111D9B6FBA4 /* Pods-Growlibb.release.xcconfig */,
+				99D0C451BB4997063E7A7EA3 /* Pods-Growlibb.debug.xcconfig */,
+				B6FE9F70971D260AAFDB6FD0 /* Pods-Growlibb.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8A1E2275DD19AEFE5DACFCC5 /* Frameworks */ = {
+		C745D29650CE997FC3ACD0B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DB1966FD5FB58FB1B6445BA9 /* Pods_Growlibb.framework */,
+				C6C41E8429219ACBB89487DA /* Pods_Growlibb.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -197,6 +229,7 @@
 		DA0597D329213CD6005DFC79 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				DACF17BF292F560D002734AA /* SignUpDataManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -211,6 +244,10 @@
 		DA0597DB292146CA005DFC79 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DACF17C1292F56DF002734AA /* PostCheckNicknameRequest.swift */,
+				DACF17C3292F5726002734AA /* PostCheckEmailRequest.swift */,
+				DACF17C5292F846C002734AA /* PostSignUpRequest.swift */,
+				DACF17C7292F8611002734AA /* PostSignUpResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,10 +257,9 @@
 			children = (
 				DA0597DB292146CA005DFC79 /* Model */,
 				DA0597D329213CD6005DFC79 /* Network */,
-				DA0597CB29213CBF005DFC79 /* SignUpComponent.swift */,
-				DA0597CD29213CC5005DFC79 /* SignUpCoordinator.swift */,
-				DA0597CF29213CCC005DFC79 /* SignUpViewModel.swift */,
-				DA0597D129213CD3005DFC79 /* SignUpViewController.swift */,
+				DAE583382923FE89005F5D6F /* First */,
+				DAE583392923FE90005F5D6F /* Second */,
+				DAE5833A2923FE98005F5D6F /* Final */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -243,7 +279,7 @@
 				DA95BC2529116D8B003C81CE /* Growlibb */,
 				DA95BC2429116D8B003C81CE /* Products */,
 				42123473655BFCB680309B1C /* Pods */,
-				8A1E2275DD19AEFE5DACFCC5 /* Frameworks */,
+				C745D29650CE997FC3ACD0B4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -283,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7CD55429140FB000B8613C /* Constants.swift */,
+				DACF17BD292E6E67002734AA /* UserInfo.swift */,
 				DACF81D4291BBE4300AA74E8 /* App */,
 				DAC1854529196203009D7181 /* Common */,
 				DA95BC3D29116DB5003C81CE /* Base */,
@@ -347,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				DACF81D0291BAB9400AA74E8 /* Log.swift */,
+				DACF17B7292B7488002734AA /* Regex.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -489,6 +527,7 @@
 				DACF820D291C110E00AA74E8 /* UIView+.swift */,
 				DA0597D729213F2D005DFC79 /* UIButton+.swift */,
 				DA88B4AB2923BC9F00A4B1B5 /* UIStackView+.swift */,
+				DACF17B9292E12A2002734AA /* UITextField+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -501,6 +540,39 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		DAE583382923FE89005F5D6F /* First */ = {
+			isa = PBXGroup;
+			children = (
+				DA0597CB29213CBF005DFC79 /* SignUpFirstComponent.swift */,
+				DA0597CD29213CC5005DFC79 /* SignUpFirstCoordinator.swift */,
+				DA0597CF29213CCC005DFC79 /* SignUpFirstViewModel.swift */,
+				DA0597D129213CD3005DFC79 /* SignUpFirstViewController.swift */,
+			);
+			path = First;
+			sourceTree = "<group>";
+		};
+		DAE583392923FE90005F5D6F /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				DAE5833B2923FF45005F5D6F /* SignUpSecondComponent.swift */,
+				DACF17A9292B4EB2002734AA /* SignUpSecondCoordinator.swift */,
+				DACF17AB292B4EB9002734AA /* SignUpSecondViewModel.swift */,
+				DACF17AD292B4EC1002734AA /* SignUpSecondViewController.swift */,
+			);
+			path = Second;
+			sourceTree = "<group>";
+		};
+		DAE5833A2923FE98005F5D6F /* Final */ = {
+			isa = PBXGroup;
+			children = (
+				DACF17AF292B7121002734AA /* SignUpFinalComponent.swift */,
+				DACF17B1292B7128002734AA /* SignUpFinalCoordinator.swift */,
+				DACF17B3292B7130002734AA /* SignUpFinalViewModel.swift */,
+				DACF17B5292B7139002734AA /* SignUpFinalViewController.swift */,
+			);
+			path = Final;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -508,12 +580,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA95BC3729116D8D003C81CE /* Build configuration list for PBXNativeTarget "Growlibb" */;
 			buildPhases = (
-				2818E1E271F16DBD99A1EC4D /* [CP] Check Pods Manifest.lock */,
+				DBB67C202BBDB53174F49D1B /* [CP] Check Pods Manifest.lock */,
 				DA945F0A291D2E260050F54E /* SwiftGen */,
 				DA95BC1F29116D8B003C81CE /* Sources */,
 				DA95BC2029116D8B003C81CE /* Frameworks */,
 				DA95BC2129116D8B003C81CE /* Resources */,
-				5CF2C40BC00DA378CC06609A /* [CP] Embed Pods Frameworks */,
+				4661280D7FC2C05B550098DB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -577,29 +649,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2818E1E271F16DBD99A1EC4D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Growlibb-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5CF2C40BC00DA378CC06609A /* [CP] Embed Pods Frameworks */ = {
+		4661280D7FC2C05B550098DB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -634,6 +684,28 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
+		DBB67C202BBDB53174F49D1B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Growlibb-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -641,24 +713,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DACF17BE292E6E67002734AA /* UserInfo.swift in Sources */,
 				DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */,
 				DA88B4A82923B97400A4B1B5 /* MyPageViewModel.swift in Sources */,
+				DACF17C4292F5726002734AA /* PostCheckEmailRequest.swift in Sources */,
+				DACF17C8292F8611002734AA /* PostSignUpResponse.swift in Sources */,
 				DA0597D629213EF2005DFC79 /* ShortButton.swift in Sources */,
 				DACF81D8291BBE7200AA74E8 /* AppComponent.swift in Sources */,
 				DACF81DA291BBE8C00AA74E8 /* AppCoordinator.swift in Sources */,
 				DA69D3BF291E1D30007B982A /* TextField.swift in Sources */,
+				DACF17BA292E12A2002734AA /* UITextField+.swift in Sources */,
 				DACF81EE291BC7B500AA74E8 /* TutorialFirstComponent.swift in Sources */,
+				DACF17AE292B4EC1002734AA /* SignUpSecondViewController.swift in Sources */,
 				DA88B4AC2923BC9F00A4B1B5 /* UIStackView+.swift in Sources */,
 				DACF81D6291BBE6300AA74E8 /* AppContext.swift in Sources */,
+				DACF17B2292B7128002734AA /* SignUpFinalCoordinator.swift in Sources */,
 				DACF81FA291BDC9800AA74E8 /* MainTabbarCoordinator.swift in Sources */,
+				DACF17C0292F560D002734AA /* SignUpDataManager.swift in Sources */,
 				DACF81DF291BC02800AA74E8 /* LoginKeyChainService.swift in Sources */,
 				DA88B4B02923BFF700A4B1B5 /* BasicUserKeyChainService.swift in Sources */,
-				DA0597CE29213CC5005DFC79 /* SignUpCoordinator.swift in Sources */,
-				DA0597D029213CCC005DFC79 /* SignUpViewModel.swift in Sources */,
+				DA0597CE29213CC5005DFC79 /* SignUpFirstCoordinator.swift in Sources */,
+				DA0597D029213CCC005DFC79 /* SignUpFirstViewModel.swift in Sources */,
 				DACF81E6291BC5C300AA74E8 /* LoginComponent.swift in Sources */,
+				DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */,
 				DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */,
+				DACF17C6292F846C002734AA /* PostSignUpRequest.swift in Sources */,
 				DACF81D1291BAB9400AA74E8 /* Log.swift in Sources */,
 				DACF81E4291BC42500AA74E8 /* LoginType.swift in Sources */,
+				DACF17AA292B4EB2002734AA /* SignUpSecondCoordinator.swift in Sources */,
 				DA88B49B2923B94A00A4B1B5 /* RetrospectComponent.swift in Sources */,
 				DA88B4AA2923B9A100A4B1B5 /* MyPageViewController.swift in Sources */,
 				DABB110829137C7700FC3FE7 /* UIColor+Zeplin.swift in Sources */,
@@ -666,6 +748,7 @@
 				DACF81EA291BC5D500AA74E8 /* LoginViewModel.swift in Sources */,
 				DAC1854229196126009D7181 /* TutorialFirstViewController.swift in Sources */,
 				DA88B4A42923B96900A4B1B5 /* MyPageComponent.swift in Sources */,
+				DACF17B0292B7121002734AA /* SignUpFinalComponent.swift in Sources */,
 				DADA2F0B291D403C005E6B71 /* Assets+Generated.swift in Sources */,
 				DACF81E2291BC3D400AA74E8 /* LoginToken.swift in Sources */,
 				DACF81FE291BDCAB00AA74E8 /* MainTabbarController.swift in Sources */,
@@ -673,7 +756,8 @@
 				DACF81FC291BDCA200AA74E8 /* MainTabbarViewModel.swift in Sources */,
 				DA88B4A22923B96100A4B1B5 /* RetrospectViewController.swift in Sources */,
 				DACF81F8291BDC9100AA74E8 /* MainTabComponent.swift in Sources */,
-				DA0597D229213CD3005DFC79 /* SignUpViewController.swift in Sources */,
+				DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */,
+				DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */,
 				DACF8205291C03CD00AA74E8 /* TutorialSecondViewController.swift in Sources */,
 				DACF81EC291BC5E300AA74E8 /* LoginViewController.swift in Sources */,
 				DACF81D3291BBDCE00AA74E8 /* BasicCoordinator.swift in Sources */,
@@ -683,6 +767,8 @@
 				DA95BC2B29116D8B003C81CE /* ViewController.swift in Sources */,
 				DACF820B291C03F100AA74E8 /* TutorialSecondCoordinator.swift in Sources */,
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
+				DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */,
+				DACF17C2292F56DF002734AA /* PostCheckNicknameRequest.swift in Sources */,
 				DACF8207291C03E000AA74E8 /* TutorialSecondViewModel.swift in Sources */,
 				DAC1854729196213009D7181 /* NavBar.swift in Sources */,
 				DA0597D829213F2D005DFC79 /* UIButton+.swift in Sources */,
@@ -695,11 +781,13 @@
 				DABB110A29137EA800FC3FE7 /* Font.swift in Sources */,
 				DACF81E8291BC5CC00AA74E8 /* LoginCoordinator.swift in Sources */,
 				DA88B49E2923B95400A4B1B5 /* RetrospectCoordinator.swift in Sources */,
-				DA0597CC29213CBF005DFC79 /* SignUpComponent.swift in Sources */,
+				DA0597CC29213CBF005DFC79 /* SignUpFirstComponent.swift in Sources */,
 				DA95BC2729116D8B003C81CE /* AppDelegate.swift in Sources */,
+				DACF17B8292B7488002734AA /* Regex.swift in Sources */,
 				DA88B4B22923D95300A4B1B5 /* GetJwtResponse.swift in Sources */,
 				DA88B48B29238B2700A4B1B5 /* PostLoginRequest.swift in Sources */,
 				DACF8209291C03E700AA74E8 /* TutorialSecondComponent.swift in Sources */,
+				DACF17B4292B7130002734AA /* SignUpFinalViewModel.swift in Sources */,
 				DA95BC2929116D8B003C81CE /* SceneDelegate.swift in Sources */,
 				DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */,
 				DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */,
@@ -858,7 +946,7 @@
 		};
 		DA95BC3829116D8D003C81CE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4C589260F659A507836E921 /* Pods-Growlibb.debug.xcconfig */;
+			baseConfigurationReference = 99D0C451BB4997063E7A7EA3 /* Pods-Growlibb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -875,6 +963,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -894,7 +983,7 @@
 		};
 		DA95BC3929116D8D003C81CE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1775F948F6B19111D9B6FBA4 /* Pods-Growlibb.release.xcconfig */;
+			baseConfigurationReference = B6FE9F70971D260AAFDB6FD0 /* Pods-Growlibb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -911,6 +1000,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

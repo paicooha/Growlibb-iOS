@@ -32,6 +32,14 @@ final class LoginViewController: BaseViewController {
         
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
+        goToSignupLabel.rx.tapGesture()
+            .when(.recognized)
+            .take(1)
+            .subscribe(onNext: { _ in
+                self.viewModel.inputs.goToSignup.onNext(())
+            })
+            .disposed(by: disposeBag)
         
         loginButton.rx.tapGesture()
             .when(.recognized)

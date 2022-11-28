@@ -74,7 +74,6 @@ final class BasicLoginKeyChainService: LoginKeyChainService {
 }
 
 private extension KeychainWrapper.Key {
-    static let uuid: KeychainWrapper.Key = "uuid"
     static let loginTokenKey: KeychainWrapper.Key = "LoginTokenKey"
     static let userId: KeychainWrapper.Key = "SignupInfo.uuid"
 }

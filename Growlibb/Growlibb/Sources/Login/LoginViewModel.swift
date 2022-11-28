@@ -21,6 +21,10 @@ final class LoginViewModel: BaseViewModel {
             .bind(to: routes.loginSuccess)
             .disposed(by: disposeBag)
         
+        inputs.goToSignup
+            .subscribe(routes.goToSignup)
+            .disposed(by: disposeBag)
+        
     }
 
     // MARK: Internal
@@ -28,6 +32,7 @@ final class LoginViewModel: BaseViewModel {
     struct Input {
         let loginSuccess = PublishSubject<Void>()
         let loginFail = PublishSubject<Void>()
+        let goToSignup = PublishSubject<Void>()
     }
 
     struct Output {
@@ -36,6 +41,7 @@ final class LoginViewModel: BaseViewModel {
 
     struct Route {
         let loginSuccess = PublishSubject<Void>()
+        let goToSignup = PublishSubject<Void>()
     }
 
     let disposeBag = DisposeBag()

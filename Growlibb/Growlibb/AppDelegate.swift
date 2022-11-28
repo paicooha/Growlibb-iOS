@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import AlamofireNetworkActivityLogger
+import DropDown
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Alamofire log
         NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
+        
+        DropDown.startListeningToKeyboard()
         
         return true
     }

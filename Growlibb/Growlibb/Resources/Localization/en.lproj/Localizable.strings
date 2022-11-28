@@ -10,6 +10,7 @@
 
 // MARK: - Common
 "Next.Button.title" = "다음";
+"Confirm.Button.title" = "확인";
 
 // MARK: - Tutorial
 "Tutorial.First.Title" = "회고가 처음이시라구요?";
@@ -29,6 +30,64 @@
 "Login.forget.title" = "이메일/비밀번호를 까먹으셨다면!";
 "Login.forget.find" = "이메일 찾기 / 비밀번호 재설정하기";
 "Login.button.title" = "로그인";
+
+// MARK: - SignUp
+// MARK: First
+"SignUp.Title" = "회원가입";
+"SignUp.First.title" = "이메일, 비밀번호, 휴대폰 번호를 입력해주세요.";
+"SignUp.email.title" = "이메일";
+"SignUp.password.title" = "비밀번호";
+"SignUp.email.placeholder" = "이메일을 입력해주세요.";
+"SignUp.email.guidelabel.exist" = "이미 존재하는 이메일입니다";
+"SignUp.email.guidelabel.notemail" = "이메일 형식이 아닙니다.";
+"SignUp.email.guidelabel.toolong" = "이메일 길이를 초과하였습니다.";
+"SignUp.password.placeholder" = "영문, 특수문자를 포함한 8 - 20자리 이하";
+"SignUp.password.guidelabel" = "영문, 특수문자를 포함한 8자리 이상, 20자리 이하로 입력해주세요.";
+"SignUp.passwordconfirm.title" = "비밀번호 확인";
+"SignUp.passwordconfirm.guidelabel" = "입력하신 비밀번호와 일치하지 않습니다.";
+"SignUp.phone.title" = "휴대폰 번호";
+"SignUp.phone.placeholder" = "숫자만 입력해주세요.";
+"SignUp.phone.sendCode" = "인증번호 발송";
+"SignUp.phone.resendCode" = "재발송";
+"SignUp.code.title" = "인증번호";
+"SignUp.code.placeholder" = "인증번호 6자리";
+"SignUp.code.guidelabel" = "인증번호를 다시 입력해주세요.";
+"SignUp.agree.title" = "약관 동의";
+"SignUp.agree.agreall" = "모두 동의";
+"SignUp.agree.service" = "서비스 이용 약관 동의 [필수]";
+"SignUp.agree.privacy" = "개인정보처리 방침 약관 동의 [필수]";
+"SignUp.agree.seecontent" = "내용보기";
+
+// MARK: Second
+"SignUp.Second.title" = "닉네임, 성별, 생년월일, 직업을 입력해주세요.";
+"SignUp.nickname.title" = "닉네임";
+"SignUp.nickname.placeholder" = "10글자 이내로 작성해주세요.";
+"SignUp.nickname.checkDuplicate" = "중복확인";
+"SignUp.nickname.guidelabel.exist" = "이미 존재하는 닉네임입니다.";
+"SignUp.nickname.guidelabel.valid" = "사용 가능한 닉네임입니다.";
+"SignUp.gender.title" = "성별";
+"SignUp.gender.man" = "남자";
+"SignUp.gender.woman" = "여자";
+"SignUp.birth.title" = "생년월일";
+"SignUp.birth.placeholder" = "생년월일 8자를 입력해주세요.";
+"SignUp.birth.guidelabel" = "생년월일을 올바르게 입력해주세요.";
+"SignUp.job.title" = "직업";
+"SignUp.job.placeholder" = "직업을 선택해주세요.";
+
+// MARK: Final
+"SignUp.Final.title" = "님,\n회원가입에 성공했습니다.";
+"SignUp.Final.guidelabel" = "지금부터 회고를 시작해볼까요?";
+"SignUp.Final.button" = "시작하기";
+
+// MARK: - Job
+"Job.IT" = "기술직(IT/공학계열)";
+"Job.PUB" = "공무원";
+"Job.DES" = "사무관리직";
+"Job.OFF" = "경찰/소방/군인";
+"Job.SEL" = "자영업";
+"Job.HOU" = "주부";
+"Job.STU" = "학생";
+"Job.NOT" = "무직(퇴직자 포함)";
 
 // MARK: - Main
 "Main.HomeTab.Title" = "홈";

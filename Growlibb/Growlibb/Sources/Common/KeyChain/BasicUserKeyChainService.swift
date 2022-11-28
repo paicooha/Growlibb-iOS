@@ -17,24 +17,6 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     let keychainWrapper: KeychainWrapper
 
-    var uuid: String {
-        get {
-            guard let uuid: String = keychainWrapper[.User.uuid]
-            else {
-                Log.d(tag: .info, "get uuid: nil")
-                return ""
-            }
-            Log.d(tag: .info, "get uuid: \(uuid)")
-            return uuid
-        }
-
-        set {
-            Log.d(tag: .info, "set uuid: \(newValue ?? "nil")")
-            keychainWrapper.remove(forKey: .User.uuid)
-            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.uuid.rawValue)
-        }
-    }
-
     var fcmToken: String {
         get {
             guard let deviceToken: String = keychainWrapper[.User.fcmToken]
@@ -71,14 +53,12 @@ final class BasicUserKeyChainService: UserKeychainService {
     }
 
     func clear() {
-        uuid = ""
         nickName = ""
     }
 }
 
 private extension KeychainWrapper.Key {
     enum User {
-        static let uuid: KeychainWrapper.Key = "SignupInfo.uuid"
         static let fcmToken: KeychainWrapper.Key = "User.fcmToken"
         static let nickName: KeychainWrapper.Key = "SingupInfo.NickName"
     }

@@ -46,4 +46,14 @@ extension ShortButton {
         self.backgroundColor = .brownGray
         self.titleLabel?.textColor = .veryLightGray
     }
+    
+    func setGrayButton(){
+        self.backgroundColor = .brownGray
+        self.titleLabel?.textColor = .veryLightGray
+    }
+    
+    func setBlueButton(){
+        self.backgroundColor = .primaryBlue
+        self.titleLabel?.textColor = .veryLightBlue
+    }
 }

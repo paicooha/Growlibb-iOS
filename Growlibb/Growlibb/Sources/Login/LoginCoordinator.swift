@@ -32,6 +32,13 @@ final class LoginCoordinator: BasicCoordinator<LoginResult> {
                 self?.goMainTabScene(vm: scene.VM, animated: true)
             })
             .disposed(by: sceneDisposeBag)
+        
+        
+        scene.VM.routes.goToSignup
+            .subscribe(onNext: { [weak self] in
+                self?.pushSignUpScene(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func goMainTabScene(vm: LoginViewModel, animated: Bool) {
@@ -39,5 +46,20 @@ final class LoginCoordinator: BasicCoordinator<LoginResult> {
         let coord = MainTabbarCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated)
+    }
+    
+    private func pushSignUpScene(animated: Bool) {
+        
+        let comp = component.signupFirstComponent()
+        let coord = SignUpFirstCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case .next:
+                break
+            }
+        }
     }
 }
