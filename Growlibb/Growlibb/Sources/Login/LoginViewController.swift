@@ -47,6 +47,13 @@ final class LoginViewController: BaseViewController {
                 self.loginDataManager.postLogin(viewController: self, email: self.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), password: self.passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
             })
             .disposed(by: disposeBag)
+        
+        findEmailorPasswordLabel.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.viewModel.inputs.goToFindEmailorPassword.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {

@@ -25,6 +25,10 @@ final class LoginViewModel: BaseViewModel {
             .subscribe(routes.goToSignup)
             .disposed(by: disposeBag)
         
+        inputs.goToFindEmailorPassword
+            .subscribe(routes.goToFindEmailorPassword)
+            .disposed(by: disposeBag)
+        
     }
 
     // MARK: Internal
@@ -33,6 +37,7 @@ final class LoginViewModel: BaseViewModel {
         let loginSuccess = PublishSubject<Void>()
         let loginFail = PublishSubject<Void>()
         let goToSignup = PublishSubject<Void>()
+        let goToFindEmailorPassword = PublishSubject<Void>()
     }
 
     struct Output {
@@ -42,6 +47,7 @@ final class LoginViewModel: BaseViewModel {
     struct Route {
         let loginSuccess = PublishSubject<Void>()
         let goToSignup = PublishSubject<Void>()
+        let goToFindEmailorPassword = PublishSubject<Void>()
     }
 
     let disposeBag = DisposeBag()

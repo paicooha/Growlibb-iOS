@@ -24,4 +24,8 @@ class LoginComponent {
     func mainComponent() -> MainTabComponent {
         return MainTabComponent()
     }
+    
+    func findEmailorPasswordComponent() -> FindEmailorPasswordComponent {
+        return FindEmailorPasswordComponent()
+    }
 }

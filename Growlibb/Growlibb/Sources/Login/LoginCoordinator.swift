@@ -39,6 +39,12 @@ final class LoginCoordinator: BasicCoordinator<LoginResult> {
                 self?.pushSignUpScene(animated: true)
             })
             .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.goToFindEmailorPassword
+            .subscribe(onNext: { [weak self] in
+                self?.pushFindEmailorPasswordScene(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func goMainTabScene(vm: LoginViewModel, animated: Bool) {
@@ -58,6 +64,21 @@ final class LoginCoordinator: BasicCoordinator<LoginResult> {
             case .backward:
                 break
             case .next:
+                break
+            }
+        }
+    }
+    
+    private func pushFindEmailorPasswordScene(animated: Bool) {
+        
+        let comp = component.findEmailorPasswordComponent()
+        let coord = FindEmailorPasswordCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case .login:
                 break
             }
         }
