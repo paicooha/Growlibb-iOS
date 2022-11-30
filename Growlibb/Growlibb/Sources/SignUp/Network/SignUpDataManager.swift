@@ -44,6 +44,21 @@ class SignUpDataManager {
             }
     }
     
+    func postCheckPhone(viewController: SignUpFirstViewController, phoneNumber: String) {
+        let parameters = PostCheckPhoneRequest(phoneNumber: phoneNumber)
+        AF.request("\(Constants.BASE_URL)auth/v1/check-phone-number", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+            .validate()
+            .responseDecodable(of: BaseResponse.self) { response in
+                switch response.result {
+                case let .success(response):
+                    viewController.didSuccessCheckPhone(code: response.code)
+                case let .failure(error):
+                    print(error)
+                    viewController.failedToRequest(message: "서버와의 연결이 원활하지 않습니다")
+                }
+            }
+    }
+    
     func postSignUp(viewController: SignUpSecondViewController) {
         let parameters = PostSignUpRequest(email: UserInfo.shared.email, password: UserInfo.shared.password, phoneNumber: UserInfo.shared.phoneNumber, gender: UserInfo.shared.gender, nickname: UserInfo.shared.nickName, birthday: UserInfo.shared.birthday, job: UserInfo.shared.job, fcmToken: UserInfo.shared.fcmToken)
         AF.request("\(Constants.BASE_URL)auth/v1/sign-up", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)

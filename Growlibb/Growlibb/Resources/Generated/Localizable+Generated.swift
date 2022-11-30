@@ -31,14 +31,16 @@ internal enum L10n {
         /// 이메일을 찾기 위해서는 휴대폰 번호를 입력해야 해요.
         internal static let title = L10n.tr("Localizable", "Find.email.guide.title", fallback: "이메일을 찾기 위해서는 휴대폰 번호를 입력해야 해요.")
       }
+      internal enum Notfind {
+        /// 등록되지 않은 휴대폰 번호입니다.
+        internal static let guidelabel = L10n.tr("Localizable", "Find.email.notfind.guidelabel", fallback: "등록되지 않은 휴대폰 번호입니다.")
+      }
       internal enum Tab {
         /// 이메일 찾기
         internal static let title = L10n.tr("Localizable", "Find.email.tab.title", fallback: "이메일 찾기")
       }
     }
     internal enum Password {
-      /// 비밀번호를 재설정 하기 위해서는 이메일, 휴대폰 번호를 입력해야 해요.
-      internal static let guidelabel = L10n.tr("Localizable", "Find.password.guidelabel", fallback: "비밀번호를 재설정 하기 위해서는 이메일, 휴대폰 번호를 입력해야 해요.")
       internal enum Button {
         /// 변경하기
         internal static let title = L10n.tr("Localizable", "Find.password.button.title", fallback: "변경하기")
@@ -46,6 +48,10 @@ internal enum L10n {
       internal enum Find {
         /// 비밀번호를 재설정 해주세요!
         internal static let title = L10n.tr("Localizable", "Find.password.find.title", fallback: "비밀번호를 재설정 해주세요!")
+      }
+      internal enum Guide {
+        /// 비밀번호를 재설정 하기 위해서는 이메일, 휴대폰 번호를 입력해야 해요.
+        internal static let title = L10n.tr("Localizable", "Find.password.guide.title", fallback: "비밀번호를 재설정 하기 위해서는 이메일, 휴대폰 번호를 입력해야 해요.")
       }
       internal enum Tab {
         /// 비밀번호 재설정
@@ -234,8 +240,8 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "SignUp.passwordconfirm.title", fallback: "비밀번호 확인")
     }
     internal enum Phone {
-      /// 등록되지 않은 휴대폰 번호입니다.
-      internal static let guidelabel = L10n.tr("Localizable", "SignUp.phone.guidelabel", fallback: "등록되지 않은 휴대폰 번호입니다.")
+      /// 이미 등록된 휴대폰 번호입니다.
+      internal static let guidelabel = L10n.tr("Localizable", "SignUp.phone.guidelabel", fallback: "이미 등록된 휴대폰 번호입니다.")
       /// 숫자만 입력해주세요.
       internal static let placeholder = L10n.tr("Localizable", "SignUp.phone.placeholder", fallback: "숫자만 입력해주세요.")
       /// 재발송
