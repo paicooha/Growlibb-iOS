@@ -25,6 +25,8 @@ final class FindEmailorPasswordViewController: BaseViewController {
     var sendCodebuttonTime = 2 //2초
     var sendCodeButtonTimer: Timer?
     
+    var email = ""
+    
     //하단 버튼 액션을 분기별로 처리하기 위함
     //순서대로 이메일찾기, 로그인화면 이동(이메일), 비밀번호 찾기, 로그인 화면 이동(비밀번호) -> 초기에는 이메일찾기이므로 1
     var buttonAction = [true, false, false, false]
@@ -155,35 +157,11 @@ final class FindEmailorPasswordViewController: BaseViewController {
             .when(.recognized)
             .subscribe({ _ in
                 //버튼 연타 방지
-                self.bottomButton.setDisable()
-                
                 self.findEmailphoneButton.setDisable()
-                self.findEmailphoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
                 
-                self.sendCodebuttonTime = 2
-                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
+                //휴대폰번호 중복 체크
+                self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findEmailphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
                 
-                //인증코드 타이머
-                self.authTime = 180
-                self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
-                
-                //재인증 시 초기 세팅하기 위해 한번 더 설정하는 부분
-                
-                self.findEmailphoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
-                self.phoneNumber = "+82\(self.findEmailphoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
-                print(self.phoneNumber)
-                
-                
-                PhoneAuthProvider.provider()
-                    .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
-                      if let error = error {
-                          AppContext.shared.makeToast("에러가 발생했습니다. 다시 시도해주세요")
-                          print(error)
-                        return
-                      }
-                      // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달
-                        self.verificationId = verificationID!
-                  }
             })
         
         findEmailauthcodeButton.rx.tapGesture()
@@ -204,6 +182,18 @@ final class FindEmailorPasswordViewController: BaseViewController {
                     self.authTimer?.invalidate()
                     
                     print("인증성공 : \(authData)")
+                    
+                    self.findTitle.text = L10n.Find.Email.Find.title
+                    self.emailFindView.isHidden = true
+                    self.emailFoundView.isHidden = false
+                    
+                    self.foundemailTextField.text = self.email
+                    
+                    self.bottomButton.setTitle(L10n.Confirm.Button.title, for: .normal)
+                    
+                    self.buttonAction[0] = false
+                    self.buttonAction[1] = true
+                    
                     self.bottomButton.setEnable()
                 }
             })
@@ -346,7 +336,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     private var findEmailphoneGuideLabel = UILabel().then{ make in
         make.font = .pretendardMedium12
         make.textColor = .primaryBlue
-        make.text = L10n.SignUp.Phone.guidelabel
+        make.text = L10n.Find.Email.Notfind.guidelabel
         make.isHidden = true
     }
     
@@ -687,20 +677,35 @@ extension FindEmailorPasswordViewController {
     func didSuccessFindEmail(response: PostFindEmailResponse){
         switch response.code {
         case 1000:
-            findTitle.text = L10n.Find.Email.Find.title
-            emailFindView.isHidden = true
-            emailFoundView.isHidden = false
             
-            foundemailTextField.text = response.result.email
+            self.findEmailphoneGuideLabel.isHidden = true
+            email = response.result!.email
+
+            //인증코드 타이머
+            self.authTime = 180
+            self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
             
-            bottomButton.setTitle(L10n.Confirm.Button.title, for: .normal)
+            self.findEmailphoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+            self.phoneNumber = "+82\(self.findEmailphoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
+            print(self.phoneNumber)
             
-            buttonAction[0] = false
-            buttonAction[1] = true
+            
+            PhoneAuthProvider.provider()
+                .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
+                  if let error = error {
+                      AppContext.shared.makeToast("에러가 발생했습니다. 다시 시도해주세요")
+                      print(error)
+                    return
+                  }
+                  // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달
+                    self.verificationId = verificationID!
+              }
             break
             
-        default:
+        case 2013:
+            self.findEmailphoneButton.setDisable()
             findEmailphoneGuideLabel.isHidden = false
+        default:
             break
         }
     }

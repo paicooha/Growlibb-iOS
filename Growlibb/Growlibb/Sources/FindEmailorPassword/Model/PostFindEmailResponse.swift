@@ -12,7 +12,7 @@ struct PostFindEmailResponse: Codable {
     var isSuccess: Bool
     var code: Int
     var message: String
-    var result: PostFindEmailResult
+    var result: PostFindEmailResult?
 }
 
 // MARK: - Result
