@@ -73,13 +73,15 @@ class SignUpFirstViewController: BaseViewController {
                 validCheckArray[0] = false
             }
             else{ //이메일 도메인 길이 체크
-                if ((emailTextField.text?.components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
+                if ((emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
                     emailGuideLabel.isHidden = false
                     emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
                     validCheckArray[0] = false
                 }
-                validCheckArray[0] = true
-                emailGuideLabel.isHidden = true
+                else{
+                    validCheckArray[0] = true
+                    emailGuideLabel.isHidden = true
+                }
                 checkAllPass()
             }
         }
@@ -103,6 +105,8 @@ class SignUpFirstViewController: BaseViewController {
             }
         }
         else if textField == phoneTextField {
+            phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal) //입력하면 '인증번호 발송' 버튼으로 바뀌어야함
+            
             var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
                 phoneButton.setDisable()
@@ -130,7 +134,7 @@ class SignUpFirstViewController: BaseViewController {
     @objc func authtimerCallback() {
         authTimerLabel.isHidden = false
         authTime -= 1
-        authTimerLabel.text = "\(Int((authTime / 60) % 60)):\(String(format:"%0d", Int(authTime % 60)))"
+        authTimerLabel.text = "\(Int((authTime / 60) % 60)):\(String(format:"%02d", Int(authTime % 60)))"
         
         if (authTime == 0){
             authTimer?.invalidate()
@@ -163,6 +167,7 @@ class SignUpFirstViewController: BaseViewController {
                 
                 self.sendCodebuttonTime = 2
                 self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
+                self.validCheckArray[2] = false //한번 더 인증할 수 있으므로 일단 false로 두기
                 
                 //휴대폰번호 중복 체크
                 self.signUpDataManager.postCheckPhone(viewController: self, phoneNumber: (self.phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
@@ -188,8 +193,8 @@ class SignUpFirstViewController: BaseViewController {
                     self.validCheckArray[2] = true
 
                     print("인증성공 : \(authData)")
+                    self.checkAllPass()
                 }
-                self.checkAllPass()
             })
         
         allAgreeButton.rx.tapGesture()
@@ -372,7 +377,7 @@ class SignUpFirstViewController: BaseViewController {
     private var emailGuideLabel = UILabel().then{ make in
 //        make.text = L10n.SignUp.e
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -393,7 +398,7 @@ class SignUpFirstViewController: BaseViewController {
         make.text = L10n.SignUp.Password.guidelabel
         make.numberOfLines = 0
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -405,13 +410,13 @@ class SignUpFirstViewController: BaseViewController {
     
     private var passwordConfirmTextField = TextField().then { make in
         make.isSecureTextEntry = true //비밀번호 *로 표시
-        
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Passwordconfirm.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
     }
     
     private var passwordConfirmGuideLabel = UILabel().then{ make in
         make.text = L10n.SignUp.Passwordconfirm.guidelabel
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -435,7 +440,7 @@ class SignUpFirstViewController: BaseViewController {
     private var phoneGuideLabel = UILabel().then{ make in
         make.text = L10n.SignUp.Phone.guidelabel
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -462,7 +467,7 @@ class SignUpFirstViewController: BaseViewController {
     }
     
     private var authGuideLabel = UILabel().then{ make in
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.textColor = .primaryBlue
         make.text = L10n.SignUp.Code.guidelabel
         make.isHidden = true
@@ -471,7 +476,7 @@ class SignUpFirstViewController: BaseViewController {
     private var codeConfirmGuideLabel = UILabel().then{ make in
         make.text = L10n.SignUp.Code.guidelabel
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -654,6 +659,7 @@ extension SignUpFirstViewController {
         passwordGuideLabel.snp.makeConstraints{ make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(4)
             make.leading.equalTo(passwordTitleLabel.snp.leading)
+            make.trailing.equalTo(passwordTextField.snp.trailing)
         }
         
         passwordConfirmTitleLabel.snp.makeConstraints{ make in
