@@ -64,18 +64,32 @@ internal enum L10n {
     }
   }
   internal enum Job {
-    /// 사무관리직
-    internal static let des = L10n.tr("Localizable", "Job.DES", fallback: "사무관리직")
+    /// 건축사
+    internal static let arc = L10n.tr("Localizable", "Job.ARC", fallback: "건축사")
+    /// 디자이너
+    internal static let des = L10n.tr("Localizable", "Job.DES", fallback: "디자이너")
+    /// 기타
+    internal static let etc = L10n.tr("Localizable", "Job.ETC", fallback: "기타")
+    /// 보건의료인
+    internal static let hel = L10n.tr("Localizable", "Job.HEL", fallback: "보건의료인")
     /// 주부
     internal static let hou = L10n.tr("Localizable", "Job.HOU", fallback: "주부")
     /// 기술직(IT/공학계열)
     internal static let it = L10n.tr("Localizable", "Job.IT", fallback: "기술직(IT/공학계열)")
+    /// 사무관리직
+    internal static let man = L10n.tr("Localizable", "Job.MAN", fallback: "사무관리직")
+    /// 의료종사자
+    internal static let med = L10n.tr("Localizable", "Job.MED", fallback: "의료종사자")
     /// 무직(퇴직자 포함)
     internal static let not = L10n.tr("Localizable", "Job.NOT", fallback: "무직(퇴직자 포함)")
     /// 경찰/소방/군인
     internal static let off = L10n.tr("Localizable", "Job.OFF", fallback: "경찰/소방/군인")
+    /// 기획자
+    internal static let pla = L10n.tr("Localizable", "Job.PLA", fallback: "기획자")
     /// 공무원
     internal static let pub = L10n.tr("Localizable", "Job.PUB", fallback: "공무원")
+    /// 연구원
+    internal static let res = L10n.tr("Localizable", "Job.RES", fallback: "연구원")
     /// 자영업
     internal static let sel = L10n.tr("Localizable", "Job.SEL", fallback: "자영업")
     /// 학생

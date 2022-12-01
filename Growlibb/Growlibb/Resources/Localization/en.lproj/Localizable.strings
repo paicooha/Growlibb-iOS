@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Growlibb
 
@@ -95,16 +95,22 @@
 
 // MARK: - Job
 "Job.IT" = "기술직(IT/공학계열)";
+"Job.MAN" = "사무관리직";
 "Job.PUB" = "공무원";
-"Job.DES" = "사무관리직";
 "Job.OFF" = "경찰/소방/군인";
+"Job.RES" = "연구원";
+"Job.ARC" = "건축사";
+"Job.MED" = "의료종사자";
+"Job.HEL" = "보건의료인";
+"Job.PLA" = "기획자";
+"Job.DES" = "디자이너";
 "Job.SEL" = "자영업";
 "Job.HOU" = "주부";
 "Job.STU" = "학생";
+"Job.ETC" = "기타";
 "Job.NOT" = "무직(퇴직자 포함)";
 
 // MARK: - Main
 "Main.HomeTab.Title" = "홈";
 "Main.RetrospectTab.Title" = "회고";
 "Main.MyPage.Title" = "내 메뉴";
-

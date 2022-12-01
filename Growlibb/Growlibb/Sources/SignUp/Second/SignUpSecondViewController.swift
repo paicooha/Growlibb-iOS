@@ -16,7 +16,9 @@ import FirebaseMessaging
 
 final class SignUpSecondViewController: BaseViewController {
     
-    let jobList = [L10n.Job.it, L10n.Job.des, L10n.Job.pub, L10n.Job.off, L10n.Job.sel, L10n.Job.hou, L10n.Job.stu, L10n.Job.not]
+    let jobList = [L10n.Job.it, L10n.Job.man, L10n.Job.pub, L10n.Job.off, L10n.Job.res, L10n.Job.arc, L10n.Job.med,
+                   L10n.Job.hel, L10n.Job.pla, L10n.Job.des,
+                   L10n.Job.sel, L10n.Job.hou, L10n.Job.stu, L10n.Job.etc, L10n.Job.not]
     lazy var signUpDataManager = SignUpDataManager()
     private var userKeyChainService: UserKeychainService
     private var loginKeyChainService: LoginKeyChainService
@@ -64,19 +66,29 @@ final class SignUpSecondViewController: BaseViewController {
         }
     }
     
+    func checkMaxLength(textField: UITextField!, maxLength: Int) { //10글자 제한
+        if (textField.text?.count ?? 0 > maxLength) {
+            textField.deleteBackward()
+        }
+    }
+
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         if textField == nicknameTextField {
             if nicknameTextField.text?.count ?? 0 >= 2 {
                 nicknameButton.setEnable()
+                checkMaxLength(textField: textField, maxLength: 10)
             }
             else{
                 nicknameButton.setDisable()
             }
         }
         else if textField == birthTextField { //8자리 미만인 경우 8자리로 입력하도록 유도
+            checkMaxLength(textField: textField, maxLength: 10) // '-' 포함해서 10자리로 제한
+            
             var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             
-            if textFieldText.replacingOccurrences(of: "-", with: "").count >= 8 {
+            if textFieldText.count == 10 {
                 birthGuideLabel.isHidden = true
                 validCheckArray[1] = true
             }
@@ -107,7 +119,7 @@ final class SignUpSecondViewController: BaseViewController {
                 self.signUpDataManager.postCheckNickname(viewController: self, nickname: self.nicknameTextField.text!)
             })
         
-        jobTextField.rx.tapGesture()
+        jobSelectButton.rx.tapGesture()
             .when(.recognized)
             .subscribe({ _ in
                 self.dropDown.show()
@@ -224,7 +236,7 @@ final class SignUpSecondViewController: BaseViewController {
     
     private var nicknameGuideLabel = UILabel().then{ make in
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -259,7 +271,7 @@ final class SignUpSecondViewController: BaseViewController {
     private var birthGuideLabel = UILabel().then{ make in
         make.text = L10n.SignUp.Birth.guidelabel
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -269,10 +281,16 @@ final class SignUpSecondViewController: BaseViewController {
         make.font = .pretendardMedium14
     }
     
-    private var jobTextField = TextField().then { make in
-        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Job.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
-            //placeholder 색 바꾸기
-        //MARK: - 입력 안되게 막아야함
+    private var jobSelectButton = UIButton().then { make in
+        make.setTitle(L10n.SignUp.Job.placeholder, for: .normal)
+        make.setTitleColor(.gray61, for: .normal)
+        make.titleLabel?.font = .pretendardMedium14
+        make.contentHorizontalAlignment = .left
+        make.titleEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 0)
+        
+        make.backgroundColor = .veryLightGray
+        make.clipsToBounds = true
+        make.layer.cornerRadius = 12
     }
     
     //dropdown할때 보여줄 뷰
@@ -299,19 +317,24 @@ final class SignUpSecondViewController: BaseViewController {
         DropDown.appearance().selectedTextColor = UIColor.black // 선택된 아이템 텍스트 색상
         DropDown.appearance().setupCornerRadius(12)
         DropDown.appearance().backgroundColor = .white
+        DropDown.appearance().selectionBackgroundColor = .white
         
         dropDown.dismissMode = .automatic // 팝업을 닫을 모드 설정
         
         //dropdown 기능
         dropDown.dataSource = jobList //아이템 리스트
         dropDown.anchorView = dropDownView //드롭다운했을 때의 UI
-        dropDown.bottomOffset = CGPoint(x: 0, y: dropDownView.bounds.height) //view 아래에 바로 item 팝업이 붙도록
-        dropDown.direction = .bottom //방향
+//        dropDown.topOffset = CGPoint(x: 0, y: dropDownView.bounds.height) //view 아래에 바로 item 팝업이 붙도록
+//        dropDown.direction = .top //방향
+        
+        dropDown.width = self.jobSelectButton.bounds.width
         
         // Item 선택 시 처리
         dropDown.selectionAction = { [weak self] (index, item) in
             //선택한 Item을 TextField에 넣어준다.
-            self?.jobTextField.text = item
+            self?.jobSelectButton.setTitle(item, for: .normal)
+            self?.jobSelectButton.setTitleColor(.black, for: .normal)
+            
             self?.dropdownImageView.image = Asset.icDropdownDown.image
             self?.validCheckArray[2] = true
             self?.checkAllPass()
@@ -348,7 +371,7 @@ extension SignUpSecondViewController {
             birthTextField,
             birthGuideLabel,
             jobTitleLabel,
-            jobTextField,
+            jobSelectButton,
             dropdownImageView,
             nextButton
         ])
@@ -433,19 +456,20 @@ extension SignUpSecondViewController {
             make.leading.equalTo(birthTextField.snp.leading)
         }
         
-        jobTextField.snp.makeConstraints{ make in
+        jobSelectButton.snp.makeConstraints{ make in
             make.top.equalTo(jobTitleLabel.snp.bottom).offset(5)
+            make.height.equalTo(57)
             make.leading.equalTo(jobTitleLabel.snp.leading)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
         }
         
         dropDownView.snp.makeConstraints{ make in
-            make.width.equalTo(jobTextField.bounds.width)
+            make.width.equalTo(jobSelectButton.bounds.width)
         }
         
         dropdownImageView.snp.makeConstraints { make in
-            make.centerY.equalTo(jobTextField.snp.centerY)
-            make.trailing.equalTo(jobTextField.snp.trailing).offset(-28)
+            make.centerY.equalTo(jobSelectButton.snp.centerY)
+            make.trailing.equalTo(jobSelectButton.snp.trailing).offset(-28)
         }
         
         nextButton.snp.makeConstraints{ make in
@@ -474,6 +498,8 @@ extension SignUpSecondViewController {
     
     func didSuccessSignUp(result: PostSignUpResult){
         self.loginKeyChainService.setLoginInfo(loginType: LoginType.member, userID: result.userID, token: LoginToken(jwt: result.jwt))
+        self.userKeyChainService.nickName = result.nickname
+        self.userKeyChainService.fcmToken = Messaging.messaging().fcmToken ?? ""
         
         self.viewModel.inputs.tapNext.onNext(())
     }
