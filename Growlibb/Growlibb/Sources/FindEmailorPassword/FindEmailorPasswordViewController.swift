@@ -26,10 +26,15 @@ final class FindEmailorPasswordViewController: BaseViewController {
     var sendCodeButtonTimer: Timer?
     
     var email = ""
+    var userInfo = UserInfo()
     
     //하단 버튼 액션을 분기별로 처리하기 위함
     //순서대로 이메일찾기, 로그인화면 이동(이메일), 비밀번호 찾기, 로그인 화면 이동(비밀번호) -> 초기에는 이메일찾기이므로 1
     var buttonAction = [true, false, false, false]
+    
+    //이메일, 인증번호 검증을 모두 통과했는지 여부에 대한 배열
+    //차례대로 이메일, 인증번호
+    var validCheckArray = [false, false]
     
     lazy var dataManager = FindDataManager()
 
@@ -44,6 +49,11 @@ final class FindEmailorPasswordViewController: BaseViewController {
         
         findEmailphoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         findEmailauthcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        findpasswordemailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        findpasswordphoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        findpasswordauthcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        findpasswordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        findpasswordConfirmTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
     init(viewModel: FindEmailorPasswordViewModel) {
@@ -81,9 +91,67 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 findEmailauthcodeButton.setDisable()
             }
         }
+        else if textField == findpasswordemailTextField {
+            if !Regex().isValidEmail(input: findpasswordemailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+                findpasswordEmailGuideLabel.isHidden = false
+                findpasswordEmailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
+                
+                validCheckArray[0] = false
+            }
+            else{ //이메일 도메인 길이 체크
+                if ((findpasswordemailTextField.text?.components(separatedBy: "@").first?.count)! > 64) || ((findpasswordemailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
+                    findpasswordEmailGuideLabel.isHidden = false
+                    findpasswordEmailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
+                    validCheckArray[0] = false
+                }
+                validCheckArray[0] = true
+                findpasswordEmailGuideLabel.isHidden = true
+                checkAllPass()
+            }
+        }
+        else if textField == findpasswordphoneTextField {
+            var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
+                findpasswordphoneButton.setDisable()
+                if (textFieldText.count == 4){
+                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 3))
+                }
+                else if (textFieldText.count == 9){
+                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 8))
+                }
+            }
+            else{
+                findpasswordphoneButton.setEnable()
+            }
+        }
+        else if textField == findpasswordauthcodeTextField {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+                findpasswordauthcodeButton.setEnable()
+            }
+            else{
+                findpasswordauthcodeButton.setDisable()
+            }
+        }
+        else if textField == findpasswordTextField {
+            if !Regex().isValidPassword(input: findpasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+                findpasswordGuideLabel.isHidden = false
+            }
+            else{
+                findpasswordGuideLabel.isHidden = true
+            }
+        }
+        else if textField == findpasswordConfirmTextField {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != findpasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " {
+                findpasswordConfirmGuideLabel.isHidden = false
+            }
+            else{
+                bottomButton.setEnable()
+                findpasswordConfirmGuideLabel.isHidden = true
+            }
+        }
     }
     
-    @objc func authtimerCallback() {
+    @objc func findEmailauthtimerCallback() {
         findEmailauthTimerLabel.isHidden = false
         authTime -= 1
         findEmailauthTimerLabel.text = "\(Int((authTime / 60) % 60)):\(String(format:"%0d", Int(authTime % 60)))"
@@ -94,7 +162,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
         }
     }
     
-    @objc func sendCodeTimerCallback() {
+    @objc func findEmailsendCodeTimerCallback() {
         sendCodebuttonTime -= 1
         
         if (sendCodebuttonTime == 0){
@@ -102,6 +170,40 @@ final class FindEmailorPasswordViewController: BaseViewController {
             findEmailphoneButton.setEnable()
         }
         
+    }
+    
+    @objc func findPasswordauthtimerCallback() {
+        findpasswordauthTimerLabel.isHidden = false
+        authTime -= 1
+        findpasswordauthTimerLabel.text = "\(Int((authTime / 60) % 60)):\(String(format:"%0d", Int(authTime % 60)))"
+        
+        print(authTime)
+        print(findpasswordauthTimerLabel.isHidden)
+        
+        if (authTime == 0){
+            authTimer?.invalidate()
+            findpasswordauthcodeButton.setDisable()
+        }
+    }
+    
+    @objc func findPasswordsendCodeTimerCallback() {
+        sendCodebuttonTime -= 1
+        
+        if (sendCodebuttonTime == 0){
+            sendCodeButtonTimer?.invalidate()
+            findpasswordphoneButton.setEnable()
+        }
+        
+    }
+    
+    func checkAllPass(){
+        if validCheckArray.allSatisfy({$0}){ //모두 true
+            bottomButton.setEnable()
+        }
+        else{
+            print(validCheckArray)
+            bottomButton.setDisable()
+        }
     }
 
     private var viewModel: FindEmailorPasswordViewModel
@@ -129,6 +231,8 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 passwordFoundView.isHidden = true
                 
                 buttonAction = [true, false, false, false]
+                
+                self.findTitle.text = L10n.Find.Email.Guide.title
             })
             .disposed(by: disposeBag)
 
@@ -150,6 +254,8 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 passwordFoundView.isHidden = true
                 
                 buttonAction = [false, false, true, false]
+                
+                self.findTitle.text = L10n.Find.Password.Guide.title
             })
             .disposed(by: disposeBag)
         
@@ -198,14 +304,58 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 }
             })
         
-        bottomButton.rx.tapGesture()
+        findpasswordphoneButton.rx.tapGesture()
             .when(.recognized)
             .subscribe({ _ in
+                //버튼 연타 방지
+                self.findpasswordphoneButton.setDisable()
+                
+                self.sendCodebuttonTime = 2
+                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.findPasswordsendCodeTimerCallback), userInfo: nil, repeats: true)
+                
+                //휴대폰번호 중복 체크
+                self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findpasswordphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+            })
+        
+        findpasswordauthcodeButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                
+                let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.verificationId,
+                                                                         verificationCode: self.findpasswordauthcodeTextField.text!)
+                
+                Auth.auth().signIn(with: credential) { (authData, error) in
+                    if error != nil {
+                        print("로그인 Error: \(error.debugDescription)")
+                        self.findpasswordauthGuideLabel.isHidden = false
+                        return
+                    }
+                    self.findpasswordauthGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
+                    self.findpasswordauthTimerLabel.isHidden = true
+                    self.authTimer?.invalidate()
+                    
+                    print("인증성공 : \(authData)")
+                    
+                    self.validCheckArray[1] = true
+                }
+                self.checkAllPass()
+            })
+        
+        bottomButton.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ [self] _ in
                 if self.buttonAction[0] {
                     self.dataManager.postFindEmail(viewController:self, phoneNumber: self.findEmailphoneTextField.text!)
                 }
                 else if self.buttonAction[1]{
                     self.viewModel.inputs.login.onNext(())
+                }
+                else if self.buttonAction[2]{
+                    self.dataManager.postFindPassword(viewController:self, phoneNumber: self.findpasswordphoneTextField.text!, email: self.findpasswordemailTextField.text!)
+                }
+                else if self.buttonAction[3] {
+                    self.userInfo.password = self.findpasswordTextField.text!
+                    self.dataManager.postpatchPassword(viewController: self, userInfo: userInfo)
                 }
             })
             .disposed(by: disposeBag)
@@ -314,6 +464,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
         view.text = L10n.Find.Email.Guide.title
         view.textColor = .black
         view.font = .pretendardMedium14
+        view.numberOfLines = 0
     }
     
     private var findEmailphoneTitleLabel = UILabel().then{ make in
@@ -399,7 +550,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     private var passwordFindView = UIView().then { view in
         view.backgroundColor = .clear
         view.snp.makeConstraints { make in
-            make.height.equalTo(300)
+            make.height.equalTo(350)
         }
         view.isHidden = true
     }
@@ -407,12 +558,19 @@ final class FindEmailorPasswordViewController: BaseViewController {
     private var findpasswordemailLabel = UILabel().then{ make in
         make.font = .pretendardMedium14
         make.textColor = .black
-        make.text = L10n.SignUp.Code.title
+        make.text = L10n.SignUp.Email.title
     }
     
     private var findpasswordemailTextField = TextField().then { make in
-        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Code.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
-        make.keyboardType = .numberPad
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Email.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+        make.keyboardType = .emailAddress
+    }
+    
+    private var findpasswordEmailGuideLabel = UILabel().then{ make in
+        make.font = .pretendardMedium12
+        make.textColor = .primaryBlue
+        make.text = L10n.Find.Password.Notfind.guidelabel
+        make.isHidden = true
     }
     
     private var findpasswordpasswordTitle = UILabel().then { view in
@@ -431,6 +589,13 @@ final class FindEmailorPasswordViewController: BaseViewController {
         make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Phone.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
             //placeholder 색 바꾸기
         make.keyboardType = .phonePad
+    }
+    
+    private var findpasswordphoneGuideLabel = UILabel().then{ make in
+        make.text = L10n.Find.Email.Notfind.guidelabel
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium12
+        make.isHidden = true
     }
     
     private var findpasswordphoneButton = ShortButton().then { make in
@@ -503,9 +668,10 @@ final class FindEmailorPasswordViewController: BaseViewController {
         make.font = .pretendardMedium14
     }
     
-    private var passwordConfirmTextField = TextField().then { make in
+    private var findpasswordConfirmTextField = TextField().then { make in
         make.isSecureTextEntry = true //비밀번호 *로 표시
         
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Passwordconfirm.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
     }
     
     private var findpasswordConfirmGuideLabel = UILabel().then{ make in
@@ -534,6 +700,8 @@ extension FindEmailorPasswordViewController {
             findTitle,
             emailFindView,
             emailFoundView,
+            passwordFindView,
+            passwordFoundView,
             bottomButton
         ])
         
@@ -552,6 +720,30 @@ extension FindEmailorPasswordViewController {
         emailFoundView.addSubviews([
             foundemailTitleLabel,
             foundemailTextField
+        ])
+        
+        passwordFindView.addSubviews([
+            findpasswordemailLabel,
+            findpasswordemailTextField,
+            findpasswordEmailGuideLabel,
+            findpasswordphoneTitleLabel,
+            findpasswordphoneTextField,
+            findpasswordphoneGuideLabel,
+            findpasswordphoneButton,
+            findpasswordauthcodeLabel,
+            findpasswordauthcodeButton,
+            findpasswordauthGuideLabel,
+            findpasswordauthcodeTextField,
+            findpasswordauthTimerLabel,
+        ])
+        
+        passwordFoundView.addSubviews([
+            findpasswordTitleLabel,
+            findpasswordTextField,
+            findpasswordGuideLabel,
+            findpasswordConfirmTitleLabel,
+            findpasswordConfirmTextField,
+            findpasswordConfirmGuideLabel
         ])
     }
 
@@ -589,6 +781,7 @@ extension FindEmailorPasswordViewController {
         findTitle.snp.makeConstraints{ make in
             make.top.equalTo(tabDivider.snp.bottom).offset(33)
             make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
         }
         
         emailFindView.snp.makeConstraints{ make in
@@ -663,6 +856,115 @@ extension FindEmailorPasswordViewController {
             make.trailing.equalTo(emailFoundView.snp.trailing)
         }
         
+        passwordFindView.snp.makeConstraints{ make in
+            make.top.equalTo(tabDivider.snp.bottom).offset(108)
+            make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+        }
+        
+        findpasswordemailLabel.snp.makeConstraints{ make in
+            make.top.equalTo(passwordFindView.snp.top)
+            make.leading.equalTo(passwordFindView.snp.leading)
+        }
+        
+        findpasswordemailTextField.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordemailLabel.snp.bottom).offset(5)
+            make.leading.equalTo(findpasswordemailLabel.snp.leading)
+            make.trailing.equalTo(passwordFindView.snp.trailing)
+        }
+        
+        findpasswordEmailGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordemailTextField.snp.bottom).offset(4)
+            make.leading.equalTo(findpasswordemailLabel.snp.leading)
+        }
+        
+        findpasswordphoneTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordemailTextField.snp.bottom).offset(36)
+            make.leading.equalTo(findpasswordEmailGuideLabel.snp.leading)
+        }
+        
+        findpasswordphoneTextField.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordphoneTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(findpasswordphoneTitleLabel.snp.leading)
+            make.trailing.equalTo(findpasswordphoneButton.snp.leading).offset(-14)
+        }
+        
+        findpasswordphoneGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordphoneTextField.snp.bottom).offset(4)
+            make.leading.equalTo(findpasswordphoneTitleLabel.snp.leading)
+        }
+        
+        findpasswordphoneButton.snp.makeConstraints{ make in
+            make.centerY.equalTo(findpasswordphoneTextField.snp.centerY)
+            make.width.equalTo(98)
+            make.trailing.equalTo(passwordFindView.snp.trailing)
+        }
+        
+        findpasswordauthcodeLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordphoneTextField.snp.bottom).offset(36)
+            make.leading.equalTo(findpasswordphoneGuideLabel.snp.leading)
+        }
+        
+        findpasswordauthcodeTextField.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordauthcodeLabel.snp.bottom).offset(5)
+            make.leading.equalTo(findpasswordauthcodeLabel.snp.leading)
+            make.trailing.equalTo(findpasswordauthcodeButton.snp.leading).offset(-14)
+        }
+        
+        findpasswordauthcodeButton.snp.makeConstraints{ make in
+            make.centerY.equalTo(findpasswordauthcodeTextField.snp.centerY)
+            make.width.equalTo(98)
+            make.trailing.equalTo(passwordFindView.snp.trailing)
+        }
+        
+        findpasswordauthTimerLabel.snp.makeConstraints{ make in
+            make.centerY.equalTo(findpasswordauthcodeTextField.snp.centerY)
+            make.trailing.equalTo(findpasswordauthcodeTextField.snp.trailing).offset(20)
+        }
+        
+        findpasswordauthGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordauthcodeTextField.snp.bottom).offset(5)
+            make.leading.equalTo(findpasswordauthcodeTextField.snp.leading)
+        }
+        
+        passwordFoundView.snp.makeConstraints{ make in
+            make.top.equalTo(tabDivider.snp.bottom).offset(108)
+            make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+        }
+        
+        findpasswordTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(passwordFoundView.snp.top)
+            make.leading.equalTo(passwordFoundView.snp.leading)
+        }
+        
+        findpasswordTextField.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(findpasswordTitleLabel.snp.leading)
+            make.trailing.equalTo(passwordFoundView.snp.trailing)
+        }
+        
+        findpasswordGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordTextField.snp.bottom).offset(4)
+            make.leading.equalTo(findpasswordTitleLabel.snp.leading)
+        }
+        
+        findpasswordConfirmTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordTextField.snp.bottom).offset(36)
+            make.leading.equalTo(findpasswordGuideLabel.snp.leading)
+        }
+        
+        findpasswordConfirmTextField.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordConfirmTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(findpasswordConfirmTitleLabel.snp.leading)
+            make.trailing.equalTo(passwordFoundView.snp.trailing)
+        }
+        
+        findpasswordConfirmGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(findpasswordConfirmTextField.snp.bottom).offset(4)
+            make.leading.equalTo(findpasswordConfirmTitleLabel.snp.leading)
+        }
+        
         bottomButton.snp.makeConstraints{ make in
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
@@ -678,38 +980,103 @@ extension FindEmailorPasswordViewController {
         switch response.code {
         case 1000:
             
-            self.findEmailphoneGuideLabel.isHidden = true
-            email = response.result!.email
+            if buttonAction[0]{
+                self.findEmailphoneGuideLabel.isHidden = true
+                email = response.result!.email
 
-            //인증코드 타이머
-            self.authTime = 180
-            self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
-            
-            self.findEmailphoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
-            self.phoneNumber = "+82\(self.findEmailphoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
-            print(self.phoneNumber)
-            
-            
-            PhoneAuthProvider.provider()
-                .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
-                  if let error = error {
-                      AppContext.shared.makeToast("에러가 발생했습니다. 다시 시도해주세요")
-                      print(error)
-                    return
+                //인증코드 타이머
+                self.authTime = 180
+                self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.findEmailauthtimerCallback), userInfo: nil, repeats: true)
+                
+                self.findEmailphoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                self.phoneNumber = "+82\(self.findEmailphoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
+                print(self.phoneNumber)
+                
+                
+                PhoneAuthProvider.provider()
+                    .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
+                      if let error = error {
+                          AppContext.shared.makeToast("에러가 발생했습니다. 다시 시도해주세요")
+                          print(error)
+                        return
+                      }
+                      // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달
+                        self.verificationId = verificationID!
                   }
-                  // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달
-                    self.verificationId = verificationID!
-              }
+            }
+            else{
+                self.findpasswordphoneGuideLabel.isHidden = true
+
+                //인증코드 타이머
+                self.authTime = 180
+                self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.findPasswordauthtimerCallback), userInfo: nil, repeats: true)
+                
+                self.findpasswordphoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                self.phoneNumber = "+82\(self.findpasswordphoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
+                print(self.phoneNumber)
+                
+                
+                PhoneAuthProvider.provider()
+                    .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
+                      if let error = error {
+                          AppContext.shared.makeToast("에러가 발생했습니다. 다시 시도해주세요")
+                          print(error)
+                        return
+                      }
+                      // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달
+                        self.verificationId = verificationID!
+                  }
+            }
             break
             
         case 2013:
-            self.findEmailphoneButton.setDisable()
-            findEmailphoneGuideLabel.isHidden = false
+            if buttonAction[0]{
+                self.findEmailphoneButton.setDisable()
+                findEmailphoneGuideLabel.isHidden = false
+            }
+            else{
+                self.findpasswordphoneButton.setDisable()
+                findpasswordphoneGuideLabel.isHidden = false
+            }
         default:
             break
         }
     }
-
+    
+    func didSuccessFindPassword(code: Int){
+        switch code{
+        case 1000:
+            buttonAction = [false, false, false, true]
+            passwordFindView.isHidden = true
+            passwordFoundView.isHidden = false
+            
+            self.findTitle.text = L10n.Find.Password.Find.title
+            self.bottomButton.setTitle(L10n.Find.Password.Button.title, for: .normal)
+            self.bottomButton.setDisable()
+            
+            userInfo.email = self.findpasswordemailTextField.text!
+            userInfo.phoneNumber = self.findpasswordphoneTextField.text!
+            
+        case 2013:
+            self.validCheckArray[0] = false
+            self.bottomButton.setDisable()
+            
+            self.findpasswordEmailGuideLabel.isHidden = false
+        default:
+            break
+        }
+    }
+    
+    func didSuccessPatchPassword(code: Int){
+        switch code{
+        case 1000:
+            viewModel.inputs.login.onNext(())
+            AppContext.shared.makeToast("비밀번호 재설정이 완료되었습니다.")
+        default:
+            break
+        }
+    }
+    
     func failedToRequest(message: String) {
         
         AppContext.shared.makeToast(message)

@@ -53,6 +53,10 @@ internal enum L10n {
         /// 비밀번호를 재설정 하기 위해서는 이메일, 휴대폰 번호를 입력해야 해요.
         internal static let title = L10n.tr("Localizable", "Find.password.guide.title", fallback: "비밀번호를 재설정 하기 위해서는 이메일, 휴대폰 번호를 입력해야 해요.")
       }
+      internal enum Notfind {
+        /// 등록되지 않은 이메일입니다.
+        internal static let guidelabel = L10n.tr("Localizable", "Find.password.notfind.guidelabel", fallback: "등록되지 않은 이메일입니다.")
+      }
       internal enum Tab {
         /// 비밀번호 재설정
         internal static let title = L10n.tr("Localizable", "Find.password.tab.title", fallback: "비밀번호 재설정")
@@ -236,6 +240,8 @@ internal enum L10n {
     internal enum Passwordconfirm {
       /// 입력하신 비밀번호와 일치하지 않습니다.
       internal static let guidelabel = L10n.tr("Localizable", "SignUp.passwordconfirm.guidelabel", fallback: "입력하신 비밀번호와 일치하지 않습니다.")
+      /// 비밀번호를 한 번 더 입력해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "SignUp.passwordconfirm.placeholder", fallback: "비밀번호를 한 번 더 입력해주세요.")
       /// 비밀번호 확인
       internal static let title = L10n.tr("Localizable", "SignUp.passwordconfirm.title", fallback: "비밀번호 확인")
     }

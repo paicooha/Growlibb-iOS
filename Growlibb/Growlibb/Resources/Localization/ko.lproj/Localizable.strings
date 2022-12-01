@@ -43,6 +43,7 @@
 "SignUp.email.guidelabel.toolong" = "이메일 길이를 초과하였습니다.";
 "SignUp.password.placeholder" = "영문, 특수문자를 포함한 8 - 20자리 이하";
 "SignUp.password.guidelabel" = "영문, 특수문자를 포함한 8자리 이상, 20자리 이하로 입력해주세요.";
+"SignUp.passwordconfirm.placeholder" = "비밀번호를 한 번 더 입력해주세요.";
 "SignUp.passwordconfirm.title" = "비밀번호 확인";
 "SignUp.passwordconfirm.guidelabel" = "입력하신 비밀번호와 일치하지 않습니다.";
 "SignUp.phone.title" = "휴대폰 번호";
@@ -84,9 +85,10 @@
 "Find.email.tab.title" = "이메일 찾기";
 "Find.email.guide.title" = "이메일을 찾기 위해서는 휴대폰 번호를 입력해야 해요.";
 "Find.email.find.title" = "이메일을 찾았어요!";
-"Find.password.tab.title" = "비밀번호 재설정";
 "Find.email.notfind.guidelabel" = "등록되지 않은 휴대폰 번호입니다.";
+"Find.password.tab.title" = "비밀번호 재설정";
 "Find.password.guide.title" = "비밀번호를 재설정 하기 위해서는 이메일, 휴대폰 번호를 입력해야 해요.";
+"Find.password.notfind.guidelabel" = "등록되지 않은 이메일입니다.";
 "Find.password.find.title" = "비밀번호를 재설정 해주세요!";
 "Find.password.button.title" = "변경하기";
 
