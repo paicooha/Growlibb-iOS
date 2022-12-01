@@ -35,7 +35,6 @@ final class LoginViewController: BaseViewController {
 
         goToSignupLabel.rx.tapGesture()
             .when(.recognized)
-            .take(1)
             .subscribe(onNext: { _ in
                 self.viewModel.inputs.goToSignup.onNext(())
             })
