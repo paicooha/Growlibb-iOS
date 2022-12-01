@@ -47,4 +47,20 @@ class LoginDataManager {
                 }
             }
     }
+    
+    func patchFcmToken(viewController: AppCoordinator, fcmToken: String) {
+        let parameters = PatchFcmRequest(fcmToken: fcmToken)
+        
+        AF.request("\(Constants.BASE_URL)v1/fcm-token", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constants().HEADERS)
+            .validate()
+            .responseDecodable(of: BaseResponse.self) { response in
+                switch response.result {
+                case let .success(response):
+                    viewController.didSuccessPatchFcmToken(code: response.code)
+                case let .failure(error):
+                    print(error)
+                    viewController.failedToRequest(message: "서버와의 연결이 원활하지 않습니다")
+                }
+            }
+    }
 }

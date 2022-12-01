@@ -22,6 +22,7 @@
 		DA6E2016291D223200F78173 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAC86A8E29140938006F54A1 /* Pretendard-Medium.otf */; };
 		DA6E2018291D25D300F78173 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6E2017291D25D300F78173 /* Images.xcassets */; };
 		DA6E2022291D2B6500F78173 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6E2024291D2B6500F78173 /* Localizable.strings */; };
+		DA6E3D59293910010084F534 /* PatchFcmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E3D58293910010084F534 /* PatchFcmRequest.swift */; };
 		DA7CD55529140FB000B8613C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7CD55429140FB000B8613C /* Constants.swift */; };
 		DA7FDCC8293781C3003C3792 /* FindDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDCC7293781C3003C3792 /* FindDataManager.swift */; };
 		DA7FDCCA293781E0003C3792 /* PostFindEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDCC9293781E0003C3792 /* PostFindEmailRequest.swift */; };
@@ -126,6 +127,7 @@
 		DA6E2017291D25D300F78173 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA6E2023291D2B6500F78173 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA6E2025291D2B9800F78173 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DA6E3D58293910010084F534 /* PatchFcmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchFcmRequest.swift; sourceTree = "<group>"; };
 		DA7CD55429140FB000B8613C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DA7FDCC7293781C3003C3792 /* FindDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindDataManager.swift; sourceTree = "<group>"; };
 		DA7FDCC9293781E0003C3792 /* PostFindEmailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFindEmailRequest.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				DA88B48A29238B2700A4B1B5 /* PostLoginRequest.swift */,
 				DA88B490292392B400A4B1B5 /* PostLoginResponse.swift */,
 				DA88B4B12923D95300A4B1B5 /* GetJwtResponse.swift */,
+				DA6E3D58293910010084F534 /* PatchFcmRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -819,6 +822,7 @@
 				DACF820B291C03F100AA74E8 /* TutorialSecondCoordinator.swift in Sources */,
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
 				DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */,
+				DA6E3D59293910010084F534 /* PatchFcmRequest.swift in Sources */,
 				DACF17C2292F56DF002734AA /* PostCheckNicknameRequest.swift in Sources */,
 				DACF8207291C03E000AA74E8 /* TutorialSecondViewModel.swift in Sources */,
 				DA9F8DD529352337007014A5 /* FindEmailorPasswordViewController.swift in Sources */,

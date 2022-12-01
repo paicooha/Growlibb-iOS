@@ -5,19 +5,25 @@
 //  Created by 이유리 on 2022/11/15.
 //
 
-import Foundation
-
-// MARK: - Welcome
+// MARK: - GetJwtResponse
 struct GetJwtResponse: Codable {
-    let isSuccess: Bool
-    let code: Int
-    let message: String
-    let result: GetJwtResult
+    var isSuccess: Bool
+    var code: Int
+    var message: String
+    var result: GetJwtResult
 }
 
 // MARK: - Result
 struct GetJwtResult: Codable {
-    let jwt: String
-    let userId: Int
-    let email, phoneNumber, nickname: String
+    var jwt: String
+    var userID: Int
+    var email, phoneNumber, nickname: String
+    var seedLevel, point: Int
+    var notificationStatus: String
+
+    enum CodingKeys: String, CodingKey {
+        case jwt
+        case userID = "userId"
+        case email, phoneNumber, nickname, seedLevel, point, notificationStatus
+    }
 }
