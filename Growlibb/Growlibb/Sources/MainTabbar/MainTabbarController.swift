@@ -235,7 +235,7 @@ extension MainTabViewController {
             make.top.equalTo(mainContentView.snp.bottom)
             make.leading.equalTo(mainContentView.snp.leading)
             make.trailing.equalTo(mainContentView.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
             make.height.equalTo(AppContext.shared.tabHeight + AppContext.shared.safeAreaInsets.bottom)
         }
 
