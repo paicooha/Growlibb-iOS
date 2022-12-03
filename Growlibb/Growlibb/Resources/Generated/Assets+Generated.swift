@@ -22,6 +22,8 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
+  internal static let icArrow2Left = ImageAsset(name: "ic_arrow2_left")
+  internal static let icArrow2Right = ImageAsset(name: "ic_arrow2_right")
   internal static let icArrowLeft = ImageAsset(name: "ic_arrow_left")
   internal static let icCheckboxBlue = ImageAsset(name: "ic_checkbox_blue")
   internal static let icCheckboxGray = ImageAsset(name: "ic_checkbox_gray")

@@ -13,19 +13,37 @@ import SnapKit
 import Then
 import Toast_Swift
 import UIKit
+import FSCalendar
 
 class HomeViewController: BaseViewController {
+    
+    lazy var homeDataManager = HomeDataManager()
+    private var userKeyChainService: UserKeychainService
+    var retroSpectList = [LatestRetrospectionInfo]()
+    var dateUtil = DateUtil.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         initialLayout()
 
         viewModelInput()
-        viewModelOutput()
+//        viewModelOutput()
+        
+        calendar.delegate = self
+        calendar.dataSource = self
+        
+        retrospectListTableView.delegate = self
+        retrospectListTableView.dataSource = self
+        
+        retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
+
+        homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: Date(), format: .yyyyMDash))
     }
 
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
+        self.userKeyChainService = BasicUserKeyChainService.shared
         super.init()
     }
 
@@ -37,12 +55,15 @@ class HomeViewController: BaseViewController {
     private var viewModel: HomeViewModel
 
     private func viewModelInput() {
-//        bindBottomSheetGesture()
-//
-//        showClosedPostView.rx.tapGesture(configuration: nil)
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.tapShowClosedPost)
-//            .disposed(by: disposeBag)
+        prevMonthButton.rx.tap
+            .subscribe({_ in
+                self.scrollCurrentPage(isPrev: true)
+            })
+        
+        nextMonthButton.rx.tap
+            .subscribe({ _ in
+                self.scrollCurrentPage(isPrev: false)
+            })
 //
 //        postCollectionView.rx.itemSelected
 //            .map { $0.item }
@@ -229,169 +250,107 @@ class HomeViewController: BaseViewController {
 //            })
 //            .disposed(by: disposeBag)
     }
-//
-//    private func bindBottomSheetGesture() {
-//        bottomSheet.rx.panGesture()
-//            .when(.changed)
-//            .filter { [unowned self] gesture in
-//                let location = gesture.location(in: self.bottomSheet)
-//                return isBottomSheetPanGestureEnable(with: location)
-//            }
-//            .asTranslation()
-//            .subscribe(onNext: { [unowned self] translation, _ in
-//                self.onPanGesture(translation: translation)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        bottomSheet.rx.panGesture()
-//            .when(.ended)
-//            .asTranslation()
-//            .subscribe(onNext: { [unowned self] _, _ in
-//                onPanGestureEnded()
-//            })
-//            .disposed(by: disposeBag)
-//    }
-//
-//    private func showClosedPost(_ show: Bool) {
-//        if show {
-//            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.HighLighted.font
-//            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.HighLighted.textColor
-//            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.HighLighted.backgroundColor
-//            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.HighLighted.borderWidth
-//            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.HighLighted.borderColor
-//        } else {
-//            showClosedPostView.label.font = Constants.BottomSheet.SelectionLabel.Normal.font
-//            showClosedPostView.label.textColor = Constants.BottomSheet.SelectionLabel.Normal.textColor
-//            showClosedPostView.backgroundColor = Constants.BottomSheet.SelectionLabel.Normal.backgroundColor
-//            showClosedPostView.layer.borderWidth = Constants.BottomSheet.SelectionLabel.Normal.borderWidth
-//            showClosedPostView.layer.borderColor = Constants.BottomSheet.SelectionLabel.Normal.borderColor
-//        }
-//    }
-//
-//    private func configureCell(_ collectionView: UICollectionView, _ indexPath: IndexPath, _ item: BasicPostSection.Item) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
-//        else { return UICollectionViewCell() }
-//
-//        viewModel.outputs.bookMarked
-//            .filter { $0.id == item.id }
-//            .map { $0.marked }
-//            .subscribe(onNext: { [weak cell] marked in
-//                cell?.postInfoView.bookMarkIcon.isSelected = marked
-//            })
-//            .disposed(by: cell.disposeBag)
-//
-//        cell.postInfoView.bookMarkIcon.rx.tap
-//            .map { item.id }
-//            .subscribe(onNext: { [weak self] id in
-//                self?.viewModel.inputs.tapPostBookmark.onNext(id)
-//            })
-//            .disposed(by: cell.disposeBag)
-//
-//        cell.configure(with: item)
-//        return cell
-//    }
-//
-//    enum Constants {
-//        enum NavigationBar {
-//            static let backgroundColor: UIColor = .darkG7
-//        }
-//
-//        enum RefreshButton {
-//            static let topSpacing: CGFloat = 16
-//
-//            static let iconSize: CGFloat = 20
-//            static let text: String = L10n.Home.Map.RefreshButton.title
-//            static let paddingLeft: CGFloat = 10
-//            static let paddingRight: CGFloat = 14
-//            static let spacing: CGFloat = 4
-//            static let height: CGFloat = 36
-//        }
-//
-//        enum HomeLocationButton {
-//            static let width: CGFloat = 40
-//            static let height: CGFloat = 40
-//            static let leading: CGFloat = 12
-//            static let bottom: CGFloat = 12
-//            static let bottomLimit: CGFloat = Constants.BottomSheet.heightMiddle + Constants.HomeLocationButton.bottom
-//        }
-//
-//        enum BottomSheet {
-//            static let backgrouncColor: UIColor = .darkG7
-//            static let cornerRadius: CGFloat = 12
-//            static let heightMiddle: CGFloat = 294
-//            static let heightMin: CGFloat = 65
-//
-//            enum GreyHandle {
-//                static let top: CGFloat = 16
-//                static let width: CGFloat = 37
-//                static let height: CGFloat = 3
-//                static let color: UIColor = .darkG6
-//            }
-//
-//            enum Title {
-//                static let leading: CGFloat = 16
-//                static let top: CGFloat = 24
-//                static let height: CGFloat = 29
-//                static let color: UIColor = .darkG25
-//                static let font: UIFont = .iosTitle21Sb
-//                static let text: String = L10n.Home.BottomSheet.title
-//            }
-//
-//            enum SelectionLabel {
-//                static let iconSize: CGSize = .init(width: 16, height: 16)
-//                static let height: CGFloat = 27
-//                static let cornerRadius: CGFloat = height / 2.0
-//                static let padding: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 6)
-//
-//                enum HighLighted {
-//                    static let font: UIFont = .iosBody13B
-//                    static let backgroundColor: UIColor = .primarydark
-//                    static let textColor: UIColor = .darkBlack
-//                    static let borderWidth: CGFloat = 0
-//                    static let borderColor: CGColor = UIColor.primarydark.cgColor
-//                    static let icon: UIImage = Asset.chevronDown.uiImage.withTintColor(.darkBlack)
-//                }
-//
-//                enum Normal {
-//                    static let font: UIFont = .iosBody13R
-//                    static let backgroundColor: UIColor = .clear
-//                    static let textColor: UIColor = .darkG3
-//                    static let borderWidth: CGFloat = 1
-//                    static let borderColor: CGColor = UIColor.darkG3.cgColor
-//                    static let icon: UIImage = Asset.chevronDown.uiImage.withTintColor(.darkG3)
-//                }
-//
-//                enum RunningTag {
-//                    static let leading: CGFloat = 16
-//                    static let top: CGFloat = Title.top + Title.height + 23
-//                }
-//
-//                enum OrderTag {
-//                    static let leading: CGFloat = 12
-//                }
-//
-//                enum ShowClosedPost {
-//                    static let leading: CGFloat = 12
-//                    static let padding: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
-//                }
-//            }
-//
-//            enum PostList {
-//                static let top: CGFloat = Title.top + Title.height + 70
-//                static let minimumLineSpacing: CGFloat = 12
-//            }
-//        }
-//    }
+    
+    private var currentPage: Date?
+    
+    private func scrollCurrentPage(isPrev: Bool) { //클릭씨 이전 달 / 다음달 띄우기 위한 메소드
+        let cal = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.month = isPrev ? -1 : 1
+            
+        self.currentPage = cal.date(byAdding: dateComponents, to: self.currentPage ?? Date())
+        self.calendar.setCurrentPage(self.currentPage!, animated: true)
+        
+        homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: self.currentPage ?? Date(), format:.yyyyMDash))
+        
+        self.calendarHeaderTitle.text = DateUtil.shared.formattedString(for: self.currentPage!, format: DateFormat.yyyyMKR)
+    }
+    
+    private var logo = UIImageView().then { view in
+        view.snp.makeConstraints{ make in
+            make.width.height.equalTo(42)
+        }
+        view.image = Asset.icGrowlibbLogo.image
+    }
+    
+    private var dateLabel = UILabel().then { view in
+        view.font = .pretendardMedium20
+        view.textColor = .primaryBlue
+        view.text = DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd)
+    }
+    
+    private var titleLabel = UILabel().then { view in
+        view.font = .pretendardMedium20
 
-//    private var navBar = RunnerbeNavBar().then { navBar in
-//        navBar.titleLabel.font = .aggroLight
-//        navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
-//        navBar.titleLabel.textColor = .primarydark
-//        navBar.rightBtnItem.setImage(Asset.alarmNew.uiImage, for: .normal)
-//        navBar.rightSecondBtnItem.isHidden = true
-//        navBar.titleSpacing = 8
-//        navBar.backgroundColor = Constants.NavigationBar.backgroundColor
-//    }
+    }
+    
+    private var retrospectTitle = UILabel().then { view in
+        view.font = .pretendardMedium16
+        view.textColor = .black
+        view.text = L10n.Home.Recent.title
+    }
+    
+    private var retrospectListTableView = UITableView().then { view in
+        view.isHidden = true
+        view.separatorColor = .clear //구분선 없애기
+    }
+    
+    private var noRetrospectView = UIButton().then { view in
+        view.isHidden = true
+        
+        view.backgroundColor = .veryLightGray
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 12
+        
+        view.setTitle(L10n.Home.Recent.nodata, for: .normal)
+        view.setTitleColor(.black, for: .normal)
+        view.titleLabel?.font = .pretendardMedium12
+    }
+    
+    private var goRetrospectButton = LongButton().then { view in
+        view.isHidden = true
+        view.titleLabel?.font = .pretendardMedium12
+        view.setTitle(L10n.Main.Button.goRetrospect, for: .normal)
+    }
+    
+    private var calendar = FSCalendar().then { view in
+        view.scope = .month //월 표시
+        view.locale = Locale(identifier: "ko_KR") //요일을 한글로 표시하기 위함
+        view.scrollEnabled = false //스크롤 가능 여부
+        
+        // 헤더 없애기
+        view.headerHeight = 0
+
+        // 캘린더
+        view.appearance.todayColor = .primaryBlue
+        view.appearance.weekdayTextColor = .black //일~토 제목 타이틀 색
+        view.weekdayHeight = 34
+
+        
+    }
+    
+    private var prevMonthButton = UIButton().then{ view in
+        view.setBackgroundImage(Asset.icArrow2Left.image, for: .normal)
+        view.snp.makeConstraints{ make in
+            make.width.equalTo(7)
+            make.height.equalTo(14)
+        }
+        view.contentMode = .scaleAspectFit
+    }
+    
+    private var nextMonthButton = UIButton().then{ view in
+        view.setBackgroundImage(Asset.icArrow2Right.image, for: .normal)
+        view.snp.makeConstraints{ make in
+            make.width.equalTo(7)
+            make.height.equalTo(14)
+        }
+    }
+    
+    private var calendarHeaderTitle = UILabel().then { view in
+        view.font = .pretendardMedium16
+        view.textColor = .black
+        view.text = DateUtil.shared.formattedString(for: Date(), format: DateFormat.yyyyMKR)
+    }
 }
 
 // MARK: - Layout
@@ -400,15 +359,155 @@ extension HomeViewController {
     private func setupViews() {
 
         view.addSubviews([
-//            navBar,
+            logo,
+            dateLabel,
+            titleLabel,
+            retrospectTitle,
+            retrospectListTableView,
+            noRetrospectView,
+            goRetrospectButton,
+            calendar,
+            prevMonthButton,
+            nextMonthButton,
+            calendarHeaderTitle
         ])
+        
+        var attributedTitleString = NSMutableAttributedString(string: "\(self.userKeyChainService.nickName)\(L10n.Home.Title.nickname)")
+        attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 0, length: self.userKeyChainService.nickName.count+2))
+        
+        titleLabel.attributedText = attributedTitleString
     }
 
     private func initialLayout() {
-//        navBar.snp.makeConstraints { make in
-//            make.top.equalTo(view.snp.top)
-//            make.leading.equalTo(view.snp.leading)
-//            make.trailing.equalTo(view.snp.trailing)
-//        }
+        
+        logo.snp.makeConstraints{ make in
+            make.top.equalTo(view.snp.top).offset(70) //노치 44
+            make.leading.equalTo(view.snp.leading).offset(25)
+        }
+        
+        dateLabel.snp.makeConstraints{ make in
+            make.top.equalTo(logo.snp.bottom).offset(10)
+            make.leading.equalTo(logo.snp.leading)
+        }
+        
+        titleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(4)
+            make.leading.equalTo(dateLabel.snp.leading)
+        }
+        
+        calendarHeaderTitle.snp.makeConstraints{ make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(53)
+            make.centerX.equalTo(calendar.snp.centerX)
+        }
+        
+        prevMonthButton.snp.makeConstraints{ make in
+            make.leading.equalTo(calendar.snp.leading).offset(25)
+            make.centerY.equalTo(calendarHeaderTitle.snp.centerY)
+        }
+        
+        nextMonthButton.snp.makeConstraints{ make in
+            make.trailing.equalTo(calendar.snp.trailing).offset(-25)
+            make.centerY.equalTo(calendarHeaderTitle.snp.centerY)
+        }
+        
+        calendar.snp.makeConstraints { make in
+            make.top.equalTo(calendarHeaderTitle.snp.bottom).offset(30)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.height.equalTo(188)
+        }
+        
+        retrospectTitle.snp.makeConstraints { make in
+            make.top.equalTo(calendar.snp.bottom).offset(52)
+            make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+        }
+        
+        retrospectListTableView.snp.makeConstraints{ make in
+            make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
+            make.leading.equalTo(retrospectTitle.snp.leading)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+        
+        noRetrospectView.snp.makeConstraints{ make in
+            make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
+            make.leading.equalTo(retrospectTitle.snp.leading)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.height.equalTo(124)
+        }
+        
+        goRetrospectButton.snp.makeConstraints{ make in
+            make.top.equalTo(noRetrospectView.snp.bottom).offset(15)
+            make.leading.equalTo(retrospectTitle.snp.leading)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+        }
+    }
+}
+
+extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance { //달력
+    // 날짜 색 지정
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        let day = Calendar.current.component(.weekday, from: date) - 1
+        
+        if dateUtil.formattedString(for: dateUtil.now, format: .yyMMdd) != dateUtil.formattedString(for: date, format: .yyMMdd) { //'오늘'이 아닐 경우
+            if Calendar.current.shortWeekdaySymbols[day] == "일" {
+                return .salmon
+            } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+                return .cornFlower
+            } else {
+                return .black
+            }
+        }
+        else{ //오늘은 'white' 로 표시
+            return .white
+        }
+    }
+}
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        retroSpectList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeRetrospectTableViewCell.id) as? HomeRetrospectTableViewCell else { return .init() }
+        cell.selectionStyle = .none // 셀 클릭 시 반짝임 효과 제거
+        
+        let apiDate = DateUtil.shared.getDate(from: retroSpectList[indexPath.row].writtenDate, format: .yyyyMddDash)
+        cell.label.text = "\(DateUtil.shared.formattedString(for: apiDate!, format: .yyyyMddKR))🌱"
+        
+        return cell
+    }
+    
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 57
+    }
+}
+
+extension HomeViewController {
+    func didSuccessGetHome(result: GetHomeResult){
+        if result.latestRetrospectionInfos.isEmpty{
+            noRetrospectView.isHidden = false
+            goRetrospectButton.isHidden = false
+        }
+        else{
+            if retroSpectList.isEmpty {
+                retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
+                retrospectListTableView.reloadData()
+            }
+            
+            noRetrospectView.isHidden = true
+            goRetrospectButton.isHidden = true
+                        
+            retrospectListTableView.isHidden = false
+        }
+    }
+    
+    func failedToRequest(message: String){
+        noRetrospectView.isHidden = false
+        goRetrospectButton.isHidden = false
+        
+        AppContext.shared.makeToast(message)
     }
 }

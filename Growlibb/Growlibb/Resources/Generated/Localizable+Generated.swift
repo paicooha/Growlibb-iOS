@@ -63,6 +63,18 @@ internal enum L10n {
       }
     }
   }
+  internal enum Home {
+    internal enum Recent {
+      /// 회고 작성 이력이 없어요.
+      internal static let nodata = L10n.tr("Localizable", "Home.recent.nodata", fallback: "회고 작성 이력이 없어요.")
+      /// 최근 일주일 동안 작성한 회고에요!
+      internal static let title = L10n.tr("Localizable", "Home.recent.title", fallback: "최근 일주일 동안 작성한 회고에요!")
+    }
+    internal enum Title {
+      /// 님, 오늘도 화이팅입니다!
+      internal static let nickname = L10n.tr("Localizable", "Home.title.nickname", fallback: "님, 오늘도 화이팅입니다!")
+    }
+  }
   internal enum Job {
     /// 건축사
     internal static let arc = L10n.tr("Localizable", "Job.ARC", fallback: "건축사")
@@ -134,6 +146,10 @@ internal enum L10n {
     }
   }
   internal enum Main {
+    internal enum Button {
+      /// 회고 작성하러 가기 👉🏻
+      internal static let goRetrospect = L10n.tr("Localizable", "Main.Button.goRetrospect", fallback: "회고 작성하러 가기 👉🏻")
+    }
     internal enum HomeTab {
       /// 홈
       internal static let title = L10n.tr("Localizable", "Main.HomeTab.Title", fallback: "홈")

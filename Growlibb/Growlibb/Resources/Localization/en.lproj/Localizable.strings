@@ -114,3 +114,9 @@
 "Main.HomeTab.Title" = "홈";
 "Main.RetrospectTab.Title" = "회고";
 "Main.MyPage.Title" = "내 메뉴";
+"Main.Button.goRetrospect" = "회고 작성하러 가기 👉🏻";
+
+// MARK: - Home
+"Home.title.nickname" = "님, 오늘도 화이팅입니다!";
+"Home.recent.title" = "최근 일주일 동안 작성한 회고에요!";
+"Home.recent.nodata" = "회고 작성 이력이 없어요.";
