@@ -12,6 +12,7 @@ import Then
 import UIKit
 import SnapKit
 import Toast_Swift
+import FirebaseMessaging
 
 final class LoginViewController: BaseViewController {
     
@@ -302,6 +303,8 @@ extension LoginViewController {
 extension LoginViewController {
     func didSuccessLogin(result: PostLoginResult) {
         self.loginKeyChainService.setLoginInfo(loginType: LoginType.member, userID: result.userId, token: LoginToken(jwt: result.jwt))
+        self.userKeyChainService.nickName = result.nickname
+        self.userKeyChainService.fcmToken = Messaging.messaging().fcmToken ?? ""
         
         viewModel.inputs.loginSuccess.onNext(())
         retryGuideLabel.isHidden = true
