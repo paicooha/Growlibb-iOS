@@ -86,7 +86,7 @@ final class SignUpSecondViewController: BaseViewController {
         else if textField == birthTextField { //8자리 미만인 경우 8자리로 입력하도록 유도
             checkMaxLength(textField: textField, maxLength: 10) // '-' 포함해서 10자리로 제한
             
-            var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             
             if textFieldText.count == 10 {
                 birthGuideLabel.isHidden = true
@@ -114,42 +114,43 @@ final class SignUpSecondViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapBackward)
             .disposed(by: disposeBag)
         
-        nicknameButton.rx.tapGesture().when(.recognized)
+        nicknameButton.rx.tap
             .subscribe({ _ in
                 self.signUpDataManager.postCheckNickname(viewController: self, nickname: self.nicknameTextField.text!)
             })
+            .disposed(by: disposeBag)
         
-        jobSelectButton.rx.tapGesture()
-            .when(.recognized)
+        jobSelectButton.rx.tap
             .subscribe({ _ in
                 self.dropDown.show()
                 self.dropdownImageView.image = Asset.icDropdownUp.image
             })
+            .disposed(by: disposeBag)
         
-        manButton.rx.tapGesture()
-            .when(.recognized)
+        manButton.rx.tap
             .subscribe({ _ in
                 UserInfo.shared.gender = "M"
                 self.manButton.setBlueButton()
                 self.womanButton.setGrayButton()
             })
+            .disposed(by: disposeBag)
         
-        womanButton.rx.tapGesture()
-            .when(.recognized)
+        womanButton.rx.tap
             .subscribe({ _ in
                 UserInfo.shared.gender = "F"
                 self.manButton.setGrayButton()
                 self.womanButton.setBlueButton()
             })
+            .disposed(by: disposeBag)
         
-        nextButton.rx.tapGesture()
-            .when(.recognized)
+        nextButton.rx.tap
             .subscribe({ [self] _ in
                 UserInfo.shared.nickName = self.nicknameTextField.text!
                 UserInfo.shared.birthday = self.birthTextField.text!
                 UserInfo.shared.fcmToken = Messaging.messaging().fcmToken ?? ""
                 self.signUpDataManager.postSignUp(viewController: self)
             })
+            .disposed(by: disposeBag)
     }
 //
 //    private func viewModelOutput() {

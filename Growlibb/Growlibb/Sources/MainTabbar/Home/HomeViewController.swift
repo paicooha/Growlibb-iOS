@@ -59,11 +59,13 @@ class HomeViewController: BaseViewController {
             .subscribe({_ in
                 self.scrollCurrentPage(isPrev: true)
             })
+            .disposed(by: disposeBag)
         
         nextMonthButton.rx.tap
             .subscribe({ _ in
                 self.scrollCurrentPage(isPrev: false)
             })
+            .disposed(by: disposeBag)
 //
 //        postCollectionView.rx.itemSelected
 //            .map { $0.item }
@@ -372,7 +374,7 @@ extension HomeViewController {
             calendarHeaderTitle
         ])
         
-        var attributedTitleString = NSMutableAttributedString(string: "\(self.userKeyChainService.nickName)\(L10n.Home.Title.nickname)")
+        let attributedTitleString = NSMutableAttributedString(string: "\(self.userKeyChainService.nickName)\(L10n.Home.Title.nickname)")
         attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 0, length: self.userKeyChainService.nickName.count+2))
         
         titleLabel.attributedText = attributedTitleString
@@ -478,10 +480,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.label.text = "\(DateUtil.shared.formattedString(for: apiDate!, format: .yyyyMddKR))🌱"
         
         return cell
-    }
-    
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 57
     }
 }
 

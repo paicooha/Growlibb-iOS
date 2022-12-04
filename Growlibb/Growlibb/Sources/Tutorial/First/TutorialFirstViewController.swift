@@ -55,9 +55,7 @@ final class TutorialFirstViewController: BaseViewController {
 
     private var navBar = NavBar()
     
-    private var logo = UIImageView().then{ make in
-        make.image = Asset.icGrowlibbLogo.image
-    }
+    private var logo = LogoImageView()
     
     private var titleLabel = UILabel().then{ make in
         make.font = .pretendardSemibold20
@@ -120,8 +118,6 @@ extension TutorialFirstViewController {
         logo.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom).offset(14)
             make.leading.equalTo(view.snp.leading).offset(24)
-            make.width.equalTo(39)
-            make.height.equalTo(42)
         }
         
         titleLabel.snp.makeConstraints{ make in

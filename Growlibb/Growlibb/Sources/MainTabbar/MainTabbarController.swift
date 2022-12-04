@@ -37,8 +37,7 @@ class MainTabViewController: BaseViewController {
     private var viewModel: MainTabViewModel
 
     private func viewModelInput() {
-        homeBtn.rx.tapGesture()
-            .when(.recognized)
+        homeBtn.rx.tap
             .map { _ in
                 self.retrospectLabel.textColor = .brownGray
                 self.homeLabel.textColor = .primaryBlue
@@ -47,8 +46,7 @@ class MainTabViewController: BaseViewController {
             .subscribe(viewModel.inputs.homeSelected)
             .disposed(by: disposeBag)
 
-        retrospectBtn.rx.tapGesture()
-            .when(.recognized)
+        retrospectBtn.rx.tap
             .map { [self] _ in
                 self.retrospectLabel.textColor = .primaryBlue
                 self.homeLabel.textColor = .brownGray
@@ -57,8 +55,7 @@ class MainTabViewController: BaseViewController {
             .subscribe(viewModel.inputs.retrospectSelected)
             .disposed(by: disposeBag)
 
-        myPageBtn.rx.tapGesture()
-            .when(.recognized)
+        myPageBtn.rx.tap
             .map { _ in
                 self.retrospectLabel.textColor = .brownGray
                 self.homeLabel.textColor = .brownGray

@@ -159,8 +159,7 @@ class SignUpFirstViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapBackward)
             .disposed(by: disposeBag)
         
-        phoneButton.rx.tapGesture()
-            .when(.recognized)
+        phoneButton.rx.tap
             .subscribe({ _ in
                 //버튼 연타 방지
                 self.phoneButton.setDisable()
@@ -172,9 +171,9 @@ class SignUpFirstViewController: BaseViewController {
                 //휴대폰번호 중복 체크
                 self.signUpDataManager.postCheckPhone(viewController: self, phoneNumber: (self.phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
             })
+            .disposed(by: disposeBag)
         
-        authcodeButton.rx.tapGesture()
-            .when(.recognized)
+        authcodeButton.rx.tap
             .subscribe({ _ in
                 
                 let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.verificationId,
@@ -196,9 +195,9 @@ class SignUpFirstViewController: BaseViewController {
                     self.checkAllPass()
                 }
             })
+            .disposed(by: disposeBag)
         
-        allAgreeButton.rx.tapGesture()
-            .when(.recognized)
+        allAgreeButton.rx.tap
             .subscribe({ _ in
                 if self.validCheckArray[3]{
                     self.validCheckArray[3] = false
@@ -219,9 +218,9 @@ class SignUpFirstViewController: BaseViewController {
                 }
                 self.checkAllPass()
             })
+            .disposed(by: disposeBag)
         
-        serviceButton.rx.tapGesture()
-            .when(.recognized)
+        serviceButton.rx.tap
             .subscribe({ _ in
                 if self.termsOfUseArray[0]{ //on -> off
                     self.termsOfUseArray[0] = false
@@ -245,9 +244,9 @@ class SignUpFirstViewController: BaseViewController {
                 }
                 self.checkAllPass()
             })
+            .disposed(by: disposeBag)
         
-        privacyButton.rx.tapGesture()
-            .when(.recognized)
+        privacyButton.rx.tap
             .subscribe({ _ in
                 if self.termsOfUseArray[1]{ //on -> off
                     self.termsOfUseArray[1] = false
@@ -270,9 +269,9 @@ class SignUpFirstViewController: BaseViewController {
                 }
                 self.checkAllPass()
             })
+            .disposed(by: disposeBag)
         
-        nextButton.rx.tapGesture()
-            .when(.recognized)
+        nextButton.rx.tap
             .subscribe({ _ in
                 self.signUpDataManager.postCheckEmail(viewController: self, email: (self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
             })

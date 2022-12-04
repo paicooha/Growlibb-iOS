@@ -44,7 +44,7 @@ extension HomeRetrospectTableViewCell {
 
     private func initialLayout() {
         contentView.snp.makeConstraints { make in
-            make.height.equalTo(72)
+            make.height.equalTo(57)
         }
         
         label.snp.makeConstraints{ make in

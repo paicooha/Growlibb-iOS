@@ -69,7 +69,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     @objc func textFieldDidChange(_ textField: UITextField){
     
         if textField == findEmailphoneTextField {
-            var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
                 findEmailphoneButton.setDisable()
                 if (textFieldText.count == 4){
@@ -110,7 +110,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
             }
         }
         else if textField == findpasswordphoneTextField {
-            var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
                 findpasswordphoneButton.setDisable()
                 if (textFieldText.count == 4){
@@ -259,8 +259,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        findEmailphoneButton.rx.tapGesture()
-            .when(.recognized)
+        findEmailphoneButton.rx.tap
             .subscribe({ _ in
                 //버튼 연타 방지
                 self.findEmailphoneButton.setDisable()
@@ -269,9 +268,9 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findEmailphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
                 
             })
+            .disposed(by: disposeBag)
         
-        findEmailauthcodeButton.rx.tapGesture()
-            .when(.recognized)
+        findEmailauthcodeButton.rx.tap
             .subscribe({ _ in
                 
                 let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.verificationId,
@@ -303,9 +302,9 @@ final class FindEmailorPasswordViewController: BaseViewController {
                     self.bottomButton.setEnable()
                 }
             })
+            .disposed(by: disposeBag)
         
-        findpasswordphoneButton.rx.tapGesture()
-            .when(.recognized)
+        findpasswordphoneButton.rx.tap
             .subscribe({ _ in
                 //버튼 연타 방지
                 self.findpasswordphoneButton.setDisable()
@@ -316,9 +315,9 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 //휴대폰번호 중복 체크
                 self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findpasswordphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
             })
+            .disposed(by: disposeBag)
         
-        findpasswordauthcodeButton.rx.tapGesture()
-            .when(.recognized)
+        findpasswordauthcodeButton.rx.tap
             .subscribe({ _ in
                 
                 let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.verificationId,
@@ -340,9 +339,9 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 }
                 self.checkAllPass()
             })
+            .disposed(by: disposeBag)
         
-        bottomButton.rx.tapGesture()
-            .when(.recognized)
+        bottomButton.rx.tap
             .subscribe({ [self] _ in
                 if self.buttonAction[0] {
                     self.dataManager.postFindEmail(viewController:self, phoneNumber: self.findEmailphoneTextField.text!)

@@ -41,8 +41,7 @@ final class LoginViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        loginButton.rx.tapGesture()
-            .when(.recognized)
+        loginButton.rx.tap
             .subscribe(onNext: { _ in
                 self.loginDataManager.postLogin(viewController: self, email: self.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), password: self.passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
             })
