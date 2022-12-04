@@ -13,6 +13,7 @@ import UIKit
 import SnapKit
 import DropDown
 import FirebaseMessaging
+import AnyFormatKit
 
 final class SignUpSecondViewController: BaseViewController {
     
@@ -38,9 +39,8 @@ final class SignUpSecondViewController: BaseViewController {
 //        nicknameTextField.delegate = self
         //실시간으로 textfield 입력하는 부분 이벤트 받아서 처리
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        birthTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-
+        birthTextField.delegate = self
     }
 
     init(viewModel: SignUpSecondViewModel, userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared, loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
@@ -74,36 +74,12 @@ final class SignUpSecondViewController: BaseViewController {
 
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if textField == nicknameTextField {
-            if nicknameTextField.text?.count ?? 0 >= 2 {
-                nicknameButton.setEnable()
-                checkMaxLength(textField: textField, maxLength: 10)
-            }
-            else{
-                nicknameButton.setDisable()
-            }
+        if nicknameTextField.text?.count ?? 0 >= 2 {
+            nicknameButton.setEnable()
+            checkMaxLength(textField: textField, maxLength: 10)
         }
-        else if textField == birthTextField { //8자리 미만인 경우 8자리로 입력하도록 유도
-            checkMaxLength(textField: textField, maxLength: 10) // '-' 포함해서 10자리로 제한
-            
-            let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            
-            if textFieldText.count == 10 {
-                birthGuideLabel.isHidden = true
-                validCheckArray[1] = true
-            }
-            else{
-                birthGuideLabel.isHidden = false
-                validCheckArray[1] = false
-                
-                if (textFieldText.count == 5){
-                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 4))
-                }
-                else if (textFieldText.count == 8){
-                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 7))
-                }
-            }
-            checkAllPass()
+        else{
+            nicknameButton.setDisable()
         }
     }
     
@@ -507,5 +483,39 @@ extension SignUpSecondViewController {
     
     func failedToRequest(message: String) {
         AppContext.shared.makeToast(message)
+    }
+}
+
+extension SignUpSecondViewController: UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        checkMaxLength(textField: textField, maxLength: 10) // '-' 포함해서 10자리로 제한
+        
+        guard let text = textField.text else {
+            return false
+        }
+        let characterSet = CharacterSet(charactersIn: string)
+        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
+            return false
+        }
+        
+        let formatter = DefaultTextInputFormatter(textPattern: "####-##-##") //포맷 제한
+        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
+        textField.text = result.formattedText
+        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
+        textField.selectedTextRange = textField.textRange(from: position, to: position)
+        
+        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        if textFieldText.count == 10 {
+            birthGuideLabel.isHidden = true
+            validCheckArray[1] = true
+        }
+        else{
+            birthGuideLabel.isHidden = false
+            validCheckArray[1] = false
+        }
+        checkAllPass()
+        
+        return false
     }
 }

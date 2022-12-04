@@ -12,6 +12,7 @@ import Then
 import UIKit
 import SnapKit
 import FirebaseAuth
+import AnyFormatKit
 
 class SignUpFirstViewController: BaseViewController {
     
@@ -50,8 +51,9 @@ class SignUpFirstViewController: BaseViewController {
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordConfirmTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        phoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         authcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        phoneTextField.delegate = self
 
     }
 
@@ -102,23 +104,6 @@ class SignUpFirstViewController: BaseViewController {
                 passwordConfirmGuideLabel.isHidden = true
                 validCheckArray[1] = true
                 checkAllPass()
-            }
-        }
-        else if textField == phoneTextField {
-            phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal) //입력하면 '인증번호 발송' 버튼으로 바뀌어야함
-            
-            var textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
-                phoneButton.setDisable()
-                if (textFieldText.count == 4){
-                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 3))
-                }
-                else if (textFieldText.count == 9){
-                    textField.text?.insert("-", at: textFieldText.index(textFieldText.startIndex, offsetBy: 8))
-                }
-            }
-            else{
-                phoneButton.setEnable()
             }
         }
         else if textField == authcodeTextField {
@@ -842,5 +827,34 @@ extension SignUpFirstViewController {
     
     func failedToRequest(message: String) {
         AppContext.shared.makeToast(message)
+    }
+}
+
+extension SignUpFirstViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard let text = textField.text else {
+            return false
+        }
+        let characterSet = CharacterSet(charactersIn: string)
+        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
+            return false
+        }
+
+        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####") //포맷 제한
+        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
+        textField.text = result.formattedText
+        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
+        textField.selectedTextRange = textField.textRange(from: position, to: position)
+        
+        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때 인증문자 발송 버튼 비활성화
+            phoneButton.setDisable()
+        }
+        else{
+            phoneButton.setEnable()
+        }
+        
+        return false
     }
 }

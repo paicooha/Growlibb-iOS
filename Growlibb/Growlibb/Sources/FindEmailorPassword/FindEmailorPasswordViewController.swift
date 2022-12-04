@@ -13,6 +13,7 @@ import UIKit
 import SnapKit
 import Toast_Swift
 import FirebaseAuth
+import AnyFormatKit
 
 final class FindEmailorPasswordViewController: BaseViewController {
     
@@ -47,13 +48,14 @@ final class FindEmailorPasswordViewController: BaseViewController {
         viewModelInput()
 //        viewModelOutput()
         
-        findEmailphoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         findEmailauthcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         findpasswordemailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        findpasswordphoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         findpasswordauthcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         findpasswordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         findpasswordConfirmTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        findEmailphoneTextField.delegate = self
+        findpasswordphoneTextField.delegate = self
     }
 
     init(viewModel: FindEmailorPasswordViewModel) {
@@ -230,6 +232,9 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 passwordFindView.isHidden = true
                 passwordFoundView.isHidden = true
                 
+                findEmailphoneTextField.text = ""
+                findEmailauthcodeTextField.text = ""
+                
                 buttonAction = [true, false, false, false]
                 
                 self.findTitle.text = L10n.Find.Email.Guide.title
@@ -252,6 +257,10 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 emailFoundView.isHidden = true
                 passwordFindView.isHidden = false
                 passwordFoundView.isHidden = true
+                
+                findpasswordemailTextField.text = ""
+                findpasswordphoneTextField.text = ""
+                findpasswordauthcodeTextField.text = ""
                 
                 buttonAction = [false, false, true, false]
                 
@@ -1079,5 +1088,44 @@ extension FindEmailorPasswordViewController {
     func failedToRequest(message: String) {
         
         AppContext.shared.makeToast(message)
+    }
+}
+
+extension FindEmailorPasswordViewController: UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let text = textField.text else {
+            return false
+        }
+        let characterSet = CharacterSet(charactersIn: string)
+        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
+            return false
+        }
+
+        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####") //포맷 제한
+        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
+        textField.text = result.formattedText
+        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
+        textField.selectedTextRange = textField.textRange(from: position, to: position)
+        
+        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
+            if (textField == findEmailphoneTextField){
+                findEmailphoneButton.setDisable()
+            }
+            else{
+                findpasswordphoneButton.setDisable()
+            }
+        }
+        else{
+            if (textField == findEmailphoneTextField){
+                findEmailphoneButton.setEnable()
+            }
+            else{
+                findpasswordphoneButton.setEnable()
+            }
+        }
+        
+        return false
     }
 }
