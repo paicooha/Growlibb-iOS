@@ -32,6 +32,8 @@ final class SignUpSecondViewController: BaseViewController {
         
         setupViews()
         initialLayout()
+        
+        setDropdown()
 
         viewModelInput()
 //        viewModelOutput()
@@ -270,13 +272,6 @@ final class SignUpSecondViewController: BaseViewController {
         make.layer.cornerRadius = 12
     }
     
-    //dropdown할때 보여줄 뷰
-    private var dropDownView = UIView().then { make in
-        make.backgroundColor = .white
-        make.layer.cornerRadius = 12
-        make.clipsToBounds = true
-    }
-    
     private var dropDown = DropDown()
     
     private var dropdownImageView = UIImageView().then { make in
@@ -300,11 +295,10 @@ final class SignUpSecondViewController: BaseViewController {
         
         //dropdown 기능
         dropDown.dataSource = jobList //아이템 리스트
-        dropDown.anchorView = dropDownView //드롭다운했을 때의 UI
-//        dropDown.topOffset = CGPoint(x: 0, y: dropDownView.bounds.height) //view 아래에 바로 item 팝업이 붙도록
-//        dropDown.direction = .top //방향
-        
-        dropDown.width = self.jobSelectButton.bounds.width
+        dropDown.anchorView = jobSelectButton //드롭다운이 펼쳐질 축이 되는 UI
+        dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
+        dropDown.direction = .bottom
+        dropDown.textFont = .pretendardMedium14
         
         // Item 선택 시 처리
         dropDown.selectionAction = { [weak self] (index, item) in
@@ -352,8 +346,6 @@ extension SignUpSecondViewController {
             dropdownImageView,
             nextButton
         ])
-        
-        setDropdown()
     }
 
     private func initialLayout() {
@@ -438,10 +430,6 @@ extension SignUpSecondViewController {
             make.height.equalTo(57)
             make.leading.equalTo(jobTitleLabel.snp.leading)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
-        }
-        
-        dropDownView.snp.makeConstraints{ make in
-            make.width.equalTo(jobSelectButton.bounds.width)
         }
         
         dropdownImageView.snp.makeConstraints { make in
