@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.4.4)
   - AlamofireNetworkActivityLogger (3.4.0):
     - Alamofire (~> 5.4.0)
+  - AnyFormatKit (2.5.2)
   - Differentiator (5.0.0)
   - DropDown (2.3.13)
   - Firebase/Analytics (10.1.0):
@@ -147,6 +148,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.4.4)
   - AlamofireNetworkActivityLogger (~> 3.4.0)
+  - AnyFormatKit
   - DropDown (= 2.3.13)
   - Firebase/Analytics
   - Firebase/Auth
@@ -169,6 +171,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireNetworkActivityLogger
+    - AnyFormatKit
     - Differentiator
     - DropDown
     - Firebase
@@ -202,6 +205,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   AlamofireNetworkActivityLogger: 162ab8aee00e6267a4304d7cc134e13ccfe3bcc5
+  AnyFormatKit: b0dbb2a5f2fe7a0fc97f401f8a219a47ee63a335
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   Firebase: 444b35a9c568a516666213c2f6cccd10cb12559f
@@ -232,6 +236,6 @@ SPEC CHECKSUMS:
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: ac1984f18a7858d98653d0fc707f1d6422840a32
+PODFILE CHECKSUM: 5374bd5e810874642422a35791ca1311e10a2fee
 
 COCOAPODS: 1.11.3
