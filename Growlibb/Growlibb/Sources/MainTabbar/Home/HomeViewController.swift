@@ -22,6 +22,8 @@ class HomeViewController: BaseViewController {
     var retroSpectList = [LatestRetrospectionInfo]()
     var dateUtil = DateUtil.shared
     
+    var datesWithEvent = [Date]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -328,7 +330,8 @@ class HomeViewController: BaseViewController {
         view.appearance.weekdayTextColor = .black //일~토 제목 타이틀 색
         view.weekdayHeight = 34
 
-        
+        view.appearance.eventDefaultColor = .primaryBlue //이벤트 컬러
+
     }
     
     private var prevMonthButton = UIButton().then{ view in
@@ -465,6 +468,25 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             return .white
         }
     }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int { //이벤트가 있을 시, 점을 몇개 표시할건지
+        if self.datesWithEvent.contains(date){
+            return 1
+        }
+        else{
+            return 0
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        return false
+    }
+    
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let eventScaleFactor: CGFloat = 1.5
+        cell.eventIndicator.transform = CGAffineTransform(scaleX: eventScaleFactor, y: eventScaleFactor)
+    }
+    
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -499,6 +521,13 @@ extension HomeViewController {
             goRetrospectButton.isHidden = true
                         
             retrospectListTableView.isHidden = false
+        }
+        
+        if !result.retrospectionDates.isEmpty{
+            for i in result.retrospectionDates{
+                datesWithEvent.append(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
+            }
+            calendar.reloadData()
         }
     }
     

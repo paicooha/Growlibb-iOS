@@ -17,7 +17,7 @@ struct GetHomeResponse: Codable {
 
 // MARK: - Result
 struct GetHomeResult: Codable {
-    var retrospectionDates: [Int]
+    var retrospectionDates: [String]
     var latestRetrospectionInfos: [LatestRetrospectionInfo]
 }
 
