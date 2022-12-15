@@ -39,4 +39,10 @@ class DateUtil {
 
         return dateFormatter.string(from: date)
     }
+    
+    func getDatefromTimezoneDate(for date: Date) -> Date {
+        return date.addingTimeInterval(9 * 60 * 60)
+    }
+    
+    
 }

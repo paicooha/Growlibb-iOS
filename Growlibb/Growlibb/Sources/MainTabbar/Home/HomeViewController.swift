@@ -330,7 +330,7 @@ class HomeViewController: BaseViewController {
         view.appearance.weekdayTextColor = .black //일~토 제목 타이틀 색
         view.weekdayHeight = 34
 
-        view.appearance.eventDefaultColor = .primaryBlue //이벤트 컬러
+        view.appearance.eventDefaultColor = .primaryBlue.withAlphaComponent(0.4) //이벤트 컬러
 
     }
     
@@ -419,7 +419,7 @@ extension HomeViewController {
             make.top.equalTo(calendarHeaderTitle.snp.bottom).offset(30)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(188)
+            make.height.equalTo(200)
         }
         
         retrospectTitle.snp.makeConstraints { make in
@@ -456,15 +456,29 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         let day = Calendar.current.component(.weekday, from: date) - 1
         
         if dateUtil.formattedString(for: dateUtil.now, format: .yyMMdd) != dateUtil.formattedString(for: date, format: .yyMMdd) { //'오늘'이 아닐 경우
-            if Calendar.current.shortWeekdaySymbols[day] == "일" {
-                return .salmon
-            } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
-                return .cornFlower
-            } else {
+            if date < dateUtil.now { //이전 날짜일 경우
+                if Calendar.current.shortWeekdaySymbols[day] == "일" {
+                    return .salmon.withAlphaComponent(0.4)
+                } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+                    return .cornFlower.withAlphaComponent(0.4)
+                } else {
+                    return .black.withAlphaComponent(0.4)
+                }
+            }
+            else if date > dateUtil.now{ //이후 날짜일 경우
+                if Calendar.current.shortWeekdaySymbols[day] == "일" {
+                    return .salmon
+                } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+                    return .cornFlower
+                } else {
+                    return .black
+                }
+            }
+            else{
                 return .black
             }
         }
-        else{ //오늘은 'white' 로 표시
+        else{
             return .white
         }
     }
@@ -478,11 +492,11 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
         }
     }
     
-    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool { //캘린더 날짜 선택 가능여부
         return false
     }
     
-    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) { //이벤트 dot 반경 지정
         let eventScaleFactor: CGFloat = 1.5
         cell.eventIndicator.transform = CGAffineTransform(scaleX: eventScaleFactor, y: eventScaleFactor)
     }
