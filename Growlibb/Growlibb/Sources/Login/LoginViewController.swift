@@ -33,26 +33,9 @@ final class LoginViewController: BaseViewController {
         
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
-        goToSignupLabel.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.viewModel.inputs.goToSignup.onNext(())
-            })
-            .disposed(by: disposeBag)
-        
-        loginButton.rx.tap
-            .subscribe(onNext: { _ in
-                self.loginDataManager.postLogin(viewController: self, email: self.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), password: self.passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
-            })
-            .disposed(by: disposeBag)
-        
-        findEmailorPasswordLabel.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.viewModel.inputs.goToFindEmailorPassword.onNext(())
-            })
-            .disposed(by: disposeBag)
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -80,7 +63,25 @@ final class LoginViewController: BaseViewController {
     private var viewModel: LoginViewModel
 
     private func viewModelInput() {
+        goToSignupLabel.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.viewModel.inputs.goToSignup.onNext(())
+            })
+            .disposed(by: disposeBag)
         
+        loginButton.rx.tap
+            .subscribe(onNext: { _ in
+                self.loginDataManager.postLogin(viewController: self, email: self.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), password: self.passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+            })
+            .disposed(by: disposeBag)
+        
+        findEmailorPasswordLabel.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.viewModel.inputs.goToFindEmailorPassword.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
 //
 //    private func viewModelOutput() {

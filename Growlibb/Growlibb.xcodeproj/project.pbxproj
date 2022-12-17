@@ -611,10 +611,10 @@
 		DACF8202291C03A300AA74E8 /* First */ = {
 			isa = PBXGroup;
 			children = (
-				DAC1854129196126009D7181 /* TutorialFirstViewController.swift */,
-				DAC185432919616F009D7181 /* TutorialFirstViewModel.swift */,
 				DACF81ED291BC7B500AA74E8 /* TutorialFirstComponent.swift */,
 				DACF81EF291BC7BF00AA74E8 /* TutorialFirstCoordinator.swift */,
+				DAC185432919616F009D7181 /* TutorialFirstViewModel.swift */,
+				DAC1854129196126009D7181 /* TutorialFirstViewController.swift */,
 			);
 			path = First;
 			sourceTree = "<group>";
@@ -622,10 +622,10 @@
 		DACF8203291C03A700AA74E8 /* Second */ = {
 			isa = PBXGroup;
 			children = (
-				DACF8204291C03CD00AA74E8 /* TutorialSecondViewController.swift */,
-				DACF8206291C03E000AA74E8 /* TutorialSecondViewModel.swift */,
 				DACF8208291C03E700AA74E8 /* TutorialSecondComponent.swift */,
 				DACF820A291C03F100AA74E8 /* TutorialSecondCoordinator.swift */,
+				DACF8206291C03E000AA74E8 /* TutorialSecondViewModel.swift */,
+				DACF8204291C03CD00AA74E8 /* TutorialSecondViewController.swift */,
 			);
 			path = Second;
 			sourceTree = "<group>";
