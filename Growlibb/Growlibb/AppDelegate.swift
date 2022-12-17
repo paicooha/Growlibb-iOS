@@ -9,6 +9,7 @@ import UIKit
 import FirebaseCore
 import AlamofireNetworkActivityLogger
 import DropDown
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DropDown.startListeningToKeyboard()
         
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let firebaseAuth = Auth.auth()
+        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.unknown)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let firebaseAuth = Auth.auth()
+        if (firebaseAuth.canHandleNotification(userInfo)){
+            print(userInfo)
+            return
+        }
     }
 
     // MARK: UISceneSession Lifecycle
