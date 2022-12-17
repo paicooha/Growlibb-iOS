@@ -49,7 +49,7 @@ class BaseViewController: UIViewController {
 extension BaseViewController: UIGestureRecognizerDelegate {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+        .darkContent
     }
 
     func dismissKeyboardWhenTappedAround() {
