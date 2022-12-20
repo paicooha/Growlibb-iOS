@@ -124,6 +124,8 @@ class SignUpFirstViewController: BaseViewController {
         if (authTime == 0){
             authTimer?.invalidate()
             authcodeButton.setDisable()
+            
+            self.verificationId = "" //3분지났을 시 인증번호 무효화
         }
     }
     
@@ -795,6 +797,8 @@ extension SignUpFirstViewController {
             self.phoneGuideLabel.isHidden = true
 
             //인증코드 타이머
+            self.authTimer?.invalidate()
+            
             self.authTime = 180
             self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
             
@@ -854,6 +858,8 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         else{
             phoneButton.setEnable()
         }
+        
+        phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
         
         return false
     }
