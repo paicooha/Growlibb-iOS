@@ -37,10 +37,7 @@ class SignUpFirstViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        //scroll에서 보여줄 영역
-        contentViewSize = CGSize(width: self.view.frame.width - 56, height: self.view.frame.height + 200)
-        
+                        
         setupViews()
         initialLayout()
 
@@ -54,7 +51,6 @@ class SignUpFirstViewController: BaseViewController {
         authcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         phoneTextField.delegate = self
-
     }
 
     init(viewModel: SignUpFirstViewModel) {
@@ -328,9 +324,12 @@ class SignUpFirstViewController: BaseViewController {
     private var scrollView = UIScrollView(frame: .zero).then { view in
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private var contentView = UIView()
+    private var contentView = UIView().then { view in
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private var navBar = NavBar().then{ make in
         make.leftBtnItem.isHidden = false
@@ -544,13 +543,8 @@ extension SignUpFirstViewController {
             scrollView
         ])
         
-        //scrollview
-        scrollView.contentSize = contentViewSize
-        scrollView.frame = self.view.bounds
         scrollView.addSubview(contentView)
         
-        //contentview
-        contentView.frame.size = contentViewSize
         contentView.addSubviews([
             titleLabel,
             guideLabel,
@@ -597,12 +591,15 @@ extension SignUpFirstViewController {
             make.top.equalTo(navBar.snp.bottom)
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
         contentView.snp.makeConstraints{ make in
-            make.top.width.equalToSuperview()
-            make.height.equalTo(contentViewSize.height)
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+            make.width.equalTo(scrollView.snp.width)
         }
         
         titleLabel.snp.makeConstraints{ make in
@@ -767,6 +764,7 @@ extension SignUpFirstViewController {
         }
         
         nextButton.snp.makeConstraints{ make in
+            make.top.equalTo(seePrivacyLabel.snp.bottom).offset(57)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom).offset(-42)
