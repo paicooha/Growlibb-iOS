@@ -69,7 +69,7 @@ final class SignUpSecondViewController: BaseViewController {
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if nicknameTextField.text?.count ?? 0 >= 2 {
+        if nicknameTextField.text?.count ?? 0 >= 1 {
             nicknameButton.setEnable()
             checkMaxLength(textField: textField, maxLength: 10)
         }
