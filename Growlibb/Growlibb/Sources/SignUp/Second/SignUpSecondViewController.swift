@@ -67,14 +67,7 @@ final class SignUpSecondViewController: BaseViewController {
             nextButton.setDisable()
         }
     }
-    
-    func checkMaxLength(textField: UITextField!, maxLength: Int) { //10글자 제한
-        if (textField.text?.count ?? 0 > maxLength) {
-            textField.deleteBackward()
-        }
-    }
 
-    
     @objc func textFieldDidChange(_ textField: UITextField) {
         if nicknameTextField.text?.count ?? 0 >= 2 {
             nicknameButton.setEnable()

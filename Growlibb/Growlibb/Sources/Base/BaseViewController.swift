@@ -42,6 +42,12 @@ class BaseViewController: UIViewController {
         
         dismissKeyboardWhenTappedAround()
     }
+    
+    func checkMaxLength(textField: UITextField!, maxLength: Int) { //10글자 제한
+        if (textField.text?.count ?? 0 > maxLength) {
+            textField.deleteBackward()
+        }
+    }
 }
 
 // MARK: - Base Functions

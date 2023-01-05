@@ -71,6 +71,8 @@ final class FindEmailorPasswordViewController: BaseViewController {
     @objc func textFieldDidChange(_ textField: UITextField){
     
         if textField == findEmailauthcodeTextField {
+            checkMaxLength(textField: textField, maxLength: 6)
+            
             if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
                 findEmailauthcodeButton.setEnable()
             }
@@ -97,6 +99,8 @@ final class FindEmailorPasswordViewController: BaseViewController {
             }
         }
         else if textField == findpasswordauthcodeTextField {
+            checkMaxLength(textField: textField, maxLength: 6)
+
             if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
                 findpasswordauthcodeButton.setEnable()
             }

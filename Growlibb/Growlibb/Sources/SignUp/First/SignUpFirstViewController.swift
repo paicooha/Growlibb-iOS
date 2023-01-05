@@ -103,6 +103,8 @@ class SignUpFirstViewController: BaseViewController {
             }
         }
         else if textField == authcodeTextField {
+            checkMaxLength(textField: textField, maxLength: 6)
+            
             if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
                 authcodeButton.setEnable()
             }
