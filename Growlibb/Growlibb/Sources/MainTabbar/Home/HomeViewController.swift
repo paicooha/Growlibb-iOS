@@ -297,6 +297,7 @@ class HomeViewController: BaseViewController {
     private var retrospectListTableView = UITableView().then { view in
         view.isHidden = true
         view.separatorColor = .clear //구분선 없애기
+        view.showsVerticalScrollIndicator = false
     }
     
     private var noRetrospectView = UIButton().then { view in
@@ -516,6 +517,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.label.text = "\(DateUtil.shared.formattedString(for: apiDate!, format: .yyyyMddKR))🌱"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65.0
     }
 }
 

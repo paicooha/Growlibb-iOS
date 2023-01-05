@@ -23,6 +23,12 @@ class HomeRetrospectTableViewCell: UITableViewCell {
         setup() // cell 세팅
         initialLayout() // cell 레이아웃 설정
     }
+    
+    var backGround = UIView().then { view in
+        view.backgroundColor = .veryLightGray
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 12
+    }
 
     var label = UILabel().then { label in
         label.font = .pretendardMedium12
@@ -33,23 +39,24 @@ class HomeRetrospectTableViewCell: UITableViewCell {
 
 extension HomeRetrospectTableViewCell {
     private func setup() {
-        backgroundColor = .veryLightGray
-        self.clipsToBounds = true
-        self.layer.cornerRadius = 12
-
+        
         contentView.addSubviews([
+            backGround,
             label,
         ])
     }
 
     private func initialLayout() {
-        contentView.snp.makeConstraints { make in
-            make.height.equalTo(57)
+        backGround.snp.makeConstraints{ make in
+            make.top.equalTo(self.contentView.snp.top)
+            make.leading.equalTo(self.contentView.snp.leading)
+            make.trailing.equalTo(self.contentView.snp.trailing)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-8)
         }
         
         label.snp.makeConstraints{ make in
-            make.leading.equalTo(contentView.snp.leading).offset(20)
-            make.centerY.equalTo(contentView.snp.centerY)
+            make.leading.equalTo(backGround.snp.leading).offset(20)
+            make.centerY.equalTo(backGround.snp.centerY)
         }
     }
 }
