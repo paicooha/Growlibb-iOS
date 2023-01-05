@@ -173,6 +173,16 @@ final class SignUpSecondViewController: BaseViewController {
 //            })
 //            .disposed(by: disposeBag)
 //    }
+    private var scrollView = UIScrollView(frame: .zero).then { view in
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alwaysBounceVertical = false
+    }
+    
+    private var contentView = UIView().then { view in
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
 
     private var navBar = NavBar().then{ make in
         make.leftBtnItem.isHidden = false
@@ -322,6 +332,12 @@ extension SignUpSecondViewController {
         
         view.addSubviews([
             navBar,
+            scrollView
+        ])
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubviews([
             titleLabel,
             guideLabel,
             nicknameTitleLabel,
@@ -348,9 +364,24 @@ extension SignUpSecondViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
         
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints{ make in
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+            make.width.equalTo(scrollView.snp.width)
+        }
+        
         titleLabel.snp.makeConstraints{ make in
-            make.top.equalTo(navBar.snp.bottom).offset(39)
-            make.leading.equalTo(view.snp.leading).offset(28)
+            make.top.equalTo(contentView.snp.top).offset(39)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
         }
         
         guideLabel.snp.makeConstraints{ make in
@@ -377,7 +408,7 @@ extension SignUpSecondViewController {
         nicknameButton.snp.makeConstraints{ make in
             make.centerY.equalTo(nicknameTextField.snp.centerY)
             make.width.equalTo(98)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
         
         genderTitleLabel.snp.makeConstraints{ make in
@@ -388,13 +419,13 @@ extension SignUpSecondViewController {
         manButton.snp.makeConstraints{ make in
             make.leading.equalTo(genderTitleLabel.snp.leading)
             make.top.equalTo(genderTitleLabel.snp.bottom).offset(5)
-            make.trailing.equalTo(view.snp.centerX).offset(-6)
+            make.trailing.equalTo(contentView.snp.centerX).offset(-6)
         }
         
         womanButton.snp.makeConstraints{ make in
             make.centerY.equalTo(manButton.snp.centerY)
-            make.leading.equalTo(view.snp.centerX).offset(6)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.leading.equalTo(contentView.snp.centerX).offset(6)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
         
         birthTitleLabel.snp.makeConstraints{ make in
@@ -405,7 +436,7 @@ extension SignUpSecondViewController {
         birthTextField.snp.makeConstraints{ make in
             make.top.equalTo(birthTitleLabel.snp.bottom).offset(5)
             make.leading.equalTo(birthTitleLabel.snp.leading)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
         
         birthGuideLabel.snp.makeConstraints{ make in
@@ -422,7 +453,7 @@ extension SignUpSecondViewController {
             make.top.equalTo(jobTitleLabel.snp.bottom).offset(5)
             make.height.equalTo(57)
             make.leading.equalTo(jobTitleLabel.snp.leading)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
         
         dropdownImageView.snp.makeConstraints { make in
@@ -431,9 +462,10 @@ extension SignUpSecondViewController {
         }
         
         nextButton.snp.makeConstraints{ make in
-            make.leading.equalTo(view.snp.leading).offset(28)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom).offset(-42)
+            make.top.equalTo(dropdownImageView.snp.bottom).offset(56)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-42)
         }
 
     }
