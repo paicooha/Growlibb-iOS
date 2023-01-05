@@ -31,12 +31,7 @@ class SignUpDataManager {
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
                 case let .success(response):
-                    if response.isSuccess {
-                        viewController.didSuccessCheckNickname(code: response.code)
-
-                    } else {
-                        viewController.failedToRequest(message: "서버와의 연결이 원활하지 않습니다")
-                    }
+                    viewController.didSuccessCheckNickname(code: response.code)
                 case let .failure(error):
                     print(error)
                     viewController.failedToRequest(message: "서버와의 연결이 원활하지 않습니다")
