@@ -135,8 +135,8 @@ class MainTabViewController: BaseViewController {
         button.setImage(Asset.icHomeGray.image, for: .normal)
         button.setImage(Asset.icHomeBlue.image, for: .selected)
         button.snp.makeConstraints { make in
-            make.width.equalTo(22)
-            make.height.equalTo(20)
+            make.width.equalTo(21)
+            make.height.equalTo(18)
         }
     }
     
@@ -151,7 +151,7 @@ class MainTabViewController: BaseViewController {
         axis: .vertical,
         alignment: .center,
         distribution: .equalCentering,
-        spacing: 5
+        spacing: 4
     )
 
     private var retrospectBtn = UIButton().then { button in
@@ -173,7 +173,7 @@ class MainTabViewController: BaseViewController {
         axis: .vertical,
         alignment: .center,
         distribution: .equalCentering,
-        spacing: 5
+        spacing: 4
     )
 
     private var myPageBtn = UIButton().then { button in
@@ -195,7 +195,7 @@ class MainTabViewController: BaseViewController {
         axis: .vertical,
         alignment: .center,
         distribution: .equalCentering,
-        spacing: 5
+        spacing: 4
     )
 
     private lazy var bottomContentHStack = UIStackView.make(
@@ -243,15 +243,33 @@ extension MainTabViewController {
         }
 
         homeTabVStack.snp.makeConstraints { make in
-            make.centerY.equalTo(bottomView.snp.centerY)
+            if !UIScreen.main.isWiderThan375pt{ //SE, 미니인 경우 세로로 10씩 떨어지도록
+                make.top.equalTo(bottomView.snp.top).offset(10)
+                make.bottom.equalTo(bottomView.snp.bottom).offset(-10)
+            }
+            else{ //safe area가 있는 iPhoneX 이상의 기기에서는 centerY에 위치하도록
+                make.centerY.equalTo(bottomView.snp.centerY)
+            }
         }
 
         retrospectTabVStack.snp.makeConstraints { make in
-            make.centerY.equalTo(bottomView.snp.centerY)
+            if !UIScreen.main.isWiderThan375pt{
+                make.top.equalTo(bottomView.snp.top).offset(10)
+                make.bottom.equalTo(bottomView.snp.bottom).offset(-10)
+            }
+            else{
+                make.centerY.equalTo(bottomView.snp.centerY)
+            }
         }
 
         myPageTabVStack.snp.makeConstraints { make in
-            make.centerY.equalTo(bottomView.snp.centerY)
+            if !UIScreen.main.isWiderThan375pt{
+                make.top.equalTo(bottomView.snp.top).offset(10)
+                make.bottom.equalTo(bottomView.snp.bottom).offset(-10)
+            }
+            else{
+                make.centerY.equalTo(bottomView.snp.centerY)
+            }
         }
     }
 }
