@@ -133,7 +133,7 @@ extension TutorialFirstViewController {
         }
         
         detailLabel.snp.makeConstraints { make in
-            make.top.equalTo(detailLabelBackground.snp.top).offset(74)
+            make.top.equalTo(detailLabelBackground.snp.top).offset(UIScreen.main.isWiderThan375pt ? 74: 34)
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-34)
         }
@@ -141,7 +141,7 @@ extension TutorialFirstViewController {
         button.snp.makeConstraints{ make in
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom).offset(-52)
+            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -52 : -22)
         }
     }
 }

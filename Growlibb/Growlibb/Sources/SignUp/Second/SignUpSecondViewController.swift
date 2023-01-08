@@ -465,7 +465,7 @@ extension SignUpSecondViewController {
             make.top.equalTo(dropdownImageView.snp.bottom).offset(56)
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-42)
+            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
 
     }

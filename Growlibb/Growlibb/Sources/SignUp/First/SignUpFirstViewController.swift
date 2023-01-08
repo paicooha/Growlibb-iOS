@@ -769,7 +769,7 @@ extension SignUpFirstViewController {
             make.top.equalTo(seePrivacyLabel.snp.bottom).offset(57)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-42)
+            make.bottom.equalTo(contentView.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
     }
 }

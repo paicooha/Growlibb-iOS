@@ -963,7 +963,7 @@ extension FindEmailorPasswordViewController {
         bottomButton.snp.makeConstraints{ make in
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom).offset(-42)
+            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
         
     }

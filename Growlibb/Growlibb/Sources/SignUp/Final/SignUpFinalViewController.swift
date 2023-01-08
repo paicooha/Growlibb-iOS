@@ -144,7 +144,7 @@ extension SignUpFinalViewController {
         }
                 
         titleLabel.snp.makeConstraints{ make in
-            make.top.equalTo(navBar.snp.bottom).offset(39)
+            make.top.equalTo(navBar.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? 39 : 9)
             make.leading.equalTo(view.snp.leading).offset(28)
         }
 
@@ -156,7 +156,7 @@ extension SignUpFinalViewController {
         nextButton.snp.makeConstraints{ make in
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalToSuperview().offset(-42)
+            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
     }
 }
