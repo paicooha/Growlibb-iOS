@@ -10,7 +10,7 @@ struct GetJwtResponse: Codable {
     var isSuccess: Bool
     var code: Int
     var message: String
-    var result: GetJwtResult
+    var result: GetJwtResult?
 }
 
 // MARK: - Result

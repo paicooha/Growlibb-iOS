@@ -41,8 +41,12 @@ final class AppCoordinator: BasicCoordinator<Void> {
         window.makeKeyAndVisible()
         
         if UserDefaults.standard.bool(forKey: "isPassedTutorial"){
-            loginDataManager.checkJwt(viewController: self)
-            print(Constants().HEADERS.value(for: "x-access-token"))
+            if loginKeyChainService.token?.jwt != nil { //jwt가 nil이 아닐 경우 -> jwt 검증
+                loginDataManager.checkJwt(viewController: self)
+            }
+            else{ //jwt가 nil -> 로그인 화면 이동
+                self.showLogin(animated: true)
+            }
         }
         else{
             self.showTutorial(animated: true)
@@ -78,7 +82,7 @@ final class AppCoordinator: BasicCoordinator<Void> {
 
 extension AppCoordinator {
     func didSuccessGetJwt(result: GetJwtResult) {
-        self.loginKeyChainService.setLoginInfo(loginType: LoginType.member, userID: result.userID, token: LoginToken(jwt: result.jwt))
+        self.loginKeyChainService.setLoginInfo(loginType: LoginType.member, userID: result.userID, token: LoginToken(jwt: result.jwt)) //jwt 검증 성공시, 서버에서 새로 발급하는 jwt keychain에 저장
         self.userKeyChainService.nickName = result.nickname
         
         if result.notificationStatus == "Y" { //알림이 '예'일 경우에 fcm 토큰 갱신 호출

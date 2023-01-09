@@ -37,7 +37,7 @@ class LoginDataManager {
                 case let .success(response):
                     print(response)
                     if response.isSuccess {
-                        viewController.didSuccessGetJwt(result: response.result)
+                        viewController.didSuccessGetJwt(result: response.result!)
                     } else {
                         viewController.didFailgetJwt()
                     }
