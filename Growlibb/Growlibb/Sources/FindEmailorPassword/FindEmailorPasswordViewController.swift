@@ -33,7 +33,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     //순서대로 이메일찾기, 로그인화면 이동(이메일), 비밀번호 찾기, 로그인 화면 이동(비밀번호) -> 초기에는 이메일찾기이므로 1
     var buttonAction = [true, false, false, false]
     
-    //이메일, 인증번호 검증을 모두 통과했는지 여부에 대한 배열
+    //'비밀번호 재설정' 탭에서 이메일, 인증번호 검증을 모두 통과했는지 여부에 대한 배열
     //차례대로 이메일, 인증번호
     var validCheckArray = [false, false]
     
@@ -86,12 +86,16 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 findpasswordEmailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
                 
                 validCheckArray[0] = false
+                
+                bottomButton.setDisable() //추후에 다시 수정할 수 있으므로
             }
             else{ //이메일 도메인 길이 체크
                 if ((findpasswordemailTextField.text?.components(separatedBy: "@").first?.count)! > 64) || ((findpasswordemailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
                     findpasswordEmailGuideLabel.isHidden = false
                     findpasswordEmailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
                     validCheckArray[0] = false
+                    
+                    bottomButton.setDisable()
                 }
                 validCheckArray[0] = true
                 findpasswordEmailGuideLabel.isHidden = true
@@ -115,10 +119,22 @@ final class FindEmailorPasswordViewController: BaseViewController {
             else{
                 findpasswordGuideLabel.isHidden = true
             }
+            
+            //비밀번호 입력창에서도 비밀번호 확인 입력창과 일치하는지 검증해야함
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != findpasswordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " && !(findpasswordConfirmTextField.text ?? "").isEmpty {
+                findpasswordConfirmGuideLabel.isHidden = false
+                
+                bottomButton.setDisable()
+            }
+            else{
+                findpasswordConfirmGuideLabel.isHidden = true
+                bottomButton.setEnable()
+            }
         }
         else if textField == findpasswordConfirmTextField {
             if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != findpasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " {
                 findpasswordConfirmGuideLabel.isHidden = false
+                bottomButton.setDisable()
             }
             else{
                 bottomButton.setEnable()
@@ -215,6 +231,8 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 findEmailphoneButton.setDisable()
                 findEmailauthcodeButton.setDisable()
                 
+                bottomButton.setDisable()
+                
                 buttonAction = [true, false, false, false]
                 
                 self.findTitle.text = L10n.Find.Email.Guide.title
@@ -246,6 +264,8 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 findpasswordphoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
                 findpasswordphoneButton.setDisable()
                 findpasswordauthcodeButton.setDisable()
+                
+                bottomButton.setDisable()
                 
                 buttonAction = [false, false, true, false]
                 
@@ -294,11 +314,9 @@ final class FindEmailorPasswordViewController: BaseViewController {
                     self.foundemailTextField.text = self.email
                     
                     self.bottomButton.setTitle(L10n.Confirm.Button.title, for: .normal)
-                    
-                    self.buttonAction[0] = false
-                    self.buttonAction[1] = true
-                    
                     self.bottomButton.setEnable()
+                    
+                    self.buttonAction = [false, true, false, false]
                 }
             })
             .disposed(by: disposeBag)
@@ -513,7 +531,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     }
     
     private var findEmailauthGuideLabel = UILabel().then{ make in
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.textColor = .primaryBlue
         make.text = L10n.SignUp.Code.guidelabel
         make.isHidden = true
@@ -522,7 +540,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     private var findEmailcodeConfirmGuideLabel = UILabel().then{ make in
         make.text = L10n.SignUp.Code.guidelabel
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -625,7 +643,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     }
     
     private var findpasswordauthGuideLabel = UILabel().then{ make in
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.textColor = .primaryBlue
         make.text = L10n.SignUp.Code.guidelabel
         make.isHidden = true
@@ -657,7 +675,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
         make.text = L10n.SignUp.Password.guidelabel
         make.numberOfLines = 0
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -676,7 +694,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
     private var findpasswordConfirmGuideLabel = UILabel().then{ make in
         make.text = L10n.SignUp.Passwordconfirm.guidelabel
         make.textColor = .primaryBlue
-        make.font = .pretendardMedium14
+        make.font = .pretendardMedium12
         make.isHidden = true
     }
     
@@ -1115,6 +1133,7 @@ extension FindEmailorPasswordViewController: UITextFieldDelegate{
                 findpasswordphoneButton.setDisable()
                 findpasswordphoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
             }
+            bottomButton.setDisable()
         }
         else{
             if (textField == findEmailphoneTextField){

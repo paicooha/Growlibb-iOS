@@ -24,8 +24,8 @@ class SignUpFirstViewController: BaseViewController {
     var authTime = 180 //3분
     var authTimer: Timer?
     
-//    var sendCodebuttonTime = 2 //2초
-//    var sendCodeButtonTimer: Timer?
+    //    var sendCodebuttonTime = 2 //2초
+    //    var sendCodeButtonTimer: Timer?
     
     //아이디, 비밀번호, 인증번호, 약관동의를 모두 했는지 확인하기 위한 배열
     var validCheckArray = [false, false, false, false]
@@ -34,15 +34,15 @@ class SignUpFirstViewController: BaseViewController {
     var termsOfUseArray = [false, false]
     
     lazy var signUpDataManager = SignUpDataManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                        
+        
         setupViews()
         initialLayout()
-
+        
         viewModelInput()
-//        viewModelOutput()
+        //        viewModelOutput()
         
         //실시간으로 textfield 입력하는 부분 이벤트 받아서 처리
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -67,12 +67,12 @@ class SignUpFirstViewController: BaseViewController {
         authcodeButton.setDisable()
         nextButton.setDisable()
     }
-
+    
     init(viewModel: SignUpFirstViewModel) {
         self.viewModel = viewModel
         super.init()
     }
-
+    
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -84,32 +84,51 @@ class SignUpFirstViewController: BaseViewController {
                 emailGuideLabel.isHidden = false
                 emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
                 validCheckArray[0] = false
+                
+                nextButton.setDisable() //후에 다시수정할 수 있으므로
             }
             else{ //이메일 도메인 길이 체크
                 if ((emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
                     emailGuideLabel.isHidden = false
                     emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
                     validCheckArray[0] = false
+                    
+                    nextButton.setDisable()
                 }
                 else{
                     validCheckArray[0] = true
                     emailGuideLabel.isHidden = true
+                    
+                    checkAllPass()
                 }
-                checkAllPass()
             }
         }
-        else if textField == passwordTextField{
+        else if textField == passwordTextField {
             if !Regex().isValidPassword(input: passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
                 passwordGuideLabel.isHidden = false
             }
             else{
                 passwordGuideLabel.isHidden = true
             }
+            
+            //비밀번호 입력창에서도 비밀번호 확인 입력창과 일치하는지 검증해야함
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != passwordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " && !(passwordConfirmTextField.text ?? "").isEmpty {
+                passwordConfirmGuideLabel.isHidden = false
+                validCheckArray[1] = false
+                
+                nextButton.setDisable()
+            }
+            else{
+                passwordConfirmGuideLabel.isHidden = true
+                validCheckArray[1] = true
+                checkAllPass()
+            }
         }
         else if textField == passwordConfirmTextField {
             if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " {
                 passwordConfirmGuideLabel.isHidden = false
                 validCheckArray[1] = false
+                nextButton.setDisable()
             }
             else{
                 passwordConfirmGuideLabel.isHidden = true
@@ -163,6 +182,7 @@ class SignUpFirstViewController: BaseViewController {
             .subscribe({ _ in
                 //버튼 연타 방지 -> 인증번호 콜백시 활성화하도록 수정
                 self.phoneButton.setDisable()
+                self.authGuideLabel.isHidden = true
                 
 //                self.sendCodebuttonTime = 2
 //                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
@@ -285,7 +305,6 @@ class SignUpFirstViewController: BaseViewController {
             nextButton.setEnable()
         }
         else{
-            print(validCheckArray)
             nextButton.setDisable()
         }
     }
