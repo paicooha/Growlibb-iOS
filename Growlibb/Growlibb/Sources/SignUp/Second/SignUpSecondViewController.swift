@@ -173,7 +173,7 @@ final class SignUpSecondViewController: BaseViewController {
 //            })
 //            .disposed(by: disposeBag)
 //    }
-    private var scrollView = UIScrollView(frame: .zero).then { view in
+    private var scrollView = UIScrollView().then { view in
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -368,7 +368,7 @@ extension SignUpSecondViewController {
             make.top.equalTo(navBar.snp.bottom)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         contentView.snp.makeConstraints{ make in
@@ -462,10 +462,10 @@ extension SignUpSecondViewController {
         }
         
         nextButton.snp.makeConstraints{ make in
-            make.top.equalTo(dropdownImageView.snp.bottom).offset(56)
+            make.top.equalTo(jobSelectButton.snp.bottom).offset(56)
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
+            make.bottom.equalTo(contentView.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
 
     }
@@ -519,7 +519,7 @@ extension SignUpSecondViewController: UITextFieldDelegate{
         
         let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
-        if textFieldText.count == 10 {
+        if textFieldText.count == 10 && Regex().isValidBirthday(input: textFieldText.replacingOccurrences(of: "-", with: "")) {
             birthGuideLabel.isHidden = true
             validCheckArray[1] = true
         }

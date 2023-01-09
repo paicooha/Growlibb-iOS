@@ -602,7 +602,7 @@ extension SignUpFirstViewController {
             make.top.equalTo(navBar.snp.bottom)
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         contentView.snp.makeConstraints{ make in
