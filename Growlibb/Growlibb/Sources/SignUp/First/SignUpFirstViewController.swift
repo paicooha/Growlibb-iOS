@@ -53,10 +53,20 @@ class SignUpFirstViewController: BaseViewController {
         phoneTextField.delegate = self
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        authTime = 180
-//        validCheckArray[2] = false
-//    }
+    override func viewWillAppear(_ animated: Bool) { //다시 돌아올때 인증번호 초기화
+        authTime = 180
+        validCheckArray[2] = false
+        
+        phoneTextField.text = ""
+        authcodeTextField.text = ""
+        authGuideLabel.isHidden = true
+        
+        phoneButton.setDisable()
+        phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
+        
+        authcodeButton.setDisable()
+        nextButton.setDisable()
+    }
 
     init(viewModel: SignUpFirstViewModel) {
         self.viewModel = viewModel
@@ -175,7 +185,7 @@ class SignUpFirstViewController: BaseViewController {
                         self.authGuideLabel.isHidden = false
                         return
                     }
-//                    self.authGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
+                    self.authGuideLabel.isHidden = false
                     self.authGuideLabel.text = L10n.SignUp.Code.Correct.guidelabel //인증완료 텍스트 띄우기
                     self.authTimerLabel.isHidden = true
                     self.authTimer?.invalidate()
@@ -425,10 +435,7 @@ class SignUpFirstViewController: BaseViewController {
         make.keyboardType = .phonePad
     }
     
-    private var phoneButton = ShortButton().then { make in
-        make.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
-        make.setDisable()
-    }
+    private var phoneButton = ShortButton()
     
     private var phoneGuideLabel = UILabel().then{ make in
         make.text = L10n.SignUp.Phone.guidelabel
@@ -456,7 +463,6 @@ class SignUpFirstViewController: BaseViewController {
     
     private var authcodeButton = ShortButton().then { make in
         make.setTitle(L10n.Confirm.Button.title, for: .normal)
-        make.setDisable()
     }
     
     private var authGuideLabel = UILabel().then{ make in
@@ -534,10 +540,7 @@ class SignUpFirstViewController: BaseViewController {
     
     private var nextButton = LongButton().then { make in
         make.setTitle(L10n.Next.Button.title, for: .normal)
-        make.setDisable()
     }
-    
-    
 }
 
 // MARK: - Layout
