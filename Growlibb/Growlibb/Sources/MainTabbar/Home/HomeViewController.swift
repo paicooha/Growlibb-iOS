@@ -24,6 +24,8 @@ class HomeViewController: BaseViewController {
     
     var datesWithEvent = [Date]()
     
+    var tableViewHeightConstraint: Constraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -270,6 +272,16 @@ class HomeViewController: BaseViewController {
         self.calendarHeaderTitle.text = DateUtil.shared.formattedString(for: self.currentPage!, format: DateFormat.yyyyMKR)
     }
     
+    private var scrollView = UIScrollView(frame: .zero).then { view in
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private var contentView = UIView().then { view in
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private var logo = UIImageView().then { view in
         view.snp.makeConstraints{ make in
             make.width.height.equalTo(42)
@@ -298,6 +310,7 @@ class HomeViewController: BaseViewController {
         view.isHidden = true
         view.separatorColor = .clear //구분선 없애기
         view.showsVerticalScrollIndicator = false
+        view.isScrollEnabled = false
     }
     
     private var noRetrospectView = UIButton().then { view in
@@ -365,6 +378,12 @@ extension HomeViewController {
     private func setupViews() {
 
         view.addSubviews([
+            scrollView
+        ])
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubviews([
             logo,
             dateLabel,
             titleLabel,
@@ -386,9 +405,25 @@ extension HomeViewController {
 
     private func initialLayout() {
         
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints{ make in
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+            make.width.equalTo(scrollView.snp.width)
+            make.height.equalTo(scrollView.snp.height).priority(.low)
+        }
+        
         logo.snp.makeConstraints{ make in
-            make.top.equalTo(view.snp.top).offset(70) //노치 44
-            make.leading.equalTo(view.snp.leading).offset(25)
+            make.top.equalTo(contentView.snp.top).offset(UIScreen.main.isWiderThan375pt ? 26 : 70) //노치 44
+            make.leading.equalTo(contentView.snp.leading).offset(25)
         }
         
         dateLabel.snp.makeConstraints{ make in
@@ -407,46 +442,48 @@ extension HomeViewController {
         }
         
         prevMonthButton.snp.makeConstraints{ make in
-            make.leading.equalTo(calendar.snp.leading).offset(25)
+            make.leading.equalTo(calendar.snp.leading).offset(20)
             make.centerY.equalTo(calendarHeaderTitle.snp.centerY)
         }
         
         nextMonthButton.snp.makeConstraints{ make in
-            make.trailing.equalTo(calendar.snp.trailing).offset(-25)
+            make.trailing.equalTo(calendar.snp.trailing).offset(-20)
             make.centerY.equalTo(calendarHeaderTitle.snp.centerY)
         }
         
         calendar.snp.makeConstraints { make in
             make.top.equalTo(calendarHeaderTitle.snp.bottom).offset(30)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(200)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.height.equalTo(200) //추후에 높이 수정해야함
         }
         
         retrospectTitle.snp.makeConstraints { make in
-            make.top.equalTo(calendar.snp.bottom).offset(52)
-            make.leading.equalTo(view.snp.leading).offset(28)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.top.equalTo(calendar.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? 52 : 26)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
         
         retrospectListTableView.snp.makeConstraints{ make in
             make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
             make.leading.equalTo(retrospectTitle.snp.leading)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.bottom.equalTo(contentView.snp.bottom)
+            tableViewHeightConstraint = make.height.equalTo(0).priority(.high).constraint
         }
         
         noRetrospectView.snp.makeConstraints{ make in
             make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
             make.leading.equalTo(retrospectTitle.snp.leading)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
             make.height.equalTo(124)
         }
         
         goRetrospectButton.snp.makeConstraints{ make in
             make.top.equalTo(noRetrospectView.snp.bottom).offset(15)
             make.leading.equalTo(retrospectTitle.snp.leading)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-21)
         }
     }
 }
@@ -534,6 +571,12 @@ extension HomeViewController {
             if retroSpectList.isEmpty {
                 retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
                 retrospectListTableView.reloadData()
+                
+                tableViewHeightConstraint.deactivate()
+                retrospectListTableView.snp.makeConstraints{ make in
+                    tableViewHeightConstraint = make.height.equalTo(retrospectListTableView.contentSize.height).constraint
+                }
+                self.view.layoutIfNeeded()
             }
             
             noRetrospectView.isHidden = true
@@ -545,7 +588,10 @@ extension HomeViewController {
         if !result.retrospectionDates.isEmpty{
             for i in result.retrospectionDates{
                 datesWithEvent.append(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
+                print(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
+                print(DateUtil.shared.now)
             }
+            datesWithEvent = datesWithEvent.filter { dateUtil.formattedString(for: $0, format: .yyMMdd) != dateUtil.formattedString(for: dateUtil.now, format: .yyMMdd) }
             calendar.reloadData()
         }
     }
