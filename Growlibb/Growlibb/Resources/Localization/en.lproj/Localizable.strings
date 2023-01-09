@@ -54,6 +54,7 @@
 "SignUp.code.title" = "인증번호";
 "SignUp.code.placeholder" = "인증번호 6자리";
 "SignUp.code.guidelabel" = "인증번호를 다시 입력해주세요.";
+"SignUp.code.correct.guidelabel" = "인증이 완료되었습니다.";
 "SignUp.agree.title" = "약관 동의";
 "SignUp.agree.agreall" = "모두 동의";
 "SignUp.agree.service" = "서비스 이용 약관 동의 [필수]";

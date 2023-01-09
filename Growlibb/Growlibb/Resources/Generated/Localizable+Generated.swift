@@ -216,6 +216,10 @@ internal enum L10n {
       internal static let placeholder = L10n.tr("Localizable", "SignUp.code.placeholder", fallback: "인증번호 6자리")
       /// 인증번호
       internal static let title = L10n.tr("Localizable", "SignUp.code.title", fallback: "인증번호")
+      internal enum Correct {
+        /// 인증이 완료되었습니다.
+        internal static let guidelabel = L10n.tr("Localizable", "SignUp.code.correct.guidelabel", fallback: "인증이 완료되었습니다.")
+      }
     }
     internal enum Email {
       /// 이메일을 입력해주세요.

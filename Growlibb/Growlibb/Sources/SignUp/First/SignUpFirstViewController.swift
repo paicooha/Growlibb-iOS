@@ -24,8 +24,8 @@ class SignUpFirstViewController: BaseViewController {
     var authTime = 180 //3분
     var authTimer: Timer?
     
-    var sendCodebuttonTime = 2 //2초
-    var sendCodeButtonTimer: Timer?
+//    var sendCodebuttonTime = 2 //2초
+//    var sendCodeButtonTimer: Timer?
     
     //아이디, 비밀번호, 인증번호, 약관동의를 모두 했는지 확인하기 위한 배열
     var validCheckArray = [false, false, false, false]
@@ -52,6 +52,11 @@ class SignUpFirstViewController: BaseViewController {
         
         phoneTextField.delegate = self
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        authTime = 180
+//        validCheckArray[2] = false
+//    }
 
     init(viewModel: SignUpFirstViewModel) {
         self.viewModel = viewModel
@@ -127,15 +132,15 @@ class SignUpFirstViewController: BaseViewController {
         }
     }
     
-    @objc func sendCodeTimerCallback() {
-        sendCodebuttonTime -= 1
-        
-        if (sendCodebuttonTime == 0){
-            sendCodeButtonTimer?.invalidate()
-            phoneButton.setEnable()
-        }
-        
-    }
+//    @objc func sendCodeTimerCallback() {
+//        sendCodebuttonTime -= 1
+//        
+//        if (sendCodebuttonTime == 0){
+//            sendCodeButtonTimer?.invalidate()
+//            phoneButton.setEnable()
+//        }
+//        
+//    }
 
     private var viewModel: SignUpFirstViewModel
 
@@ -146,11 +151,11 @@ class SignUpFirstViewController: BaseViewController {
         
         phoneButton.rx.tap
             .subscribe({ _ in
-                //버튼 연타 방지
+                //버튼 연타 방지 -> 인증번호 콜백시 활성화하도록 수정
                 self.phoneButton.setDisable()
                 
-                self.sendCodebuttonTime = 2
-                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
+//                self.sendCodebuttonTime = 2
+//                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
                 self.validCheckArray[2] = false //한번 더 인증할 수 있으므로 일단 false로 두기
                 
                 //휴대폰번호 중복 체크
@@ -170,7 +175,8 @@ class SignUpFirstViewController: BaseViewController {
                         self.authGuideLabel.isHidden = false
                         return
                     }
-                    self.authGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
+//                    self.authGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
+                    self.authGuideLabel.text = L10n.SignUp.Code.Correct.guidelabel //인증완료 텍스트 띄우기
                     self.authTimerLabel.isHidden = true
                     self.authTimer?.invalidate()
                     
@@ -813,12 +819,13 @@ extension SignUpFirstViewController {
             PhoneAuthProvider.provider()
                 .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
                   if let error = error {
-                      AppContext.shared.makeToast("에러가 발생했습니다. 다시 시도해주세요")
+                      AppContext.shared.makeToast("인증번호 전송에 실패하였습니다. 다시 시도해주세요.")
                       print(error)
                     return
                   }
-                  // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달
+                  // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달, 전송버튼 활성화
                     self.verificationId = verificationID!
+                    self.phoneButton.setEnable()
               }
         }
         else if code == 2022 { //중복 o
