@@ -572,9 +572,7 @@ extension HomeViewController {
                 retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
                 retrospectListTableView.reloadData()
                 
-                tableViewHeightConstraint.deactivate()
-                retrospectListTableView.snp.makeConstraints{ make in
-                    tableViewHeightConstraint = make.height.equalTo(retrospectListTableView.contentSize.height).constraint
+                retrospectListTableView.snp.updateConstraints { make in make.height.equalTo(retrospectListTableView.contentSize.height)
                 }
                 self.view.layoutIfNeeded()
             }
