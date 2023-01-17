@@ -83,17 +83,17 @@ class RetrospectViewController: BaseViewController {
     
     //애니메이션 이미지
     
-    private var stackView = UIStackView.make(
-        //        with: [groupBackground, errorLabel],
-        with: [groupBackground],
-        axis: .vertical,
-        alignment: .fill,
-        distribution: .equalSpacing,
-        spacing: 8
-    )
+//    private var stackView = UIStackView.make(
+//        //        with: [groupBackground, errorLabel],
+//        with: [self.pointLeftView],
+//        axis: .vertical,
+//        alignment: .fill,
+//        distribution: .equalSpacing,
+//        spacing: 8
+//    )
     
     private var pointLeftView = RetrospectLeftView().then { view in
-        view.label.text = "\(L10n.Retrospect.Gender.Icon.man) \(self.userKeyChainService.nickname)\(L10n.Retrospect.)
+//        view.label.text = "\(L10n.Retrospect.Gender.Icon.man) \(self.userKeyChainService.nickname)\(L10n.Retrospect.)
     }
     
     private var goRetrospectButton = LongButton().then { view in
@@ -118,7 +118,7 @@ extension RetrospectViewController {
             logo,
             dateLabel,
             titleLabel,
-            stackView,
+//            stackView,
             goRetrospectButton
         ])
         
@@ -159,17 +159,17 @@ extension RetrospectViewController {
             make.leading.equalTo(dateLabel.snp.leading)
         }
         
-        stackView.snp.makeConstraints{ make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.equalTo(contentView.snp.leading).offset(28)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-        }
-        
-        goRetrospectButton.snp.makeConstraints{ make in
-            make.top.equalTo(stackView.snp.bottom).offset(65)
-            make.leading.equalTo(contentView.snp.leading).offset(28)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.bottom.equalTo(contentView.snp.bottom)
-        }
+//        stackView.snp.makeConstraints{ make in
+//            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+//            make.leading.equalTo(contentView.snp.leading).offset(28)
+//            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+//        }
+//        
+//        goRetrospectButton.snp.makeConstraints{ make in
+//            make.top.equalTo(stackView.snp.bottom).offset(65)
+//            make.leading.equalTo(contentView.snp.leading).offset(28)
+//            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+//            make.bottom.equalTo(contentView.snp.bottom)
+//        }
     }
 }
