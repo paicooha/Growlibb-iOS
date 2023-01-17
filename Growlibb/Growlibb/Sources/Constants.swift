@@ -9,7 +9,7 @@ import Alamofire
 
 struct Constants {
     // MARK: Network
-    static let BASE_URL = "http://3.229.102.197/"
+    static let BASE_URL = "http://13.209.37.231/"
     static let shared = Constants()
     
     var loginKeyChainService: LoginKeyChainService
