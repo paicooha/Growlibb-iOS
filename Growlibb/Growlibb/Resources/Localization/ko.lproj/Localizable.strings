@@ -11,6 +11,9 @@
 // MARK: - Common
 "Next.Button.title" = "다음";
 "Confirm.Button.title" = "확인";
+"No.title" = "아니오";
+"Yes.title" = "예";
+"Start.title" = "시작하기";
 
 // MARK: - Tutorial
 "Tutorial.First.Title" = "회고가 처음이시라구요?";
@@ -38,7 +41,7 @@
 "SignUp.email.title" = "이메일";
 "SignUp.password.title" = "비밀번호";
 "SignUp.email.placeholder" = "이메일을 입력해주세요.";
-"SignUp.email.guidelabel.exist" = "이미 존재하는 이메일입니다";
+"SignUp.email.guidelabel.exist" = "이미 존재하는 이메일입니다.";
 "SignUp.email.guidelabel.notemail" = "이메일 형식이 아닙니다.";
 "SignUp.email.guidelabel.toolong" = "이메일 길이를 초과하였습니다.";
 "SignUp.password.placeholder" = "영문, 특수문자를 포함한 8 - 20자리 이하";
@@ -115,3 +118,9 @@
 "Main.HomeTab.Title" = "홈";
 "Main.RetrospectTab.Title" = "회고";
 "Main.MyPage.Title" = "내 메뉴";
+"Main.Button.goRetrospect" = "회고 작성하러 가기 👉🏻";
+
+// MARK: - Home
+"Home.title.nickname" = "님, 오늘도 화이팅입니다!";
+"Home.recent.title" = "최근 일주일 동안 작성한 회고에요!";
+"Home.recent.nodata" = "회고 작성 이력이 없어요.";

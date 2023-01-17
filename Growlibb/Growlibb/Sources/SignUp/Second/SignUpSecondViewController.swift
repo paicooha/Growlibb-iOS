@@ -69,6 +69,9 @@ final class SignUpSecondViewController: BaseViewController {
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
+        validCheckArray[0] = false
+        nicknameGuideLabel.isHidden = true
+        
         if nicknameTextField.text?.count ?? 0 >= 1 {
             nicknameButton.setEnable()
             checkMaxLength(textField: textField, maxLength: 10)
@@ -76,6 +79,7 @@ final class SignUpSecondViewController: BaseViewController {
         else{
             nicknameButton.setDisable()
         }
+        nextButton.setDisable()
     }
     
     private var viewModel: SignUpSecondViewModel

@@ -25,6 +25,8 @@ final class SignUpFinalViewController: BaseViewController {
 
         viewModelInput()
 //        viewModelOutput()
+        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // 뒤로 못넘어가게 수정
     }
 
     init(viewModel: SignUpFinalViewModel) {

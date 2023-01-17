@@ -57,11 +57,12 @@ class SignUpFirstViewController: BaseViewController {
         authTime = 180
         validCheckArray[2] = false
         
-        phoneTextField.text = ""
         authcodeTextField.text = ""
         authGuideLabel.isHidden = true
         
-        phoneButton.setDisable()
+        if (phoneTextField.text ?? "").isEmpty { //2번째 화면에서 인증했다가 다시 돌아온 상황이 아니라면 disable 상태
+            phoneButton.setDisable()
+        }
         phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
         
         authcodeButton.setDisable()
@@ -816,7 +817,7 @@ extension SignUpFirstViewController {
             self.emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.exist
             validCheckArray[0] = false
             nextButton.setDisable()
-            AppContext.shared.makeToast("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요")
+            AppContext.shared.makeToast("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.")
         }
     }
     

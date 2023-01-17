@@ -169,6 +169,10 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Next.Button.title", fallback: "다음")
     }
   }
+  internal enum No {
+    /// 아니오
+    internal static let title = L10n.tr("Localizable", "No.title", fallback: "아니오")
+  }
   internal enum SignUp {
     /// 회원가입
     internal static let title = L10n.tr("Localizable", "SignUp.Title", fallback: "회원가입")
@@ -227,8 +231,8 @@ internal enum L10n {
       /// 이메일
       internal static let title = L10n.tr("Localizable", "SignUp.email.title", fallback: "이메일")
       internal enum Guidelabel {
-        /// 이미 존재하는 이메일입니다
-        internal static let exist = L10n.tr("Localizable", "SignUp.email.guidelabel.exist", fallback: "이미 존재하는 이메일입니다")
+        /// 이미 존재하는 이메일입니다.
+        internal static let exist = L10n.tr("Localizable", "SignUp.email.guidelabel.exist", fallback: "이미 존재하는 이메일입니다.")
         /// 이메일 형식이 아닙니다.
         internal static let notemail = L10n.tr("Localizable", "SignUp.email.guidelabel.notemail", fallback: "이메일 형식이 아닙니다.")
         /// 이메일 길이를 초과하였습니다.
@@ -292,6 +296,10 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "SignUp.phone.title", fallback: "휴대폰 번호")
     }
   }
+  internal enum Start {
+    /// 시작하기
+    internal static let title = L10n.tr("Localizable", "Start.title", fallback: "시작하기")
+  }
   internal enum Tutorial {
     internal enum First {
       /// 회고를 해보기 전에 회고의 의미를 먼저
@@ -320,6 +328,10 @@ internal enum L10n {
       /// 회고를 해야 되는 이유는요!
       internal static let title = L10n.tr("Localizable", "Tutorial.Second.Title", fallback: "회고를 해야 되는 이유는요!")
     }
+  }
+  internal enum Yes {
+    /// 예
+    internal static let title = L10n.tr("Localizable", "Yes.title", fallback: "예")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
