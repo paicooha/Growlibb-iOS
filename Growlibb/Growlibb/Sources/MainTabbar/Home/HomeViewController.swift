@@ -23,9 +23,7 @@ class HomeViewController: BaseViewController {
     var dateUtil = DateUtil.shared
     
     var datesWithEvent = [Date]()
-    
-    var tableViewHeightConstraint: Constraint!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -409,7 +407,7 @@ extension HomeViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
         contentView.snp.makeConstraints{ make in
@@ -418,11 +416,10 @@ extension HomeViewController {
             make.trailing.equalTo(scrollView.snp.trailing)
             make.bottom.equalTo(scrollView.snp.bottom)
             make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(scrollView.snp.height).priority(.low)
         }
         
         logo.snp.makeConstraints{ make in
-            make.top.equalTo(contentView.snp.top).offset(UIScreen.main.isWiderThan375pt ? 26 : 70) //노치 44
+            make.top.equalTo(contentView.snp.top).offset(UIScreen.main.isWiderThan375pt ? 70 : 26) //노치 44
             make.leading.equalTo(contentView.snp.leading).offset(25)
         }
         
@@ -469,7 +466,7 @@ extension HomeViewController {
             make.leading.equalTo(retrospectTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
             make.bottom.equalTo(contentView.snp.bottom)
-            tableViewHeightConstraint = make.height.equalTo(0).priority(.high).constraint
+            make.height.equalTo(0)
         }
         
         noRetrospectView.snp.makeConstraints{ make in

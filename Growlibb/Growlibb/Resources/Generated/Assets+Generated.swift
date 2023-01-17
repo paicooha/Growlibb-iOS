@@ -29,11 +29,13 @@ internal enum Asset {
   internal static let icCheckboxGray = ImageAsset(name: "ic_checkbox_gray")
   internal static let icDropdownDown = ImageAsset(name: "ic_dropdown_down")
   internal static let icDropdownUp = ImageAsset(name: "ic_dropdown_up")
+  internal static let icEditProfile = ImageAsset(name: "ic_edit_profile")
   internal static let icGrowlibbLogo = ImageAsset(name: "ic_growlibb_logo")
   internal static let icHomeBlue = ImageAsset(name: "ic_home_blue")
   internal static let icHomeGray = ImageAsset(name: "ic_home_gray")
   internal static let icMyBlue = ImageAsset(name: "ic_my_blue")
   internal static let icMyGray = ImageAsset(name: "ic_my_gray")
+  internal static let icMyProfile = ImageAsset(name: "ic_my_profile")
   internal static let icRetrospectBlue = ImageAsset(name: "ic_retrospect_blue")
   internal static let icRetrospectGray = ImageAsset(name: "ic_retrospect_gray")
 }

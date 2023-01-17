@@ -1,14 +1,14 @@
 //
-//  RetrospectViewModel.swift
+//  WriteRetrospectViewModel.swift
 //  Growlibb
 //
-//  Created by 이유리 on 2022/11/15.
+//  Created by 이유리 on 2023/01/15.
 //
 
 import Foundation
 import RxSwift
 
-final class RetrospectViewModel: BaseViewModel {
+final class WriteRetrospectViewModel: BaseViewModel {
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
@@ -510,13 +510,19 @@ final class RetrospectViewModel: BaseViewModel {
     }
 
     struct Route {
-        var writeretrospect = PublishSubject<Void>()
+//        var filter = PublishSubject<PostFilter>()
+//        var writingPost = PublishSubject<Void>()
+//        var detailPost = PublishSubject<Int>()
+//        var nonMemberCover = PublishSubject<Void>()
+//        var postListOrder = PublishSubject<Void>()
+//        var runningTag = PublishSubject<Void>()
+//        var alarmList = PublishSubject<Void>()
     }
 
     struct RouteInput {
 //        var needUpdate = PublishSubject<Bool>()
 //        var filterChanged = PublishSubject<PostFilter>()
-        var backFromWriteretrospect = PublishSubject<Void>()
+//        var detailClosed = PublishSubject<Void>()
 //        var postListOrderChanged = PublishSubject<PostListOrder>()
 //        var runningTagChanged = PublishSubject<RunningTag>()
 //        var alarmChecked = PublishSubject<Void>()

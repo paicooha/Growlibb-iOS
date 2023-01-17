@@ -17,12 +17,18 @@
 		DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */; };
 		DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCC2912717700878BA3 /* BaseResponse.swift */; };
 		DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */; };
+		DA42978729730097003AAA93 /* WriteRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42978629730097003AAA93 /* WriteRetrospectViewController.swift */; };
+		DA429789297300A0003AAA93 /* WriteRetrospectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */; };
+		DA42978B297300A7003AAA93 /* WriteRetrospectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */; };
+		DA42978D297300AF003AAA93 /* WriteRetrospectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42978C297300AF003AAA93 /* WriteRetrospectViewModel.swift */; };
 		DA4660EB294DA03E00940149 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA4660EA294DA03E00940149 /* GoogleService-Info.plist */; };
 		DA4E55B129399B0300176B87 /* HomeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B029399B0300176B87 /* HomeDataManager.swift */; };
 		DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B229399BAE00176B87 /* GetHomeResponse.swift */; };
 		DA4E55B8293B78D300176B87 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B7293B78D300176B87 /* DateFormat.swift */; };
 		DA4E55BA293B796500176B87 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B9293B796500176B87 /* DateUtil.swift */; };
 		DA4E55BD293BAC0200176B87 /* HomeRetrospectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55BC293BAC0200176B87 /* HomeRetrospectTableViewCell.swift */; };
+		DA5B89EC2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B89EB2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift */; };
+		DA5B89EE2974B694008CD739 /* CommonModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B89ED2974B694008CD739 /* CommonModalViewController.swift */; };
 		DA5D352F293CB56400150FF1 /* LogoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D352E293CB56400150FF1 /* LogoImageView.swift */; };
 		DA69D3BF291E1D30007B982A /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69D3BE291E1D30007B982A /* TextField.swift */; };
 		DA6E2015291D223200F78173 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACF8216291C1EAF00AA74E8 /* Pretendard-SemiBold.otf */; };
@@ -115,6 +121,8 @@
 		DADA2F0A291D403C005E6B71 /* Localizable+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA2F08291D403C005E6B71 /* Localizable+Generated.swift */; };
 		DADA2F0B291D403C005E6B71 /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA2F09291D403C005E6B71 /* Assets+Generated.swift */; };
 		DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5833B2923FF45005F5D6F /* SignUpSecondComponent.swift */; };
+		DAF8B0232975639600380D28 /* RetrospectLeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8B0222975639600380D28 /* RetrospectLeftView.swift */; };
+		DAF8B0252975684600380D28 /* RetrospectRightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8B0242975684600380D28 /* RetrospectRightView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +138,10 @@
 		DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCC2912717700878BA3 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		DA42978629730097003AAA93 /* WriteRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectViewController.swift; sourceTree = "<group>"; };
+		DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectComponent.swift; sourceTree = "<group>"; };
+		DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectCoordinator.swift; sourceTree = "<group>"; };
+		DA42978C297300AF003AAA93 /* WriteRetrospectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectViewModel.swift; sourceTree = "<group>"; };
 		DA4660EA294DA03E00940149 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA4660EC294DA39500940149 /* Growlibb.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Growlibb.entitlements; sourceTree = "<group>"; };
 		DA4E55B029399B0300176B87 /* HomeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataManager.swift; sourceTree = "<group>"; };
@@ -137,6 +149,8 @@
 		DA4E55B7293B78D300176B87 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		DA4E55B9293B796500176B87 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		DA4E55BC293BAC0200176B87 /* HomeRetrospectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRetrospectTableViewCell.swift; sourceTree = "<group>"; };
+		DA5B89EB2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectTutorialModalViewController.swift; sourceTree = "<group>"; };
+		DA5B89ED2974B694008CD739 /* CommonModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModalViewController.swift; sourceTree = "<group>"; };
 		DA5D352E293CB56400150FF1 /* LogoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoImageView.swift; sourceTree = "<group>"; };
 		DA69D3BE291E1D30007B982A /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		DA6E2017291D25D300F78173 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -232,6 +246,8 @@
 		DADA2F08291D403C005E6B71 /* Localizable+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Localizable+Generated.swift"; sourceTree = "<group>"; };
 		DADA2F09291D403C005E6B71 /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
 		DAE5833B2923FF45005F5D6F /* SignUpSecondComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondComponent.swift; sourceTree = "<group>"; };
+		DAF8B0222975639600380D28 /* RetrospectLeftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectLeftView.swift; sourceTree = "<group>"; };
+		DAF8B0242975684600380D28 /* RetrospectRightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectRightView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +310,41 @@
 				DA7FDCD12937902F003C3792 /* PostCheckPhoneRequest.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DA4297842973006A003AAA93 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		DA42978529730087003AAA93 /* WriteRetrospect */ = {
+			isa = PBXGroup;
+			children = (
+				DA42978F29730128003AAA93 /* NotSaveAlert */,
+				DA42978E297300D3003AAA93 /* TutorialAlert */,
+				DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */,
+				DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */,
+				DA42978C297300AF003AAA93 /* WriteRetrospectViewModel.swift */,
+				DA42978629730097003AAA93 /* WriteRetrospectViewController.swift */,
+			);
+			path = WriteRetrospect;
+			sourceTree = "<group>";
+		};
+		DA42978E297300D3003AAA93 /* TutorialAlert */ = {
+			isa = PBXGroup;
+			children = (
+				DA5B89EB2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift */,
+			);
+			path = TutorialAlert;
+			sourceTree = "<group>";
+		};
+		DA42978F29730128003AAA93 /* NotSaveAlert */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NotSaveAlert;
 			sourceTree = "<group>";
 		};
 		DA4E55AE29399AE400176B87 /* Model */ = {
@@ -482,6 +533,7 @@
 				DA69D3BE291E1D30007B982A /* TextField.swift */,
 				DA0597D529213EF2005DFC79 /* ShortButton.swift */,
 				DA5D352E293CB56400150FF1 /* LogoImageView.swift */,
+				DA5B89ED2974B694008CD739 /* CommonModalViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -569,6 +621,7 @@
 				DACF81FD291BDCAB00AA74E8 /* MainTabbarController.swift */,
 				DACF81FF291BDE0B00AA74E8 /* Home */,
 				DACF8200291BDE1700AA74E8 /* Retrospect */,
+				DA42978529730087003AAA93 /* WriteRetrospect */,
 				DACF8201291BDE1F00AA74E8 /* MyPage */,
 			);
 			path = MainTabbar;
@@ -591,6 +644,8 @@
 		DACF8200291BDE1700AA74E8 /* Retrospect */ = {
 			isa = PBXGroup;
 			children = (
+				DAF8B01D2975612000380D28 /* View */,
+				DA4297842973006A003AAA93 /* Alert */,
 				DA88B49A2923B94A00A4B1B5 /* RetrospectComponent.swift */,
 				DA88B49D2923B95400A4B1B5 /* RetrospectCoordinator.swift */,
 				DA88B49F2923B95900A4B1B5 /* RetrospectViewModel.swift */,
@@ -683,6 +738,15 @@
 				DACF17B5292B7139002734AA /* SignUpFinalViewController.swift */,
 			);
 			path = Final;
+			sourceTree = "<group>";
+		};
+		DAF8B01D2975612000380D28 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DAF8B0222975639600380D28 /* RetrospectLeftView.swift */,
+				DAF8B0242975684600380D28 /* RetrospectRightView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -836,6 +900,7 @@
 				DA4E55B129399B0300176B87 /* HomeDataManager.swift in Sources */,
 				DACF81DA291BBE8C00AA74E8 /* AppCoordinator.swift in Sources */,
 				DA69D3BF291E1D30007B982A /* TextField.swift in Sources */,
+				DAF8B0252975684600380D28 /* RetrospectRightView.swift in Sources */,
 				DACF17BA292E12A2002734AA /* UITextField+.swift in Sources */,
 				DACF81EE291BC7B500AA74E8 /* TutorialFirstComponent.swift in Sources */,
 				DACF17AE292B4EC1002734AA /* SignUpSecondViewController.swift in Sources */,
@@ -844,6 +909,7 @@
 				DACF17B2292B7128002734AA /* SignUpFinalCoordinator.swift in Sources */,
 				DACF81FA291BDC9800AA74E8 /* MainTabbarCoordinator.swift in Sources */,
 				DA7FDCC8293781C3003C3792 /* FindDataManager.swift in Sources */,
+				DA42978D297300AF003AAA93 /* WriteRetrospectViewModel.swift in Sources */,
 				DACF17C0292F560D002734AA /* SignUpDataManager.swift in Sources */,
 				DACF81DF291BC02800AA74E8 /* LoginKeyChainService.swift in Sources */,
 				DA7FDCD22937902F003C3792 /* PostCheckPhoneRequest.swift in Sources */,
@@ -853,8 +919,10 @@
 				DACF81E6291BC5C300AA74E8 /* LoginComponent.swift in Sources */,
 				DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */,
 				DA5D352F293CB56400150FF1 /* LogoImageView.swift in Sources */,
+				DA42978B297300A7003AAA93 /* WriteRetrospectCoordinator.swift in Sources */,
 				DA9CEA67296AACCD00A9A709 /* UIScreen+.swift in Sources */,
 				DA7FDCD0293782CF003C3792 /* PostFindEmailResponse.swift in Sources */,
+				DAF8B0232975639600380D28 /* RetrospectLeftView.swift in Sources */,
 				DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */,
 				DACF17C6292F846C002734AA /* PostSignUpRequest.swift in Sources */,
 				DACF81D1291BAB9400AA74E8 /* Log.swift in Sources */,
@@ -876,9 +944,11 @@
 				DA88B4952923B93200A4B1B5 /* HomeCoordinator.swift in Sources */,
 				DACF81FC291BDCA200AA74E8 /* MainTabbarViewModel.swift in Sources */,
 				DA88B4A22923B96100A4B1B5 /* RetrospectViewController.swift in Sources */,
+				DA42978729730097003AAA93 /* WriteRetrospectViewController.swift in Sources */,
 				DACF81F8291BDC9100AA74E8 /* MainTabComponent.swift in Sources */,
 				DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */,
 				DA4E55BD293BAC0200176B87 /* HomeRetrospectTableViewCell.swift in Sources */,
+				DA5B89EC2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift in Sources */,
 				DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */,
 				DACF8205291C03CD00AA74E8 /* TutorialSecondViewController.swift in Sources */,
 				DACF81EC291BC5E300AA74E8 /* LoginViewController.swift in Sources */,
@@ -904,6 +974,8 @@
 				DA88B4A62923B96E00A4B1B5 /* MyPageCoordinator.swift in Sources */,
 				DA88B4AE2923BF9D00A4B1B5 /* UserKeyChainService.swift in Sources */,
 				DA88B491292392B400A4B1B5 /* PostLoginResponse.swift in Sources */,
+				DA5B89EE2974B694008CD739 /* CommonModalViewController.swift in Sources */,
+				DA429789297300A0003AAA93 /* WriteRetrospectComponent.swift in Sources */,
 				DA7FDCCE29378255003C3792 /* PatchResetPasswordRequest.swift in Sources */,
 				DA88B4992923B94300A4B1B5 /* HomeViewController.swift in Sources */,
 				DABB110A29137EA800FC3FE7 /* Font.swift in Sources */,

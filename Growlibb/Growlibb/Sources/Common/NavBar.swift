@@ -26,14 +26,14 @@ final class NavBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    var titleSpacing: CGFloat = 12 {
-//        didSet {
-//            titleLabel.snp.updateConstraints { make in
-//                make.centerX.equalTo(navContentView.snp.centerX)
-//                make.bottom.equalTo(navContentView.snp.bottom).offset(-titleSpacing)
-//            }
-//        }
-//    }
+    var titleSpacing: CGFloat = 17 {
+        didSet {
+            titleLabel.snp.updateConstraints { make in
+                make.centerX.equalTo(navContentView.snp.centerX)
+                make.bottom.equalTo(navContentView.snp.bottom).offset(-titleSpacing)
+            }
+        }
+    }
 
     // MARK: Internal
 
@@ -45,10 +45,10 @@ final class NavBar: UIView {
     }
 //    var rightBtnItem = UIButton()
 //    var rightSecondBtnItem = UIButton()
-//    var titleLabel = UILabel().then { label in
-//        label.text = ""
-//        label.font = .iosBody17Sb
-//    }
+    var titleLabel = UILabel().then { label in
+        label.text = ""
+        label.font = .pretendardSemibold12
+    }
 }
 
 // MARK: - Layout
@@ -64,7 +64,7 @@ extension NavBar {
             leftBtnItem,
 //            rightBtnItem,
 //            rightSecondBtnItem,
-//            titleLabel,
+            titleLabel,
         ])
     }
 
@@ -99,10 +99,9 @@ extension NavBar {
 //            make.centerY.equalTo(titleLabel.snp.centerY)
 //        }
 //
-//        titleLabel.snp.makeConstraints { make in
-//            make.centerX.equalTo(navContentView.snp.centerX)
-//            make.bottom.equalTo(navContentView.snp.bottom).offset(-titleSpacing)
-//            make.top.equalTo(navContentView.snp.top).offset(8)
-//        }
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(navContentView.snp.centerX)
+            make.centerY.equalTo(leftBtnItem.snp.centerY)
+        }
     }
 }
