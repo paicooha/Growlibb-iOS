@@ -307,16 +307,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
                     
                     print("인증성공 : \(authData)")
                     
-                    self.findTitle.text = L10n.Find.Email.Find.title
-                    self.emailFindView.isHidden = true
-                    self.emailFoundView.isHidden = false
-                    
-                    self.foundemailTextField.text = self.email
-                    
-                    self.bottomButton.setTitle(L10n.Confirm.Button.title, for: .normal)
                     self.bottomButton.setEnable()
-                    
-                    self.buttonAction = [false, true, false, false]
                 }
             })
             .disposed(by: disposeBag)
@@ -362,7 +353,16 @@ final class FindEmailorPasswordViewController: BaseViewController {
         bottomButton.rx.tap
             .subscribe({ [self] _ in
                 if self.buttonAction[0] {
-                    self.dataManager.postFindEmail(viewController:self, phoneNumber: self.findEmailphoneTextField.text!)
+                    self.findTitle.text = L10n.Find.Email.Find.title
+                    self.emailFindView.isHidden = true
+                    self.emailFoundView.isHidden = false
+                    
+                    self.foundemailTextField.text = self.email
+                    
+                    self.bottomButton.setTitle(L10n.Confirm.Button.title, for: .normal)
+                    self.bottomButton.setEnable()
+                    
+                    self.buttonAction = [false, true, false, false]
                 }
                 else if self.buttonAction[1]{
                     self.viewModel.inputs.login.onNext(())
