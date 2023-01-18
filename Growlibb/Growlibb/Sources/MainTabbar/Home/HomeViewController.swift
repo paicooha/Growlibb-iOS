@@ -407,7 +407,7 @@ extension HomeViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         contentView.snp.makeConstraints{ make in
@@ -416,6 +416,7 @@ extension HomeViewController {
             make.trailing.equalTo(scrollView.snp.trailing)
             make.bottom.equalTo(scrollView.snp.bottom)
             make.width.equalTo(scrollView.snp.width)
+            make.height.equalTo(scrollView.snp.height).priority(.low)
         }
         
         logo.snp.makeConstraints{ make in
@@ -465,8 +466,7 @@ extension HomeViewController {
             make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
             make.leading.equalTo(retrospectTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(0)
+            make.height.equalTo(189)
         }
         
         noRetrospectView.snp.makeConstraints{ make in
@@ -480,6 +480,7 @@ extension HomeViewController {
             make.top.equalTo(noRetrospectView.snp.bottom).offset(15)
             make.leading.equalTo(retrospectTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.height.equalTo(50)
             make.bottom.equalTo(contentView.snp.bottom).offset(-21)
         }
     }
@@ -564,27 +565,29 @@ extension HomeViewController {
             noRetrospectView.isHidden = false
             goRetrospectButton.isHidden = false
         }
-        else{
-            if retroSpectList.isEmpty {
-                retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
-                retrospectListTableView.reloadData()
-                
-                retrospectListTableView.snp.updateConstraints { make in make.height.equalTo(retrospectListTableView.contentSize.height)
-                }
-                self.view.layoutIfNeeded()
-            }
-            
+        else{ //회고 데이터가 있을 경우
             noRetrospectView.isHidden = true
             goRetrospectButton.isHidden = true
                         
             retrospectListTableView.isHidden = false
+            
+            retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
+            retrospectListTableView.reloadData()
+            retrospectListTableView.layoutIfNeeded()
+                
+            retrospectListTableView.snp.updateConstraints { make in
+                make.height.equalTo(66 * retroSpectList.count)
+            }
+            noRetrospectView.snp.updateConstraints{ make in
+                make.height.equalTo(66 * retroSpectList.count - 65)
+            }
         }
         
         if !result.retrospectionDates.isEmpty{
             for i in result.retrospectionDates{
                 datesWithEvent.append(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
-                print(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
-                print(DateUtil.shared.now)
+//                print(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
+//                print(DateUtil.shared.now)
             }
             datesWithEvent = datesWithEvent.filter { dateUtil.formattedString(for: $0, format: .yyMMdd) != dateUtil.formattedString(for: dateUtil.now, format: .yyMMdd) }
             calendar.reloadData()
