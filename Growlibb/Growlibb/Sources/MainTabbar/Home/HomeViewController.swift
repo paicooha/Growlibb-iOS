@@ -584,6 +584,8 @@ extension HomeViewController {
         }
         
         if !result.retrospectionDates.isEmpty{
+            datesWithEvent.removeAll()
+            
             for i in result.retrospectionDates{
                 datesWithEvent.append(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
 //                print(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
