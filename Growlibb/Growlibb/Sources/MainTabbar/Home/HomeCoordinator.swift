@@ -27,13 +27,13 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
 
     override func start(animated _: Bool = true) { // VM의 route 바인딩
         let scene = component.scene
-
-//        scene.VM.routes.filter
-//            .map { (vm: scene.VM, filter: $0) }
-//            .subscribe(onNext: { [weak self] input in
-//                self?.pushHomeFilterScene(vm: input.vm, filter: input.filter, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.writeretrospect
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushWriteRetrospectScene(vm: vm)
+            })
+            .disposed(by: sceneDisposeBag)
 //
 //        scene.VM.routes.writingPost
 //            .map { scene.VM }
@@ -141,15 +141,16 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
 //        }
 //    }
 //
-//    private func pushAlarmListScene(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.alarmListComponent
-//        let coord = AlarmListCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case .backward:
-//                vm.routeInputs.alarmChecked.onNext(())
-//            }
-//        }
-//    }
+    private func pushWriteRetrospectScene(vm: HomeViewModel) {
+        let comp = component.writeRetrospectComponent()
+        let coord = WriteRetrospectCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case let .backward:
+                break
+//                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
 }

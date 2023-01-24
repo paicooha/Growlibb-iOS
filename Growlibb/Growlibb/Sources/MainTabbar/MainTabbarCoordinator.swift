@@ -73,7 +73,7 @@ final class MainTabbarCoordinator: BasicCoordinator<MainTabbarResult> {
 
         vm.routes.retrospect
             .subscribe(onNext: {
-//                comp.scene.VM.routeInputs.needUpdate.onNext(true)
+                comp.scene.VM.routeInputs.needUpdate.onNext(true)
             })
             .disposed(by: sceneDisposeBag)
 

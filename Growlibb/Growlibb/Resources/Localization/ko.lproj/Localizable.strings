@@ -124,3 +124,31 @@
 "Home.title.nickname" = "님, 오늘도 화이팅입니다!";
 "Home.recent.title" = "최근 일주일 동안 작성한 회고에요!";
 "Home.recent.nodata" = "회고 작성 이력이 없어요.";
+
+// MARK: - Retrospect
+"Retrospect.gender.icon.man" = "👦🏻 ";
+"Retrospect.gender.icon.woman" = "👩🏻 ";
+"Retrospect.point.description.first" = "님!\n지금까지 총 ";
+"Retrospect.point.description.second" = "포인트 획득 하셨군요!";
+"Retrospect.morepoint.description.first" = "포인트\n더 모으면 Lv.";
+"Retrospect.morepoint.description.second" = "로 올라갈 수 있어요!";
+"Retrospect.continuous.description.first" = "님!\n연속으로 ";
+"Retrospect.continuous.description.second" = "번 회고를 작성하셨군요!";
+"Retrospect.morecontinuous.description" = "일만 더 연속으로\n회고를 작성하면 특별한 일이 일어나요!";
+
+// MARK: - Write Retrospect
+"WriteRetrospect.title" = "회고 작성";
+"WriteRetrospect.done.title" = "DONE";
+"WriteRetrospect.keep.title" = "KEEP";
+"WriteRetrospect.problem.title" = "PROBLEM";
+"WriteRetrospect.try.title" = "TRY";
+"WriteRetrospect.enroll.button.title" = "등록하기";
+
+// MARK: - Write Retrospect Alert
+"WriteRetrospect.Alert.notYet.title" = "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?";
+"WriteRetrospect.Alert.Skip.button.title" = "SKIP";
+"WriteRetrospect.Alert.Skip.title" = "회고 작성하는 법";
+"WriteRetrospect.Alert.Skip.first.description" = "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
+"WriteRetrospect.Alert.Skip.second.description" = "DONE에 대해 불편하게 느끼는 부분으로\n개선이 필요하다고 생각되는 내용을 PROBELM에\n입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
+"WriteRetrospect.Alert.Skip.third.description" = "";
+"WriteRetrospect.Alert.Skip.fourth.description" = "";

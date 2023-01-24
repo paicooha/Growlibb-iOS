@@ -37,6 +37,9 @@ class WriteRetrospectViewController: BaseViewController {
     private var viewModel: WriteRetrospectViewModel
 
     private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput(){
@@ -50,7 +53,7 @@ class WriteRetrospectViewController: BaseViewController {
 
     private var navBar = NavBar().then { navBar in
         navBar.leftBtnItem.isHidden = false
-//        navBar.title.text = L10n.
+        navBar.titleLabel.text = L10n.WriteRetrospect.title
     }
 }
 

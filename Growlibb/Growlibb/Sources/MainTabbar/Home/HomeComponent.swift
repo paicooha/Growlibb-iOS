@@ -12,9 +12,10 @@ final class HomeComponent {
 
     lazy var viewModel: HomeViewModel = .init()
 
-//    func postDetailComponent(postId: Int) -> PostDetailComponent {
-//        return PostDetailComponent(postId: postId)
-//    }
+    func writeRetrospectComponent() -> WriteRetrospectComponent {
+        return WriteRetrospectComponent()
+    }
+
 //
 //    var writingPostComponent: WritingMainPostComponent {
 //        return WritingMainPostComponent()

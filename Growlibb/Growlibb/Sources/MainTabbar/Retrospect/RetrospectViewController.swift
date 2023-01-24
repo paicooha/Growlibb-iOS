@@ -15,7 +15,7 @@ import UIKit
 
 class RetrospectViewController: BaseViewController {
     
-//    lazy var homeDataManager = HomeDataManager()
+    var level = 0
     private var userKeyChainService: UserKeychainService
     var dateUtil = DateUtil.shared
 
@@ -42,9 +42,46 @@ class RetrospectViewController: BaseViewController {
     private var viewModel: RetrospectViewModel
 
     private func viewModelInput() {
+        goRetrospectButton.rx.tap
+            .bind(to: viewModel.inputs.writeretrospect)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput(){
+        viewModel.outputs.retrospectInfo
+            .subscribe(onNext: { [weak self] info in
+                self!.stackView.isHidden = false
+                
+                var gender = ""
+                if info.gender == "M"{
+                    gender = L10n.Retrospect.Gender.Icon.man
+                }
+                else{
+                    gender = L10n.Retrospect.Gender.Icon.woman
+                }
+                
+                if info.point <= 50 {
+                    self!.level = 2
+                }
+                else if info.point <= 200 {
+                    self!.level = 3
+                }
+                else if info.point <= 700 {
+                    self!.level = 4
+                }
+                else if info.point <= 2000 {
+                    self!.level = 5
+                }
+                else if info.point <= 5000 {
+                    self!.level = 6
+                }
+                
+                self!.pointLeftView.label.text = "\(gender)\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Point.Description.first)\(info.point)\(L10n.Retrospect.Point.Description.second)"
+                self!.pointRightView.label.text = "\(info.needPointForLevel)\(L10n.Retrospect.Morepoint.Description.first)\(self!.level)\(L10n.Retrospect.Morepoint.Description.second)"
+                self!.countLeftView.label.text = "\(gender)\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Continuous.Description.first)\(info.continuousWritingCount)\(L10n.Retrospect.Continuous.Description.second)"
+                self!.countRightView.label.text = "\(info.needContinuousRetrospection)\(L10n.Retrospect.Morecontinuous.description)"
+            })
+            .disposed(by: disposeBag)
 
         viewModel.toast
             .subscribe(onNext: { message in
@@ -53,10 +90,10 @@ class RetrospectViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private var scrollView = UIScrollView(frame: .zero).then { view in
-        view.showsHorizontalScrollIndicator = false
-        view.showsVerticalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private var scrollView = UIScrollView(frame: .zero).then { make in
+        make.showsHorizontalScrollIndicator = false
+        make.showsVerticalScrollIndicator = false
+        make.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private var contentView = UIView().then { view in
@@ -81,23 +118,50 @@ class RetrospectViewController: BaseViewController {
 
     }
     
-    //애니메이션 이미지
-    
-//    private var stackView = UIStackView.make(
-//        //        with: [groupBackground, errorLabel],
-//        with: [self.pointLeftView],
-//        axis: .vertical,
-//        alignment: .fill,
-//        distribution: .equalSpacing,
-//        spacing: 8
-//    )
-    
+    //애니메이션 이미지 추가해야됨
+
     private var pointLeftView = RetrospectLeftView().then { view in
-//        view.label.text = "\(L10n.Retrospect.Gender.Icon.man) \(self.userKeyChainService.nickname)\(L10n.Retrospect.)
+        view.snp.makeConstraints{ make in
+            make.width.equalTo(210)
+            make.height.equalTo(70)
+        }
+    }
+    
+    private var pointRightView = RetrospectRightView().then { view in
+        view.snp.makeConstraints{ make in
+            make.width.equalTo(210)
+            make.height.equalTo(70)
+        }
+    }
+    
+    private var countLeftView = RetrospectLeftView().then { view in
+        view.snp.makeConstraints{ make in
+            make.width.equalTo(210)
+            make.height.equalTo(70)
+        }
+    }
+    
+    private var countRightView = RetrospectRightView().then { view in
+        view.snp.makeConstraints{ make in
+            make.width.equalTo(210)
+            make.height.equalTo(70)
+        }
+    }
+    
+    private lazy var stackView = UIStackView.make(
+        with: [pointLeftView,
+              pointRightView,
+              countLeftView,
+              countRightView],
+        axis: .vertical,
+        alignment: .fill,
+        distribution: .equalSpacing,
+        spacing: 12
+    ).then { view in
+        view.isHidden = true // 네트워크 연결 성공 시 다시 보이도록 수정
     }
     
     private var goRetrospectButton = LongButton().then { view in
-        view.isHidden = true
         view.titleLabel?.font = .pretendardMedium12
         view.setTitle(L10n.Main.Button.goRetrospect, for: .normal)
     }
@@ -107,6 +171,8 @@ class RetrospectViewController: BaseViewController {
 
 extension RetrospectViewController {
     private func setupViews() {
+        
+        scrollView.contentSize = CGSize(width: view.frame.width, height: 2000)
         
         view.addSubviews([
             scrollView
@@ -118,7 +184,7 @@ extension RetrospectViewController {
             logo,
             dateLabel,
             titleLabel,
-//            stackView,
+            stackView,
             goRetrospectButton
         ])
         
@@ -133,7 +199,7 @@ extension RetrospectViewController {
             make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         contentView.snp.makeConstraints{ make in
@@ -159,17 +225,17 @@ extension RetrospectViewController {
             make.leading.equalTo(dateLabel.snp.leading)
         }
         
-//        stackView.snp.makeConstraints{ make in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(4)
-//            make.leading.equalTo(contentView.snp.leading).offset(28)
-//            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-//        }
-//        
-//        goRetrospectButton.snp.makeConstraints{ make in
-//            make.top.equalTo(stackView.snp.bottom).offset(65)
-//            make.leading.equalTo(contentView.snp.leading).offset(28)
-//            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-//            make.bottom.equalTo(contentView.snp.bottom)
-//        }
+        stackView.snp.makeConstraints{ make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+        }
+        
+        goRetrospectButton.snp.makeConstraints{ make in
+            make.top.equalTo(stackView.snp.bottom).offset(65)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-21)
+        }
     }
 }

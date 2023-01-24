@@ -29,27 +29,23 @@ final class RetrospectLeftView: UIView {
     // MARK: Internal
 
     var contentView = UIView().then { view in
+        view.backgroundColor = .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
         
-        /// shadow가 있으려면 layer.borderWidth 값이 필요
-        view.layer.borderWidth = 1
-        /// 테두리 밖으로 contents가 있을 때, 마스킹(true)하여 표출안되게 할것인지 마스킹을 off(false)하여 보일것인지 설정
         view.layer.masksToBounds = false
-        /// shadow 색상
-        view.layer.shadowColor = UIColor.black.cgColor
-        /// 현재 shadow는 view의 layer 테두리와 동일한 위치로 있는 상태이므로 offset을 통해 그림자를 이동시켜야 표출
-        view.layer.shadowOffset = CGSize(width: 0, height: 20)
-        /// shadow의 투명도 (0 ~ 1)
-        view.layer.shadowOpacity = 0.8
-        /// shadow의 corner radius
-        view.layer.shadowRadius = 12
+        view.layer.shadowOpacity = 0.12
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 12 / UIScreen.main.scale
+        view.layer.shadowPath = nil
     }
     
     var label = UILabel().then { label in
         label.text = ""
         label.font = .pretendardSemibold12
         label.textColor = .primaryBlue
+        label.numberOfLines = 0
+        label.textAlignment = .left
     }
 }
 
@@ -70,8 +66,9 @@ extension RetrospectLeftView {
     private func initialLayout() {
         contentView.snp.makeConstraints { make in
             make.leading.equalTo(self.snp.leading)
-            make.top.equalTo(self.snp.bottom)
+            make.top.equalTo(self.snp.top)
             make.bottom.equalTo(self.snp.bottom)
+            make.width.equalTo(210)
             make.height.equalTo(74)
         }
 

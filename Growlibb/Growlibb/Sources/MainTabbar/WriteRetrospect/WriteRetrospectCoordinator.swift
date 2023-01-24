@@ -10,10 +10,10 @@ import RxSwift
 import UIKit
 
 enum WriteRetrospectResult {
-    case needCover
+    case backward
 }
 
-final class WriteRetrospectCoordinator: BasicCoordinator<MyPageResult> {
+final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> {
     // MARK: Lifecycle
 
     init(component: WriteRetrospectComponent, navController: UINavigationController) {
@@ -27,6 +27,24 @@ final class WriteRetrospectCoordinator: BasicCoordinator<MyPageResult> {
 
     override func start(animated _: Bool = true) { // VM의 route 바인딩
         let scene = component.scene
+        
+        navigationController.pushViewController(scene.VC, animated: true)
+        
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                Log.d(tag: .lifeCycle, "VC poped")
+
+                switch result {
+                case .backward:
+                    self?.navigationController.popViewController(animated: true)
+                }
+            })
+            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.backward
+            .map { WriteRetrospectResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
 
 //        scene.VM.routes.filter
 //            .map { (vm: scene.VM, filter: $0) }

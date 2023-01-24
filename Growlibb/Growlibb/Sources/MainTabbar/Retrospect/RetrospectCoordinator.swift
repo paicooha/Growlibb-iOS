@@ -29,8 +29,9 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
         let scene = component.scene
 
         scene.VM.routes.writeretrospect
-            .subscribe(onNext: { [weak self] in
-//                self?.pushWriteRetrospectScene()
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.pushWriteRetrospectScene(vm: vm)
             })
             .disposed(by: sceneDisposeBag)
 //
@@ -42,17 +43,17 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
 //            .disposed(by: sceneDisposeBag)
     }
 
-//    private func pushWriteRetrospectScene() {
-//        let comp = component.writeRetrospectComponent()
-//        let coord = WriteRetrospectCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord) { coordResult in
-//            switch coordResult {
-//            case let .backward:
-//                break
-//            }
-//        }
-//    }
+    private func pushWriteRetrospectScene(vm: RetrospectViewModel) {
+        let comp = component.writeRetrospectComponent()
+        let coord = WriteRetrospectCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case let .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
 //
 //    private func showPostListOrderModal(vm: HomeViewModel, animated: Bool) {
 //        let comp = component.postListOrderModal()

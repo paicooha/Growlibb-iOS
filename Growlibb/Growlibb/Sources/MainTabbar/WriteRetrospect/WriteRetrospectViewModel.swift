@@ -471,9 +471,13 @@ final class WriteRetrospectViewModel: BaseViewModel {
 //                self?.outputs.alarmChecked.onNext(false)
 //            })
 //            .disposed(by: disposeBag)
+        inputs.backward
+            .subscribe(routes.backward)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
+        var backward = PublishSubject<Void>()
 //        var showDetailFilter = PublishSubject<Void>()
 //        var writingPost = PublishSubject<Void>()
 //        var tapShowClosedPost = PublishSubject<Void>()
@@ -516,7 +520,7 @@ final class WriteRetrospectViewModel: BaseViewModel {
 //        var nonMemberCover = PublishSubject<Void>()
 //        var postListOrder = PublishSubject<Void>()
 //        var runningTag = PublishSubject<Void>()
-//        var alarmList = PublishSubject<Void>()
+        var backward = PublishSubject<Void>()
     }
 
     struct RouteInput {

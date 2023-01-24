@@ -173,6 +173,48 @@ internal enum L10n {
     /// 아니오
     internal static let title = L10n.tr("Localizable", "No.title", fallback: "아니오")
   }
+  internal enum Retrospect {
+    internal enum Continuous {
+      internal enum Description {
+        /// 님!
+        /// 연속으로 
+        internal static let first = L10n.tr("Localizable", "Retrospect.continuous.description.first", fallback: "님!\n연속으로 ")
+        /// 번 회고를 작성하셨군요!
+        internal static let second = L10n.tr("Localizable", "Retrospect.continuous.description.second", fallback: "번 회고를 작성하셨군요!")
+      }
+    }
+    internal enum Gender {
+      internal enum Icon {
+        /// 👦🏻 
+        internal static let man = L10n.tr("Localizable", "Retrospect.gender.icon.man", fallback: "👦🏻 ")
+        /// 👩🏻 
+        internal static let woman = L10n.tr("Localizable", "Retrospect.gender.icon.woman", fallback: "👩🏻 ")
+      }
+    }
+    internal enum Morecontinuous {
+      /// 일만 더 연속으로
+      /// 회고를 작성하면 특별한 일이 일어나요!
+      internal static let description = L10n.tr("Localizable", "Retrospect.morecontinuous.description", fallback: "일만 더 연속으로\n회고를 작성하면 특별한 일이 일어나요!")
+    }
+    internal enum Morepoint {
+      internal enum Description {
+        /// 포인트
+        /// 더 모으면 Lv.
+        internal static let first = L10n.tr("Localizable", "Retrospect.morepoint.description.first", fallback: "포인트\n더 모으면 Lv.")
+        /// 로 올라갈 수 있어요!
+        internal static let second = L10n.tr("Localizable", "Retrospect.morepoint.description.second", fallback: "로 올라갈 수 있어요!")
+      }
+    }
+    internal enum Point {
+      internal enum Description {
+        /// 님!
+        /// 지금까지 총 
+        internal static let first = L10n.tr("Localizable", "Retrospect.point.description.first", fallback: "님!\n지금까지 총 ")
+        /// 포인트 획득 하셨군요!
+        internal static let second = L10n.tr("Localizable", "Retrospect.point.description.second", fallback: "포인트 획득 하셨군요!")
+      }
+    }
+  }
   internal enum SignUp {
     /// 회원가입
     internal static let title = L10n.tr("Localizable", "SignUp.Title", fallback: "회원가입")
@@ -327,6 +369,68 @@ internal enum L10n {
       internal static let description = L10n.tr("Localizable", "Tutorial.Second.description", fallback: "회고를 함으로써 크고 작은 목표를 달성하기까지\n잘한 점과 아쉬운 점 그리고 지켜봐야 할 점을\n찾아내고 이를 기반으로 개선을 위한 아이디어와\n구체적인 실행 방안을 도출할 수 있습니다.\n\n즉 어제보다 더 나은 내일을 만들어 나갈 수 있는\n것이죠!\n\n회고의 의미와 해야 되는 이유를 알았으니\n그로우립 사용할 준비가 완료되었습니다!")
       /// 회고를 해야 되는 이유는요!
       internal static let title = L10n.tr("Localizable", "Tutorial.Second.Title", fallback: "회고를 해야 되는 이유는요!")
+    }
+  }
+  internal enum WriteRetrospect {
+    /// 회고 작성
+    internal static let title = L10n.tr("Localizable", "WriteRetrospect.title", fallback: "회고 작성")
+    internal enum Alert {
+      internal enum Skip {
+        /// 회고 작성하는 법
+        internal static let title = L10n.tr("Localizable", "WriteRetrospect.Alert.Skip.title", fallback: "회고 작성하는 법")
+        internal enum Button {
+          /// SKIP
+          internal static let title = L10n.tr("Localizable", "WriteRetrospect.Alert.Skip.button.title", fallback: "SKIP")
+        }
+        internal enum First {
+          /// 회고를 하기 위해서는 총 4가지를 입력 해야 해요!
+          /// 첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.
+          /// +버튼을 눌러서 내용을 더 추가할 수도 있어요!
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Alert.Skip.first.description", fallback: "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!")
+        }
+        internal enum Fourth {
+          /// 
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Alert.Skip.fourth.description", fallback: "")
+        }
+        internal enum Second {
+          /// DONE에 대해 불편하게 느끼는 부분으로
+          /// 개선이 필요하다고 생각되는 내용을 PROBELM에
+          /// 입력합니다.
+          /// +버튼을 눌러서 내용을 더 추가할 수도 있어요!
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Alert.Skip.second.description", fallback: "DONE에 대해 불편하게 느끼는 부분으로\n개선이 필요하다고 생각되는 내용을 PROBELM에\n입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!")
+        }
+        internal enum Third {
+          /// 
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Alert.Skip.third.description", fallback: "")
+        }
+      }
+      internal enum NotYet {
+        /// 작성 중인 글이 저장되지 않았습니다.
+        /// 그래도 돌아가시겠어요?
+        internal static let title = L10n.tr("Localizable", "WriteRetrospect.Alert.notYet.title", fallback: "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?")
+      }
+    }
+    internal enum Done {
+      /// DONE
+      internal static let title = L10n.tr("Localizable", "WriteRetrospect.done.title", fallback: "DONE")
+    }
+    internal enum Enroll {
+      internal enum Button {
+        /// 등록하기
+        internal static let title = L10n.tr("Localizable", "WriteRetrospect.enroll.button.title", fallback: "등록하기")
+      }
+    }
+    internal enum Keep {
+      /// KEEP
+      internal static let title = L10n.tr("Localizable", "WriteRetrospect.keep.title", fallback: "KEEP")
+    }
+    internal enum Problem {
+      /// PROBLEM
+      internal static let title = L10n.tr("Localizable", "WriteRetrospect.problem.title", fallback: "PROBLEM")
+    }
+    internal enum Try {
+      /// TRY
+      internal static let title = L10n.tr("Localizable", "WriteRetrospect.try.title", fallback: "TRY")
     }
   }
   internal enum Yes {

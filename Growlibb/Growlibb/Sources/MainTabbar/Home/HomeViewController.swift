@@ -68,6 +68,10 @@ class HomeViewController: BaseViewController {
                 self.scrollCurrentPage(isPrev: false)
             })
             .disposed(by: disposeBag)
+        
+        goRetrospectButton.rx.tap
+            .bind(to: viewModel.inputs.writeretrospect)
+            .disposed(by: disposeBag)
 //
 //        postCollectionView.rx.itemSelected
 //            .map { $0.item }

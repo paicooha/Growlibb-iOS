@@ -15,8 +15,8 @@ final class RetrospectComponent {
     func writeRetrospectComponent() -> WriteRetrospectComponent {
         return WriteRetrospectComponent()
     }
-//
-//    var writingPostComponent: WritingMainPostComponent {
+
+//    var writingPostComponent: WritingRetr {
 //        return WritingMainPostComponent()
 //    }
 //

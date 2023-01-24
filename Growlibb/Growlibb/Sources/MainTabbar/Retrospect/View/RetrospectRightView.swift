@@ -38,6 +38,8 @@ final class RetrospectRightView: UIView {
         label.text = ""
         label.font = .pretendardSemibold12
         label.textColor = .black
+        label.numberOfLines = 0
+        label.textAlignment = .right
     }
 }
 
@@ -58,13 +60,14 @@ extension RetrospectRightView {
     private func initialLayout() {
         contentView.snp.makeConstraints { make in
             make.trailing.equalTo(self.snp.trailing)
-            make.top.equalTo(self.snp.bottom)
+            make.top.equalTo(self.snp.top)
             make.bottom.equalTo(self.snp.bottom)
+            make.width.equalTo(210)
             make.height.equalTo(74)
         }
 
         label.snp.makeConstraints { make in
-            make.trailing.equalTo(contentView.snp.leading).offset(-15)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-15)
             make.centerY.equalTo(contentView.snp.centerY)
         }
     }
