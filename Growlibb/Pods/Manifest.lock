@@ -117,6 +117,11 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (3.0.0)
   - Kingfisher (7.4.1)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -142,6 +147,7 @@ PODS:
   - SnapKit (5.0.1)
   - SwiftGen (6.6.2)
   - SwiftKeychainWrapper (4.0.1)
+  - SwiftyJSON (4.3.0)
   - Then (3.0.0)
   - Toast-Swift (5.0.1)
 
@@ -156,6 +162,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - FSCalendar
   - Kingfisher (~> 7.0)
+  - Moya/RxSwift (~> 15.0)
   - RxCocoa (~> 6.5.0)
   - RxDataSources (~> 5.0)
   - RxGesture
@@ -164,6 +171,7 @@ DEPENDENCIES:
   - SnapKit (~> 5.0.0)
   - SwiftGen (~> 6.0)
   - SwiftKeychainWrapper
+  - SwiftyJSON (~> 4.0)
   - Then
   - Toast-Swift (~> 5.0.1)
 
@@ -188,6 +196,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - Kingfisher
+    - Moya
     - nanopb
     - PromisesObjC
     - RxCocoa
@@ -199,6 +208,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftGen
     - SwiftKeychainWrapper
+    - SwiftyJSON
     - Then
     - Toast-Swift
 
@@ -222,6 +232,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   GTMSessionFetcher: c1edebe64e9fb4e8f6415d018edf1fd3eac074a1
   Kingfisher: cd762a593a61b2fbecf7645c00f9a801a3ebfc9c
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
@@ -233,9 +244,10 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 5374bd5e810874642422a35791ca1311e10a2fee
+PODFILE CHECKSUM: e3ca19a24d48d15e7a68945296307ed4958811f6
 
 COCOAPODS: 1.11.3

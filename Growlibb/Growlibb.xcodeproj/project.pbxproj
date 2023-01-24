@@ -78,6 +78,13 @@
 		DAC1854229196126009D7181 /* TutorialFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1854129196126009D7181 /* TutorialFirstViewController.swift */; };
 		DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC185432919616F009D7181 /* TutorialFirstViewModel.swift */; };
 		DAC1854729196213009D7181 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1854629196213009D7181 /* NavBar.swift */; };
+		DACB0BC7297F117200ABCB8F /* RetrospectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB0BC6297F117200ABCB8F /* RetrospectAPI.swift */; };
+		DACB0BC9297F117D00ABCB8F /* RetrospectAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB0BC8297F117D00ABCB8F /* RetrospectAPIService.swift */; };
+		DACB0BCC297F11CC00ABCB8F /* GetRetrospectTabResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB0BCB297F11CC00ABCB8F /* GetRetrospectTabResponse.swift */; };
+		DACB0BCE297F12DB00ABCB8F /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB0BCD297F12DB00ABCB8F /* BaseAPI.swift */; };
+		DACB0BD0297F158F00ABCB8F /* RxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB0BCF297F158F00ABCB8F /* RxResponse.swift */; };
+		DACB0BD2297F1AE300ABCB8F /* JSONError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB0BD1297F1AE300ABCB8F /* JSONError.swift */; };
+		DACB0BD4297F1B6500ABCB8F /* BasicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB0BD3297F1B6500ABCB8F /* BasicResponse.swift */; };
 		DACF17AA292B4EB2002734AA /* SignUpSecondCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17A9292B4EB2002734AA /* SignUpSecondCoordinator.swift */; };
 		DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17AB292B4EB9002734AA /* SignUpSecondViewModel.swift */; };
 		DACF17AE292B4EC1002734AA /* SignUpSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF17AD292B4EC1002734AA /* SignUpSecondViewController.swift */; };
@@ -202,6 +209,13 @@
 		DAC185432919616F009D7181 /* TutorialFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialFirstViewModel.swift; sourceTree = "<group>"; };
 		DAC1854629196213009D7181 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		DAC86A8E29140938006F54A1 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		DACB0BC6297F117200ABCB8F /* RetrospectAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectAPI.swift; sourceTree = "<group>"; };
+		DACB0BC8297F117D00ABCB8F /* RetrospectAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectAPIService.swift; sourceTree = "<group>"; };
+		DACB0BCB297F11CC00ABCB8F /* GetRetrospectTabResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRetrospectTabResponse.swift; sourceTree = "<group>"; };
+		DACB0BCD297F12DB00ABCB8F /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
+		DACB0BCF297F158F00ABCB8F /* RxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxResponse.swift; sourceTree = "<group>"; };
+		DACB0BD1297F1AE300ABCB8F /* JSONError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONError.swift; sourceTree = "<group>"; };
+		DACB0BD3297F1B6500ABCB8F /* BasicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicResponse.swift; sourceTree = "<group>"; };
 		DACF17A9292B4EB2002734AA /* SignUpSecondCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondCoordinator.swift; sourceTree = "<group>"; };
 		DACF17AB292B4EB9002734AA /* SignUpSecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewModel.swift; sourceTree = "<group>"; };
 		DACF17AD292B4EC1002734AA /* SignUpSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondViewController.swift; sourceTree = "<group>"; };
@@ -322,7 +336,6 @@
 		DA42978529730087003AAA93 /* WriteRetrospect */ = {
 			isa = PBXGroup;
 			children = (
-				DA42978F29730128003AAA93 /* NotSaveAlert */,
 				DA42978E297300D3003AAA93 /* TutorialAlert */,
 				DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */,
 				DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */,
@@ -338,13 +351,6 @@
 				DA5B89EB2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift */,
 			);
 			path = TutorialAlert;
-			sourceTree = "<group>";
-		};
-		DA42978F29730128003AAA93 /* NotSaveAlert */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NotSaveAlert;
 			sourceTree = "<group>";
 		};
 		DA4E55AE29399AE400176B87 /* Model */ = {
@@ -510,6 +516,8 @@
 				DA1D1DCC2912717700878BA3 /* BaseResponse.swift */,
 				DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */,
 				DACF81D2291BBDCE00AA74E8 /* BasicCoordinator.swift */,
+				DACB0BCD297F12DB00ABCB8F /* BaseAPI.swift */,
+				DACB0BD3297F1B6500ABCB8F /* BasicResponse.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -544,6 +552,8 @@
 				DA4E55B6293B78C000176B87 /* DateUtil */,
 				DACF81D0291BAB9400AA74E8 /* Log.swift */,
 				DACF17B7292B7488002734AA /* Regex.swift */,
+				DACB0BCF297F158F00ABCB8F /* RxResponse.swift */,
+				DACB0BD1297F1AE300ABCB8F /* JSONError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -568,6 +578,23 @@
 				DACF81EB291BC5E300AA74E8 /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		DACB0BC5297F116800ABCB8F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DACB0BC8297F117D00ABCB8F /* RetrospectAPIService.swift */,
+				DACB0BC6297F117200ABCB8F /* RetrospectAPI.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DACB0BCA297F118500ABCB8F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DACB0BCB297F11CC00ABCB8F /* GetRetrospectTabResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DACF81D4291BBE4300AA74E8 /* App */ = {
@@ -644,6 +671,8 @@
 		DACF8200291BDE1700AA74E8 /* Retrospect */ = {
 			isa = PBXGroup;
 			children = (
+				DACB0BCA297F118500ABCB8F /* Model */,
+				DACB0BC5297F116800ABCB8F /* Network */,
 				DAF8B01D2975612000380D28 /* View */,
 				DA4297842973006A003AAA93 /* Alert */,
 				DA88B49A2923B94A00A4B1B5 /* RetrospectComponent.swift */,
@@ -945,6 +974,7 @@
 				DACF81FC291BDCA200AA74E8 /* MainTabbarViewModel.swift in Sources */,
 				DA88B4A22923B96100A4B1B5 /* RetrospectViewController.swift in Sources */,
 				DA42978729730097003AAA93 /* WriteRetrospectViewController.swift in Sources */,
+				DACB0BC9297F117D00ABCB8F /* RetrospectAPIService.swift in Sources */,
 				DACF81F8291BDC9100AA74E8 /* MainTabComponent.swift in Sources */,
 				DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */,
 				DA4E55BD293BAC0200176B87 /* HomeRetrospectTableViewCell.swift in Sources */,
@@ -956,8 +986,10 @@
 				DACF81F0291BC7BF00AA74E8 /* TutorialFirstCoordinator.swift in Sources */,
 				DA9F8DD129352320007014A5 /* FindEmailorPasswordCoordinator.swift in Sources */,
 				DADA2F0A291D403C005E6B71 /* Localizable+Generated.swift in Sources */,
+				DACB0BCC297F11CC00ABCB8F /* GetRetrospectTabResponse.swift in Sources */,
 				DACF8210291C11D700AA74E8 /* LongButton.swift in Sources */,
 				DA95BC2B29116D8B003C81CE /* ViewController.swift in Sources */,
+				DACB0BD2297F1AE300ABCB8F /* JSONError.swift in Sources */,
 				DACF820B291C03F100AA74E8 /* TutorialSecondCoordinator.swift in Sources */,
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
 				DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */,
@@ -968,6 +1000,7 @@
 				DAC1854729196213009D7181 /* NavBar.swift in Sources */,
 				DA0597D829213F2D005DFC79 /* UIButton+.swift in Sources */,
 				DA4E55BA293B796500176B87 /* DateUtil.swift in Sources */,
+				DACB0BCE297F12DB00ABCB8F /* BaseAPI.swift in Sources */,
 				DA88B4A02923B95900A4B1B5 /* RetrospectViewModel.swift in Sources */,
 				DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */,
 				DA9F8DD32935232E007014A5 /* FindEmailorPasswordViewModel.swift in Sources */,
@@ -986,14 +1019,17 @@
 				DA7FDCCC29378204003C3792 /* PostFindPasswordRequest.swift in Sources */,
 				DA9F8DCF29352311007014A5 /* FindEmailorPasswordComponent.swift in Sources */,
 				DACF17B8292B7488002734AA /* Regex.swift in Sources */,
+				DACB0BD0297F158F00ABCB8F /* RxResponse.swift in Sources */,
 				DA88B4B22923D95300A4B1B5 /* GetJwtResponse.swift in Sources */,
 				DA88B48B29238B2700A4B1B5 /* PostLoginRequest.swift in Sources */,
+				DACB0BC7297F117200ABCB8F /* RetrospectAPI.swift in Sources */,
 				DACF8209291C03E700AA74E8 /* TutorialSecondComponent.swift in Sources */,
 				DACF17B4292B7130002734AA /* SignUpFinalViewModel.swift in Sources */,
 				DA95BC2929116D8B003C81CE /* SceneDelegate.swift in Sources */,
 				DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */,
 				DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */,
 				DACF81DD291BC00C00AA74E8 /* BasicLoginKeyChainService.swift in Sources */,
+				DACB0BD4297F1B6500ABCB8F /* BasicResponse.swift in Sources */,
 				DA88B4932923B92B00A4B1B5 /* HomeComponent.swift in Sources */,
 				DA7CD55529140FB000B8613C /* Constants.swift in Sources */,
 			);

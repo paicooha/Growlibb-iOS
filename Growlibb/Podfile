@@ -16,6 +16,10 @@ target 'Growlibb' do
   pod 'RxGesture'
   # RxKeyboard
   pod 'RxKeyboard'
+  # Moya with rx
+  pod 'Moya/RxSwift', '~> 15.0'
+  # SwiftyJson
+  pod 'SwiftyJSON', '~> 4.0'
 
   # SnapKit
   pod 'SnapKit', '~> 5.0.0'
