@@ -1,4 +1,5 @@
 PODS:
+  - AdvancedPageControl (0.9.0)
   - Alamofire (5.4.4)
   - AlamofireNetworkActivityLogger (3.4.0):
     - Alamofire (~> 5.4.0)
@@ -152,6 +153,7 @@ PODS:
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
+  - AdvancedPageControl
   - Alamofire (~> 5.4.4)
   - AlamofireNetworkActivityLogger (~> 3.4.0)
   - AnyFormatKit
@@ -177,6 +179,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AdvancedPageControl
     - Alamofire
     - AlamofireNetworkActivityLogger
     - AnyFormatKit
@@ -213,6 +216,7 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  AdvancedPageControl: 39e3b32b00b2d324c534f8e17cc6c5be9abe84b7
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   AlamofireNetworkActivityLogger: 162ab8aee00e6267a4304d7cc134e13ccfe3bcc5
   AnyFormatKit: b0dbb2a5f2fe7a0fc97f401f8a219a47ee63a335
@@ -248,6 +252,6 @@ SPEC CHECKSUMS:
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: e3ca19a24d48d15e7a68945296307ed4958811f6
+PODFILE CHECKSUM: a0aaf4535e34a202b40a3ef7a42b05897988d0c4
 
 COCOAPODS: 1.11.3

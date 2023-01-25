@@ -31,4 +31,12 @@ extension UIFont {
     class var pretendardSemibold20: UIFont {
         return UIFont(name: "Pretendard-SemiBold", size: 20.0)!
     }
+    
+    class var pretendardRegular9: UIFont {
+        return UIFont(name: "Pretendard-Regular", size: 9.0)!
+    }
+    
+    class var pretendardRegular12: UIFont {
+        return UIFont(name: "Pretendard-Regular", size: 12.0)!
+    }
 }

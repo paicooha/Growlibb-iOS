@@ -46,12 +46,11 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 
-//        scene.VM.routes.filter
-//            .map { (vm: scene.VM, filter: $0) }
-//            .subscribe(onNext: { [weak self] input in
-//                self?.pushHomeFilterScene(vm: input.vm, filter: input.filter, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
+        scene.VM.routes.showTutorial
+            .subscribe(onNext: { [weak self] _ in
+                self?.showWriteRetrospectTutorialModal()
+            })
+            .disposed(by: sceneDisposeBag)
 //
 //        scene.VM.routes.writingPost
 //            .map { scene.VM }
@@ -94,18 +93,17 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
 //            .disposed(by: sceneDisposeBag)
     }
 
-//    private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {
-//        let comp = component.postDetailComponent(postId: postId)
-//        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .backward(_, needUpdate):
-//                vm.routeInputs.needUpdate.onNext(needUpdate)
-//                vm.routeInputs.detailClosed.onNext(())
-//            }
-//        }
-//    }
+    private func showWriteRetrospectTutorialModal() {
+        let comp = component.writeRetrospectTutorialModalComponent()
+        let coord = WriteRetrospectTutorialModalCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case let .close:
+                break
+            }
+        }
+    }
 //
 //    private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
 //        let comp = component.writingPostComponent

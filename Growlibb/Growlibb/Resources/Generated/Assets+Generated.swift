@@ -25,6 +25,7 @@ internal enum Asset {
   internal static let icArrow2Left = ImageAsset(name: "ic_arrow2_left")
   internal static let icArrow2Right = ImageAsset(name: "ic_arrow2_right")
   internal static let icArrowLeft = ImageAsset(name: "ic_arrow_left")
+  internal static let icArrowRightBlue = ImageAsset(name: "ic_arrow_right_blue")
   internal static let icCheckboxBlue = ImageAsset(name: "ic_checkbox_blue")
   internal static let icCheckboxGray = ImageAsset(name: "ic_checkbox_gray")
   internal static let icDropdownDown = ImageAsset(name: "ic_dropdown_down")
@@ -36,8 +37,14 @@ internal enum Asset {
   internal static let icMyBlue = ImageAsset(name: "ic_my_blue")
   internal static let icMyGray = ImageAsset(name: "ic_my_gray")
   internal static let icMyProfile = ImageAsset(name: "ic_my_profile")
+  internal static let icMypageSetting = ImageAsset(name: "ic_mypage_setting")
   internal static let icRetrospectBlue = ImageAsset(name: "ic_retrospect_blue")
+  internal static let icRetrospectDelete = ImageAsset(name: "ic_retrospect_delete")
   internal static let icRetrospectGray = ImageAsset(name: "ic_retrospect_gray")
+  internal static let icRetrospectPlus = ImageAsset(name: "ic_retrospect_plus")
+  internal static let icRetrospectTutorialKeep = ImageAsset(name: "ic_retrospect_tutorial_keep")
+  internal static let icRetrospectTutorialProblem = ImageAsset(name: "ic_retrospect_tutorial_problem")
+  internal static let icRetrospectTutorialTry = ImageAsset(name: "ic_retrospect_tutorial_try")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

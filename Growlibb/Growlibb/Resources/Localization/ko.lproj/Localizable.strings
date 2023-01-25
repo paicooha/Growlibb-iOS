@@ -135,6 +135,10 @@
 "Retrospect.continuous.description.first" = "님!\n연속으로 ";
 "Retrospect.continuous.description.second" = "번 회고를 작성하셨군요!";
 "Retrospect.morecontinuous.description" = "일만 더 연속으로\n회고를 작성하면 특별한 일이 일어나요!";
+"Retrospect.modal.event.title" = "축하합니다!\n\n";
+"Retrospect.modal.event.first" = "회 연속 회고 작성으로\n";
+"Retrospect.modal.event.second" = "포인트를 받으셨습니다!";
+
 
 // MARK: - Write Retrospect
 "WriteRetrospect.title" = "회고 작성";
@@ -144,11 +148,12 @@
 "WriteRetrospect.try.title" = "TRY";
 "WriteRetrospect.enroll.button.title" = "등록하기";
 
-// MARK: - Write Retrospect Alert
-"WriteRetrospect.Alert.notYet.title" = "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?";
-"WriteRetrospect.Alert.Skip.button.title" = "SKIP";
-"WriteRetrospect.Alert.Skip.title" = "회고 작성하는 법";
-"WriteRetrospect.Alert.Skip.first.description" = "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
-"WriteRetrospect.Alert.Skip.second.description" = "DONE에 대해 불편하게 느끼는 부분으로\n개선이 필요하다고 생각되는 내용을 PROBELM에\n입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
-"WriteRetrospect.Alert.Skip.third.description" = "";
-"WriteRetrospect.Alert.Skip.fourth.description" = "";
+// MARK: - Write Retrospect Modal
+"WriteRetrospect.Modal.Tutorial.Skip.button.title" = "SKIP";
+"WriteRetrospect.Modal.Tutorial.title" = "회고 작성하는 법";
+"WriteRetrospect.Modal.Tutorial.first.description" = "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
+"WriteRetrospect.Modal.Tutorial.second.description" = "DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을\nKEEP에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
+"WriteRetrospect.Modal.Tutorial.third.description" = "DONE에 대해 불편하게 느끼는 부분으로\n개선이 필요하다고 생각되는 내용을\nPROBELM에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
+"WriteRetrospect.Modal.Tutorial.fourth.description" = "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,\n당장 시도해 볼 내용을 TRY에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
+
+"WriteRetrospect.Modal.notYet.title" = "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?";

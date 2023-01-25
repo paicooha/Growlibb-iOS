@@ -43,4 +43,8 @@ extension UIColor {
     @nonobjc class var cornFlower: UIColor {
         return UIColor(red: 97 / 255.0, green: 122 / 255.0, blue: 255 / 255.0, alpha: 1.0)
     }
+    
+    @nonobjc class var modalBgColor: UIColor {
+        return UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 0.5)
+    }
 }

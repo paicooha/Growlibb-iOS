@@ -1,20 +1,20 @@
 //
-//  WriteRetrospectComponent.swift
+//  WriteRetrospectTutorialModalComponent.swift
 //  Growlibb
 //
-//  Created by 이유리 on 2023/01/15.
+//  Created by 이유리 on 2023/01/25.
 //
 
 import UIKit
 
-final class WriteRetrospectComponent {
-    lazy var scene: (VC: WriteRetrospectViewController, VM: WriteRetrospectViewModel) = (VC: WriteRetrospectViewController(viewModel: viewModel), VM: viewModel)
+final class WriteRetrospectTutorialModalComponent {
+    lazy var scene: (VC: WriteRetrospectTutorialModalViewController, VM: WriteRetrospectTutorialViewModel) = (VC: WriteRetrospectTutorialModalViewController(viewModel: viewModel), VM: viewModel)
 
-    lazy var viewModel: WriteRetrospectViewModel = .init()
+    lazy var viewModel: WriteRetrospectTutorialViewModel = .init()
 
-    func writeRetrospectTutorialModalComponent() -> WriteRetrospectTutorialModalComponent {
-        return WriteRetrospectTutorialModalComponent()
-    }
+//    func postDetailComponent(postId: Int) -> PostDetailComponent {
+//        return PostDetailComponent(postId: postId)
+//    }
 //
 //    var writingPostComponent: WritingMainPostComponent {
 //        return WritingMainPostComponent()

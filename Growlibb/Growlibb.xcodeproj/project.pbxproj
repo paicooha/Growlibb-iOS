@@ -128,6 +128,11 @@
 		DADA2F0A291D403C005E6B71 /* Localizable+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA2F08291D403C005E6B71 /* Localizable+Generated.swift */; };
 		DADA2F0B291D403C005E6B71 /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA2F09291D403C005E6B71 /* Assets+Generated.swift */; };
 		DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5833B2923FF45005F5D6F /* SignUpSecondComponent.swift */; };
+		DAEBC66B298121B20017A48E /* WriteRetrospectTutorialModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC66A298121B20017A48E /* WriteRetrospectTutorialModalComponent.swift */; };
+		DAEBC66D298121C20017A48E /* WriteRetrospectTutorialModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC66C298121C20017A48E /* WriteRetrospectTutorialModalCoordinator.swift */; };
+		DAEBC66F298121CA0017A48E /* WriteRetrospectTutorialModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC66E298121CA0017A48E /* WriteRetrospectTutorialModalViewModel.swift */; };
+		DAEBC671298141EA0017A48E /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC670298141EA0017A48E /* Pretendard-Regular.otf */; };
+		DAEBC674298146A90017A48E /* WriteRetrospectTutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC673298146A90017A48E /* WriteRetrospectTutorialCell.swift */; };
 		DAF8B0232975639600380D28 /* RetrospectLeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8B0222975639600380D28 /* RetrospectLeftView.swift */; };
 		DAF8B0252975684600380D28 /* RetrospectRightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8B0242975684600380D28 /* RetrospectRightView.swift */; };
 /* End PBXBuildFile section */
@@ -260,6 +265,11 @@
 		DADA2F08291D403C005E6B71 /* Localizable+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Localizable+Generated.swift"; sourceTree = "<group>"; };
 		DADA2F09291D403C005E6B71 /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
 		DAE5833B2923FF45005F5D6F /* SignUpSecondComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecondComponent.swift; sourceTree = "<group>"; };
+		DAEBC66A298121B20017A48E /* WriteRetrospectTutorialModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectTutorialModalComponent.swift; sourceTree = "<group>"; };
+		DAEBC66C298121C20017A48E /* WriteRetrospectTutorialModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectTutorialModalCoordinator.swift; sourceTree = "<group>"; };
+		DAEBC66E298121CA0017A48E /* WriteRetrospectTutorialModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectTutorialModalViewModel.swift; sourceTree = "<group>"; };
+		DAEBC670298141EA0017A48E /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../../../../../../Downloads/Pretendard-1.3.6/public/static/Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		DAEBC673298146A90017A48E /* WriteRetrospectTutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectTutorialCell.swift; sourceTree = "<group>"; };
 		DAF8B0222975639600380D28 /* RetrospectLeftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectLeftView.swift; sourceTree = "<group>"; };
 		DAF8B0242975684600380D28 /* RetrospectRightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectRightView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -336,7 +346,8 @@
 		DA42978529730087003AAA93 /* WriteRetrospect */ = {
 			isa = PBXGroup;
 			children = (
-				DA42978E297300D3003AAA93 /* TutorialAlert */,
+				DAEBC6722981469D0017A48E /* Cell */,
+				DA42978E297300D3003AAA93 /* TutorialModal */,
 				DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */,
 				DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */,
 				DA42978C297300AF003AAA93 /* WriteRetrospectViewModel.swift */,
@@ -345,12 +356,15 @@
 			path = WriteRetrospect;
 			sourceTree = "<group>";
 		};
-		DA42978E297300D3003AAA93 /* TutorialAlert */ = {
+		DA42978E297300D3003AAA93 /* TutorialModal */ = {
 			isa = PBXGroup;
 			children = (
+				DAEBC66A298121B20017A48E /* WriteRetrospectTutorialModalComponent.swift */,
+				DAEBC66C298121C20017A48E /* WriteRetrospectTutorialModalCoordinator.swift */,
+				DAEBC66E298121CA0017A48E /* WriteRetrospectTutorialModalViewModel.swift */,
 				DA5B89EB2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift */,
 			);
-			path = TutorialAlert;
+			path = TutorialModal;
 			sourceTree = "<group>";
 		};
 		DA4E55AE29399AE400176B87 /* Model */ = {
@@ -525,6 +539,7 @@
 		DABB110B29137EEB00FC3FE7 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				DAEBC670298141EA0017A48E /* Pretendard-Regular.otf */,
 				DACF8216291C1EAF00AA74E8 /* Pretendard-SemiBold.otf */,
 				DAC86A8E29140938006F54A1 /* Pretendard-Medium.otf */,
 			);
@@ -769,6 +784,14 @@
 			path = Final;
 			sourceTree = "<group>";
 		};
+		DAEBC6722981469D0017A48E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DAEBC673298146A90017A48E /* WriteRetrospectTutorialCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		DAF8B01D2975612000380D28 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -844,6 +867,7 @@
 				DA4660EB294DA03E00940149 /* GoogleService-Info.plist in Resources */,
 				DA6E2018291D25D300F78173 /* Images.xcassets in Resources */,
 				DA6E2016291D223200F78173 /* Pretendard-Medium.otf in Resources */,
+				DAEBC671298141EA0017A48E /* Pretendard-Regular.otf in Resources */,
 				DA95BC3329116D8D003C81CE /* LaunchScreen.storyboard in Resources */,
 				DA6E2022291D2B6500F78173 /* Localizable.strings in Resources */,
 				DA95BC3029116D8D003C81CE /* Assets.xcassets in Resources */,
@@ -984,11 +1008,13 @@
 				DACF81EC291BC5E300AA74E8 /* LoginViewController.swift in Sources */,
 				DACF81D3291BBDCE00AA74E8 /* BasicCoordinator.swift in Sources */,
 				DACF81F0291BC7BF00AA74E8 /* TutorialFirstCoordinator.swift in Sources */,
+				DAEBC674298146A90017A48E /* WriteRetrospectTutorialCell.swift in Sources */,
 				DA9F8DD129352320007014A5 /* FindEmailorPasswordCoordinator.swift in Sources */,
 				DADA2F0A291D403C005E6B71 /* Localizable+Generated.swift in Sources */,
 				DACB0BCC297F11CC00ABCB8F /* GetRetrospectTabResponse.swift in Sources */,
 				DACF8210291C11D700AA74E8 /* LongButton.swift in Sources */,
 				DA95BC2B29116D8B003C81CE /* ViewController.swift in Sources */,
+				DAEBC66B298121B20017A48E /* WriteRetrospectTutorialModalComponent.swift in Sources */,
 				DACB0BD2297F1AE300ABCB8F /* JSONError.swift in Sources */,
 				DACF820B291C03F100AA74E8 /* TutorialSecondCoordinator.swift in Sources */,
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
@@ -1025,6 +1051,7 @@
 				DACB0BC7297F117200ABCB8F /* RetrospectAPI.swift in Sources */,
 				DACF8209291C03E700AA74E8 /* TutorialSecondComponent.swift in Sources */,
 				DACF17B4292B7130002734AA /* SignUpFinalViewModel.swift in Sources */,
+				DAEBC66F298121CA0017A48E /* WriteRetrospectTutorialModalViewModel.swift in Sources */,
 				DA95BC2929116D8B003C81CE /* SceneDelegate.swift in Sources */,
 				DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */,
 				DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */,
@@ -1032,6 +1059,7 @@
 				DACB0BD4297F1B6500ABCB8F /* BasicResponse.swift in Sources */,
 				DA88B4932923B92B00A4B1B5 /* HomeComponent.swift in Sources */,
 				DA7CD55529140FB000B8613C /* Constants.swift in Sources */,
+				DAEBC66D298121C20017A48E /* WriteRetrospectTutorialModalCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
