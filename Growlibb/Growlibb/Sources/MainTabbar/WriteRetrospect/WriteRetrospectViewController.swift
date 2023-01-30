@@ -23,10 +23,9 @@ class WriteRetrospectViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
         
-        // 마지막에 이거 풀어야함
-//        if !UserDefaults.standard.bool(forKey: "isPassedWriteRetrospectTutorial") {
+        if !UserDefaults.standard.bool(forKey: "isPassedWriteRetrospectTutorial") {
             viewModel.inputs.showTutorial.onNext(())
-//        }
+        }
     }
 
     init(viewModel: WriteRetrospectViewModel) {

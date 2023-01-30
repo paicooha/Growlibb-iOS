@@ -42,7 +42,9 @@ internal enum Asset {
   internal static let icRetrospectDelete = ImageAsset(name: "ic_retrospect_delete")
   internal static let icRetrospectGray = ImageAsset(name: "ic_retrospect_gray")
   internal static let icRetrospectPlus = ImageAsset(name: "ic_retrospect_plus")
+  internal static let icRetrospectTutorialDone = ImageAsset(name: "ic_retrospect_tutorial_done")
   internal static let icRetrospectTutorialKeep = ImageAsset(name: "ic_retrospect_tutorial_keep")
+  internal static let icRetrospectTutorialPlus = ImageAsset(name: "ic_retrospect_tutorial_plus")
   internal static let icRetrospectTutorialProblem = ImageAsset(name: "ic_retrospect_tutorial_problem")
   internal static let icRetrospectTutorialTry = ImageAsset(name: "ic_retrospect_tutorial_try")
 }

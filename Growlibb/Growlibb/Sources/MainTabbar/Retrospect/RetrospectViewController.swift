@@ -18,7 +18,9 @@ class RetrospectViewController: BaseViewController {
     var level = 0
     private var userKeyChainService: UserKeychainService
     var dateUtil = DateUtil.shared
-
+    var myeongeonList = [L10n.Retrospect.Myeongeon.first, L10n.Retrospect.Myeongeon.second, L10n.Retrospect.Myeongeon.third, L10n.Retrospect.Myeongeon.fourth, L10n.Retrospect.Myeongeon.fifth]
+    var myeongeonindex = Int.random(in: 0...4)
+                         
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -100,22 +102,9 @@ class RetrospectViewController: BaseViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private var logo = UIImageView().then { view in
-        view.snp.makeConstraints{ make in
-            make.width.height.equalTo(42)
-        }
-        view.image = Asset.icGrowlibbLogo.image
-    }
-    
-    private var dateLabel = UILabel().then { view in
-        view.font = .pretendardMedium20
-        view.textColor = .primaryBlue
-        view.text = DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd)
-    }
-    
     private var titleLabel = UILabel().then { view in
-        view.font = .pretendardMedium20
-
+        view.font = .pretendardSemibold20
+        view.numberOfLines = 0
     }
     
     //애니메이션 이미지 추가해야됨
@@ -173,6 +162,7 @@ extension RetrospectViewController {
     private func setupViews() {
         
         scrollView.contentSize = CGSize(width: view.frame.width, height: 2000)
+        titleLabel.text = myeongeonList[myeongeonindex] //명언 랜덤하게 보여주기
         
         view.addSubviews([
             scrollView
@@ -181,22 +171,15 @@ extension RetrospectViewController {
         scrollView.addSubview(contentView)
         
         contentView.addSubviews([
-            logo,
-            dateLabel,
             titleLabel,
             stackView,
             goRetrospectButton
         ])
-        
-        let attributedTitleString = NSMutableAttributedString(string: "\(self.userKeyChainService.nickName)\(L10n.Home.Title.nickname)")
-        attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 0, length: self.userKeyChainService.nickName.count+2))
-        
-        titleLabel.attributedText = attributedTitleString
     }
 
     private func initialLayout() {
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.snp.bottom)
@@ -210,23 +193,14 @@ extension RetrospectViewController {
             make.width.equalTo(scrollView.snp.width)
         }
         
-        logo.snp.makeConstraints{ make in
-            make.top.equalTo(contentView.snp.top).offset(UIScreen.main.isWiderThan375pt ? 70 : 26) //노치 44
-            make.leading.equalTo(contentView.snp.leading).offset(25)
-        }
-        
-        dateLabel.snp.makeConstraints{ make in
-            make.top.equalTo(logo.snp.bottom).offset(10)
-            make.leading.equalTo(logo.snp.leading)
-        }
-        
         titleLabel.snp.makeConstraints{ make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(4)
-            make.leading.equalTo(dateLabel.snp.leading)
+            make.top.equalTo(contentView.snp.top).offset(26)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-51)
         }
         
         stackView.snp.makeConstraints{ make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleLabel.snp.bottom).offset(50)
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }

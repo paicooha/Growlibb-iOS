@@ -126,6 +126,11 @@
 "Home.recent.nodata" = "회고 작성 이력이 없어요.";
 
 // MARK: - Retrospect
+"Retrospect.myeongeon.first" = "경험을 현명하게 사용한다면 어떤 일도 시간 낭비가 아니에요.";
+"Retrospect.myeongeon.second" = "잠자리에 들기 전, 하루를 검토해봐요.";
+"Retrospect.myeongeon.third" = "과거를 기억 못하는 사람은 과거를 반복 하기 마련이에요.";
+"Retrospect.myeongeon.fourth" = "과거에 집착하지 말고 현재를 현명하게 개선하세요.";
+"Retrospect.myeongeon.fifth" = "오랜 방황 끝에서야 지름길을 찾을 수 있어요.";
 "Retrospect.gender.icon.man" = "👦🏻 ";
 "Retrospect.gender.icon.woman" = "👩🏻 ";
 "Retrospect.point.description.first" = "님!\n지금까지 총 ";
@@ -151,9 +156,9 @@
 // MARK: - Write Retrospect Modal
 "WriteRetrospect.Modal.Tutorial.Skip.button.title" = "SKIP";
 "WriteRetrospect.Modal.Tutorial.title" = "회고 작성하는 법";
-"WriteRetrospect.Modal.Tutorial.first.description" = "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
-"WriteRetrospect.Modal.Tutorial.second.description" = "DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을\nKEEP에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
-"WriteRetrospect.Modal.Tutorial.third.description" = "DONE에 대해 불편하게 느끼는 부분으로\n개선이 필요하다고 생각되는 내용을\nPROBELM에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
-"WriteRetrospect.Modal.Tutorial.fourth.description" = "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,\n당장 시도해 볼 내용을 TRY에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!";
-
+"WriteRetrospect.Modal.Tutorial.first.description" = "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.";
+"WriteRetrospect.Modal.Tutorial.second.description" = "DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을\nKEEP에 입력합니다.";
+"WriteRetrospect.Modal.Tutorial.third.description" = "DONE에 대해 불편하게 느끼는 부분으로 개선이 필요하다고 생각되는 내용을 PROBELM에 입력합니다.";
+"WriteRetrospect.Modal.Tutorial.fourth.description" = "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,\n당장 시도해 볼 내용을 TRY에 입력합니다.";
+"WriteRetrospect.Modal.Tutorial.final.description" = "+버튼을 통해 회고를 추가할 수 있습니다.";
 "WriteRetrospect.Modal.notYet.title" = "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?";

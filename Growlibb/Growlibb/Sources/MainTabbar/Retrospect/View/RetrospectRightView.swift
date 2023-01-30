@@ -32,6 +32,12 @@ final class RetrospectRightView: UIView {
         view.backgroundColor = .veryLightBlue
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
+        
+        view.layer.masksToBounds = false
+        view.layer.shadowOpacity = 0.12
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 12 / UIScreen.main.scale
+        view.layer.shadowPath = nil
     }
     
     var label = UILabel().then { label in

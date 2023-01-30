@@ -218,6 +218,18 @@ internal enum L10n {
         internal static let second = L10n.tr("Localizable", "Retrospect.morepoint.description.second", fallback: "로 올라갈 수 있어요!")
       }
     }
+    internal enum Myeongeon {
+      /// 오랜 방황 끝에서야 지름길을 찾을 수 있어요.
+      internal static let fifth = L10n.tr("Localizable", "Retrospect.myeongeon.fifth", fallback: "오랜 방황 끝에서야 지름길을 찾을 수 있어요.")
+      /// 경험을 현명하게 사용한다면 어떤 일도 시간 낭비가 아니에요.
+      internal static let first = L10n.tr("Localizable", "Retrospect.myeongeon.first", fallback: "경험을 현명하게 사용한다면 어떤 일도 시간 낭비가 아니에요.")
+      /// 과거에 집착하지 말고 현재를 현명하게 개선하세요.
+      internal static let fourth = L10n.tr("Localizable", "Retrospect.myeongeon.fourth", fallback: "과거에 집착하지 말고 현재를 현명하게 개선하세요.")
+      /// 잠자리에 들기 전, 하루를 검토해봐요.
+      internal static let second = L10n.tr("Localizable", "Retrospect.myeongeon.second", fallback: "잠자리에 들기 전, 하루를 검토해봐요.")
+      /// 과거를 기억 못하는 사람은 과거를 반복 하기 마련이에요.
+      internal static let third = L10n.tr("Localizable", "Retrospect.myeongeon.third", fallback: "과거를 기억 못하는 사람은 과거를 반복 하기 마련이에요.")
+    }
     internal enum Point {
       internal enum Description {
         /// 님!
@@ -397,30 +409,28 @@ internal enum L10n {
             internal static let title = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.Skip.button.title", fallback: "SKIP")
           }
         }
+        internal enum Final {
+          /// +버튼을 통해 회고를 추가할 수 있습니다.
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.final.description", fallback: "+버튼을 통해 회고를 추가할 수 있습니다.")
+        }
         internal enum First {
           /// 회고를 하기 위해서는 총 4가지를 입력 해야 해요!
           /// 첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.
-          /// +버튼을 눌러서 내용을 더 추가할 수도 있어요!
-          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.first.description", fallback: "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!")
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.first.description", fallback: "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.")
         }
         internal enum Fourth {
           /// DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,
           /// 당장 시도해 볼 내용을 TRY에 입력합니다.
-          /// +버튼을 눌러서 내용을 더 추가할 수도 있어요!
-          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.fourth.description", fallback: "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,\n당장 시도해 볼 내용을 TRY에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!")
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.fourth.description", fallback: "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,\n당장 시도해 볼 내용을 TRY에 입력합니다.")
         }
         internal enum Second {
           /// DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을
           /// KEEP에 입력합니다.
-          /// +버튼을 눌러서 내용을 더 추가할 수도 있어요!
-          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.second.description", fallback: "DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을\nKEEP에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!")
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.second.description", fallback: "DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을\nKEEP에 입력합니다.")
         }
         internal enum Third {
-          /// DONE에 대해 불편하게 느끼는 부분으로
-          /// 개선이 필요하다고 생각되는 내용을
-          /// PROBELM에 입력합니다.
-          /// +버튼을 눌러서 내용을 더 추가할 수도 있어요!
-          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.third.description", fallback: "DONE에 대해 불편하게 느끼는 부분으로\n개선이 필요하다고 생각되는 내용을\nPROBELM에 입력합니다.\n+버튼을 눌러서 내용을 더 추가할 수도 있어요!")
+          /// DONE에 대해 불편하게 느끼는 부분으로 개선이 필요하다고 생각되는 내용을 PROBELM에 입력합니다.
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.third.description", fallback: "DONE에 대해 불편하게 느끼는 부분으로 개선이 필요하다고 생각되는 내용을 PROBELM에 입력합니다.")
         }
       }
       internal enum NotYet {

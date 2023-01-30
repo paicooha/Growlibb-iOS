@@ -11,10 +11,14 @@ import RxSwift
 import SnapKit
 import Then
 import UIKit
-import AdvancedPageControl
 
 class WriteRetrospectTutorialModalViewController: BaseViewController {
-    let tutorialImages = [Asset.icRetrospectTutorialKeep.image, Asset.icRetrospectTutorialKeep.image, Asset.icRetrospectTutorialProblem.image, Asset.icRetrospectTutorialTry.image]
+    let tutorialImages = [Asset.icRetrospectTutorialDone.image, Asset.icRetrospectTutorialKeep.image, Asset.icRetrospectTutorialProblem.image, Asset.icRetrospectTutorialTry.image, Asset.icRetrospectTutorialPlus.image]
+    let tutorialDescription = [L10n.WriteRetrospect.Modal.Tutorial.First.description,             L10n.WriteRetrospect.Modal.Tutorial.Second.description, L10n.WriteRetrospect.Modal.Tutorial.Third.description,
+        L10n.WriteRetrospect.Modal.Tutorial.Fourth.description,
+        L10n.WriteRetrospect.Modal.Tutorial.Final.description]
+    
+    var pageNum = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +27,6 @@ class WriteRetrospectTutorialModalViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
-        
-        imageSlideCollectionView.delegate = self
-        imageSlideCollectionView.dataSource = self
     }
 
     init(viewModel: WriteRetrospectTutorialViewModel) {
@@ -66,8 +67,18 @@ class WriteRetrospectTutorialModalViewController: BaseViewController {
         
         startButton.rx.tap
             .subscribe({ [weak self] _ in
-                UserDefaults.standard.set(true, forKey: "isPassedWriteRetrospectTutorial")
-                self?.viewModel.inputs.close.onNext(())
+                if self?.pageNum == 4 {
+                    self?.viewModel.inputs.close.onNext(())
+                    UserDefaults.standard.set(true, forKey: "isPassedWriteRetrospectTutorial")
+                }
+                else if self?.pageNum == 3 {
+                    self?.startButton.setTitle(L10n.Start.title, for: .normal)
+                    self?.descriptionLabel.textAlignment = .center
+                }
+                self?.pageNum += 1
+                self?.imageView.image = self?.tutorialImages[self!.pageNum%5]
+                self?.descriptionLabel.text = self?.tutorialDescription[self!.pageNum%5]
+                self?.indicator.text = "\(self!.pageNum+1)/5"
             })
             .disposed(by: disposeBag)
         
@@ -102,41 +113,25 @@ class WriteRetrospectTutorialModalViewController: BaseViewController {
         view.backgroundColor = .veryLightGray
     }
     
+    private lazy var indicator = UILabel().then { view in
+        view.font = .pretendardRegular12
+        view.text = "\(self.pageNum+1)/5"
+    }
+    
+    private lazy var imageView = UIImageView().then { view in
+        view.image = self.tutorialImages[self.pageNum]
+    }
+    
     private var startButton = ShortButton().then { button in
-        button.isHidden = true
-        button.setTitle(L10n.Start.title, for: .normal)
+        button.setTitle(L10n.Next.Button.title, for: .normal)
         button.setBlueButton()
     }
     
-    private lazy var imageSlideCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = .zero
-        layout.scrollDirection = .horizontal
-
-        layout.itemSize = CGSize(width: sheet.bounds.width - 26, height: 186)
-        layout.minimumLineSpacing = 13
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
-        layout.scrollDirection = .horizontal
-        
-        var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(WriteRetrospectTutorialCell.self, forCellWithReuseIdentifier: WriteRetrospectTutorialCell.id)
-        
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        
-        collectionView.isPagingEnabled = false
-        collectionView.decelerationRate = .fast
-        
-        return collectionView
-    }()
-    
-    private var descriptionLabel = UILabel().then { view in
+    private lazy var descriptionLabel = UILabel().then { view in
         view.font = .pretendardRegular12
         view.numberOfLines = 0
-        view.text = L10n.WriteRetrospect.Modal.Tutorial.First.description
+        view.text = self.tutorialDescription[self.pageNum]
     }
-    
-    private var pageControl = AdvancedPageControlView()
 }
 
 // MARK: - Layout
@@ -144,15 +139,6 @@ class WriteRetrospectTutorialModalViewController: BaseViewController {
 extension WriteRetrospectTutorialModalViewController {
     private func setupViews() {
         view.backgroundColor = .modalBgColor
-        pageControl.drawer = ExtendedDotDrawer(numberOfPages: 4,
-                                               height: 9.0, space: 12.0,
-                                               raduis: 8.0,
-                                                indicatorColor: UIColor.primaryBlue,
-                                                dotsColor: .veryLightGray,
-                                                isBordered: false,
-                                                borderWidth: 0.0,
-                                                indicatorBorderColor: .clear,
-                                                indicatorBorderWidth: 0.0)
 
         view.addSubviews([
             sheet,
@@ -162,9 +148,9 @@ extension WriteRetrospectTutorialModalViewController {
             titleLabel,
             skip,
             hDivider,
-            imageSlideCollectionView,
+            indicator,
+            imageView,
             descriptionLabel,
-            pageControl,
             startButton
         ])
     }
@@ -174,7 +160,7 @@ extension WriteRetrospectTutorialModalViewController {
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
             make.centerY.equalTo(view.snp.centerY)
-            make.height.equalTo(438)
+            make.height.equalTo(408)
         }
 
         titleLabel.snp.makeConstraints { make in
@@ -194,99 +180,28 @@ extension WriteRetrospectTutorialModalViewController {
             make.height.equalTo(1)
         }
         
-        imageSlideCollectionView.snp.makeConstraints{ make in
+        indicator.snp.makeConstraints{ make in
+            make.centerY.equalTo(titleLabel.snp.centerY)
+            make.trailing.equalTo(sheet.snp.trailing).offset(-13)
+        }
+        
+        imageView.snp.makeConstraints{ make in
             make.top.equalTo(hDivider.snp.bottom).offset(20)
-            make.leading.equalTo(sheet.snp.leading)
-            make.trailing.equalTo(sheet.snp.trailing)
-            make.height.equalTo(186)
+            make.leading.equalTo(sheet.snp.leading).offset(13)
+            make.trailing.equalTo(sheet.snp.trailing).offset(-13)
         }
         
         descriptionLabel.snp.makeConstraints{ make in
-            make.top.equalTo(imageSlideCollectionView.snp.bottom).offset(20)
-            make.centerX.equalTo(sheet.snp.centerX)
-        }
-        
-        pageControl.snp.makeConstraints{ make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-            make.leading.trailing.equalTo(sheet)
+            make.top.equalTo(imageView.snp.bottom).offset(13)
+            make.leading.equalTo(sheet.snp.leading).offset(32)
+            make.trailing.equalTo(sheet.snp.trailing).offset(-32)
         }
         
         startButton.snp.makeConstraints{ make in
-            make.top.equalTo(pageControl.snp.bottom).offset(13)
+            make.bottom.equalTo(sheet.snp.bottom).offset(-20)
             make.width.equalTo(200)
             make.height.equalTo(39)
             make.centerX.equalTo(sheet.snp.centerX)
         }
-    }
-}
-
-// collectionView
-extension WriteRetrospectTutorialModalViewController: UICollectionViewDataSource,
-                                                      UICollectionViewDelegate,
-                                                      UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: sheet.bounds.width - 26, height: 186)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = imageSlideCollectionView.dequeueReusableCell(withReuseIdentifier: WriteRetrospectTutorialCell.id, for: indexPath) as! WriteRetrospectTutorialCell
-        
-        cell.imageView.image = tutorialImages[indexPath.row]
-        
-        return cell
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offSet = scrollView.contentOffset.x
-        let width = scrollView.frame.width
-
-        let page = Int(round(offSet / width))
-        pageControl.setPage(page)
-        
-        switch page {
-        case 0:
-            descriptionLabel.text = L10n.WriteRetrospect.Modal.Tutorial.First.description
-            startButton.isHidden = true
-            break
-        case 1:
-            descriptionLabel.text = L10n.WriteRetrospect.Modal.Tutorial.Second.description
-            startButton.isHidden = true
-            break
-        case 2:
-            descriptionLabel.text = L10n.WriteRetrospect.Modal.Tutorial.Third.description
-            startButton.isHidden = true
-            break
-        default:
-            descriptionLabel.text = L10n.WriteRetrospect.Modal.Tutorial.Fourth.description
-            startButton.isHidden = false
-            break
-        }
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard let layout = self.imageSlideCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        
-        // CollectionView Item Size
-        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
-        
-        // 이동한 x좌표 값과 item의 크기를 비교 후 페이징 값 설정
-        let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
-        let index: Int
-        
-        // 스크롤 방향 체크
-        // item 절반 사이즈 만큼 스크롤로 판단하여 올림, 내림 처리
-        if velocity.x > 0 {
-            index = Int(ceil(estimatedIndex))
-        } else if velocity.x < 0 {
-            index = Int(floor(estimatedIndex))
-        } else {
-            index = Int(round(estimatedIndex))
-        }
-        // 위 코드를 통해 페이징 될 좌표 값을 targetContentOffset에 대입
-        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing, y: 0)
     }
 }
