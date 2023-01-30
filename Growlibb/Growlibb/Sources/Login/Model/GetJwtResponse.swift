@@ -18,12 +18,12 @@ struct GetJwtResult: Codable {
     var jwt: String
     var userID: Int
     var email, phoneNumber, nickname: String
-    var seedLevel, point: Int
+    var seedLevel: Int
     var notificationStatus: String
 
     enum CodingKeys: String, CodingKey {
         case jwt
         case userID = "userId"
-        case email, phoneNumber, nickname, seedLevel, point, notificationStatus
+        case email, phoneNumber, nickname, seedLevel, notificationStatus
     }
 }
