@@ -59,6 +59,8 @@ target 'Growlibb' do
   # AnyFormatKit
   pod 'AnyFormatKit'
 
+  # Gifu
+  pod 'Gifu'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
