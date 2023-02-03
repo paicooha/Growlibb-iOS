@@ -47,7 +47,7 @@ final class NavBar: UIView {
 //    var rightSecondBtnItem = UIButton()
     var titleLabel = UILabel().then { label in
         label.text = ""
-        label.font = .pretendardSemibold12
+        label.font = .pretendardSemibold16
     }
 }
 
