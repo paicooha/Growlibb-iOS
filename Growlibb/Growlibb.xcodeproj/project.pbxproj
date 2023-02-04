@@ -51,6 +51,10 @@
 		DA80CBAF298EA79B00E67212 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBAE298EA79B00E67212 /* UITextView+.swift */; };
 		DA80CBB6298EB93400E67212 /* MyPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBB5298EB93400E67212 /* MyPageCell.swift */; };
 		DA80CBB8298EBB5E00E67212 /* MyPageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBB7298EBB5E00E67212 /* MyPageDataSource.swift */; };
+		DA80CBBA298EBE1100E67212 /* CSComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBB9298EBE1100E67212 /* CSComponent.swift */; };
+		DA80CBBC298EBE1600E67212 /* CSCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBBB298EBE1600E67212 /* CSCoordinator.swift */; };
+		DA80CBBE298EBE1E00E67212 /* CSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBBD298EBE1E00E67212 /* CSViewModel.swift */; };
+		DA80CBC0298EBE2400E67212 /* CSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBBF298EBE2400E67212 /* CSViewController.swift */; };
 		DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B48829238AEE00A4B1B5 /* LoginDataManager.swift */; };
 		DA88B48B29238B2700A4B1B5 /* PostLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B48A29238B2700A4B1B5 /* PostLoginRequest.swift */; };
 		DA88B491292392B400A4B1B5 /* PostLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B490292392B400A4B1B5 /* PostLoginResponse.swift */; };
@@ -198,6 +202,10 @@
 		DA80CBAE298EA79B00E67212 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		DA80CBB5298EB93400E67212 /* MyPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCell.swift; sourceTree = "<group>"; };
 		DA80CBB7298EBB5E00E67212 /* MyPageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDataSource.swift; sourceTree = "<group>"; };
+		DA80CBB9298EBE1100E67212 /* CSComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSComponent.swift; sourceTree = "<group>"; };
+		DA80CBBB298EBE1600E67212 /* CSCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSCoordinator.swift; sourceTree = "<group>"; };
+		DA80CBBD298EBE1E00E67212 /* CSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSViewModel.swift; sourceTree = "<group>"; };
+		DA80CBBF298EBE2400E67212 /* CSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSViewController.swift; sourceTree = "<group>"; };
 		DA88B48829238AEE00A4B1B5 /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataManager.swift; sourceTree = "<group>"; };
 		DA88B48A29238B2700A4B1B5 /* PostLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRequest.swift; sourceTree = "<group>"; };
 		DA88B490292392B400A4B1B5 /* PostLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginResponse.swift; sourceTree = "<group>"; };
@@ -497,8 +505,93 @@
 		DA80CBB3298EB79B00E67212 /* CSCenter */ = {
 			isa = PBXGroup;
 			children = (
+				DA80CBC4298EBF0B00E67212 /* Privacy */,
+				DA80CBC3298EBEFD00E67212 /* TermsOfUse */,
+				DA80CBC2298EBEF800E67212 /* FAQ */,
+				DA80CBC1298EBEF200E67212 /* Noti */,
+				DA80CBB9298EBE1100E67212 /* CSComponent.swift */,
+				DA80CBBB298EBE1600E67212 /* CSCoordinator.swift */,
+				DA80CBBD298EBE1E00E67212 /* CSViewModel.swift */,
+				DA80CBBF298EBE2400E67212 /* CSViewController.swift */,
 			);
 			path = CSCenter;
+			sourceTree = "<group>";
+		};
+		DA80CBC1298EBEF200E67212 /* Noti */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Noti;
+			sourceTree = "<group>";
+		};
+		DA80CBC2298EBEF800E67212 /* FAQ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FAQ;
+			sourceTree = "<group>";
+		};
+		DA80CBC3298EBEFD00E67212 /* TermsOfUse */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TermsOfUse;
+			sourceTree = "<group>";
+		};
+		DA80CBC4298EBF0B00E67212 /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Privacy;
+			sourceTree = "<group>";
+		};
+		DA80CBC5298EBF2500E67212 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		DA80CBC6298EBF2B00E67212 /* Editpassword */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Editpassword;
+			sourceTree = "<group>";
+		};
+		DA80CBC7298EBF3200E67212 /* EditNoti */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EditNoti;
+			sourceTree = "<group>";
+		};
+		DA80CBC8298EBF3600E67212 /* Resign */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resign;
+			sourceTree = "<group>";
+		};
+		DA80CBC9298EBF4000E67212 /* ViewRetrospect */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewRetrospect;
+			sourceTree = "<group>";
+		};
+		DA80CBCA298EBF4B00E67212 /* RetrospectDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RetrospectDetail;
+			sourceTree = "<group>";
+		};
+		DA80CBCB298EBF5700E67212 /* EditRetrospect */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EditRetrospect;
 			sourceTree = "<group>";
 		};
 		DA8A8F2B2989832800C63D2B /* Netwotrk */ = {
@@ -803,6 +896,13 @@
 		DACF8201291BDE1F00AA74E8 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				DA80CBCB298EBF5700E67212 /* EditRetrospect */,
+				DA80CBCA298EBF4B00E67212 /* RetrospectDetail */,
+				DA80CBC9298EBF4000E67212 /* ViewRetrospect */,
+				DA80CBC8298EBF3600E67212 /* Resign */,
+				DA80CBC7298EBF3200E67212 /* EditNoti */,
+				DA80CBC6298EBF2B00E67212 /* Editpassword */,
+				DA80CBC5298EBF2500E67212 /* EditProfile */,
 				DA80CBB3298EB79B00E67212 /* CSCenter */,
 				DA80CBB1298EB54B00E67212 /* Cell */,
 				DA80CBB0298EB53500E67212 /* Network */,
@@ -1048,6 +1148,7 @@
 				DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */,
 				DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */,
 				DA88B4A82923B97400A4B1B5 /* MyPageViewModel.swift in Sources */,
+				DA80CBBC298EBE1600E67212 /* CSCoordinator.swift in Sources */,
 				DACF17C4292F5726002734AA /* PostCheckEmailRequest.swift in Sources */,
 				DACF17C8292F8611002734AA /* PostSignUpResponse.swift in Sources */,
 				DA8A8F2F2989834900C63D2B /* WriteRetrospectAPIService.swift in Sources */,
@@ -1066,12 +1167,14 @@
 				DACF81FA291BDC9800AA74E8 /* MainTabbarCoordinator.swift in Sources */,
 				DA7FDCC8293781C3003C3792 /* FindDataManager.swift in Sources */,
 				DA42978D297300AF003AAA93 /* WriteRetrospectViewModel.swift in Sources */,
+				DA80CBBA298EBE1100E67212 /* CSComponent.swift in Sources */,
 				DACF17C0292F560D002734AA /* SignUpDataManager.swift in Sources */,
 				DACF81DF291BC02800AA74E8 /* LoginKeyChainService.swift in Sources */,
 				DA7FDCD22937902F003C3792 /* PostCheckPhoneRequest.swift in Sources */,
 				DA88B4B02923BFF700A4B1B5 /* BasicUserKeyChainService.swift in Sources */,
 				DA0597CE29213CC5005DFC79 /* SignUpFirstCoordinator.swift in Sources */,
 				DA0597D029213CCC005DFC79 /* SignUpFirstViewModel.swift in Sources */,
+				DA80CBBE298EBE1E00E67212 /* CSViewModel.swift in Sources */,
 				DACF81E6291BC5C300AA74E8 /* LoginComponent.swift in Sources */,
 				DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */,
 				DA5D352F293CB56400150FF1 /* LogoImageView.swift in Sources */,
@@ -1139,6 +1242,7 @@
 				DA88B4A02923B95900A4B1B5 /* RetrospectViewModel.swift in Sources */,
 				DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */,
 				DA9F8DD32935232E007014A5 /* FindEmailorPasswordViewModel.swift in Sources */,
+				DA80CBC0298EBE2400E67212 /* CSViewController.swift in Sources */,
 				DA88B4A62923B96E00A4B1B5 /* MyPageCoordinator.swift in Sources */,
 				DA8A8F322989853B00C63D2B /* PostRetrospectReqeust.swift in Sources */,
 				DA88B4AE2923BF9D00A4B1B5 /* UserKeyChainService.swift in Sources */,

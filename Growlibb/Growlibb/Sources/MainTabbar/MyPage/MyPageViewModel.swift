@@ -474,24 +474,8 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Input {
-//        var showDetailFilter = PublishSubject<Void>()
-//        var writingPost = PublishSubject<Void>()
-//        var tapShowClosedPost = PublishSubject<Void>()
-//        var tagChanged = PublishSubject<Int>()
-//        var filterTypeChanged = PublishSubject<Int>()
-//        var tapPostBookmark = PublishSubject<Int>()
-//        var tapPostBookMarkWithId = PublishSubject<Int>()
-//        var tapPost = PublishSubject<Int>()
-//        var tapSelectedPost = PublishSubject<Void>()
-//        var regionChanged = PublishSubject<(location: CLLocationCoordinate2D, radius: CLLocationDistance)>()
-//        var moveRegion = PublishSubject<Void>()
-//        var needUpdate = PublishSubject<Bool>()
-//        var toHomeLocation = PublishSubject<Void>()
-//        var tapPostPin = PublishSubject<Int?>()
-//        var tapPostListOrder = PublishSubject<Void>()
-//        var tapRunningTag = PublishSubject<Void>()
-//
-//        var tapAlarm = PublishSubject<Void>()
+        var goCS = PublishSubject<Void>()
+        
     }
 
     struct Output {
@@ -510,13 +494,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Route {
-//        var filter = PublishSubject<PostFilter>()
-//        var writingPost = PublishSubject<Void>()
-//        var detailPost = PublishSubject<Int>()
-//        var nonMemberCover = PublishSubject<Void>()
-//        var postListOrder = PublishSubject<Void>()
-//        var runningTag = PublishSubject<Void>()
-//        var alarmList = PublishSubject<Void>()
+        var goCS = PublishSubject<Void>()
     }
 
     struct RouteInput {
