@@ -163,6 +163,52 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Main.RetrospectTab.Title", fallback: "회고")
     }
   }
+  internal enum MyPage {
+    /// 알림
+    internal static let editNoti = L10n.tr("Localizable", "MyPage.EditNoti", fallback: "알림")
+    internal enum Cs {
+      /// FAQ
+      internal static let faq = L10n.tr("Localizable", "MyPage.CS.FAQ", fallback: "FAQ")
+      /// 공지사항
+      internal static let noti = L10n.tr("Localizable", "MyPage.CS.Noti", fallback: "공지사항")
+      /// 개인정보처리방침
+      internal static let privacy = L10n.tr("Localizable", "MyPage.CS.privacy", fallback: "개인정보처리방침")
+      /// 이용약관
+      internal static let yakgwan = L10n.tr("Localizable", "MyPage.CS.yakgwan", fallback: "이용약관")
+    }
+    internal enum EditProfile {
+      /// 내 프로필 수정
+      internal static let title = L10n.tr("Localizable", "MyPage.EditProfile.title", fallback: "내 프로필 수정")
+    }
+    internal enum List {
+      /// 알림 설정
+      internal static let editNoti = L10n.tr("Localizable", "MyPage.List.EditNoti", fallback: "알림 설정")
+      /// 비밀번호 변경
+      internal static let editPassword = L10n.tr("Localizable", "MyPage.List.EditPassword", fallback: "비밀번호 변경")
+      /// 휴대폰번호 변경
+      internal static let editPhone = L10n.tr("Localizable", "MyPage.List.EditPhone", fallback: "휴대폰번호 변경")
+      /// 내 프로필 수정
+      internal static let editProfile = L10n.tr("Localizable", "MyPage.List.EditProfile", fallback: "내 프로필 수정")
+      /// 로그아웃
+      internal static let logout = L10n.tr("Localizable", "MyPage.List.Logout", fallback: "로그아웃")
+      /// 회원탈퇴
+      internal static let resign = L10n.tr("Localizable", "MyPage.List.Resign", fallback: "회원탈퇴")
+      /// 회고 되돌아보기
+      internal static let retrospect = L10n.tr("Localizable", "MyPage.List.Retrospect", fallback: "회고 되돌아보기")
+    }
+    internal enum Point {
+      /// 내 포인트
+      internal static let title = L10n.tr("Localizable", "MyPage.Point.title", fallback: "내 포인트")
+    }
+    internal enum RetrospectCount {
+      /// 회고 개수
+      internal static let title = L10n.tr("Localizable", "MyPage.RetrospectCount.title", fallback: "회고 개수")
+    }
+    internal enum SeedLevel {
+      /// 새싹 레벨
+      internal static let title = L10n.tr("Localizable", "MyPage.SeedLevel.title", fallback: "새싹 레벨")
+    }
+  }
   internal enum Next {
     internal enum Button {
       /// 다음

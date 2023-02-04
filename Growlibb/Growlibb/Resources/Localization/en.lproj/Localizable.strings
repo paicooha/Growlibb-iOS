@@ -165,3 +165,24 @@
 "WriteRetrospect.Modal.Tutorial.final.description" = "+버튼을 통해 회고를 추가할 수 있습니다.";
 "WriteRetrospect.Modal.notYet.title" = "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?";
 "WriteRetrospect.Modal.notYet.emoji" = "❗️";
+
+// MARK: - MyPage
+"MyPage.List.Retrospect" = "회고 되돌아보기";
+"MyPage.List.EditProfile" = "내 프로필 수정";
+"MyPage.List.EditPassword" = "비밀번호 변경";
+"MyPage.List.EditPhone" = "휴대폰번호 변경";
+"MyPage.List.EditNoti" = "알림 설정";
+"MyPage.List.Logout" = "로그아웃";
+"MyPage.List.Resign" = "회원탈퇴";
+"MyPage.SeedLevel.title" = "새싹 레벨";
+"MyPage.Point.title" = "내 포인트";
+"MyPage.RetrospectCount.title" = "회고 개수";
+"MyPage.EditProfile.title" = "내 프로필 수정";
+"MyPage.EditNoti" = "알림";
+
+
+// MARK: - MyPage/CSCenter
+"MyPage.CS.Noti" = "공지사항";
+"MyPage.CS.FAQ" = "FAQ";
+"MyPage.CS.yakgwan" = "이용약관";
+"MyPage.CS.privacy" = "개인정보처리방침";

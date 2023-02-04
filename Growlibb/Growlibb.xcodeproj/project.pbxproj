@@ -48,6 +48,9 @@
 		DA80CBAB298E459F00E67212 /* level_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA80CBA7298E459F00E67212 /* level_2.gif */; };
 		DA80CBAC298E459F00E67212 /* level_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA80CBA8298E459F00E67212 /* level_3.gif */; };
 		DA80CBAD298E459F00E67212 /* level_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA80CBA9298E459F00E67212 /* level_1.gif */; };
+		DA80CBAF298EA79B00E67212 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBAE298EA79B00E67212 /* UITextView+.swift */; };
+		DA80CBB6298EB93400E67212 /* MyPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBB5298EB93400E67212 /* MyPageCell.swift */; };
+		DA80CBB8298EBB5E00E67212 /* MyPageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBB7298EBB5E00E67212 /* MyPageDataSource.swift */; };
 		DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B48829238AEE00A4B1B5 /* LoginDataManager.swift */; };
 		DA88B48B29238B2700A4B1B5 /* PostLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B48A29238B2700A4B1B5 /* PostLoginRequest.swift */; };
 		DA88B491292392B400A4B1B5 /* PostLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B490292392B400A4B1B5 /* PostLoginResponse.swift */; };
@@ -192,6 +195,9 @@
 		DA80CBA7298E459F00E67212 /* level_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_2.gif; path = ../../../../../Downloads/level_2.gif; sourceTree = "<group>"; };
 		DA80CBA8298E459F00E67212 /* level_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_3.gif; path = ../../../../../Downloads/level_3.gif; sourceTree = "<group>"; };
 		DA80CBA9298E459F00E67212 /* level_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_1.gif; path = ../../../../../Downloads/level_1.gif; sourceTree = "<group>"; };
+		DA80CBAE298EA79B00E67212 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
+		DA80CBB5298EB93400E67212 /* MyPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCell.swift; sourceTree = "<group>"; };
+		DA80CBB7298EBB5E00E67212 /* MyPageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDataSource.swift; sourceTree = "<group>"; };
 		DA88B48829238AEE00A4B1B5 /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataManager.swift; sourceTree = "<group>"; };
 		DA88B48A29238B2700A4B1B5 /* PostLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRequest.swift; sourceTree = "<group>"; };
 		DA88B490292392B400A4B1B5 /* PostLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginResponse.swift; sourceTree = "<group>"; };
@@ -470,6 +476,29 @@
 				DA7FDCC7293781C3003C3792 /* FindDataManager.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		DA80CBB0298EB53500E67212 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DA80CBB1298EB54B00E67212 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DA80CBB5298EB93400E67212 /* MyPageCell.swift */,
+				DA80CBB7298EBB5E00E67212 /* MyPageDataSource.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		DA80CBB3298EB79B00E67212 /* CSCenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CSCenter;
 			sourceTree = "<group>";
 		};
 		DA8A8F2B2989832800C63D2B /* Netwotrk */ = {
@@ -774,6 +803,9 @@
 		DACF8201291BDE1F00AA74E8 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				DA80CBB3298EB79B00E67212 /* CSCenter */,
+				DA80CBB1298EB54B00E67212 /* Cell */,
+				DA80CBB0298EB53500E67212 /* Network */,
 				DA88B4A32923B96900A4B1B5 /* MyPageComponent.swift */,
 				DA88B4A52923B96E00A4B1B5 /* MyPageCoordinator.swift */,
 				DA88B4A72923B97400A4B1B5 /* MyPageViewModel.swift */,
@@ -812,6 +844,7 @@
 				DA88B4AB2923BC9F00A4B1B5 /* UIStackView+.swift */,
 				DACF17B9292E12A2002734AA /* UITextField+.swift */,
 				DA9CEA66296AACCD00A9A709 /* UIScreen+.swift */,
+				DA80CBAE298EA79B00E67212 /* UITextView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1042,6 +1075,7 @@
 				DACF81E6291BC5C300AA74E8 /* LoginComponent.swift in Sources */,
 				DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */,
 				DA5D352F293CB56400150FF1 /* LogoImageView.swift in Sources */,
+				DA80CBB8298EBB5E00E67212 /* MyPageDataSource.swift in Sources */,
 				DA42978B297300A7003AAA93 /* WriteRetrospectCoordinator.swift in Sources */,
 				DA9CEA67296AACCD00A9A709 /* UIScreen+.swift in Sources */,
 				DA7FDCD0293782CF003C3792 /* PostFindEmailResponse.swift in Sources */,
@@ -1088,6 +1122,7 @@
 				DACF8210291C11D700AA74E8 /* LongButton.swift in Sources */,
 				DA95BC2B29116D8B003C81CE /* ViewController.swift in Sources */,
 				DAEBC66B298121B20017A48E /* WriteRetrospectTutorialModalComponent.swift in Sources */,
+				DA80CBB6298EB93400E67212 /* MyPageCell.swift in Sources */,
 				DACB0BD2297F1AE300ABCB8F /* JSONError.swift in Sources */,
 				DACF820B291C03F100AA74E8 /* TutorialSecondCoordinator.swift in Sources */,
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
@@ -1132,6 +1167,7 @@
 				DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */,
 				DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */,
 				DACF81DD291BC00C00AA74E8 /* BasicLoginKeyChainService.swift in Sources */,
+				DA80CBAF298EA79B00E67212 /* UITextView+.swift in Sources */,
 				DACB0BD4297F1B6500ABCB8F /* BasicResponse.swift in Sources */,
 				DA88B4932923B92B00A4B1B5 /* HomeComponent.swift in Sources */,
 				DA7CD55529140FB000B8613C /* Constants.swift in Sources */,

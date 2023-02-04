@@ -43,7 +43,10 @@ final class NavBar: UIView {
         make.setImage(Asset.icArrowLeft.image, for: .normal)
         make.isHidden = true
     }
-//    var rightBtnItem = UIButton()
+    var rightBtnItem = UIButton().then { make in
+        make.setImage(Asset.icMypageSetting.image, for: .normal)
+        make.isHidden = true
+    }
 //    var rightSecondBtnItem = UIButton()
     var titleLabel = UILabel().then { label in
         label.text = ""
@@ -62,7 +65,7 @@ extension NavBar {
 
         navContentView.addSubviews([
             leftBtnItem,
-//            rightBtnItem,
+            rightBtnItem,
 //            rightSecondBtnItem,
             titleLabel,
         ])
@@ -89,10 +92,11 @@ extension NavBar {
             make.centerY.equalTo(navContentView.snp.centerY)
         }
 
-//        rightBtnItem.snp.makeConstraints { make in
-//            make.trailing.equalTo(navContentView.snp.trailing).offset(-16)
-//            make.centerY.equalTo(titleLabel.snp.centerY)
-//        }
+        rightBtnItem.snp.makeConstraints { make in
+            make.trailing.equalTo(navContentView.snp.trailing).offset(-24)
+            make.width.height.equalTo(24)
+            make.centerY.equalTo(titleLabel.snp.centerY)
+        }
 //
 //        rightSecondBtnItem.snp.makeConstraints { make in
 //            make.trailing.equalTo(rightBtnItem.snp.leading).offset(-12)
