@@ -11,6 +11,7 @@ import UIKit
 
 enum WriteRetrospectResult {
     case backward
+    case showModal
 }
 
 final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> {
@@ -37,13 +38,21 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
                 switch result {
                 case .backward:
                     self?.navigationController.popViewController(animated: true)
+                case .showModal:
+                    break
                 }
             })
             .disposed(by: sceneDisposeBag)
         
         scene.VM.routes.backward
-            .map { WriteRetrospectResult.backward }
-            .bind(to: closeSignal)
+            .subscribe(onNext: { isShowModal in
+                if !isShowModal { //하나라도 내용이 차있으면
+                    self.showTrueDeleteModal(vm: scene.VM)
+                }
+                else{
+                    self.navigationController.popViewController(animated: true)
+                }
+            })
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.showTutorial
@@ -99,23 +108,26 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
 
         coordinate(coordinator: coord) { coordResult in
             switch coordResult {
-            case let .close:
+            case .close:
                 break
             }
         }
     }
 //
-//    private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.writingPostComponent
-//        let coord = WritingMainPostCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .backward(needUpdate):
-//                vm.routeInputs.needUpdate.onNext(needUpdate)
-//            }
-//        }
-//    }
+    private func showTrueDeleteModal(vm: WriteRetrospectViewModel, whereFrom:String="writeretrospect") {
+        let comp = component.modalComponent
+        let coord = ModalCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .redirect:
+                vm.routes.backward.onNext(true) //닫기
+                break
+            case .close:
+                break
+            }
+        }
+    }
 //
 //    private func pushHomeFilterScene(vm: HomeViewModel, filter: PostFilter, animated: Bool) {
 //        let comp = component.postFilterComponent(filter: filter)

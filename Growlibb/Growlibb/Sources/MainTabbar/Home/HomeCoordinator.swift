@@ -147,9 +147,11 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
 
         coordinate(coordinator: coord) { coordResult in
             switch coordResult {
-            case let .backward:
+            case .backward:
                 break
 //                vm.routeInputs.needUpdate.onNext(true)
+            case .showModal:
+                break
             }
         }
     }

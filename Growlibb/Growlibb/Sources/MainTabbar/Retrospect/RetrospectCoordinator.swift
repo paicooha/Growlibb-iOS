@@ -49,8 +49,10 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
 
         coordinate(coordinator: coord) { coordResult in
             switch coordResult {
-            case let .backward:
+            case .backward:
                 vm.routeInputs.needUpdate.onNext(true)
+            case .showModal:
+                break
             }
         }
     }

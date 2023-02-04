@@ -38,6 +38,8 @@ internal enum Asset {
   internal static let icMyGray = ImageAsset(name: "ic_my_gray")
   internal static let icMyProfile = ImageAsset(name: "ic_my_profile")
   internal static let icMypageSetting = ImageAsset(name: "ic_mypage_setting")
+  internal static let icPlusButtonBlue = ImageAsset(name: "ic_plus_button_blue")
+  internal static let icPlusButtonGray = ImageAsset(name: "ic_plus_button_gray")
   internal static let icRetrospectBlue = ImageAsset(name: "ic_retrospect_blue")
   internal static let icRetrospectDelete = ImageAsset(name: "ic_retrospect_delete")
   internal static let icRetrospectGray = ImageAsset(name: "ic_retrospect_gray")

@@ -15,10 +15,10 @@ final class WriteRetrospectComponent {
     func writeRetrospectTutorialModalComponent() -> WriteRetrospectTutorialModalComponent {
         return WriteRetrospectTutorialModalComponent()
     }
-//
-//    var writingPostComponent: WritingMainPostComponent {
-//        return WritingMainPostComponent()
-//    }
+
+    var modalComponent: ModalComponent {
+        return ModalComponent(whereFrom: "writeretrospect")
+    }
 //
 //    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
 //        return HomeFilterComponent(filter: filter)

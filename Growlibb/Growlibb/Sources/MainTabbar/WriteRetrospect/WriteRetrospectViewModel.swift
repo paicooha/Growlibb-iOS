@@ -9,70 +9,141 @@ import Foundation
 import RxSwift
 
 final class WriteRetrospectViewModel: BaseViewModel {
+    
+    var doneCount = 1
+    var keepCount = 1
+    var problemCount = 1
+    var tryCount = 1
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
+        super.init()
+        
         inputs.showTutorial
             .subscribe(routes.showTutorial)
             .disposed(by: disposeBag)
         
         inputs.backward
-            .subscribe(routes.backward)
+            .subscribe(onNext: { empty in
+                self.routes.backward.onNext(empty)
+            })
+            .disposed(by: disposeBag)
+        
+        routeInputs.needUpdate
+            .subscribe(onNext: { _ in
+                self.outputs.doneList.onNext([WriteRetrospectSection(items: [""])])
+                self.outputs.keepList.onNext([WriteRetrospectSection(items: [""])])
+                self.outputs.problemList.onNext([WriteRetrospectSection(items: [""])])
+                self.outputs.tryList.onNext([WriteRetrospectSection(items: [""])])
+            })
+            .disposed(by: disposeBag)
+        
+        inputs.addDone
+            .subscribe(onNext: { _ in
+                guard var sections = try? self.outputs.doneList.value() else { return }
+                self.doneCount += 1
+                sections[0].items.append("\(self.doneCount)")
+                self.outputs.doneList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        inputs.deleteDone
+            .subscribe(onNext: { [weak self] index in
+                guard var sections = try? self!.outputs.doneList.value() else { return }
+                self!.doneCount -= 1
+                sections[0].items.remove(at: index)
+                self!.outputs.doneList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        inputs.addKeep
+            .subscribe(onNext: { _ in
+                guard var sections = try? self.outputs.keepList.value() else { return }
+                self.keepCount += 1
+                sections[0].items.append("\(self.keepCount)")
+                self.outputs.keepList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        inputs.deleteKeep
+            .subscribe(onNext: { [weak self] index in
+                guard var sections = try? self!.outputs.keepList.value() else { return }
+                self!.keepCount -= 1
+                sections[0].items.remove(at: index)
+                self!.outputs.keepList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        inputs.addProblem
+            .subscribe(onNext: { _ in
+                guard var sections = try? self.outputs.problemList.value() else { return }
+                self.problemCount += 1
+                sections[0].items.append("\(self.problemCount)")
+                self.outputs.problemList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        inputs.deleteProblem
+            .subscribe(onNext: { [weak self] index in
+                guard var sections = try? self!.outputs.problemList.value() else { return }
+                self!.problemCount -= 1
+                sections[0].items.remove(at: index)
+                self!.outputs.problemList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        inputs.addTry
+            .subscribe(onNext: { _ in
+                guard var sections = try? self.outputs.tryList.value() else { return }
+                self.tryCount += 1
+                sections[0].items.append("\(self.tryCount)")
+                self.outputs.tryList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        inputs.deleteTry
+            .subscribe(onNext: { [weak self] index in
+                guard var sections = try? self!.outputs.tryList.value() else { return }
+                self!.tryCount -= 1
+                sections[0].items.remove(at: index)
+                self!.outputs.tryList.onNext(sections)
+            })
             .disposed(by: disposeBag)
     }
 
     struct Input {
-        var backward = PublishSubject<Void>()
+        var backward = PublishSubject<Bool>() //내용이 다 비어있는지, 하나라도 차있는지 판단 필요
         var showTutorial = PublishSubject<Void>()
-//        var showDetailFilter = PublishSubject<Void>()
-//        var writingPost = PublishSubject<Void>()
-//        var tapShowClosedPost = PublishSubject<Void>()
-//        var tagChanged = PublishSubject<Int>()
-//        var filterTypeChanged = PublishSubject<Int>()
-//        var tapPostBookmark = PublishSubject<Int>()
-//        var tapPostBookMarkWithId = PublishSubject<Int>()
-//        var tapPost = PublishSubject<Int>()
-//        var tapSelectedPost = PublishSubject<Void>()
-//        var regionChanged = PublishSubject<(location: CLLocationCoordinate2D, radius: CLLocationDistance)>()
-//        var moveRegion = PublishSubject<Void>()
-//        var needUpdate = PublishSubject<Bool>()
-//        var toHomeLocation = PublishSubject<Void>()
-//        var tapPostPin = PublishSubject<Int?>()
-//        var tapPostListOrder = PublishSubject<Void>()
-//        var tapRunningTag = PublishSubject<Void>()
-//
-//        var tapAlarm = PublishSubject<Void>()
+        var addDone = PublishSubject<Void>()
+        var addKeep = PublishSubject<Void>()
+        var addProblem = PublishSubject<Void>()
+        var addTry = PublishSubject<Void>()
+        var deleteDone = PublishSubject<Int>()
+        var deleteKeep = PublishSubject<Int>()
+        var deleteProblem = PublishSubject<Int>()
+        var deleteTry = PublishSubject<Int>()
+        var complete = PublishSubject<PostRetrospectRequest>()
     }
 
     struct Output {
-//        var posts = ReplaySubject<[Post]>.create(bufferSize: 1)
-//        var refresh = PublishSubject<Void>()
-//        var bookMarked = PublishSubject<(id: Int, marked: Bool)>()
-//        var highLightFilter = PublishSubject<Bool>()
-//        var showClosedPost = PublishSubject<Bool>()
-//        var showRefreshRegion = PublishSubject<Bool>()
-//        var changeRegion = ReplaySubject<(location: CLLocationCoordinate2D, distance: CLLocationDistance)>.create(bufferSize: 1)
-//        var focusSelectedPost = PublishSubject<Post?>()
-//        var postListOrderChanged = PublishSubject<PostListOrder>()
-//        var runningTagChanged = PublishSubject<RunningTag>()
-//        var titleLocationChanged = PublishSubject<String?>()
-//        var alarmChecked = PublishSubject<Bool>()
+        var doneList = BehaviorSubject(value: [WriteRetrospectSection(items: [""])])
+        var keepList = BehaviorSubject(value: [WriteRetrospectSection(items: [""])])
+        var problemList = BehaviorSubject(value: [WriteRetrospectSection(items: [""])])
+        var tryList = BehaviorSubject(value: [WriteRetrospectSection(items: [""])])
     }
 
     struct Route {
-//        var filter = PublishSubject<PostFilter>()
-//        var writingPost = PublishSubject<Void>()
-//        var detailPost = PublishSubject<Int>()
-//        var nonMemberCover = PublishSubject<Void>()
-//        var postListOrder = PublishSubject<Void>()
-//        var runningTag = PublishSubject<Void>()
-        var backward = PublishSubject<Void>()
+        var backward = PublishSubject<Bool>()
         var showTutorial = PublishSubject<Void>()
     }
 
     struct RouteInput {
-//        var needUpdate = PublishSubject<Bool>()
+        var needUpdate = PublishSubject<Bool>()
 //        var filterChanged = PublishSubject<PostFilter>()
 //        var detailClosed = PublishSubject<Void>()
 //        var postListOrderChanged = PublishSubject<PostListOrder>()
