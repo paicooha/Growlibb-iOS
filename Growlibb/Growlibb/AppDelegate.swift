@@ -10,13 +10,22 @@ import FirebaseCore
 import AlamofireNetworkActivityLogger
 import DropDown
 import FirebaseAuth
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Firebase
         FirebaseApp.configure()
+        
+        // Firebase Cloud Messaging
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+          
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { _, _ in }
+        
         application.registerForRemoteNotifications()
         
         //Alamofire log
@@ -31,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let firebaseAuth = Auth.auth()
         firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.unknown)
+          
+        Messaging.messaging().apnsToken = deviceToken
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -54,7 +65,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+}
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    // Push 알림 수신시 호출
+    func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
+        completionHandler([.badge, .sound, .alert])
+    }
+
+    // Push 알림 선택시 호출
+    func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        Log.d(tag: .custom("🔔Notification"), "\n" + response.notification.request.content.userInfo.map {
+            "\(($0.key as? String) ?? "-") : \(($0.value as? String) ?? "-")"
+        }.joined(separator: "\n"))
+
+        completionHandler()
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        Log.d(tag: .info, "FCMToken : \(fcmToken ?? "-")")
+        if let fcmToken = fcmToken {
+            BasicUserKeyChainService.shared.fcmToken = fcmToken
+        }
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+    }
 }
 
