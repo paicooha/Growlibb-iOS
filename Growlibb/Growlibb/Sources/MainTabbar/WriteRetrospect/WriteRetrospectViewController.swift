@@ -503,7 +503,11 @@ extension WriteRetrospectViewController {
         view.addSubviews([
             navBar,
             scrollView,
-            contentView,
+        ])
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubviews([
             doneTitle,
             doneTableView,
             donePlusButton,
@@ -557,6 +561,9 @@ extension WriteRetrospectViewController {
         donePlusButton.snp.makeConstraints { make in
             make.top.equalTo(doneTableView.snp.bottom).offset(5)
             make.leading.trailing.equalTo(doneTableView)
+        }
+        
+        donePlusButton.snp.updateConstraints { make in
             make.height.equalTo(39)
         }
         
@@ -575,6 +582,9 @@ extension WriteRetrospectViewController {
         keepPlusButton.snp.makeConstraints { make in
             make.top.equalTo(keepTableView.snp.bottom).offset(5)
             make.leading.trailing.equalTo(keepTableView)
+        }
+        
+        keepPlusButton.snp.updateConstraints { make in
             make.height.equalTo(39)
         }
         
@@ -593,6 +603,9 @@ extension WriteRetrospectViewController {
         problemPlusButton.snp.makeConstraints { make in
             make.top.equalTo(problemTableView.snp.bottom).offset(5)
             make.leading.trailing.equalTo(problemTableView)
+        }
+        
+        problemPlusButton.snp.updateConstraints { make in
             make.height.equalTo(39)
         }
         
@@ -611,6 +624,9 @@ extension WriteRetrospectViewController {
         tryPlusButton.snp.makeConstraints { make in
             make.top.equalTo(tryTableView.snp.bottom).offset(5)
             make.leading.trailing.equalTo(tryTableView)
+        }
+        
+        tryPlusButton.snp.updateConstraints { make in
             make.height.equalTo(39)
         }
         
