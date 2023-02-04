@@ -92,7 +92,7 @@ class RetrospectViewController: BaseViewController {
         view.numberOfLines = 0
     }
     
-//    private var animation = GIFImageView(frame: CGRect(x: 0, y: 0, width: 220, height: 220))
+    private var animation = GIFImageView(frame: CGRect(x: 0, y: 0, width: 220, height: 220))
 
     private var pointLeftView = RetrospectLeftView().then { view in
         view.snp.makeConstraints{ make in
@@ -155,25 +155,25 @@ extension RetrospectViewController {
         
         contentView.addSubviews([
             titleLabel,
-//            animation,
+            animation,
             stackView,
             goRetrospectButton
         ])
         
-//        switch userKeyChainService.level {
-//        case 1:
-//            animation.animate(withGIFNamed: "level_1")
-//            break
-//        case 2:
-//            animation.animate(withGIFNamed: "level_2")
-//            break
-//        case 3:
-//            animation.animate(withGIFNamed: "level_3")
-//            break
-//        default:
-//            animation.animate(withGIFNamed: "level_4")
-//            break
-//        }
+        switch userKeyChainService.level {
+        case 1:
+            animation.animate(withGIFNamed: "level_1")
+            break
+        case 2:
+            animation.animate(withGIFNamed: "level_2")
+            break
+        case 3:
+            animation.animate(withGIFNamed: "level_3")
+            break
+        default:
+            animation.animate(withGIFNamed: "level_4")
+            break
+        }
     }
 
     private func initialLayout() {
@@ -198,14 +198,14 @@ extension RetrospectViewController {
             make.trailing.equalTo(contentView.snp.trailing).offset(-51)
         }
         
-//        animation.snp.makeConstraints{ make in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-//            make.centerX.equalTo(contentView.snp.centerX)
-//            make.width.height.equalTo(220)
-//        }
+        animation.snp.makeConstraints{ make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.width.height.equalTo(220)
+        }
         
         stackView.snp.makeConstraints{ make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(50)
+            make.top.equalTo(animation.snp.bottom).offset(50)
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
