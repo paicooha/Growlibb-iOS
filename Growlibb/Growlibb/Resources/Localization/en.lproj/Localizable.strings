@@ -62,6 +62,7 @@
 "SignUp.agree.agreall" = "모두 동의";
 "SignUp.agree.service" = "서비스 이용 약관 동의 [필수]";
 "SignUp.agree.privacy" = "개인정보처리 방침 약관 동의 [필수]";
+"SignUp.agree.year14" = "만 14세 이상입니다. [필수]";
 "SignUp.agree.seecontent" = "내용보기";
 
 // MARK: Second
@@ -143,6 +144,7 @@
 "Retrospect.modal.event.title" = "축하합니다!\n\n";
 "Retrospect.modal.event.first" = "회 연속 회고 작성으로\n";
 "Retrospect.modal.event.second" = "포인트를 받으셨습니다!";
+"Retrospect.modal.event.emoji" = "🎉";
 
 
 // MARK: - Write Retrospect
@@ -159,6 +161,7 @@
 "WriteRetrospect.Modal.Tutorial.first.description" = "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.";
 "WriteRetrospect.Modal.Tutorial.second.description" = "DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을\nKEEP에 입력합니다.";
 "WriteRetrospect.Modal.Tutorial.third.description" = "DONE에 대해 불편하게 느끼는 부분으로 개선이 필요하다고 생각되는 내용을 PROBELM에 입력합니다.";
-"WriteRetrospect.Modal.Tutorial.fourth.description" = "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,\n당장 시도해 볼 내용을 TRY에 입력합니다.";
+"WriteRetrospect.Modal.Tutorial.fourth.description" = "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것, 당장 시도해 볼 내용을 TRY에 입력합니다.";
 "WriteRetrospect.Modal.Tutorial.final.description" = "+버튼을 통해 회고를 추가할 수 있습니다.";
 "WriteRetrospect.Modal.notYet.title" = "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?";
+"WriteRetrospect.Modal.notYet.emoji" = "❗️";

@@ -14,10 +14,6 @@
 		DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D129213CD3005DFC79 /* SignUpFirstViewController.swift */; };
 		DA0597D629213EF2005DFC79 /* ShortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D529213EF2005DFC79 /* ShortButton.swift */; };
 		DA0597D829213F2D005DFC79 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D729213F2D005DFC79 /* UIButton+.swift */; };
-		DA1371B8298277E700F67740 /* AlertModalComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1371B7298277E700F67740 /* AlertModalComponent.swift */; };
-		DA1371BA298277ED00F67740 /* AlertModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1371B9298277ED00F67740 /* AlertModalCoordinator.swift */; };
-		DA1371BC298277F400F67740 /* AlertModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1371BB298277F400F67740 /* AlertModalViewModel.swift */; };
-		DA1371BE298277FA00F67740 /* AlertModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1371BD298277FA00F67740 /* AlertModalViewController.swift */; };
 		DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */; };
 		DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCC2912717700878BA3 /* BaseResponse.swift */; };
 		DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */; };
@@ -162,10 +158,6 @@
 		DA0597D129213CD3005DFC79 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 		DA0597D529213EF2005DFC79 /* ShortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortButton.swift; sourceTree = "<group>"; };
 		DA0597D729213F2D005DFC79 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
-		DA1371B7298277E700F67740 /* AlertModalComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModalComponent.swift; sourceTree = "<group>"; };
-		DA1371B9298277ED00F67740 /* AlertModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModalCoordinator.swift; sourceTree = "<group>"; };
-		DA1371BB298277F400F67740 /* AlertModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModalViewModel.swift; sourceTree = "<group>"; };
-		DA1371BD298277FA00F67740 /* AlertModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModalViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCC2912717700878BA3 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -366,17 +358,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		DA1371B6298277C000F67740 /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-				DA1371B7298277E700F67740 /* AlertModalComponent.swift */,
-				DA1371B9298277ED00F67740 /* AlertModalCoordinator.swift */,
-				DA1371BB298277F400F67740 /* AlertModalViewModel.swift */,
-				DA1371BD298277FA00F67740 /* AlertModalViewController.swift */,
-			);
-			path = Alert;
-			sourceTree = "<group>";
-		};
 		DA32889E298ABFC5003BA501 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,8 +494,8 @@
 			children = (
 				DA8A8F34298986CA00C63D2B /* ModalComponent.swift */,
 				DA8A8F36298986D200C63D2B /* ModalCoordinator.swift */,
-				DA5B89ED2974B694008CD739 /* ModalViewController.swift */,
 				DA8A8F38298986DA00C63D2B /* ModalViewModel.swift */,
+				DA5B89ED2974B694008CD739 /* ModalViewController.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -634,7 +615,6 @@
 			isa = PBXGroup;
 			children = (
 				DA8A8F33298986AB00C63D2B /* Modal */,
-				DA1371B6298277C000F67740 /* Alert */,
 				DA5D352C293CAEFD00150FF1 /* Model */,
 				DACF81DB291BBF1A00AA74E8 /* KeyChain */,
 				DAC1854629196213009D7181 /* NavBar.swift */,
@@ -1036,10 +1016,8 @@
 				DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */,
 				DA88B4A82923B97400A4B1B5 /* MyPageViewModel.swift in Sources */,
 				DACF17C4292F5726002734AA /* PostCheckEmailRequest.swift in Sources */,
-				DA1371B8298277E700F67740 /* AlertModalComponent.swift in Sources */,
 				DACF17C8292F8611002734AA /* PostSignUpResponse.swift in Sources */,
 				DA8A8F2F2989834900C63D2B /* WriteRetrospectAPIService.swift in Sources */,
-				DA1371BE298277FA00F67740 /* AlertModalViewController.swift in Sources */,
 				DA0597D629213EF2005DFC79 /* ShortButton.swift in Sources */,
 				DACF81D8291BBE7200AA74E8 /* AppComponent.swift in Sources */,
 				DA4E55B129399B0300176B87 /* HomeDataManager.swift in Sources */,
@@ -1064,7 +1042,6 @@
 				DACF81E6291BC5C300AA74E8 /* LoginComponent.swift in Sources */,
 				DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */,
 				DA5D352F293CB56400150FF1 /* LogoImageView.swift in Sources */,
-				DA1371BA298277ED00F67740 /* AlertModalCoordinator.swift in Sources */,
 				DA42978B297300A7003AAA93 /* WriteRetrospectCoordinator.swift in Sources */,
 				DA9CEA67296AACCD00A9A709 /* UIScreen+.swift in Sources */,
 				DA7FDCD0293782CF003C3792 /* PostFindEmailResponse.swift in Sources */,
@@ -1098,7 +1075,6 @@
 				DACB0BC9297F117D00ABCB8F /* RetrospectAPIService.swift in Sources */,
 				DACF81F8291BDC9100AA74E8 /* MainTabComponent.swift in Sources */,
 				DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */,
-				DA1371BC298277F400F67740 /* AlertModalViewModel.swift in Sources */,
 				DA4E55BD293BAC0200176B87 /* HomeRetrospectTableViewCell.swift in Sources */,
 				DA5B89EC2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift in Sources */,
 				DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */,

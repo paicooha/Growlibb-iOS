@@ -30,8 +30,8 @@ class SignUpFirstViewController: BaseViewController {
     //아이디, 비밀번호, 인증번호, 약관동의를 모두 했는지 확인하기 위한 배열
     var validCheckArray = [false, false, false, false]
     
-    //약관동의 - 서비스, 개인정보처리방침 약관동의 여부를 확인하기 위한 배열
-    var termsOfUseArray = [false, false]
+    //약관동의 - 서비스, 개인정보처리방침 약관동의, 만 14세 이상 여부를 확인하기 위한 배열
+    var termsOfUseArray = [false, false, false]
     
     lazy var signUpDataManager = SignUpDataManager()
     
@@ -223,20 +223,21 @@ class SignUpFirstViewController: BaseViewController {
             .subscribe({ _ in
                 if self.validCheckArray[3]{
                     self.validCheckArray[3] = false
-                    self.termsOfUseArray[0] = false
-                    self.termsOfUseArray[1] = false
+                    self.termsOfUseArray = [false, false, false]
+                    
                     self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal)
                     self.serviceButton.setImage(Asset.icCheckboxGray.image, for: .normal)
                     self.privacyButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                    self.year14Button.setImage(Asset.icCheckboxGray.image, for: .normal)
                 }
                 else{
-                    self.termsOfUseArray[0] = true
-                    self.termsOfUseArray[1] = true
-                    
                     self.validCheckArray[3] = true
+                    self.termsOfUseArray = [true, true, true]
+
                     self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
                     self.serviceButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
                     self.privacyButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    self.year14Button.setImage(Asset.icCheckboxBlue.image, for: .normal)
                 }
                 self.checkAllPass()
             })
@@ -254,7 +255,7 @@ class SignUpFirstViewController: BaseViewController {
                     self.termsOfUseArray[0] = true
                     self.serviceButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
                     
-                    if self.termsOfUseArray[1] {
+                    if self.termsOfUseArray.allSatisfy({ $0 == true}) {
                         self.validCheckArray[3] = true
                         self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
                     }
@@ -280,7 +281,32 @@ class SignUpFirstViewController: BaseViewController {
                     self.termsOfUseArray[1] = true
                     self.privacyButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
                     
-                    if self.termsOfUseArray[0] {
+                    if self.termsOfUseArray.allSatisfy({ $0 == true}){
+                        self.validCheckArray[3] = true
+                        self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                    else{
+                        self.validCheckArray[3] = false
+                        self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                }
+                self.checkAllPass()
+            })
+            .disposed(by: disposeBag)
+        
+        year14Button.rx.tap
+            .subscribe({ _ in
+                if self.termsOfUseArray[2]{ //on -> off
+                    self.termsOfUseArray[2] = false
+                    self.validCheckArray[3] = false
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    self.year14Button.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{ //off -> on
+                    self.termsOfUseArray[2] = true
+                    self.year14Button.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    
+                    if self.termsOfUseArray.allSatisfy({ $0 == true}) {
                         self.validCheckArray[3] = true
                         self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
                     }
@@ -558,6 +584,19 @@ class SignUpFirstViewController: BaseViewController {
         make.setImage(Asset.icCheckboxGray.image, for: .normal)
     }
     
+    private var year14Label = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Agree.year14
+        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.year14)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 13, length: 4))
+        make.attributedText = attributedString
+    }
+    
+    private var year14Button = UIButton().then { make in
+        make.setImage(Asset.icCheckboxGray.image, for: .normal)
+    }
+    
     private var nextButton = LongButton().then { make in
         make.setTitle(L10n.Next.Button.title, for: .normal)
     }
@@ -607,6 +646,8 @@ extension SignUpFirstViewController {
             privacyAgreeTitle,
             seePrivacyLabel,
             privacyButton,
+            year14Label,
+            year14Button,
             nextButton
         ])
     }
@@ -794,8 +835,19 @@ extension SignUpFirstViewController {
             make.trailing.equalTo(contentView.snp.trailing)
         }
         
+        year14Label.snp.makeConstraints{ make in
+            make.leading.equalTo(year14Button.snp.trailing).offset(15)
+            make.centerY.equalTo(year14Button.snp.centerY)
+        }
+        
+        year14Button.snp.makeConstraints{ make in
+            make.width.height.equalTo(17)
+            make.leading.equalTo(agreeTitleLabel.snp.leading)
+            make.top.equalTo(privacyButton.snp.bottom).offset(13)
+        }
+        
         nextButton.snp.makeConstraints{ make in
-            make.top.equalTo(seePrivacyLabel.snp.bottom).offset(57)
+            make.top.equalTo(year14Label.snp.bottom).offset(57)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
@@ -849,6 +901,7 @@ extension SignUpFirstViewController {
                   // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달, 전송버튼 활성화
                     self.verificationId = verificationID!
                     self.phoneButton.setEnable()
+                    self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
               }
         }
         else if code == 2022 { //중복 o

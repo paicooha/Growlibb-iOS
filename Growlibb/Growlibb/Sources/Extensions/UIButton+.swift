@@ -14,7 +14,7 @@ extension UIButton {
     }
     
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-      let hitArea = self.bounds.insetBy(dx: -20, dy: -20)
+      let hitArea = self.bounds.insetBy(dx: -10, dy: -10)
       return hitArea.contains(point)
     }
 }

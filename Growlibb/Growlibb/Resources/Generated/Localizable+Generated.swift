@@ -193,6 +193,8 @@ internal enum L10n {
     }
     internal enum Modal {
       internal enum Event {
+        /// 🎉
+        internal static let emoji = L10n.tr("Localizable", "Retrospect.modal.event.emoji", fallback: "🎉")
         /// 회 연속 회고 작성으로
         /// 
         internal static let first = L10n.tr("Localizable", "Retrospect.modal.event.first", fallback: "회 연속 회고 작성으로\n")
@@ -271,6 +273,8 @@ internal enum L10n {
       internal static let service = L10n.tr("Localizable", "SignUp.agree.service", fallback: "서비스 이용 약관 동의 [필수]")
       /// 약관 동의
       internal static let title = L10n.tr("Localizable", "SignUp.agree.title", fallback: "약관 동의")
+      /// 만 14세 이상입니다. [필수]
+      internal static let year14 = L10n.tr("Localizable", "SignUp.agree.year14", fallback: "만 14세 이상입니다. [필수]")
     }
     internal enum Birth {
       /// 생년월일을 올바르게 입력해주세요.
@@ -419,9 +423,8 @@ internal enum L10n {
           internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.first.description", fallback: "회고를 하기 위해서는 총 4가지를 입력 해야 해요!\n첫 번째는 회고 하고 싶은 내용을 DONE에 입력합니다.")
         }
         internal enum Fourth {
-          /// DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,
-          /// 당장 시도해 볼 내용을 TRY에 입력합니다.
-          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.fourth.description", fallback: "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것,\n당장 시도해 볼 내용을 TRY에 입력합니다.")
+          /// DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것, 당장 시도해 볼 내용을 TRY에 입력합니다.
+          internal static let description = L10n.tr("Localizable", "WriteRetrospect.Modal.Tutorial.fourth.description", fallback: "DONE에 대해 잘하고 있는 것을 더 잘할 수 있는 것, 당장 시도해 볼 내용을 TRY에 입력합니다.")
         }
         internal enum Second {
           /// DONE에 대해 만족하는 것, 계속 유지하고 싶은 내용을
@@ -434,6 +437,8 @@ internal enum L10n {
         }
       }
       internal enum NotYet {
+        /// ❗️
+        internal static let emoji = L10n.tr("Localizable", "WriteRetrospect.Modal.notYet.emoji", fallback: "❗️")
         /// 작성 중인 글이 저장되지 않았습니다.
         /// 그래도 돌아가시겠어요?
         internal static let title = L10n.tr("Localizable", "WriteRetrospect.Modal.notYet.title", fallback: "작성 중인 글이 저장되지 않았습니다.\n그래도 돌아가시겠어요?")
