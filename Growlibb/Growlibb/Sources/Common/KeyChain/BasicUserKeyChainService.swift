@@ -29,7 +29,7 @@ final class BasicUserKeyChainService: UserKeychainService {
         }
 
         set {
-            Log.d(tag: .info, "set deviceToken: \(newValue ?? "nil")")
+            Log.d(tag: .info, "set deviceToken: \(newValue )")
             keychainWrapper.remove(forKey: .User.fcmToken)
             keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.fcmToken.rawValue)
         }
@@ -46,14 +46,33 @@ final class BasicUserKeyChainService: UserKeychainService {
             return nickName
         }
         set {
-            Log.d(tag: .info, "set nickName: \(newValue ?? "nil")")
+            Log.d(tag: .info, "set nickName: \(newValue )")
             keychainWrapper.remove(forKey: .User.nickName)
             keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.nickName.rawValue)
+        }
+    }
+    
+    
+    var level: Int {
+        get {
+            guard let level: Int = keychainWrapper[.User.level]
+            else {
+                Log.d(tag: .info, "get level: \"\"")
+                return 0
+            }
+            Log.d(tag: .info, "get level: \(level)")
+            return level
+        }
+        set {
+            Log.d(tag: .info, "set level: \(newValue )")
+            keychainWrapper.remove(forKey: .User.level)
+            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.level.rawValue)
         }
     }
 
     func clear() {
         nickName = ""
+        fcmToken = ""
     }
 }
 
@@ -61,5 +80,6 @@ private extension KeychainWrapper.Key {
     enum User {
         static let fcmToken: KeychainWrapper.Key = "User.fcmToken"
         static let nickName: KeychainWrapper.Key = "SingupInfo.NickName"
+        static let level: KeychainWrapper.Key = "User.level"
     }
 }

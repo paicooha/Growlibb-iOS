@@ -84,6 +84,7 @@ extension AppCoordinator {
     func didSuccessGetJwt(result: GetJwtResult) {
         self.loginKeyChainService.setLoginInfo(loginType: LoginType.member, userID: result.userID, token: LoginToken(jwt: result.jwt)) //jwt 검증 성공시, 서버에서 새로 발급하는 jwt keychain에 저장
         self.userKeyChainService.nickName = result.nickname
+        self.userKeyChainService.level = result.seedLevel
         
         if result.notificationStatus == "Y" { //알림이 '예'일 경우에 fcm 토큰 갱신 호출
             self.loginDataManager.patchFcmToken(viewController: self, fcmToken: Messaging.messaging().fcmToken ?? "")

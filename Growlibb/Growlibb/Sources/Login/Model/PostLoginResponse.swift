@@ -20,4 +20,6 @@ struct PostLoginResult: Codable {
     let jwt: String
     let userId: Int
     let email, phoneNumber, nickname: String
+    let seedLevel: Int
+    let notificationStatus: String
 }

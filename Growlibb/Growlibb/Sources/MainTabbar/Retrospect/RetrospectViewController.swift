@@ -12,6 +12,7 @@ import RxSwift
 import SnapKit
 import Then
 import UIKit
+import Gifu
 
 class RetrospectViewController: BaseViewController {
     
@@ -62,24 +63,8 @@ class RetrospectViewController: BaseViewController {
                     gender = L10n.Retrospect.Gender.Icon.woman
                 }
                 
-                if info.point <= 50 {
-                    self!.level = 2
-                }
-                else if info.point <= 200 {
-                    self!.level = 3
-                }
-                else if info.point <= 700 {
-                    self!.level = 4
-                }
-                else if info.point <= 2000 {
-                    self!.level = 5
-                }
-                else if info.point <= 5000 {
-                    self!.level = 6
-                }
-                
                 self!.pointLeftView.label.text = "\(gender)\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Point.Description.first)\(info.point)\(L10n.Retrospect.Point.Description.second)"
-                self!.pointRightView.label.text = "\(info.needPointForLevel)\(L10n.Retrospect.Morepoint.Description.first)\(self!.level)\(L10n.Retrospect.Morepoint.Description.second)"
+                self!.pointRightView.label.text = "\(info.needPointForLevel)\(L10n.Retrospect.Morepoint.Description.first)\(self!.userKeyChainService.level+1)\(L10n.Retrospect.Morepoint.Description.second)"
                 self!.countLeftView.label.text = "\(gender)\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Continuous.Description.first)\(info.continuousWritingCount)\(L10n.Retrospect.Continuous.Description.second)"
                 self!.countRightView.label.text = "\(info.needContinuousRetrospection)\(L10n.Retrospect.Morecontinuous.description)"
             })
@@ -107,7 +92,7 @@ class RetrospectViewController: BaseViewController {
         view.numberOfLines = 0
     }
     
-    //애니메이션 이미지 추가해야됨
+//    private var animation = GIFImageView(frame: CGRect(x: 0, y: 0, width: 220, height: 220))
 
     private var pointLeftView = RetrospectLeftView().then { view in
         view.snp.makeConstraints{ make in
@@ -160,8 +145,6 @@ class RetrospectViewController: BaseViewController {
 
 extension RetrospectViewController {
     private func setupViews() {
-        
-        scrollView.contentSize = CGSize(width: view.frame.width, height: 2000)
         titleLabel.text = myeongeonList[myeongeonindex] //명언 랜덤하게 보여주기
         
         view.addSubviews([
@@ -172,9 +155,25 @@ extension RetrospectViewController {
         
         contentView.addSubviews([
             titleLabel,
+//            animation,
             stackView,
             goRetrospectButton
         ])
+        
+//        switch userKeyChainService.level {
+//        case 1:
+//            animation.animate(withGIFNamed: "level_1")
+//            break
+//        case 2:
+//            animation.animate(withGIFNamed: "level_2")
+//            break
+//        case 3:
+//            animation.animate(withGIFNamed: "level_3")
+//            break
+//        default:
+//            animation.animate(withGIFNamed: "level_4")
+//            break
+//        }
     }
 
     private func initialLayout() {
@@ -198,6 +197,12 @@ extension RetrospectViewController {
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-51)
         }
+        
+//        animation.snp.makeConstraints{ make in
+//            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+//            make.centerX.equalTo(contentView.snp.centerX)
+//            make.width.height.equalTo(220)
+//        }
         
         stackView.snp.makeConstraints{ make in
             make.top.equalTo(titleLabel.snp.bottom).offset(50)

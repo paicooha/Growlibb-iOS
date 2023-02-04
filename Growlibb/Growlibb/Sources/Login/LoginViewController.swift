@@ -305,6 +305,7 @@ extension LoginViewController {
         self.loginKeyChainService.setLoginInfo(loginType: LoginType.member, userID: result.userId, token: LoginToken(jwt: result.jwt))
         self.userKeyChainService.nickName = result.nickname
         self.userKeyChainService.fcmToken = Messaging.messaging().fcmToken ?? ""
+        self.userKeyChainService.level = result.seedLevel
         
         viewModel.inputs.loginSuccess.onNext(())
         retryGuideLabel.isHidden = true
