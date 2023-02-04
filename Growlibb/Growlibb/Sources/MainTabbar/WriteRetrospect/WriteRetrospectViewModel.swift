@@ -16,7 +16,8 @@ final class WriteRetrospectViewModel: BaseViewModel {
     var tryCount = 1
 
     init(
-        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        writeRetrospectAPIService: WriteRetrospectAPIService = WriteRetrospectAPIService()
     ) {
         super.init()
         
@@ -112,6 +113,20 @@ final class WriteRetrospectViewModel: BaseViewModel {
                 self!.tryCount -= 1
                 sections[0].items.remove(at: index)
                 self!.outputs.tryList.onNext(sections)
+            })
+            .disposed(by: disposeBag)
+        
+        inputs.complete
+            .flatMap { writeRetrospectAPIService.postRetrospect(request: $0) }
+            .subscribe(onNext: { [ weak self] result in
+                switch result {
+                case .response(result: _):
+                    self?.routes.backward.onNext(true)
+                case .error(alertMessage: let alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    }
+                }
             })
             .disposed(by: disposeBag)
     }

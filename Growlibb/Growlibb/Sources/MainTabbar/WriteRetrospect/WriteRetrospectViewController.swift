@@ -15,10 +15,10 @@ import UIKit
 
 class WriteRetrospectViewController: BaseViewController {
     
-//    var doneTextList:[String] = []
-//    var keepTextList:[String] = []
-//    var problemTextList:[String] = []
-//    var tryTextList:[String] = []
+    var doneTextList:[String] = []
+    var keepTextList:[String] = []
+    var problemTextList:[String] = []
+    var tryTextList:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,11 +82,12 @@ class WriteRetrospectViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-//        completeButton.rx.tap
-//            .subscribe(onNext: { _ in
-//                ㅑ
-//            })
-//            .bind(to: viewModel.inputs.complete)
+        completeButton.rx.tap
+            .subscribe(onNext: { _ in
+                self.getAllTextList()
+                self.viewModel.inputs.complete.onNext(PostRetrospectRequest(done: self.doneTextList, keep: self.keepTextList, problem: self.problemTextList, attempt: self.tryTextList))
+            })
+            .disposed(by: disposeBag)
     }
     
     private func viewModelOutput(){
@@ -456,41 +457,43 @@ class WriteRetrospectViewController: BaseViewController {
         return true
     }
     
-//    func getAllTextList() {
-//        for index in 0..<viewModel.doneCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                self.doneTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-//            }
-//        }
-//
-//        for index in 0..<viewModel.tryCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-//                    return false
-//                }
-//            }
-//        }
-//
-//        for index in 0..<viewModel.tryCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                if !cell.textView.text.isEmpty {
-//                    return false
-//                }
-//            }
-//        }
-//
-//        for index in 0..<viewModel.tryCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                if !cell.textView.text.isEmpty {
-//                    return false
-//                }
-//            }
-//        }
-//    }
+    func getAllTextList() {
+        self.doneTextList.removeAll()
+        self.keepTextList.removeAll()
+        self.problemTextList.removeAll()
+        self.tryTextList.removeAll()
+        
+        for index in 0..<viewModel.doneCount {
+            let indexpath = IndexPath(row: index, section: 0)
+            if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                self.doneTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+            }
+        }
+        
+
+        for index in 0..<viewModel.keepCount {
+            let indexpath = IndexPath(row: index, section: 0)
+            if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                self.keepTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+            }
+        }
+        
+
+        for index in 0..<viewModel.problemCount {
+            let indexpath = IndexPath(row: index, section: 0)
+            if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                self.problemTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+            }
+        }
+        
+
+        for index in 0..<viewModel.tryCount {
+            let indexpath = IndexPath(row: index, section: 0)
+            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                self.tryTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+            }
+        }
+    }
 }
 
 // MARK: - Layout
