@@ -15,7 +15,10 @@ import UIKit
 
 class WriteRetrospectViewController: BaseViewController {
     
-    var doneList = [WriteRetrospectSection(items: [""])]
+//    var doneTextList:[String] = []
+//    var keepTextList:[String] = []
+//    var problemTextList:[String] = []
+//    var tryTextList:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -361,7 +364,7 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.doneCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.isEmpty {
+                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
@@ -373,7 +376,7 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.doneCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.isEmpty {
+                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
@@ -385,7 +388,7 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.keepCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.isEmpty {
+                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
@@ -397,7 +400,7 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.keepCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.isEmpty {
+                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
@@ -409,7 +412,7 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.problemCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.isEmpty {
+                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
@@ -421,7 +424,7 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.problemCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.isEmpty {
+                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
@@ -433,7 +436,7 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.tryCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.isEmpty {
+                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
@@ -445,13 +448,49 @@ class WriteRetrospectViewController: BaseViewController {
         for index in 0..<viewModel.tryCount {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.isEmpty {
+                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     return false
                 }
             }
         }
         return true
     }
+    
+//    func getAllTextList() {
+//        for index in 0..<viewModel.doneCount {
+//            let indexpath = IndexPath(row: index, section: 0)
+//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+//                self.doneTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
+//            }
+//        }
+//
+//        for index in 0..<viewModel.tryCount {
+//            let indexpath = IndexPath(row: index, section: 0)
+//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+//                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+//                    return false
+//                }
+//            }
+//        }
+//
+//        for index in 0..<viewModel.tryCount {
+//            let indexpath = IndexPath(row: index, section: 0)
+//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+//                if !cell.textView.text.isEmpty {
+//                    return false
+//                }
+//            }
+//        }
+//
+//        for index in 0..<viewModel.tryCount {
+//            let indexpath = IndexPath(row: index, section: 0)
+//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+//                if !cell.textView.text.isEmpty {
+//                    return false
+//                }
+//            }
+//        }
+//    }
 }
 
 // MARK: - Layout
