@@ -12,10 +12,9 @@ import RxSwift
 import SnapKit
 import Then
 import UIKit
+import Kingfisher
 
 class MyPageViewController: BaseViewController {
-    
-    var myPageList = [L10n.MyPage.List.retrospect, L10n.MyPage.List.editProfile, L10n.MyPage.List.editPassword, L10n.MyPage.List.editPhone, L10n.MyPage.List.editNoti, L10n.MyPage.List.logout, L10n.MyPage.List.resign]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +38,9 @@ class MyPageViewController: BaseViewController {
     private var viewModel: MyPageViewModel
 
     private func viewModelInput() {
+        navBar.rightBtnItem.rx.tap
+            .bind(to: viewModel.inputs.goCS)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput(){
@@ -47,6 +49,38 @@ class MyPageViewController: BaseViewController {
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
             })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.mypage
+            .subscribe(onNext: { mypage in
+                self.nickname.text = mypage.nickname
+                self.email.text = mypage.email
+                self.seedlevelLabel.text = "\(mypage.seedLevel)"
+                self.pointLabel.text = "\(mypage.point)"
+                self.retrospectLabel.text = "\(mypage.retrospectionCount)" //MARK: - 프로필 이미지 세팅하는 부분도 들어가야함
+            })
+            .disposed(by: disposeBag)
+        
+        typealias MyPageListDataSource
+        = RxTableViewSectionedReloadDataSource<MyPageSection>
+        
+        let myListTableViewDataSource = MyPageListDataSource { [self] _, tableView, indexPath, item in
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageCell.id, for: indexPath) as? MyPageCell
+            else { return UITableViewCell() }
+                        
+            cell.label.text = item
+            
+            cell.preservesSuperviewLayoutMargins = false //separator 꽉 안차는 현상 해결하기 위한 코드
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            return cell
+        }
+        
+        viewModel.outputs.mypagelist
+            .map { [MyPageSection(items: $0)]}
+            .bind(to: tableView.rx.items(dataSource: myListTableViewDataSource))
             .disposed(by: disposeBag)
     }
 
@@ -220,8 +254,8 @@ extension MyPageViewController {
         
         tableView.snp.makeConstraints { make in
             make.top.equalTo(seedVStack.snp.bottom).offset(20)
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(tableView.contentSize.height)
+            make.leading.trailing.bottom.equalTo(contentView)
+            make.height.equalTo(435)
         }
     }
 }

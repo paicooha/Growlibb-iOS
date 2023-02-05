@@ -28,12 +28,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     override func start(animated _: Bool = true) { // VM의 route 바인딩
         let scene = component.scene
 
-//        scene.VM.routes.filter
-//            .map { (vm: scene.VM, filter: $0) }
-//            .subscribe(onNext: { [weak self] input in
-//                self?.pushHomeFilterScene(vm: input.vm, filter: input.filter, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
+        scene.VM.routes.goCS
+            .subscribe(onNext: { [weak self] _ in
+                self?.goCS()
+            })
+            .disposed(by: sceneDisposeBag)
 //
 //        scene.VM.routes.writingPost
 //            .map { scene.VM }
@@ -76,18 +75,19 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
 //            .disposed(by: sceneDisposeBag)
     }
 
-//    private func pushDetailPostScene(vm: HomeViewModel, postId: Int, animated: Bool) {
-//        let comp = component.postDetailComponent(postId: postId)
-//        let coord = PostDetailCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .backward(_, needUpdate):
-//                vm.routeInputs.needUpdate.onNext(needUpdate)
-//                vm.routeInputs.detailClosed.onNext(())
-//            }
-//        }
-//    }
+    private func goCS() {
+        let comp = component.csComponent
+        let coord = CsCoordinator(component: comp, navController: navigationController)
+        
+        comp.viewModel.routeInputs.needUpdate.onNext(true)
+
+        coordinate(coordinator: coord, animated: true) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            }
+        }
+    }
 //
 //    private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
 //        let comp = component.writingPostComponent

@@ -12,9 +12,9 @@ final class MyPageComponent {
 
     lazy var viewModel: MyPageViewModel = .init()
 
-//    func postDetailComponent(postId: Int) -> PostDetailComponent {
-//        return PostDetailComponent(postId: postId)
-//    }
+    var csComponent: CSComponent {
+        return CSComponent()
+    }
 //
 //    var writingPostComponent: WritingMainPostComponent {
 //        return WritingMainPostComponent()

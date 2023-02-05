@@ -23,8 +23,6 @@ class MyPageCell: UITableViewCell {
         
         setup() // cell 세팅
         initialLayout() // cell 레이아웃 설정
-        
-        self.selectionStyle = .none
     }
     
     var disposeBag = DisposeBag()
@@ -36,39 +34,46 @@ class MyPageCell: UITableViewCell {
 //        self.textView.text = ""
 //        self.deleteButton.isHidden = true
     }
+    var view = UIView()
     
     var label = UILabel().then { view in
         view.font = .pretendardMedium14
     }
     
-    var rightArrowButton = UIButton().then { view in
-        view.setImage(Asset.icArrowRightBlue.image, for: .normal)
+    var rightArrow = UIImageView().then { view in
+        view.snp.makeConstraints { make in
+            make.width.height.equalTo(17)
+        }
+        view.image = Asset.icArrowRightBlue.image
     }
 }
 
 extension MyPageCell {
     private func setup() {
 
-        contentView.addSubviews([
+        selectionStyle = .none
+        contentView.addSubview(view)
+        
+        view.addSubviews([
             label,
-            rightArrowButton
+            rightArrow
         ])
     }
 
     private func initialLayout() {
-        self.snp.makeConstraints { make in
+        view.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(61)
         }
         
         label.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(20)
-            make.centerY.equalTo(contentView.snp.centerY)
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.centerY.equalTo(view.snp.centerY)
         }
         
-        rightArrowButton.snp.makeConstraints { make in
-            make.centerY.equalTo(contentView.snp.centerY)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-18)
-            make.width.height.equalTo(17)
+        rightArrow.snp.makeConstraints { make in
+            make.centerY.equalTo(view.snp.centerY)
+            make.trailing.equalTo(view.snp.trailing).offset(-18)
         }
     }
 }

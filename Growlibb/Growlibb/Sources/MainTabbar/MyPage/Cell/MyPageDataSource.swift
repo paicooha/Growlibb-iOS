@@ -10,18 +10,15 @@ import RxDataSources
 
 public struct MyPageSection {
     public var items: [String]
-    var header: String?
     public var identity: String
     
     init(items: [String]) {
         self.items = items
-        self.header = nil
         self.identity = UUID().uuidString
     }
 }
 
 extension MyPageSection: SectionModelType {
-
     public typealias Identity = String
     
     public init(original: MyPageSection, items: [String]) {
