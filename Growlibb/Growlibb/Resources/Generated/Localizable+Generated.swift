@@ -173,6 +173,8 @@ internal enum L10n {
       internal static let noti = L10n.tr("Localizable", "MyPage.CS.Noti", fallback: "공지사항")
       /// 개인정보처리방침
       internal static let privacy = L10n.tr("Localizable", "MyPage.CS.privacy", fallback: "개인정보처리방침")
+      /// 고객센터
+      internal static let title = L10n.tr("Localizable", "MyPage.CS.Title", fallback: "고객센터")
       /// 이용약관
       internal static let yakgwan = L10n.tr("Localizable", "MyPage.CS.yakgwan", fallback: "이용약관")
     }

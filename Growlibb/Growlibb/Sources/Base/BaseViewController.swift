@@ -20,7 +20,7 @@ class BaseViewController: UIViewController {
     }
 
     @available(*, unavailable)
-    required init?(coder _: NSCoder) {
+    required init?(coder _: NSCoder? = nil) {
         fatalError("init(coder:) has not been implemented")
     }
 

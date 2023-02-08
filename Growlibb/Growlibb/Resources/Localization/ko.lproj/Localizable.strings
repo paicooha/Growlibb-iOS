@@ -177,4 +177,13 @@
 "MyPage.SeedLevel.title" = "새싹 레벨";
 "MyPage.Point.title" = "내 포인트";
 "MyPage.RetrospectCount.title" = "회고 개수";
+"MyPage.EditProfile.title" = "내 프로필 수정";
+"MyPage.EditNoti" = "알림";
 
+
+// MARK: - MyPage/CSCenter
+"MyPage.CS.Title" = "고객센터";
+"MyPage.CS.Noti" = "공지사항";
+"MyPage.CS.FAQ" = "FAQ";
+"MyPage.CS.yakgwan" = "이용약관";
+"MyPage.CS.privacy" = "개인정보처리방침";

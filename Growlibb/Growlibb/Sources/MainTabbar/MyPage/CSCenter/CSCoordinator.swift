@@ -11,7 +11,6 @@ import UIKit
 
 enum CSResult {
     case backward
-    case showModal
 }
 
 final class CsCoordinator: BasicCoordinator<CSResult> {
@@ -38,22 +37,14 @@ final class CsCoordinator: BasicCoordinator<CSResult> {
                 switch result {
                 case .backward:
                     self?.navigationController.popViewController(animated: true)
-                case .showModal:
-                    break
                 }
             })
             .disposed(by: sceneDisposeBag)
         
-//        scene.VM.routes.backward
-//            .subscribe(onNext: { isShowModal in
-//                if !isShowModal { //하나라도 내용이 차있으면
-//                    self.showTrueDeleteModal(vm: scene.VM)
-//                }
-//                else{
-//                    self.navigationController.popViewController(animated: true)
-//                }
-//            })
-//            .disposed(by: sceneDisposeBag)
+        scene.VM.routes.backward
+            .map { CSResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
 //
 //        scene.VM.routes.showTutorial
 //            .subscribe(onNext: { [weak self] _ in

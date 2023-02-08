@@ -91,6 +91,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     private func viewModelOutput(){
+        doneTableView.rx.setDelegate(self).disposed(by: disposeBag)
         
         viewModel.toast
             .subscribe(onNext: { message in

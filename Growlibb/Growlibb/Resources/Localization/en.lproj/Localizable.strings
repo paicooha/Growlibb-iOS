@@ -182,6 +182,7 @@
 
 
 // MARK: - MyPage/CSCenter
+"MyPage.CS.Title" = "고객센터";
 "MyPage.CS.Noti" = "공지사항";
 "MyPage.CS.FAQ" = "FAQ";
 "MyPage.CS.yakgwan" = "이용약관";

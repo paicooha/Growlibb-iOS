@@ -11,13 +11,7 @@ import SnapKit
 import Then
 import UIKit
 
-protocol TextViewDelegate {
-    func updateTextView(_ cell:UITableViewCell, _ textView:UITextView)
-}
-
 class WriteRetrospectCell: UITableViewCell {
-    
-    var delegate: TextViewDelegate?
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
@@ -29,8 +23,6 @@ class WriteRetrospectCell: UITableViewCell {
         
         setup() // cell 세팅
         initialLayout() // cell 레이아웃 설정
-        
-        textView.delegate = self //길이에 따라서 아래로 늘어날 텍스트뷰 컨트롤
     }
     
     var disposeBag = DisposeBag()
@@ -39,8 +31,8 @@ class WriteRetrospectCell: UITableViewCell {
         super.prepareForReuse()
         
         disposeBag = DisposeBag()
-        self.textView.text = ""
-        self.deleteButton.isHidden = true
+//        self.textView.text = ""
+//        self.deleteButton.isHidden = true
     }
     
     var backGround = UIView().then { view in
@@ -52,13 +44,12 @@ class WriteRetrospectCell: UITableViewCell {
     var textView = UITextView().then { view in
         view.backgroundColor = .clear
         view.isScrollEnabled = false
-        view.sizeToFit()
         view.showsVerticalScrollIndicator = false
         
-        view.textContainerInset = UIEdgeInsets(top: 13, left: 21, bottom: 0, right: 0)
+        view.textContainerInset = UIEdgeInsets(top: 13, left: 21, bottom: 12, right: 0)
+        view.sizeToFit()
 
         view.font = .pretendardMedium12
-
     }
     
     var deleteButton = UIButton().then { view in
@@ -105,12 +96,4 @@ extension WriteRetrospectCell {
 
 extension WriteRetrospectCell {
     static let id: String = "\(WriteRetrospectCell.self)"
-}
-
-extension WriteRetrospectCell: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        if let delegate = delegate {
-            delegate.updateTextView(self, textView)
-        }
-    }
 }

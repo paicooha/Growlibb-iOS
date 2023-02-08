@@ -37,6 +37,32 @@ class CSViewController: BaseViewController {
     private var viewModel: CSViewModel
 
     private func viewModelInput() {
+//        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] index in    
+                switch index.row {
+                case 0:
+                    break
+                case 1:
+                    break
+                    
+                case 2:
+                    let vc = TermsOfUseViewController()
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                    break
+                    
+                default:
+                    let vc = PrivacyViewController()
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput(){
@@ -46,12 +72,36 @@ class CSViewController: BaseViewController {
                 AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
+        
+        typealias CsListDataSource
+        = RxTableViewSectionedReloadDataSource<MyPageSection>
+        
+        let csListTableViewDataSource = CsListDataSource { [self] _, tableView, indexPath, item in
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageCell.id, for: indexPath) as? MyPageCell
+            else { return UITableViewCell() }
+                        
+            cell.label.text = item
+            
+            cell.preservesSuperviewLayoutMargins = false //separator 꽉 안차는 현상 해결하기 위한 코드
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+                        
+            return cell
+        }
+        
+        viewModel.outputs.csList
+            .map { [MyPageSection(items: $0)]}
+            .bind(to: tableView.rx.items(dataSource: csListTableViewDataSource))
+            .disposed(by: disposeBag)
+        
     }
 
     private var navBar = NavBar().then { navBar in
-        navBar.rightBtnItem.isHidden = false
+        navBar.leftBtnItem.isHidden = false
+        navBar.rightBtnItem.isHidden = true
         navBar.titleLabel.isHidden = false
-//        navBar.titleLabel.text = L10n.My
+        navBar.titleLabel.text = L10n.MyPage.Cs.title
     }
     
     private var tableView = UITableView().then { view in

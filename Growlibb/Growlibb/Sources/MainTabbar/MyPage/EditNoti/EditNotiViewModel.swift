@@ -1,21 +1,14 @@
 //
-//  CSViewModel.swift
+//  EditNotiViewModel.swift
 //  Growlibb
 //
-//  Created by 이유리 on 2023/02/05.
+//  Created by 이유리 on 2023/02/06.
 //
 
-import Foundation
 import RxSwift
 
-final class CSViewModel: BaseViewModel {
+final class EditViewModel: BaseViewModel {
     
-    var csList = [L10n.MyPage.Cs.noti, L10n.MyPage.Cs.faq, L10n.MyPage.Cs.yakgwan, L10n.MyPage.Cs.privacy]
-    
-    var doneCount = 1
-    var keepCount = 1
-    var problemCount = 1
-    var tryCount = 1
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared)
@@ -24,7 +17,7 @@ final class CSViewModel: BaseViewModel {
         
         routeInputs.needUpdate
             .subscribe(onNext: { _ in
-                self.outputs.csList.onNext(self.csList)
+//                self.outputs.csList.onNext(self.csList)
             })
             .disposed(by: disposeBag)
         
@@ -39,7 +32,7 @@ final class CSViewModel: BaseViewModel {
     }
 
     struct Output {
-        var csList = ReplaySubject<[String]>.create(bufferSize: 1)
+
     }
 
     struct Route {
