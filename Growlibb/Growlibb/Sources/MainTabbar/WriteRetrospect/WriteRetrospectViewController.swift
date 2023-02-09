@@ -321,7 +321,7 @@ class WriteRetrospectViewController: BaseViewController {
     
     private var tryTitle = UILabel().then { view in
         view.font = .pretendardSemibold16
-        view.text = L10n.WriteRetrospect.Done.title
+        view.text = L10n.WriteRetrospect.Try.title
     }
     
     private var tryTableView : UITableView = {

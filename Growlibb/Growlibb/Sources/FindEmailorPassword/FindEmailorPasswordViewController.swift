@@ -28,7 +28,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
     
     var email = ""
     var userInfo = UserInfo()
-    var result = GetRetro
     
     //하단 버튼 액션을 분기별로 처리하기 위함
     //순서대로 이메일찾기, 로그인화면 이동(이메일), 비밀번호 찾기, 로그인 화면 이동(비밀번호) -> 초기에는 이메일찾기이므로 1
