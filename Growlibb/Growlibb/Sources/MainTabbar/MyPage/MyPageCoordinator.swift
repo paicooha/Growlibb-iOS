@@ -33,20 +33,20 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 self?.goCS()
             })
             .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.writingPost
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.pushWritingPostScene(vm: vm, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.detailPost
-//            .map { (vm: scene.VM, postId: $0) }
-//            .subscribe(onNext: { [weak self] input in
-//                self?.pushDetailPostScene(vm: input.vm, postId: input.postId, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.editProfile
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.goEditProfile(vm: vm, animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.editPassword
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.goEditPassword(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
 //
 //        scene.VM.routes.nonMemberCover
 //            .map { .needCover }
@@ -88,32 +88,30 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }
         }
     }
-//
-//    private func pushWritingPostScene(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.writingPostComponent
-//        let coord = WritingMainPostCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .backward(needUpdate):
-//                vm.routeInputs.needUpdate.onNext(needUpdate)
-//            }
-//        }
-//    }
-//
-//    private func pushHomeFilterScene(vm: HomeViewModel, filter: PostFilter, animated: Bool) {
-//        let comp = component.postFilterComponent(filter: filter)
-//        let coord = HomeFilterCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(
-//            coordinator: coord, animated: animated
-//        ) { coordResult in
-//            switch coordResult {
-//            case let .backward(filter):
-//                vm.routeInputs.filterChanged.onNext(filter)
-//            }
-//        }
-//    }
+
+    private func goEditProfile(vm: MyPageViewModel, animated: Bool) {
+        let comp = component.editProfileComponent
+        let coord = EditProfileCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
+    
+    private func goEditPassword(animated: Bool) {
+        let comp = component.editPasswordComponent
+        let coord = EditPasswordCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward:
+                break
+            }
+        }
+    }
 //
 //    private func showPostListOrderModal(vm: HomeViewModel, animated: Bool) {
 //        let comp = component.postListOrderModal()

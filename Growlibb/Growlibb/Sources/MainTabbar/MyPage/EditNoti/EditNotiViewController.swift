@@ -46,7 +46,6 @@ class EditNotiViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
     
-        
     }
 
     private var navBar = NavBar().then { navBar in

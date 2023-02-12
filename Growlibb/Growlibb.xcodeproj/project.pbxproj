@@ -14,6 +14,14 @@
 		DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D129213CD3005DFC79 /* SignUpFirstViewController.swift */; };
 		DA0597D629213EF2005DFC79 /* ShortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D529213EF2005DFC79 /* ShortButton.swift */; };
 		DA0597D829213F2D005DFC79 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0597D729213F2D005DFC79 /* UIButton+.swift */; };
+		DA0895CE2999359E00A1713B /* EditProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895CD2999359E00A1713B /* EditProfileComponent.swift */; };
+		DA0895D0299935A700A1713B /* EditProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895CF299935A700A1713B /* EditProfileCoordinator.swift */; };
+		DA0895D2299935AD00A1713B /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D1299935AD00A1713B /* EditProfileViewModel.swift */; };
+		DA0895D4299935B300A1713B /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D3299935B300A1713B /* EditProfileViewController.swift */; };
+		DA0895D629993CE700A1713B /* EditPasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D529993CE700A1713B /* EditPasswordComponent.swift */; };
+		DA0895D829993CEF00A1713B /* EditPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D729993CEF00A1713B /* EditPasswordCoordinator.swift */; };
+		DA0895DA29993CF400A1713B /* EditPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D929993CF400A1713B /* EditPasswordViewModel.swift */; };
+		DA0895DC29993CFB00A1713B /* EditPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895DB29993CFB00A1713B /* EditPasswordViewController.swift */; };
 		DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */; };
 		DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCC2912717700878BA3 /* BaseResponse.swift */; };
 		DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */; };
@@ -179,6 +187,14 @@
 		DA0597D129213CD3005DFC79 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 		DA0597D529213EF2005DFC79 /* ShortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortButton.swift; sourceTree = "<group>"; };
 		DA0597D729213F2D005DFC79 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		DA0895CD2999359E00A1713B /* EditProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileComponent.swift; sourceTree = "<group>"; };
+		DA0895CF299935A700A1713B /* EditProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCoordinator.swift; sourceTree = "<group>"; };
+		DA0895D1299935AD00A1713B /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		DA0895D3299935B300A1713B /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		DA0895D529993CE700A1713B /* EditPasswordComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordComponent.swift; sourceTree = "<group>"; };
+		DA0895D729993CEF00A1713B /* EditPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordCoordinator.swift; sourceTree = "<group>"; };
+		DA0895D929993CF400A1713B /* EditPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordViewModel.swift; sourceTree = "<group>"; };
+		DA0895DB29993CFB00A1713B /* EditPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCC2912717700878BA3 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -584,6 +600,10 @@
 		DA80CBC5298EBF2500E67212 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
+				DA0895CD2999359E00A1713B /* EditProfileComponent.swift */,
+				DA0895CF299935A700A1713B /* EditProfileCoordinator.swift */,
+				DA0895D1299935AD00A1713B /* EditProfileViewModel.swift */,
+				DA0895D3299935B300A1713B /* EditProfileViewController.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -591,6 +611,10 @@
 		DA80CBC6298EBF2B00E67212 /* Editpassword */ = {
 			isa = PBXGroup;
 			children = (
+				DA0895D529993CE700A1713B /* EditPasswordComponent.swift */,
+				DA0895D729993CEF00A1713B /* EditPasswordCoordinator.swift */,
+				DA0895D929993CF400A1713B /* EditPasswordViewModel.swift */,
+				DA0895DB29993CFB00A1713B /* EditPasswordViewController.swift */,
 			);
 			path = Editpassword;
 			sourceTree = "<group>";
@@ -1199,6 +1223,7 @@
 				DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */,
 				DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */,
 				DA88B4A82923B97400A4B1B5 /* MyPageViewModel.swift in Sources */,
+				DA0895D829993CEF00A1713B /* EditPasswordCoordinator.swift in Sources */,
 				DA80CBBC298EBE1600E67212 /* CSCoordinator.swift in Sources */,
 				DACF17C4292F5726002734AA /* PostCheckEmailRequest.swift in Sources */,
 				DA6C77B42990120E00B80DB9 /* EditNotiViewController.swift in Sources */,
@@ -1213,6 +1238,7 @@
 				DAF8B0252975684600380D28 /* RetrospectRightView.swift in Sources */,
 				DACF17BA292E12A2002734AA /* UITextField+.swift in Sources */,
 				DACF81EE291BC7B500AA74E8 /* TutorialFirstComponent.swift in Sources */,
+				DA0895DA29993CF400A1713B /* EditPasswordViewModel.swift in Sources */,
 				DACF17AE292B4EC1002734AA /* SignUpSecondViewController.swift in Sources */,
 				DA88B4AC2923BC9F00A4B1B5 /* UIStackView+.swift in Sources */,
 				DACF81D6291BBE6300AA74E8 /* AppContext.swift in Sources */,
@@ -1269,6 +1295,7 @@
 				DA88B4A22923B96100A4B1B5 /* RetrospectViewController.swift in Sources */,
 				DACC7F6E29895A5400C17F1E /* WriteRetrospectCell.swift in Sources */,
 				DA42978729730097003AAA93 /* WriteRetrospectViewController.swift in Sources */,
+				DA0895D0299935A700A1713B /* EditProfileCoordinator.swift in Sources */,
 				DACB0BC9297F117D00ABCB8F /* RetrospectAPIService.swift in Sources */,
 				DACF81F8291BDC9100AA74E8 /* MainTabComponent.swift in Sources */,
 				DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */,
@@ -1280,6 +1307,7 @@
 				DACF81D3291BBDCE00AA74E8 /* BasicCoordinator.swift in Sources */,
 				DACF81F0291BC7BF00AA74E8 /* TutorialFirstCoordinator.swift in Sources */,
 				DA9F8DD129352320007014A5 /* FindEmailorPasswordCoordinator.swift in Sources */,
+				DA0895CE2999359E00A1713B /* EditProfileComponent.swift in Sources */,
 				DADA2F0A291D403C005E6B71 /* Localizable+Generated.swift in Sources */,
 				DACB0BCC297F11CC00ABCB8F /* GetRetrospectTabResponse.swift in Sources */,
 				DACF8210291C11D700AA74E8 /* LongButton.swift in Sources */,
@@ -1288,7 +1316,10 @@
 				DA80CBB6298EB93400E67212 /* MyPageCell.swift in Sources */,
 				DACB0BD2297F1AE300ABCB8F /* JSONError.swift in Sources */,
 				DACF820B291C03F100AA74E8 /* TutorialSecondCoordinator.swift in Sources */,
+				DA0895DC29993CFB00A1713B /* EditPasswordViewController.swift in Sources */,
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
+				DA0895D629993CE700A1713B /* EditPasswordComponent.swift in Sources */,
+				DA0895D2299935AD00A1713B /* EditProfileViewModel.swift in Sources */,
 				DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */,
 				DA6E3D59293910010084F534 /* PatchFcmRequest.swift in Sources */,
 				DA8A8F37298986D200C63D2B /* ModalCoordinator.swift in Sources */,
@@ -1332,6 +1363,7 @@
 				DACF17B4292B7130002734AA /* SignUpFinalViewModel.swift in Sources */,
 				DAEBC66F298121CA0017A48E /* WriteRetrospectTutorialModalViewModel.swift in Sources */,
 				DA95BC2929116D8B003C81CE /* SceneDelegate.swift in Sources */,
+				DA0895D4299935B300A1713B /* EditProfileViewController.swift in Sources */,
 				DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */,
 				DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */,
 				DACF81DD291BC00C00AA74E8 /* BasicLoginKeyChainService.swift in Sources */,

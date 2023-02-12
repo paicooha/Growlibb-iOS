@@ -34,7 +34,6 @@ extension MyPageAPI: TargetType {
         switch self {
         case .getMyPage:
             return "/v1/profile"
-            
 //        case let .detail(postId, userId, _):
 //            return "/postings/v2/\(postId)/\(userId)"
 //        case let .apply(postId, userId, _):

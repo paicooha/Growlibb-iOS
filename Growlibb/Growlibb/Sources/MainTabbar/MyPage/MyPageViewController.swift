@@ -78,6 +78,24 @@ class MyPageViewController: BaseViewController {
             return cell
         }
         
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] index in
+                switch index.row {
+                case 0:
+                    break
+                case 1:
+                    self?.viewModel.inputs.editProfile.onNext(())
+                case 2:
+                    self?.viewModel.inputs.editPassword.onNext(())
+                    
+                default:
+                    let vc = PrivacyViewController()
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.outputs.mypagelist
             .map { [MyPageSection(items: $0)]}
             .bind(to: tableView.rx.items(dataSource: myListTableViewDataSource))

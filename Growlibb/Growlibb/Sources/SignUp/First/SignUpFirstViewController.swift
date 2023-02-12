@@ -15,9 +15,7 @@ import FirebaseAuth
 import AnyFormatKit
 
 class SignUpFirstViewController: BaseViewController {
-    
-    var contentViewSize = CGSize()
-    
+        
     var phoneNumber = ""
     var verificationId = ""
     

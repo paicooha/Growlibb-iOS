@@ -40,11 +40,20 @@ final class MyPageViewModel: BaseViewModel {
         inputs.goCS
             .bind(to: routes.goCS)
             .disposed(by: disposeBag)
+        
+        inputs.editProfile
+            .bind(to: routes.editProfile)
+            .disposed(by: disposeBag)
+        
+        inputs.editPassword
+            .bind(to: routes.editPassword)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var goCS = PublishSubject<Void>()
-        
+        var editProfile = PublishSubject<Void>()
+        var editPassword = PublishSubject<Void>()
     }
 
     struct Output {
@@ -65,6 +74,8 @@ final class MyPageViewModel: BaseViewModel {
 
     struct Route {
         var goCS = PublishSubject<Void>()
+        var editProfile = PublishSubject<Void>()
+        var editPassword = PublishSubject<Void>()
     }
 
     struct RouteInput {

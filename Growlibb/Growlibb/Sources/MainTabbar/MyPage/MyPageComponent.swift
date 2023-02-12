@@ -15,14 +15,14 @@ final class MyPageComponent {
     var csComponent: CSComponent {
         return CSComponent()
     }
-//
-//    var writingPostComponent: WritingMainPostComponent {
-//        return WritingMainPostComponent()
-//    }
-//
-//    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
-//        return HomeFilterComponent(filter: filter)
-//    }
+
+    var editProfileComponent: EditProfileComponent {
+        return EditProfileComponent()
+    }
+    
+    var editPasswordComponent: EditPasswordComponent {
+        return EditPasswordComponent()
+    }
 //
 //    func postListOrderModal() -> PostOrderModalComponent {
 //        return PostOrderModalComponent()

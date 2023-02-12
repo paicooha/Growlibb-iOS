@@ -8,7 +8,7 @@
 import Foundation
 
 enum BaseAPI {
-    static var url = URL(string: "http://13.209.37.231")!
+    static var url = URL(string: "http://43.200.160.196")!
 }
 
 enum APIResult<T> {
