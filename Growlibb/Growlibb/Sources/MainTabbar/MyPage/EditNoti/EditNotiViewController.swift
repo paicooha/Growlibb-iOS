@@ -19,7 +19,7 @@ class EditNotiViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: EditViewModel) {
+    init(viewModel: EditNotiViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -29,7 +29,7 @@ class EditNotiViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var viewModel: EditViewModel
+    private var viewModel: EditNotiViewModel
 
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
@@ -52,7 +52,30 @@ class EditNotiViewController: BaseViewController {
         navBar.leftBtnItem.isHidden = false
         navBar.rightBtnItem.isHidden = true
         navBar.titleLabel.isHidden = false
-        navBar.titleLabel.text = L10n.MyPage.editNoti
+        navBar.titleLabel.text = L10n.MyPage.List.editNoti
+    }
+    
+    private var contentView = UIView()
+    
+    private var titleLabel = UILabel().then { view in
+        view.font = .pretendardSemibold16
+        view.text = L10n.MyPage.editNoti
+        
+    }
+    
+    private var alarmSwitch = UISwitch().then { view in
+        /*For on state*/
+        view.onTintColor = .primaryBlue
+
+        /*For off state*/
+        view.tintColor = .veryLightGray
+        view.layer.cornerRadius = view.frame.height / 2.0
+        view.backgroundColor = .veryLightGray
+        view.clipsToBounds = true
+    }
+    
+    private var hDivider = UIView().then { view in
+        view.backgroundColor = .veryLightGray
     }
 }
 
@@ -62,6 +85,12 @@ extension EditNotiViewController {
     private func setupViews() {
         view.addSubviews([
             navBar,
+            contentView,
+            hDivider
+        ])
+        
+        contentView.addSubviews([
+            titleLabel, alarmSwitch
         ])
     }
 
@@ -70,6 +99,29 @@ extension EditNotiViewController {
             make.top.equalTo(view.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.height.equalTo(60)
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.centerY.equalTo(contentView.snp.centerY)
+            
+        }
+        
+        alarmSwitch.snp.makeConstraints { make in
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.centerY.equalTo(contentView.snp.centerY)
+        }
+        
+        hDivider.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
         }
     }
 }

@@ -23,14 +23,14 @@ final class MyPageComponent {
     var editPasswordComponent: EditPasswordComponent {
         return EditPasswordComponent()
     }
-//
-//    func postListOrderModal() -> PostOrderModalComponent {
-//        return PostOrderModalComponent()
-//    }
-//
-//    func runningTagModal() -> RunningTagModalComponent {
-//        return RunningTagModalComponent()
-//    }
+
+    var editPhoneNumberComponent: EditPhoneNumberComponent {
+        return EditPhoneNumberComponent()
+    }
+    
+    var editNotiComponent: EditNotiComponent {
+        return EditNotiComponent()
+    }
 //
 //    var alarmListComponent: AlarmListComponent {
 //        return AlarmListComponent()

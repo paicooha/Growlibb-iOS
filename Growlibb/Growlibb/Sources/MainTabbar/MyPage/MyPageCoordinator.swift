@@ -47,7 +47,21 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 self?.goEditPassword(animated: true)
             })
             .disposed(by: sceneDisposeBag)
-//
+        
+        scene.VM.routes.editPhoneNumber
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.goEditPhoneNumber(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.editNoti
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.goEditNoti(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
+        
 //        scene.VM.routes.nonMemberCover
 //            .map { .needCover }
 //            .subscribe(closeSignal)
@@ -113,31 +127,29 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         }
     }
 //
-//    private func showPostListOrderModal(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.postListOrderModal()
-//        let coord = PostOrderModalCoordinator(component: comp, navController: navigationController)
+    private func goEditPhoneNumber(animated: Bool) {
+        let comp = component.editPhoneNumberComponent
+        let coord = EditPhoneNumberCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward:
+                break
+            }
+        }
+    }
 //
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .ok(order: order):
-//                vm.routeInputs.postListOrderChanged.onNext(order)
-//            case .cancel: break
-//            }
-//        }
-//    }
-//
-//    private func showRunningTagModal(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.runningTagModal()
-//        let coord = RunningTagModalCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .ok(tag: tag):
-//                vm.routeInputs.runningTagChanged.onNext(tag)
-//            case .cancel: break
-//            }
-//        }
-//    }
+    private func goEditNoti(animated: Bool) {
+        let comp = component.editNotiComponent
+        let coord = EditNotiCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward:
+                break
+            }
+        }
+    }
 //
 //    private func pushAlarmListScene(vm: HomeViewModel, animated: Bool) {
 //        let comp = component.alarmListComponent

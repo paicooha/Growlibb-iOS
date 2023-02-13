@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class EditViewModel: BaseViewModel {
+final class EditNotiViewModel: BaseViewModel {
     
 
     init(
