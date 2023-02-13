@@ -202,6 +202,32 @@ internal enum L10n {
       /// 내 포인트
       internal static let title = L10n.tr("Localizable", "MyPage.Point.title", fallback: "내 포인트")
     }
+    internal enum Resign {
+      /// 계정을 삭제하면 아이디 재사용 불가 및 기존에 작성한 회고이력이 모두 삭제돼요!
+      internal static let guide = L10n.tr("Localizable", "MyPage.Resign.guide", fallback: "계정을 삭제하면 아이디 재사용 불가 및 기존에 작성한 회고이력이 모두 삭제돼요!")
+      /// 사유를 입력해주세요.
+      internal static let placeholder = L10n.tr("Localizable", "MyPage.Resign.placeholder", fallback: "사유를 입력해주세요.")
+      /// 님 정말 회원탈퇴 하시겠어요?
+      internal static let title = L10n.tr("Localizable", "MyPage.Resign.title", fallback: "님 정말 회원탈퇴 하시겠어요?")
+      internal enum Checkbox {
+        /// 회원탈퇴 유의사항을 확인하였으며 이에 동의합니다.
+        internal static let guide = L10n.tr("Localizable", "MyPage.Resign.Checkbox.guide", fallback: "회원탈퇴 유의사항을 확인하였으며 이에 동의합니다.")
+      }
+      internal enum Modal {
+        /// 👋🏻
+        internal static let emoji = L10n.tr("Localizable", "MyPage.Resign.Modal.emoji", fallback: "👋🏻")
+        /// 회원탈퇴가 정상적으로 처리되었습니다.
+        /// 그 동안 이용해주셔서 감사합니다.
+        internal static let title = L10n.tr("Localizable", "MyPage.Resign.Modal.title", fallback: "회원탈퇴가 정상적으로 처리되었습니다.\n그 동안 이용해주셔서 감사합니다.")
+      }
+      internal enum Reason {
+        /// 서비스 탈퇴 사유에 대해 알려주세요.
+        /// 피드백을 바탕으로 더 나은 서비스로 보답하겠습니다.
+        internal static let subtitle = L10n.tr("Localizable", "MyPage.Resign.Reason.subtitle", fallback: "서비스 탈퇴 사유에 대해 알려주세요.\n피드백을 바탕으로 더 나은 서비스로 보답하겠습니다.")
+        /// (선택) 회원탈퇴를 하시는 이유가 궁금해요.
+        internal static let title = L10n.tr("Localizable", "MyPage.Resign.Reason.title", fallback: "(선택) 회원탈퇴를 하시는 이유가 궁금해요.")
+      }
+    }
     internal enum RetrospectCount {
       /// 회고 개수
       internal static let title = L10n.tr("Localizable", "MyPage.RetrospectCount.title", fallback: "회고 개수")

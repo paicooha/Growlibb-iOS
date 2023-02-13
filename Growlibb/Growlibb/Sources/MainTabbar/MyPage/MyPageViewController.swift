@@ -91,6 +91,8 @@ class MyPageViewController: BaseViewController {
                     self?.viewModel.inputs.editPhoneNumber.onNext(())
                 case 4:
                     self?.viewModel.inputs.editNoti.onNext(())
+                case 6:
+                    self?.viewModel.inputs.goResign.onNext(())
                 default:
                     let vc = PrivacyViewController()
                     self?.navigationController?.pushViewController(vc, animated: true)

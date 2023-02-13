@@ -62,11 +62,12 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             })
             .disposed(by: sceneDisposeBag)
         
-//        scene.VM.routes.nonMemberCover
-//            .map { .needCover }
-//            .subscribe(closeSignal)
-//            .disposed(by: sceneDisposeBag)
-//
+        scene.VM.routes.goResign
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.goResign(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
 //        scene.VM.routes.postListOrder
 //            .map { scene.VM }
 //            .subscribe(onNext: { [weak self] vm in
@@ -142,6 +143,18 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     private func goEditNoti(animated: Bool) {
         let comp = component.editNotiComponent
         let coord = EditNotiCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case let .backward:
+                break
+            }
+        }
+    }
+    
+    private func goResign(animated: Bool) {
+        let comp = component.resignComponent
+        let coord = ResignCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {

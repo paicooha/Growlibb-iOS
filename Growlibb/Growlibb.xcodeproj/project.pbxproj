@@ -62,6 +62,10 @@
 		DA76A144299A94F900400FBC /* EditPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A143299A94F900400FBC /* EditPhoneNumberViewController.swift */; };
 		DA76A146299A98A300400FBC /* EditNotiComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A145299A98A300400FBC /* EditNotiComponent.swift */; };
 		DA76A148299A98AE00400FBC /* EditNotiCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */; };
+		DA76A14A299A9E2D00400FBC /* ResignComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A149299A9E2D00400FBC /* ResignComponent.swift */; };
+		DA76A14C299A9E3300400FBC /* ResignCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A14B299A9E3300400FBC /* ResignCoordinator.swift */; };
+		DA76A14E299A9E3800400FBC /* ResignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A14D299A9E3800400FBC /* ResignViewModel.swift */; };
+		DA76A150299A9E3D00400FBC /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A14F299A9E3D00400FBC /* ResignViewController.swift */; };
 		DA7CD55529140FB000B8613C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7CD55429140FB000B8613C /* Constants.swift */; };
 		DA7FDCC8293781C3003C3792 /* FindDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDCC7293781C3003C3792 /* FindDataManager.swift */; };
 		DA7FDCCA293781E0003C3792 /* PostFindEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDCC9293781E0003C3792 /* PostFindEmailRequest.swift */; };
@@ -241,6 +245,10 @@
 		DA76A143299A94F900400FBC /* EditPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		DA76A145299A98A300400FBC /* EditNotiComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiComponent.swift; sourceTree = "<group>"; };
 		DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiCoordinator.swift; sourceTree = "<group>"; };
+		DA76A149299A9E2D00400FBC /* ResignComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignComponent.swift; sourceTree = "<group>"; };
+		DA76A14B299A9E3300400FBC /* ResignCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignCoordinator.swift; sourceTree = "<group>"; };
+		DA76A14D299A9E3800400FBC /* ResignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignViewModel.swift; sourceTree = "<group>"; };
+		DA76A14F299A9E3D00400FBC /* ResignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
 		DA7CD55429140FB000B8613C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DA7FDCC7293781C3003C3792 /* FindDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindDataManager.swift; sourceTree = "<group>"; };
 		DA7FDCC9293781E0003C3792 /* PostFindEmailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFindEmailRequest.swift; sourceTree = "<group>"; };
@@ -656,6 +664,10 @@
 		DA80CBC8298EBF3600E67212 /* Resign */ = {
 			isa = PBXGroup;
 			children = (
+				DA76A149299A9E2D00400FBC /* ResignComponent.swift */,
+				DA76A14B299A9E3300400FBC /* ResignCoordinator.swift */,
+				DA76A14D299A9E3800400FBC /* ResignViewModel.swift */,
+				DA76A14F299A9E3D00400FBC /* ResignViewController.swift */,
 			);
 			path = Resign;
 			sourceTree = "<group>";
@@ -991,13 +1003,13 @@
 				DA80CBB0298EB53500E67212 /* Network */,
 				DA92799C298FBCB800BBA53F /* Model */,
 				DA80CBB1298EB54B00E67212 /* Cell */,
-				DA80CBCB298EBF5700E67212 /* EditRetrospect */,
 				DA80CBC9298EBF4000E67212 /* ViewRetrospect */,
-				DA80CBC8298EBF3600E67212 /* Resign */,
+				DA80CBCB298EBF5700E67212 /* EditRetrospect */,
+				DA80CBC5298EBF2500E67212 /* EditProfile */,
 				DA76A13C299A947D00400FBC /* EditPhoneNumber */,
 				DA80CBC7298EBF3200E67212 /* EditNoti */,
 				DA80CBC6298EBF2B00E67212 /* Editpassword */,
-				DA80CBC5298EBF2500E67212 /* EditProfile */,
+				DA80CBC8298EBF3600E67212 /* Resign */,
 				DA80CBB3298EB79B00E67212 /* CSCenter */,
 				DA88B4A32923B96900A4B1B5 /* MyPageComponent.swift */,
 				DA88B4A52923B96E00A4B1B5 /* MyPageCoordinator.swift */,
@@ -1249,6 +1261,7 @@
 				DACF17C8292F8611002734AA /* PostSignUpResponse.swift in Sources */,
 				DA8A8F2F2989834900C63D2B /* WriteRetrospectAPIService.swift in Sources */,
 				DA0597D629213EF2005DFC79 /* ShortButton.swift in Sources */,
+				DA76A14E299A9E3800400FBC /* ResignViewModel.swift in Sources */,
 				DA6C77B62990121900B80DB9 /* EditNotiViewModel.swift in Sources */,
 				DACF81D8291BBE7200AA74E8 /* AppComponent.swift in Sources */,
 				DA4E55B129399B0300176B87 /* HomeDataManager.swift in Sources */,
@@ -1289,6 +1302,7 @@
 				DACF17C6292F846C002734AA /* PostSignUpRequest.swift in Sources */,
 				DACF81D1291BAB9400AA74E8 /* Log.swift in Sources */,
 				DA6C77B0298FFABE00B80DB9 /* ViewRetrospectViewModel.swift in Sources */,
+				DA76A150299A9E3D00400FBC /* ResignViewController.swift in Sources */,
 				DA92799B298FBC8F00BBA53F /* MyPageAPIService.swift in Sources */,
 				DACF81E4291BC42500AA74E8 /* LoginType.swift in Sources */,
 				DA6C77A4298FD64500B80DB9 /* FAQViewController.swift in Sources */,
@@ -1344,6 +1358,7 @@
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
 				DA0895D629993CE700A1713B /* EditPasswordComponent.swift in Sources */,
 				DA0895D2299935AD00A1713B /* EditProfileViewModel.swift in Sources */,
+				DA76A14A299A9E2D00400FBC /* ResignComponent.swift in Sources */,
 				DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */,
 				DA6E3D59293910010084F534 /* PatchFcmRequest.swift in Sources */,
 				DA8A8F37298986D200C63D2B /* ModalCoordinator.swift in Sources */,
@@ -1375,6 +1390,7 @@
 				DACF81E8291BC5CC00AA74E8 /* LoginCoordinator.swift in Sources */,
 				DA88B49E2923B95400A4B1B5 /* RetrospectCoordinator.swift in Sources */,
 				DA0597CC29213CBF005DFC79 /* SignUpFirstComponent.swift in Sources */,
+				DA76A14C299A9E3300400FBC /* ResignCoordinator.swift in Sources */,
 				DA95BC2729116D8B003C81CE /* AppDelegate.swift in Sources */,
 				DA7FDCCC29378204003C3792 /* PostFindPasswordRequest.swift in Sources */,
 				DA9F8DCF29352311007014A5 /* FindEmailorPasswordComponent.swift in Sources */,

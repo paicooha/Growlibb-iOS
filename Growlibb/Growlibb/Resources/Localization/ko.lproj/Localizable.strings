@@ -180,6 +180,15 @@
 "MyPage.EditProfile.title" = "내 프로필 수정";
 "MyPage.EditNoti" = "알림";
 
+// MARK: - MyPage - Resign
+"MyPage.Resign.title" = "님 정말 회원탈퇴 하시겠어요?";
+"MyPage.Resign.guide" = "계정을 삭제하면 아이디 재사용 불가 및 기존에 작성한 회고이력이 모두 삭제돼요!";
+"MyPage.Resign.Checkbox.guide" = "회원탈퇴 유의사항을 확인하였으며 이에 동의합니다.";
+"MyPage.Resign.Reason.title" = "(선택) 회원탈퇴를 하시는 이유가 궁금해요.";
+"MyPage.Resign.Reason.subtitle" = "서비스 탈퇴 사유에 대해 알려주세요.\n피드백을 바탕으로 더 나은 서비스로 보답하겠습니다.";
+"MyPage.Resgn.placeholder" = "사유를 입력해주세요.";
+"MyPage.Resign.Modal.emoji" = "👋🏻";
+"MyPage.Resign.Modal.title" = "회원탈퇴가 정상적으로 처리되었습니다.\n그 동안 이용해주셔서 감사합니다.";
 
 // MARK: - MyPage/CSCenter
 "MyPage.CS.Title" = "고객센터";

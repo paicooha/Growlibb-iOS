@@ -31,8 +31,9 @@ final class MyPageComponent {
     var editNotiComponent: EditNotiComponent {
         return EditNotiComponent()
     }
+    
+    var resignComponent: ResignComponent {
+        return ResignComponent()
+    }
 //
-//    var alarmListComponent: AlarmListComponent {
-//        return AlarmListComponent()
-//    }
 }
