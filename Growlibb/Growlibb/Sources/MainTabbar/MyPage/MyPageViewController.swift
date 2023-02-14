@@ -38,8 +38,30 @@ class MyPageViewController: BaseViewController {
     private var viewModel: MyPageViewModel
 
     private func viewModelInput() {
-        navBar.rightBtnItem.rx.tap
-            .bind(to: viewModel.inputs.goCS)
+//        navBar.rightBtnItem.rx.tap
+//            .bind(to: viewModel.inputs.goCS)
+//            .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] index in
+                switch index.row {
+                case 0:
+                    break
+                case 1:
+                    self?.viewModel.inputs.editProfile.onNext(())
+                case 2:
+                    self?.viewModel.inputs.editPassword.onNext(())
+                case 3:
+                    self?.viewModel.inputs.editPhoneNumber.onNext(())
+                case 4:
+                    self?.viewModel.inputs.editNoti.onNext(())
+                case 5:
+                    self?.viewModel.inputs.goCS.onNext(())
+                default:
+                    self?.viewModel.inputs.goResign.onNext(())
+
+                }
+            })
             .disposed(by: disposeBag)
     }
 
@@ -78,29 +100,6 @@ class MyPageViewController: BaseViewController {
             return cell
         }
         
-        tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] index in
-                switch index.row {
-                case 0:
-                    break
-                case 1:
-                    self?.viewModel.inputs.editProfile.onNext(())
-                case 2:
-                    self?.viewModel.inputs.editPassword.onNext(())
-                case 3:
-                    self?.viewModel.inputs.editPhoneNumber.onNext(())
-                case 4:
-                    self?.viewModel.inputs.editNoti.onNext(())
-                case 6:
-                    self?.viewModel.inputs.goResign.onNext(())
-                default:
-                    let vc = PrivacyViewController()
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                    break
-                }
-            })
-            .disposed(by: disposeBag)
-        
         viewModel.outputs.mypagelist
             .map { [MyPageSection(items: $0)]}
             .bind(to: tableView.rx.items(dataSource: myListTableViewDataSource))
@@ -108,7 +107,7 @@ class MyPageViewController: BaseViewController {
     }
 
     private var navBar = NavBar().then { navBar in
-        navBar.rightBtnItem.isHidden = false
+//        navBar.rightBtnItem.isHidden = false
         navBar.titleLabel.isHidden = true
     }
     
@@ -278,7 +277,7 @@ extension MyPageViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(seedVStack.snp.bottom).offset(20)
             make.leading.trailing.bottom.equalTo(contentView)
-            make.height.equalTo(435)
+            make.height.equalTo(497)
         }
     }
 }

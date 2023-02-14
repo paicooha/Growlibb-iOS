@@ -10,7 +10,7 @@ import RxSwift
 
 final class MyPageViewModel: BaseViewModel {
     
-    var myPageList = [L10n.MyPage.List.retrospect, L10n.MyPage.List.editProfile, L10n.MyPage.List.editPassword, L10n.MyPage.List.editPhone, L10n.MyPage.List.editNoti, L10n.MyPage.List.logout, L10n.MyPage.List.resign]
+    var myPageList = [L10n.MyPage.List.retrospect, L10n.MyPage.List.editProfile, L10n.MyPage.List.editPassword, L10n.MyPage.List.editPhone, L10n.MyPage.List.editNoti, L10n.MyPage.Cs.title, L10n.MyPage.List.logout, L10n.MyPage.List.resign]
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
@@ -37,10 +37,6 @@ final class MyPageViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        inputs.goCS
-            .bind(to: routes.goCS)
-            .disposed(by: disposeBag)
-        
         inputs.editProfile
             .bind(to: routes.editProfile)
             .disposed(by: disposeBag)
@@ -55,6 +51,10 @@ final class MyPageViewModel: BaseViewModel {
         
         inputs.editNoti
             .bind(to: routes.editNoti)
+            .disposed(by: disposeBag)
+        
+        inputs.goCS
+            .bind(to: routes.goCS)
             .disposed(by: disposeBag)
         
         inputs.goResign
