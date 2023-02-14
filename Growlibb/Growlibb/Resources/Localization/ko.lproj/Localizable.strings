@@ -14,6 +14,8 @@
 "No.title" = "아니오";
 "Yes.title" = "예";
 "Start.title" = "시작하기";
+"Modify.title" = "변경하기";
+"Edit.title" = "수정하기";
 
 // MARK: - Tutorial
 "Tutorial.First.Title" = "회고가 처음이시라구요?";

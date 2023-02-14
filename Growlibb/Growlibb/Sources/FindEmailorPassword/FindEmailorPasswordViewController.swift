@@ -1073,7 +1073,7 @@ extension FindEmailorPasswordViewController {
             passwordFoundView.isHidden = false
             
             self.findTitle.text = L10n.Find.Password.Find.title
-            self.bottomButton.setTitle(L10n.Find.Password.Button.title, for: .normal)
+            self.bottomButton.setTitle(L10n.Modify.title, for: .normal)
             self.bottomButton.setDisable()
             
             userInfo.email = self.findpasswordemailTextField.text!

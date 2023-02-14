@@ -21,6 +21,10 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Confirm.Button.title", fallback: "확인")
     }
   }
+  internal enum Edit {
+    /// 수정하기
+    internal static let title = L10n.tr("Localizable", "Edit.title", fallback: "수정하기")
+  }
   internal enum Find {
     internal enum Email {
       internal enum Find {
@@ -41,10 +45,6 @@ internal enum L10n {
       }
     }
     internal enum Password {
-      internal enum Button {
-        /// 변경하기
-        internal static let title = L10n.tr("Localizable", "Find.password.button.title", fallback: "변경하기")
-      }
       internal enum Find {
         /// 비밀번호를 재설정 해주세요!
         internal static let title = L10n.tr("Localizable", "Find.password.find.title", fallback: "비밀번호를 재설정 해주세요!")
@@ -162,6 +162,10 @@ internal enum L10n {
       /// 회고
       internal static let title = L10n.tr("Localizable", "Main.RetrospectTab.Title", fallback: "회고")
     }
+  }
+  internal enum Modify {
+    /// 변경하기
+    internal static let title = L10n.tr("Localizable", "Modify.title", fallback: "변경하기")
   }
   internal enum MyPage {
     /// 알림

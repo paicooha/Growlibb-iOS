@@ -284,7 +284,7 @@ final class EditProfileViewController: BaseViewController {
     }
     
     private var confirmButton = LongButton().then { make in
-//        make.setTitle(L10n.MyPage.EditProfile.Button.title, for: .normal)
+        make.setTitle(L10n.Edit.title, for: .normal)
         make.setDisable()
     }
     
@@ -471,7 +471,6 @@ extension EditProfileViewController {
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
             make.bottom.equalTo(contentView.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
-
     }
 }
 

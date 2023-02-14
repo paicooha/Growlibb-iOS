@@ -200,7 +200,7 @@ final class EditPhoneNumberViewController: BaseViewController {
     }
     
     private var bottomButton = LongButton().then { make in
-        make.setTitle(L10n.Next.Button.title, for: .normal)
+        make.setTitle(L10n.Modify.title, for: .normal)
         make.setDisable()
     }
 }
