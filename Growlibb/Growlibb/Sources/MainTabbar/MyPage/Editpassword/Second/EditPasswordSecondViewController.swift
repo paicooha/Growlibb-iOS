@@ -14,7 +14,7 @@ import SnapKit
 import FirebaseAuth
 import AnyFormatKit
 
-class EditPasswordViewController: BaseViewController {
+class EditPasswordSecondViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class EditPasswordViewController: BaseViewController {
         passwordConfirmTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
-    init(viewModel: EditPasswordViewModel) {
+    init(viewModel: EditPasswordSecondViewModel) {
         self.viewModel = viewModel
         super.init()
     }
@@ -70,7 +70,7 @@ class EditPasswordViewController: BaseViewController {
     }
     
     
-    private var viewModel: EditPasswordViewModel
+    private var viewModel: EditPasswordSecondViewModel
     
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
@@ -154,7 +154,7 @@ class EditPasswordViewController: BaseViewController {
 
 // MARK: - Layout
 
-extension EditPasswordViewController {
+extension EditPasswordSecondViewController {
     
     private func setupViews() {
         

@@ -20,8 +20,8 @@ final class MyPageComponent {
         return EditProfileComponent()
     }
     
-    var editPasswordComponent: EditPasswordComponent {
-        return EditPasswordComponent()
+    var editPasswordComponent: EditPasswordFirstComponent {
+        return EditPasswordFirstComponent()
     }
 
     var editPhoneNumberComponent: EditPhoneNumberComponent {

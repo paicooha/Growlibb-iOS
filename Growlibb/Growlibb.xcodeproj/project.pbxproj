@@ -18,10 +18,10 @@
 		DA0895D0299935A700A1713B /* EditProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895CF299935A700A1713B /* EditProfileCoordinator.swift */; };
 		DA0895D2299935AD00A1713B /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D1299935AD00A1713B /* EditProfileViewModel.swift */; };
 		DA0895D4299935B300A1713B /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D3299935B300A1713B /* EditProfileViewController.swift */; };
-		DA0895D629993CE700A1713B /* EditPasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D529993CE700A1713B /* EditPasswordComponent.swift */; };
-		DA0895D829993CEF00A1713B /* EditPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D729993CEF00A1713B /* EditPasswordCoordinator.swift */; };
-		DA0895DA29993CF400A1713B /* EditPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D929993CF400A1713B /* EditPasswordViewModel.swift */; };
-		DA0895DC29993CFB00A1713B /* EditPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895DB29993CFB00A1713B /* EditPasswordViewController.swift */; };
+		DA0895D629993CE700A1713B /* EditPasswordSecondComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D529993CE700A1713B /* EditPasswordSecondComponent.swift */; };
+		DA0895D829993CEF00A1713B /* EditPasswordSecondCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D729993CEF00A1713B /* EditPasswordSecondCoordinator.swift */; };
+		DA0895DA29993CF400A1713B /* EditPasswordSecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895D929993CF400A1713B /* EditPasswordSecondViewModel.swift */; };
+		DA0895DC29993CFB00A1713B /* EditPasswordSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0895DB29993CFB00A1713B /* EditPasswordSecondViewController.swift */; };
 		DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */; };
 		DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCC2912717700878BA3 /* BaseResponse.swift */; };
 		DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */; };
@@ -56,10 +56,6 @@
 		DA6E2018291D25D300F78173 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6E2017291D25D300F78173 /* Images.xcassets */; };
 		DA6E2022291D2B6500F78173 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6E2024291D2B6500F78173 /* Localizable.strings */; };
 		DA6E3D59293910010084F534 /* PatchFcmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E3D58293910010084F534 /* PatchFcmRequest.swift */; };
-		DA76A13E299A94A900400FBC /* EditPhoneNumberComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A13D299A94A900400FBC /* EditPhoneNumberComponent.swift */; };
-		DA76A140299A94C700400FBC /* EditPhoneNumberCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A13F299A94C700400FBC /* EditPhoneNumberCoordinator.swift */; };
-		DA76A142299A94F100400FBC /* EditPhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A141299A94F100400FBC /* EditPhoneNumberViewModel.swift */; };
-		DA76A144299A94F900400FBC /* EditPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A143299A94F900400FBC /* EditPhoneNumberViewController.swift */; };
 		DA76A146299A98A300400FBC /* EditNotiComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A145299A98A300400FBC /* EditNotiComponent.swift */; };
 		DA76A148299A98AE00400FBC /* EditNotiCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */; };
 		DA76A14A299A9E2D00400FBC /* ResignComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A149299A9E2D00400FBC /* ResignComponent.swift */; };
@@ -84,6 +80,14 @@
 		DA80CBBC298EBE1600E67212 /* CSCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBBB298EBE1600E67212 /* CSCoordinator.swift */; };
 		DA80CBBE298EBE1E00E67212 /* CSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBBD298EBE1E00E67212 /* CSViewModel.swift */; };
 		DA80CBC0298EBE2400E67212 /* CSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA80CBBF298EBE2400E67212 /* CSViewController.swift */; };
+		DA87E117299BD9FA00F6B4B7 /* EditPasswordFirstComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E116299BD9FA00F6B4B7 /* EditPasswordFirstComponent.swift */; };
+		DA87E119299BDA0100F6B4B7 /* EditPasswordFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E118299BDA0100F6B4B7 /* EditPasswordFirstCoordinator.swift */; };
+		DA87E11B299BDA0900F6B4B7 /* EditPasswordFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E11A299BDA0900F6B4B7 /* EditPasswordFirstViewModel.swift */; };
+		DA87E11D299BDA1000F6B4B7 /* EditPasswordFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E11C299BDA1000F6B4B7 /* EditPasswordFirstViewController.swift */; };
+		DA87E122299BDA3F00F6B4B7 /* EditPhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E11E299BDA3F00F6B4B7 /* EditPhoneNumberViewModel.swift */; };
+		DA87E123299BDA3F00F6B4B7 /* EditPhoneNumberComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E11F299BDA3F00F6B4B7 /* EditPhoneNumberComponent.swift */; };
+		DA87E124299BDA3F00F6B4B7 /* EditPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E120299BDA3F00F6B4B7 /* EditPhoneNumberViewController.swift */; };
+		DA87E125299BDA3F00F6B4B7 /* EditPhoneNumberCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA87E121299BDA3F00F6B4B7 /* EditPhoneNumberCoordinator.swift */; };
 		DA88B48929238AEE00A4B1B5 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B48829238AEE00A4B1B5 /* LoginDataManager.swift */; };
 		DA88B48B29238B2700A4B1B5 /* PostLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B48A29238B2700A4B1B5 /* PostLoginRequest.swift */; };
 		DA88B491292392B400A4B1B5 /* PostLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA88B490292392B400A4B1B5 /* PostLoginResponse.swift */; };
@@ -201,10 +205,10 @@
 		DA0895CF299935A700A1713B /* EditProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCoordinator.swift; sourceTree = "<group>"; };
 		DA0895D1299935AD00A1713B /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		DA0895D3299935B300A1713B /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
-		DA0895D529993CE700A1713B /* EditPasswordComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordComponent.swift; sourceTree = "<group>"; };
-		DA0895D729993CEF00A1713B /* EditPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordCoordinator.swift; sourceTree = "<group>"; };
-		DA0895D929993CF400A1713B /* EditPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordViewModel.swift; sourceTree = "<group>"; };
-		DA0895DB29993CFB00A1713B /* EditPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordViewController.swift; sourceTree = "<group>"; };
+		DA0895D529993CE700A1713B /* EditPasswordSecondComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordSecondComponent.swift; sourceTree = "<group>"; };
+		DA0895D729993CEF00A1713B /* EditPasswordSecondCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordSecondCoordinator.swift; sourceTree = "<group>"; };
+		DA0895D929993CF400A1713B /* EditPasswordSecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordSecondViewModel.swift; sourceTree = "<group>"; };
+		DA0895DB29993CFB00A1713B /* EditPasswordSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordSecondViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCC2912717700878BA3 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -239,10 +243,6 @@
 		DA6E2023291D2B6500F78173 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA6E2025291D2B9800F78173 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA6E3D58293910010084F534 /* PatchFcmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchFcmRequest.swift; sourceTree = "<group>"; };
-		DA76A13D299A94A900400FBC /* EditPhoneNumberComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberComponent.swift; sourceTree = "<group>"; };
-		DA76A13F299A94C700400FBC /* EditPhoneNumberCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberCoordinator.swift; sourceTree = "<group>"; };
-		DA76A141299A94F100400FBC /* EditPhoneNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberViewModel.swift; sourceTree = "<group>"; };
-		DA76A143299A94F900400FBC /* EditPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		DA76A145299A98A300400FBC /* EditNotiComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiComponent.swift; sourceTree = "<group>"; };
 		DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiCoordinator.swift; sourceTree = "<group>"; };
 		DA76A149299A9E2D00400FBC /* ResignComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignComponent.swift; sourceTree = "<group>"; };
@@ -267,6 +267,14 @@
 		DA80CBBB298EBE1600E67212 /* CSCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSCoordinator.swift; sourceTree = "<group>"; };
 		DA80CBBD298EBE1E00E67212 /* CSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSViewModel.swift; sourceTree = "<group>"; };
 		DA80CBBF298EBE2400E67212 /* CSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSViewController.swift; sourceTree = "<group>"; };
+		DA87E116299BD9FA00F6B4B7 /* EditPasswordFirstComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordFirstComponent.swift; sourceTree = "<group>"; };
+		DA87E118299BDA0100F6B4B7 /* EditPasswordFirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordFirstCoordinator.swift; sourceTree = "<group>"; };
+		DA87E11A299BDA0900F6B4B7 /* EditPasswordFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordFirstViewModel.swift; sourceTree = "<group>"; };
+		DA87E11C299BDA1000F6B4B7 /* EditPasswordFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordFirstViewController.swift; sourceTree = "<group>"; };
+		DA87E11E299BDA3F00F6B4B7 /* EditPhoneNumberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberViewModel.swift; sourceTree = "<group>"; };
+		DA87E11F299BDA3F00F6B4B7 /* EditPhoneNumberComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberComponent.swift; sourceTree = "<group>"; };
+		DA87E120299BDA3F00F6B4B7 /* EditPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberViewController.swift; sourceTree = "<group>"; };
+		DA87E121299BDA3F00F6B4B7 /* EditPhoneNumberCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhoneNumberCoordinator.swift; sourceTree = "<group>"; };
 		DA88B48829238AEE00A4B1B5 /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataManager.swift; sourceTree = "<group>"; };
 		DA88B48A29238B2700A4B1B5 /* PostLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRequest.swift; sourceTree = "<group>"; };
 		DA88B490292392B400A4B1B5 /* PostLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginResponse.swift; sourceTree = "<group>"; };
@@ -536,10 +544,10 @@
 		DA76A13C299A947D00400FBC /* EditPhoneNumber */ = {
 			isa = PBXGroup;
 			children = (
-				DA76A13D299A94A900400FBC /* EditPhoneNumberComponent.swift */,
-				DA76A13F299A94C700400FBC /* EditPhoneNumberCoordinator.swift */,
-				DA76A141299A94F100400FBC /* EditPhoneNumberViewModel.swift */,
-				DA76A143299A94F900400FBC /* EditPhoneNumberViewController.swift */,
+				DA87E11F299BDA3F00F6B4B7 /* EditPhoneNumberComponent.swift */,
+				DA87E121299BDA3F00F6B4B7 /* EditPhoneNumberCoordinator.swift */,
+				DA87E120299BDA3F00F6B4B7 /* EditPhoneNumberViewController.swift */,
+				DA87E11E299BDA3F00F6B4B7 /* EditPhoneNumberViewModel.swift */,
 			);
 			path = EditPhoneNumber;
 			sourceTree = "<group>";
@@ -642,10 +650,8 @@
 		DA80CBC6298EBF2B00E67212 /* Editpassword */ = {
 			isa = PBXGroup;
 			children = (
-				DA0895D529993CE700A1713B /* EditPasswordComponent.swift */,
-				DA0895D729993CEF00A1713B /* EditPasswordCoordinator.swift */,
-				DA0895D929993CF400A1713B /* EditPasswordViewModel.swift */,
-				DA0895DB29993CFB00A1713B /* EditPasswordViewController.swift */,
+				DA87E114299BD90300F6B4B7 /* First */,
+				DA87E115299BD90600F6B4B7 /* Second */,
 			);
 			path = Editpassword;
 			sourceTree = "<group>";
@@ -688,6 +694,28 @@
 			children = (
 			);
 			path = EditRetrospect;
+			sourceTree = "<group>";
+		};
+		DA87E114299BD90300F6B4B7 /* First */ = {
+			isa = PBXGroup;
+			children = (
+				DA87E116299BD9FA00F6B4B7 /* EditPasswordFirstComponent.swift */,
+				DA87E118299BDA0100F6B4B7 /* EditPasswordFirstCoordinator.swift */,
+				DA87E11A299BDA0900F6B4B7 /* EditPasswordFirstViewModel.swift */,
+				DA87E11C299BDA1000F6B4B7 /* EditPasswordFirstViewController.swift */,
+			);
+			path = First;
+			sourceTree = "<group>";
+		};
+		DA87E115299BD90600F6B4B7 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				DA0895D529993CE700A1713B /* EditPasswordSecondComponent.swift */,
+				DA0895D729993CEF00A1713B /* EditPasswordSecondCoordinator.swift */,
+				DA0895D929993CF400A1713B /* EditPasswordSecondViewModel.swift */,
+				DA0895DB29993CFB00A1713B /* EditPasswordSecondViewController.swift */,
+			);
+			path = Second;
 			sourceTree = "<group>";
 		};
 		DA8A8F2B2989832800C63D2B /* Netwotrk */ = {
@@ -785,11 +813,11 @@
 				DACF81D4291BBE4300AA74E8 /* App */,
 				DAC1854529196203009D7181 /* Common */,
 				DA95BC3D29116DB5003C81CE /* Base */,
-				DACF81F6291BDC8300AA74E8 /* MainTabbar */,
 				DAC86A8C29140522006F54A1 /* Tutorial */,
 				DAC86A8D2914052D006F54A1 /* Login */,
 				DA0597D429213D10005DFC79 /* FindEmailorPassword */,
 				DA69D3BD291E15BC007B982A /* SignUp */,
+				DACF81F6291BDC8300AA74E8 /* MainTabbar */,
 				DACF820C291C10F100AA74E8 /* Extensions */,
 				DAC86A8B29140514006F54A1 /* Utils */,
 			);
@@ -1253,9 +1281,8 @@
 				DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */,
 				DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */,
 				DA88B4A82923B97400A4B1B5 /* MyPageViewModel.swift in Sources */,
-				DA0895D829993CEF00A1713B /* EditPasswordCoordinator.swift in Sources */,
+				DA0895D829993CEF00A1713B /* EditPasswordSecondCoordinator.swift in Sources */,
 				DA80CBBC298EBE1600E67212 /* CSCoordinator.swift in Sources */,
-				DA76A142299A94F100400FBC /* EditPhoneNumberViewModel.swift in Sources */,
 				DACF17C4292F5726002734AA /* PostCheckEmailRequest.swift in Sources */,
 				DA6C77B42990120E00B80DB9 /* EditNotiViewController.swift in Sources */,
 				DACF17C8292F8611002734AA /* PostSignUpResponse.swift in Sources */,
@@ -1268,9 +1295,11 @@
 				DACF81DA291BBE8C00AA74E8 /* AppCoordinator.swift in Sources */,
 				DA69D3BF291E1D30007B982A /* TextField.swift in Sources */,
 				DAF8B0252975684600380D28 /* RetrospectRightView.swift in Sources */,
+				DA87E122299BDA3F00F6B4B7 /* EditPhoneNumberViewModel.swift in Sources */,
 				DACF17BA292E12A2002734AA /* UITextField+.swift in Sources */,
 				DACF81EE291BC7B500AA74E8 /* TutorialFirstComponent.swift in Sources */,
-				DA0895DA29993CF400A1713B /* EditPasswordViewModel.swift in Sources */,
+				DA87E125299BDA3F00F6B4B7 /* EditPhoneNumberCoordinator.swift in Sources */,
+				DA0895DA29993CF400A1713B /* EditPasswordSecondViewModel.swift in Sources */,
 				DACF17AE292B4EC1002734AA /* SignUpSecondViewController.swift in Sources */,
 				DA88B4AC2923BC9F00A4B1B5 /* UIStackView+.swift in Sources */,
 				DACF81D6291BBE6300AA74E8 /* AppContext.swift in Sources */,
@@ -1285,7 +1314,10 @@
 				DA88B4B02923BFF700A4B1B5 /* BasicUserKeyChainService.swift in Sources */,
 				DA0597CE29213CC5005DFC79 /* SignUpFirstCoordinator.swift in Sources */,
 				DA0597D029213CCC005DFC79 /* SignUpFirstViewModel.swift in Sources */,
+				DA87E119299BDA0100F6B4B7 /* EditPasswordFirstCoordinator.swift in Sources */,
 				DA80CBBE298EBE1E00E67212 /* CSViewModel.swift in Sources */,
+				DA87E11D299BDA1000F6B4B7 /* EditPasswordFirstViewController.swift in Sources */,
+				DA87E123299BDA3F00F6B4B7 /* EditPhoneNumberComponent.swift in Sources */,
 				DACF81E6291BC5C300AA74E8 /* LoginComponent.swift in Sources */,
 				DA76A146299A98A300400FBC /* EditNotiComponent.swift in Sources */,
 				DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */,
@@ -1296,7 +1328,6 @@
 				DA927999298FBC3500BBA53F /* MyPageAPI.swift in Sources */,
 				DA7FDCD0293782CF003C3792 /* PostFindEmailResponse.swift in Sources */,
 				DA6C77A6298FD65600B80DB9 /* TermsOfUseViewController.swift in Sources */,
-				DA76A140299A94C700400FBC /* EditPhoneNumberCoordinator.swift in Sources */,
 				DAF8B0232975639600380D28 /* RetrospectLeftView.swift in Sources */,
 				DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */,
 				DACF17C6292F846C002734AA /* PostSignUpRequest.swift in Sources */,
@@ -1313,6 +1344,7 @@
 				DABB110829137C7700FC3FE7 /* UIColor+Zeplin.swift in Sources */,
 				DA3288A4298AC1B6003BA501 /* WriteRetrospectDataSource.swift in Sources */,
 				DA88B4972923B93800A4B1B5 /* HomeViewModel.swift in Sources */,
+				DA87E117299BD9FA00F6B4B7 /* EditPasswordFirstComponent.swift in Sources */,
 				DACF81EA291BC5D500AA74E8 /* LoginViewModel.swift in Sources */,
 				DAC1854229196126009D7181 /* TutorialFirstViewController.swift in Sources */,
 				DA88B4A42923B96900A4B1B5 /* MyPageComponent.swift in Sources */,
@@ -1326,6 +1358,7 @@
 				DACF81FE291BDCAB00AA74E8 /* MainTabbarController.swift in Sources */,
 				DA88B4952923B93200A4B1B5 /* HomeCoordinator.swift in Sources */,
 				DACF81FC291BDCA200AA74E8 /* MainTabbarViewModel.swift in Sources */,
+				DA87E124299BDA3F00F6B4B7 /* EditPhoneNumberViewController.swift in Sources */,
 				DA8A8F35298986CA00C63D2B /* ModalComponent.swift in Sources */,
 				DA88B4A22923B96100A4B1B5 /* RetrospectViewController.swift in Sources */,
 				DACC7F6E29895A5400C17F1E /* WriteRetrospectCell.swift in Sources */,
@@ -1337,9 +1370,7 @@
 				DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */,
 				DA4E55BD293BAC0200176B87 /* HomeRetrospectTableViewCell.swift in Sources */,
 				DA5B89EC2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift in Sources */,
-				DA76A144299A94F900400FBC /* EditPhoneNumberViewController.swift in Sources */,
 				DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */,
-				DA76A13E299A94A900400FBC /* EditPhoneNumberComponent.swift in Sources */,
 				DACF8205291C03CD00AA74E8 /* TutorialSecondViewController.swift in Sources */,
 				DACF81EC291BC5E300AA74E8 /* LoginViewController.swift in Sources */,
 				DACF81D3291BBDCE00AA74E8 /* BasicCoordinator.swift in Sources */,
@@ -1354,9 +1385,9 @@
 				DA80CBB6298EB93400E67212 /* MyPageCell.swift in Sources */,
 				DACB0BD2297F1AE300ABCB8F /* JSONError.swift in Sources */,
 				DACF820B291C03F100AA74E8 /* TutorialSecondCoordinator.swift in Sources */,
-				DA0895DC29993CFB00A1713B /* EditPasswordViewController.swift in Sources */,
+				DA0895DC29993CFB00A1713B /* EditPasswordSecondViewController.swift in Sources */,
 				DACF820E291C110E00AA74E8 /* UIView+.swift in Sources */,
-				DA0895D629993CE700A1713B /* EditPasswordComponent.swift in Sources */,
+				DA0895D629993CE700A1713B /* EditPasswordSecondComponent.swift in Sources */,
 				DA0895D2299935AD00A1713B /* EditProfileViewModel.swift in Sources */,
 				DA76A14A299A9E2D00400FBC /* ResignComponent.swift in Sources */,
 				DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */,
@@ -1395,6 +1426,7 @@
 				DA7FDCCC29378204003C3792 /* PostFindPasswordRequest.swift in Sources */,
 				DA9F8DCF29352311007014A5 /* FindEmailorPasswordComponent.swift in Sources */,
 				DACF17B8292B7488002734AA /* Regex.swift in Sources */,
+				DA87E11B299BDA0900F6B4B7 /* EditPasswordFirstViewModel.swift in Sources */,
 				DACB0BD0297F158F00ABCB8F /* RxResponse.swift in Sources */,
 				DA88B4B22923D95300A4B1B5 /* GetJwtResponse.swift in Sources */,
 				DA88B48B29238B2700A4B1B5 /* PostLoginRequest.swift in Sources */,

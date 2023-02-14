@@ -1,14 +1,14 @@
 //
-//  EditPasswordViewModel.swift
+//  EditPasswordFirstViewModel.swift
 //  Growlibb
 //
-//  Created by 이유리 on 2023/02/13.
+//  Created by 이유리 on 2023/02/15.
 //
 
 import Foundation
 import RxSwift
 
-final class EditPasswordViewModel: BaseViewModel {
+final class EditPasswordFirstViewModel: BaseViewModel {
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,

@@ -9,21 +9,21 @@ import Foundation
 import RxSwift
 import UIKit
 
-enum EditPasswordResult {
+enum EditPasswordSecondResult {
     case backward
 }
 
-final class EditPasswordCoordinator: BasicCoordinator<EditPasswordResult> {
+final class EditPasswordSecondCoordinator: BasicCoordinator<EditPasswordSecondResult> {
     // MARK: Lifecycle
     
-    init(component: EditPasswordComponent, navController: UINavigationController) {
+    init(component: EditPasswordSecondComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
     
     // MARK: Internal
     
-    var component: EditPasswordComponent
+    var component: EditPasswordSecondComponent
     
     override func start(animated _: Bool = true) { // VM의 route 바인딩
         let scene = component.scene
@@ -42,7 +42,7 @@ final class EditPasswordCoordinator: BasicCoordinator<EditPasswordResult> {
             .disposed(by: sceneDisposeBag)
         
         scene.VM.routes.backward
-            .map { EditPasswordResult.backward }
+            .map { EditPasswordSecondResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
     }

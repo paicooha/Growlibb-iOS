@@ -1,0 +1,525 @@
+//
+//  EditPasswordFirstViewController.swift
+//  Growlibb
+//
+//  Created by 이유리 on 2023/02/15.
+//
+
+import RxCocoa
+import RxGesture
+import RxSwift
+import Then
+import UIKit
+import SnapKit
+import FirebaseAuth
+import AnyFormatKit
+
+class EditPasswordFirstViewController: BaseViewController {
+        
+    var phoneNumber = ""
+    var verificationId = ""
+    
+    var authTime = 180 //3분
+    var authTimer: Timer?
+    
+    //    var sendCodebuttonTime = 2 //2초
+    //    var sendCodeButtonTimer: Timer?
+    
+    //아이디, 비밀번호, 인증번호를 모두 했는지 확인하기 위한 배열
+    var validCheckArray = [false, false, false]
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupViews()
+        initialLayout()
+        
+        viewModelInput()
+        viewModelOutput()
+        
+        //실시간으로 textfield 입력하는 부분 이벤트 받아서 처리
+        emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        authcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        phoneTextField.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) { //다시 돌아올때 인증번호 초기화
+        authTime = 180
+        validCheckArray[2] = false
+        
+        authcodeTextField.text = ""
+        authGuideLabel.isHidden = true
+        
+        if (phoneTextField.text ?? "").isEmpty { //2번째 화면에서 인증했다가 다시 돌아온 상황이 아니라면 disable 상태
+            phoneButton.setDisable()
+        }
+        phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
+        
+        authcodeButton.setDisable()
+        nextButton.setDisable()
+    }
+    
+    init(viewModel: EditPasswordFirstViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField == emailTextField {
+            if !Regex().isValidEmail(input: emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+                emailGuideLabel.isHidden = false
+                emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
+                validCheckArray[0] = false
+                
+                nextButton.setDisable() //후에 다시수정할 수 있으므로
+            }
+            else{ //이메일 도메인 길이 체크
+                if ((emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
+                    emailGuideLabel.isHidden = false
+                    emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
+                    validCheckArray[0] = false
+                    
+                    nextButton.setDisable()
+                }
+                else{
+                    validCheckArray[0] = true
+                    emailGuideLabel.isHidden = true
+                    
+                    checkAllPass()
+                }
+            }
+        }
+        else if textField == authcodeTextField {
+            checkMaxLength(textField: textField, maxLength: 6)
+            
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+                authcodeButton.setEnable()
+            }
+            else{
+                authcodeButton.setDisable()
+            }
+        }
+    }
+    
+    @objc func authtimerCallback() {
+        authTimerLabel.isHidden = false
+        authTime -= 1
+        authTimerLabel.text = "\(Int((authTime / 60) % 60)):\(String(format:"%02d", Int(authTime % 60)))"
+        
+        if (authTime == 0){
+            authTimer?.invalidate()
+            authcodeButton.setDisable()
+            
+            self.verificationId = "" //3분지났을 시 인증번호 무효화
+        }
+    }
+
+
+    private var viewModel: EditPasswordFirstViewModel
+
+    private func viewModelInput() {
+        navBar.leftBtnItem.rx.tap
+            .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBag)
+        
+        phoneButton.rx.tap
+            .subscribe({ _ in
+                //버튼 연타 방지 -> 인증번호 콜백시 활성화하도록 수정
+                self.phoneButton.setDisable()
+                self.authGuideLabel.isHidden = true
+                
+//                self.sendCodebuttonTime = 2
+//                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
+                self.validCheckArray[2] = false //한번 더 인증할 수 있으므로 일단 false로 두기
+                
+                //휴대폰번호 중복 체크
+//                self.signUpDataManager.postCheckPhone(viewController: self, phoneNumber: (self.phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+            })
+            .disposed(by: disposeBag)
+        
+        authcodeButton.rx.tap
+            .subscribe({ _ in
+                
+                let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.verificationId,
+                                                                         verificationCode: self.authcodeTextField.text!)
+                
+                Auth.auth().signIn(with: credential) { (authData, error) in
+                    if error != nil {
+                        print("로그인 Error: \(error.debugDescription)")
+                        self.authGuideLabel.isHidden = false
+                        return
+                    }
+                    self.authGuideLabel.isHidden = false
+                    self.authGuideLabel.text = L10n.SignUp.Code.Correct.guidelabel //인증완료 텍스트 띄우기
+                    self.authTimerLabel.isHidden = true
+                    self.authTimer?.invalidate()
+                    
+                    self.validCheckArray[2] = true
+
+                    print("인증성공 : \(authData)")
+                    self.checkAllPass()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        nextButton.rx.tap
+            .subscribe({ _ in
+//                self.signUpDataManager.postCheckEmail(viewController: self, email: (self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    func checkAllPass(){
+        if validCheckArray.allSatisfy({$0}){ //모두 true
+            nextButton.setEnable()
+        }
+        else{
+            nextButton.setDisable()
+        }
+    }
+//
+    private func viewModelOutput() {
+//        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+//
+//        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
+//            [weak self] _, collectionView, indexPath, item in
+//
+//                guard let self = self,
+//                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
+//                else { return UICollectionViewCell() }
+//
+//                cell.postInfoView.bookMarkIcon.rx.tap
+//                    .map { indexPath.row }
+//                    .subscribe(onNext: { [weak self] idx in
+//                        self?.viewModel.inputs.tapPostBookMark.onNext(idx)
+//                    })
+//                    .disposed(by: cell.disposeBag)
+//
+//                cell.configure(with: item)
+//                return cell
+//        }
+//
+//        viewModel.outputs.posts
+//            .do(onNext: { [weak self] configs in
+//                self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
+//
+//                if configs.isEmpty {
+//                    self?.emptyLabel.isHidden = false
+//                    switch self?.runningTagInt {
+//                    case 0:
+//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
+//                    case 1:
+//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
+//                    default:
+//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
+//                    }
+//                } else {
+//                    self?.emptyLabel.isHidden = true
+//                }
+//            })
+//            .map { [BasicPostSection(items: $0)] }
+//            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
+//            .disposed(by: disposeBag)
+//
+//        viewModel.toast
+//            .subscribe(onNext: { message in
+//                AppContext.shared.makeToast(message)
+//            })
+//            .disposed(by: disposeBag)
+    }
+    
+    private var navBar = NavBar().then{ make in
+        make.leftBtnItem.isHidden = false
+        make.titleLabel.text = L10n.MyPage.List.editPassword
+    }
+    
+    private var emailTitleLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Email.title
+        make.textColor = .black
+        make.font = .pretendardMedium14
+    }
+    
+    private var emailTextField = TextField().then { make in
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Email.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+            //placeholder 색 바꾸기
+        make.keyboardType = .emailAddress
+    }
+    
+    private var emailGuideLabel = UILabel().then{ make in
+//        make.text = L10n.SignUp.e
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium12
+        make.isHidden = true
+    }
+    
+    private var phoneTitleLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Phone.title
+    }
+    
+    private var phoneTextField = TextField().then { make in
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Phone.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+            //placeholder 색 바꾸기
+        make.keyboardType = .phonePad
+    }
+    
+    private var phoneButton = ShortButton()
+    
+    private var phoneGuideLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Phone.guidelabel
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium12
+        make.isHidden = true
+    }
+    
+    private var authcodeLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .black
+        make.text = L10n.SignUp.Code.title
+    }
+    
+    private var authcodeTextField = TextField().then { make in
+        make.attributedPlaceholder = NSAttributedString(string: L10n.SignUp.Code.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray61])
+        make.keyboardType = .numberPad
+    }
+    
+    private var authTimerLabel = UILabel().then{ make in
+        make.font = .pretendardMedium14
+        make.textColor = .primaryBlue
+        make.isHidden = true
+    }
+    
+    private var authcodeButton = ShortButton().then { make in
+        make.setTitle(L10n.Confirm.Button.title, for: .normal)
+    }
+    
+    private var authGuideLabel = UILabel().then{ make in
+        make.font = .pretendardMedium12
+        make.textColor = .primaryBlue
+        make.text = L10n.SignUp.Code.guidelabel
+        make.isHidden = true
+    }
+    
+    private var codeConfirmGuideLabel = UILabel().then{ make in
+        make.text = L10n.SignUp.Code.guidelabel
+        make.textColor = .primaryBlue
+        make.font = .pretendardMedium12
+        make.isHidden = true
+    }
+    
+    private var nextButton = LongButton().then { make in
+        make.setTitle(L10n.Next.Button.title, for: .normal)
+    }
+}
+
+// MARK: - Layout
+
+extension EditPasswordFirstViewController {
+    
+    private func setupViews() {
+        
+        view.addSubviews([
+            navBar,
+            emailTitleLabel,
+            emailTextField,
+            emailGuideLabel,
+
+            phoneTitleLabel,
+            phoneTextField,
+            phoneGuideLabel,
+            phoneButton,
+            authcodeLabel,
+            authcodeTextField,
+            authTimerLabel,
+            authGuideLabel,
+            authcodeButton,
+            codeConfirmGuideLabel,
+            nextButton
+        ])
+    }
+
+    private func initialLayout() {
+        navBar.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+        }
+        
+        emailTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(navBar.snp.bottom).offset(16)
+            make.leading.equalTo(view.snp.leading).offset(28)
+        }
+        
+        emailTextField.snp.makeConstraints{ make in
+            make.top.equalTo(emailTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(emailTitleLabel.snp.leading)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+        }
+        
+        emailGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(4)
+            make.leading.equalTo(emailTitleLabel.snp.leading)
+        }
+        
+        phoneTitleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(36)
+            make.leading.equalTo(emailTitleLabel.snp.leading)
+        }
+        
+        phoneTextField.snp.makeConstraints{ make in
+            make.top.equalTo(phoneTitleLabel.snp.bottom).offset(5)
+            make.leading.equalTo(phoneTitleLabel.snp.leading)
+            make.trailing.equalTo(phoneButton.snp.leading).offset(-14)
+        }
+        
+        phoneGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(phoneTextField.snp.bottom).offset(4)
+            make.leading.equalTo(phoneTitleLabel.snp.leading)
+        }
+        
+        phoneButton.snp.makeConstraints{ make in
+            make.centerY.equalTo(phoneTextField.snp.centerY)
+            make.width.equalTo(98)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+        }
+        
+        authcodeLabel.snp.makeConstraints{ make in
+            make.top.equalTo(phoneTextField.snp.bottom).offset(36)
+            make.leading.equalTo(phoneTitleLabel.snp.leading)
+        }
+        
+        authcodeTextField.snp.makeConstraints{ make in
+            make.top.equalTo(authcodeLabel.snp.bottom).offset(5)
+            make.leading.equalTo(authcodeLabel.snp.leading)
+            make.trailing.equalTo(authcodeButton.snp.leading).offset(-14)
+        }
+        
+        authcodeButton.snp.makeConstraints{ make in
+            make.centerY.equalTo(authcodeTextField.snp.centerY)
+            make.width.equalTo(98)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+        }
+        
+        codeConfirmGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(authcodeTextField.snp.bottom).offset(36)
+            make.leading.equalTo(authcodeLabel.snp.leading)
+        }
+        
+        authTimerLabel.snp.makeConstraints{ make in
+            make.centerY.equalTo(authcodeTextField.snp.centerY)
+            make.trailing.equalTo(authcodeTextField.snp.trailing).offset(-20)
+        }
+        
+        authGuideLabel.snp.makeConstraints{ make in
+            make.top.equalTo(authcodeTextField.snp.bottom).offset(5)
+            make.leading.equalTo(authcodeTextField.snp.leading)
+        }
+        
+        nextButton.snp.makeConstraints{ make in
+            make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
+        }
+    }
+}
+//
+//extension EditPasswordFirstViewController {
+//    func didSuccessCheckEmail(code:Int){
+//        if code == 1000{
+//            self.emailGuideLabel.isHidden = true
+//            UserInfo.shared.email = self.emailTextField.text!
+//            UserInfo.shared.password = self.passwordTextField.text!
+//            UserInfo.shared.phoneNumber = self.phoneTextField.text!
+//            self.viewModel.inputs.tapNext.onNext(())
+//        }
+//        else if code == 2012 {
+//            self.emailGuideLabel.isHidden = false
+//            self.emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.exist
+//            validCheckArray[0] = false
+//            nextButton.setDisable()
+//            AppContext.shared.makeToast("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.")
+//        }
+//    }
+//
+//    func didSuccessCheckPhone(code:Int){
+//        if code == 1000{ //중복 x
+//            self.phoneGuideLabel.isHidden = true
+//
+//            //인증코드 타이머
+//            self.authTimer?.invalidate()
+//
+//            self.authTime = 180
+//            self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
+//
+//            //재인증 시 초기 세팅하기 위해 한번 더 설정하는 부분
+//            self.validCheckArray[2] = false //재인증할 수 있으므로 일단 false로 설정
+//
+//            self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+//            self.phoneNumber = "+82\(self.phoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
+//            print(self.phoneNumber)
+//
+//
+//            PhoneAuthProvider.provider()
+//                .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
+//                  if let error = error {
+//                      AppContext.shared.makeToast("인증번호 전송에 실패하였습니다. 다시 시도해주세요.")
+//                      print(error)
+//                    return
+//                  }
+//                  // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달, 전송버튼 활성화
+//                    self.verificationId = verificationID!
+//                    self.phoneButton.setEnable()
+//                    self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+//              }
+//        }
+//        else if code == 2022 { //중복 o
+//            self.phoneGuideLabel.isHidden = false
+//            validCheckArray[2] = false
+//
+//            self.phoneButton.setDisable()
+//        }
+//    }
+//
+//    func failedToRequest(message: String) {
+//        AppContext.shared.makeToast(message)
+//    }
+//}
+
+extension EditPasswordFirstViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard let text = textField.text else {
+            return false
+        }
+        let characterSet = CharacterSet(charactersIn: string)
+        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
+            return false
+        }
+
+        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####") //포맷 제한
+        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
+        textField.text = result.formattedText
+        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
+        textField.selectedTextRange = textField.textRange(from: position, to: position)
+        
+        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때 인증문자 발송 버튼 비활성화
+            phoneButton.setDisable()
+        }
+        else{
+            phoneButton.setEnable()
+        }
+        
+        phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
+        
+        return false
+    }
+}

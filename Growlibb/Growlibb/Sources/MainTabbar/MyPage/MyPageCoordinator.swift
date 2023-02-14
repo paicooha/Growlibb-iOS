@@ -118,7 +118,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     
     private func goEditPassword(animated: Bool) {
         let comp = component.editPasswordComponent
-        let coord = EditPasswordCoordinator(component: comp, navController: navigationController)
+        let coord = EditPasswordFirstCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {

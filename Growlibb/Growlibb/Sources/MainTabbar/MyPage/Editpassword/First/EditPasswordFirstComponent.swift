@@ -1,16 +1,16 @@
 //
-//  EditPasswordComponent.swift
+//  EditPasswordFirstComponent.swift
 //  Growlibb
 //
-//  Created by 이유리 on 2023/02/13.
+//  Created by 이유리 on 2023/02/15.
 //
 
 import UIKit
 
-final class EditPasswordComponent {
-    lazy var scene: (VC: EditPasswordViewController, VM: EditPasswordViewModel) = (VC: EditPasswordViewController(viewModel: viewModel), VM: viewModel)
+final class EditPasswordFirstComponent {
+    lazy var scene: (VC: EditPasswordFirstViewController, VM: EditPasswordFirstViewModel) = (VC: EditPasswordFirstViewController(viewModel: viewModel), VM: viewModel)
 
-    lazy var viewModel: EditPasswordViewModel = .init()
+    lazy var viewModel: EditPasswordFirstViewModel = .init()
 
 //    var csComponent: CSComponent {
 //        return CSComponent()
