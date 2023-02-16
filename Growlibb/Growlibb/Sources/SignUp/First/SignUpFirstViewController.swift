@@ -13,6 +13,7 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 import AnyFormatKit
+import SafariServices
 
 class SignUpFirstViewController: BaseViewController {
         
@@ -241,6 +242,31 @@ class SignUpFirstViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        allAgreeTitle.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                if self.validCheckArray[3]{
+                    self.validCheckArray[3] = false
+                    self.termsOfUseArray = [false, false, false]
+                    
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                    self.serviceButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                    self.privacyButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                    self.year14Button.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{
+                    self.validCheckArray[3] = true
+                    self.termsOfUseArray = [true, true, true]
+
+                    self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    self.serviceButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    self.privacyButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    self.year14Button.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                }
+                self.checkAllPass()
+            })
+            .disposed(by: disposeBag)
+        
         serviceButton.rx.tap
             .subscribe({ _ in
                 if self.termsOfUseArray[0]{ //on -> off
@@ -264,6 +290,42 @@ class SignUpFirstViewController: BaseViewController {
 
                 }
                 self.checkAllPass()
+            })
+            .disposed(by: disposeBag)
+        
+        serviceAgreeTitle.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                if self.termsOfUseArray[0]{ //on -> off
+                    self.termsOfUseArray[0] = false
+                    self.validCheckArray[3] = false
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    self.serviceButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{ //off -> on
+                    self.termsOfUseArray[0] = true
+                    self.serviceButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    
+                    if self.termsOfUseArray.allSatisfy({ $0 == true}) {
+                        self.validCheckArray[3] = true
+                        self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                    else{
+                        self.validCheckArray[3] = false
+                        self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+
+                }
+                self.checkAllPass()
+            })
+            .disposed(by: disposeBag)
+        
+        seeServiceLabel.rx.tapGesture() //이용약관 내용보기
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                let vc = SFSafariViewController(url: URL(string: "https://plum-aster-76d.notion.site/69b19922795441cfb18edd49d6f1f265")!)
+                vc.modalPresentationStyle = .overFullScreen
+                self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
         
@@ -292,7 +354,68 @@ class SignUpFirstViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        privacyAgreeTitle.rx.tapGesture()
+            .when(.recognized)
+            .subscribe({ _ in
+                if self.termsOfUseArray[1]{ //on -> off
+                    self.termsOfUseArray[1] = false
+                    self.validCheckArray[3] = false
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    self.privacyButton.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{ //off -> on
+                    self.termsOfUseArray[1] = true
+                    self.privacyButton.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    
+                    if self.termsOfUseArray.allSatisfy({ $0 == true}){
+                        self.validCheckArray[3] = true
+                        self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                    else{
+                        self.validCheckArray[3] = false
+                        self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                }
+                self.checkAllPass()
+            })
+            .disposed(by: disposeBag)
+        
+        seePrivacyLabel.rx.tapGesture() //개인정보처리방침 내용보기
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                let vc = SFSafariViewController(url: URL(string: "https://plum-aster-76d.notion.site/c55286b8e9794522ae05bcc55cdbac13")!)
+                vc.modalPresentationStyle = .overFullScreen
+                self.present(vc, animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
         year14Button.rx.tap
+            .subscribe({ _ in
+                if self.termsOfUseArray[2]{ //on -> off
+                    self.termsOfUseArray[2] = false
+                    self.validCheckArray[3] = false
+                    self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    self.year14Button.setImage(Asset.icCheckboxGray.image, for: .normal)
+                }
+                else{ //off -> on
+                    self.termsOfUseArray[2] = true
+                    self.year14Button.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    
+                    if self.termsOfUseArray.allSatisfy({ $0 == true}) {
+                        self.validCheckArray[3] = true
+                        self.allAgreeButton.setImage(Asset.icCheckboxBlue.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                    else{
+                        self.validCheckArray[3] = false
+                        self.allAgreeButton.setImage(Asset.icCheckboxGray.image, for: .normal) //모두 동의 버튼도 해제해야함
+                    }
+                }
+                self.checkAllPass()
+            })
+            .disposed(by: disposeBag)
+        
+        year14Label.rx.tapGesture()
+            .when(.recognized)
             .subscribe({ _ in
                 if self.termsOfUseArray[2]{ //on -> off
                     self.termsOfUseArray[2] = false
