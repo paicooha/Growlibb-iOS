@@ -78,12 +78,11 @@ class ModalViewController: BaseViewController {
     }
     
     private var emojiLabel = UILabel().then { label in
-//        label.text = L10n.WriteRetrospect.Modal.Tutorial.title
         label.font = .pretendardSemibold36
     }
     
     private var descriptionLabel = UILabel().then { label in
-        label.font = .pretendardSemibold16
+        label.font = .pretendardMedium16
         label.numberOfLines = 0
         label.textAlignment = .center
     }
@@ -92,16 +91,17 @@ class ModalViewController: BaseViewController {
         button.backgroundColor = .veryLightBlue
         button.setTitleColor(.primaryBlue, for: .normal)
         button.setTitle(L10n.No.title, for: .normal)
-        button.isHidden = true
+        button.isHidden = false
         
-        button.titleLabel?.font = .pretendardMedium14
+        button.titleLabel?.font = .pretendardMedium16
         button.clipsToBounds = true
         button.layer.cornerRadius = 9
     }
     
     private var yesButton = ShortButton().then { button in
         button.setEnable()
-//        button.setTitle(L10n.Yes.title, for: .normal)
+        button.setTitle(L10n.Yes.title, for: .normal)
+        button.titleLabel?.font = .pretendardMedium16
     }
 }
 
@@ -115,10 +115,11 @@ extension ModalViewController {
         case "writeretrospect":
             emojiLabel.text = L10n.WriteRetrospect.Modal.NotYet.emoji
             descriptionLabel.text = L10n.WriteRetrospect.Modal.NotYet.title
-            noButton.isHidden = false
-            yesButton.setTitle(L10n.Confirm.Button.title, for: .normal)
         case "retrospect":
             emojiLabel.text = L10n.Retrospect.Modal.Event.emoji
+        case "logout":
+            emojiLabel.text = L10n.MyPage.Logout.emoji
+            descriptionLabel.text = L10n.MyPage.Logout.title
         case "resign":
             break
         default:
@@ -142,36 +143,36 @@ extension ModalViewController {
             make.leading.equalTo(view.snp.leading).offset(28)
             make.trailing.equalTo(view.snp.trailing).offset(-28)
             make.centerY.equalTo(view.snp.centerY)
-            make.height.equalTo(198)
+            make.height.equalTo(200)
         }
         
         emojiLabel.snp.makeConstraints { make in
-            make.top.equalTo(sheet.snp.top).offset(20)
+            make.top.equalTo(sheet.snp.top).offset(30)
             make.centerX.equalTo(sheet.snp.centerX)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(emojiLabel.snp.bottom).offset(3)
+            make.top.equalTo(emojiLabel.snp.bottom).offset(20)
             make.centerX.equalTo(sheet.snp.centerX)
         }
         
+        noButton.snp.makeConstraints { make in
+            make.bottom.equalTo(sheet.snp.bottom).offset(-15)
+            make.trailing.equalTo(sheet.snp.centerX).offset(-3)
+            make.width.equalTo(125)
+            make.height.equalTo(39)
+        }
+        
+        yesButton.snp.makeConstraints { make in
+            make.bottom.equalTo(sheet.snp.bottom).offset(-15)
+            make.leading.equalTo(sheet.snp.centerX).offset(3)
+            make.width.equalTo(125)
+            make.height.equalTo(39)
+        }
+        
         switch self.whereFrom {
-        case "writeretrospect":
-            noButton.snp.makeConstraints { make in
-                make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-                make.trailing.equalTo(sheet.snp.centerX).offset(-3)
-                make.width.equalTo(125)
-                make.height.equalTo(39)
-            }
-            
-            yesButton.snp.makeConstraints { make in
-                make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-                make.leading.equalTo(sheet.snp.centerX).offset(3)
-                make.width.equalTo(125)
-                make.height.equalTo(39)
-            }
-        case "retrospect":
-            emojiLabel.text = L10n.Retrospect.Modal.Event.emoji
+        case "retrospect": //회고와 회원탈퇴일 경우에만 레이아웃이 다름
+            break
         case "resign":
             break
         default:
