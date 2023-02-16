@@ -163,16 +163,14 @@ extension RetrospectViewController {
         switch userKeyChainService.level {
         case 1:
             animation.animate(withGIFNamed: "level_1")
-            break
         case 2:
             animation.animate(withGIFNamed: "level_2")
-            break
         case 3:
             animation.animate(withGIFNamed: "level_3")
-            break
-        default:
+        case 4:
             animation.animate(withGIFNamed: "level_4")
-            break
+        default:
+            animation.animate(withGIFNamed: "level_5")
         }
     }
 
