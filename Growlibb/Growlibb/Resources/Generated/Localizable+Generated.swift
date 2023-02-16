@@ -202,6 +202,12 @@ internal enum L10n {
       /// 회고 되돌아보기
       internal static let retrospect = L10n.tr("Localizable", "MyPage.List.Retrospect", fallback: "회고 되돌아보기")
     }
+    internal enum Logout {
+      /// 🥺
+      internal static let emoji = L10n.tr("Localizable", "MyPage.Logout.emoji", fallback: "🥺")
+      /// 로그아웃 하시겠습니까?
+      internal static let title = L10n.tr("Localizable", "MyPage.Logout.title", fallback: "로그아웃 하시겠습니까?")
+    }
     internal enum Point {
       /// 내 포인트
       internal static let title = L10n.tr("Localizable", "MyPage.Point.title", fallback: "내 포인트")

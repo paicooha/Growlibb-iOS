@@ -182,6 +182,10 @@
 "MyPage.EditProfile.title" = "내 프로필 수정";
 "MyPage.EditNoti" = "알림";
 
+// MARK: - Login
+"MyPage.Logout.emoji" = "🥺";
+"MyPage.Logout.title" = "로그아웃 하시겠습니까?";
+
 // MARK: - MyPage - Resign
 "MyPage.Resign.title" = "님 정말 회원탈퇴 하시겠어요?";
 "MyPage.Resign.guide" = "계정을 삭제하면 아이디 재사용 불가 및 기존에 작성한 회고이력이 모두 삭제돼요!";

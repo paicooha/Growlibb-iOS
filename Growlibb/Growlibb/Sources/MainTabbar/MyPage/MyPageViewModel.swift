@@ -13,7 +13,7 @@ final class MyPageViewModel: BaseViewModel {
     var myPageList = [L10n.MyPage.List.retrospect, L10n.MyPage.List.editProfile, L10n.MyPage.List.editPassword, L10n.MyPage.List.editPhone, L10n.MyPage.List.editNoti, L10n.MyPage.Cs.title, L10n.MyPage.List.logout, L10n.MyPage.List.resign]
 
     init(
-        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared, userKeyChainService:UserKeychainService = BasicUserKeyChainService.shared,
         myPageAPIService: MyPageAPIService = MyPageAPIService()
     ) {
         super.init()
@@ -31,6 +31,27 @@ final class MyPageViewModel: BaseViewModel {
                         self?.toast.onNext(alertMessage)
                     } else {
                         self?.toast.onNext("데이터 불러오기에 실패했습니다.")
+                    }
+                }
+                self?.outputs.mypagelist.onNext(self!.myPageList)
+            })
+            .disposed(by: disposeBag)
+        
+        routeInputs.goLogin
+            .flatMap { _ in
+                myPageAPIService.logout()
+            }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response(result: _):
+                    loginKeyChainService.clear() //정보 clear
+                    userKeyChainService.clear()
+                    self?.routes.goLogin.onNext(()) //로그아웃 성공 시 로그인 화면 이동
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
                     }
                 }
                 self?.outputs.mypagelist.onNext(self!.myPageList)
@@ -57,6 +78,10 @@ final class MyPageViewModel: BaseViewModel {
             .bind(to: routes.goCS)
             .disposed(by: disposeBag)
         
+        inputs.logout
+            .bind(to: routes.logout)
+            .disposed(by: disposeBag)
+        
         inputs.goResign
             .bind(to: routes.goResign)
             .disposed(by: disposeBag)
@@ -64,6 +89,7 @@ final class MyPageViewModel: BaseViewModel {
     }
 
     struct Input {
+        var logout = PublishSubject<Void>()
         var goCS = PublishSubject<Void>()
         var editProfile = PublishSubject<Void>()
         var editPassword = PublishSubject<Void>()
@@ -96,10 +122,13 @@ final class MyPageViewModel: BaseViewModel {
         var editPhoneNumber = PublishSubject<Void>()
         var editNoti = PublishSubject<Void>()
         var goResign = PublishSubject<Void>()
+        var logout = PublishSubject<Void>()
+        var goLogin = PublishSubject<Void>()
     }
 
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
+        var goLogin = PublishSubject<Bool>()
 //        var filterChanged = PublishSubject<PostFilter>()
 //        var detailClosed = PublishSubject<Void>()
 //        var postListOrderChanged = PublishSubject<PostListOrder>()

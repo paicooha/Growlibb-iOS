@@ -12,6 +12,7 @@ enum MyPageAPI {
     case getMyPage(token: LoginToken)
     case patchAlarm(request: PatchFcmRequest, token: LoginToken)
     case patchPhone(request: PostCheckPhoneRequest, token: LoginToken)
+    case logout(token: LoginToken)
 //
 //
 //    case apply(postId: Int, userId: Int, token: LoginToken)
@@ -39,6 +40,8 @@ extension MyPageAPI: TargetType {
             return "/v1/fcm-token"
         case .patchPhone:
             return "/auth/v1/phone-number"
+        case .logout:
+            return "/auth/v1/logout"
 //        case let .detail(postId, userId, _):
 //            return "/postings/v2/\(postId)/\(userId)"
 //        case let .apply(postId, userId, _):
@@ -65,6 +68,8 @@ extension MyPageAPI: TargetType {
         case .patchAlarm:
             return Method.patch
         case .patchPhone:
+            return Method.patch
+        case .logout:
             return Method.patch
 //        case .detail:
 //            return Method.get
@@ -93,6 +98,8 @@ extension MyPageAPI: TargetType {
             return .requestJSONEncodable(request)
         case let .patchPhone(request, _):
             return .requestJSONEncodable(request)
+        case let .logout:
+            return .requestPlain
 //            return .requestPlain
 //        case let .apply(_, userId, _):
 //            return .requestPlain
@@ -123,6 +130,8 @@ extension MyPageAPI: TargetType {
         case let .patchAlarm(_, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .patchPhone(_, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .logout(token):
             header["x-access-token"] = "\(token.jwt)"
 //        case let .detail(_, _, token):
 //            header["x-access-token"] = "\(token.jwt)"

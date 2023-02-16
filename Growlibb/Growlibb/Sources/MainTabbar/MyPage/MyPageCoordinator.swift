@@ -10,30 +10,33 @@ import RxSwift
 import UIKit
 
 enum MyPageResult {
-    case needCover
+    case logout
 }
 
 final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     // MARK: Lifecycle
-
+    var window: UIWindow?
+    var appCoordinator: AppCoordinator?
+    var appComponent: AppComponent?
+    
     init(component: MyPageComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
-
+    
     // MARK: Internal
-
+    
     var component: MyPageComponent
-
+    
     override func start(animated _: Bool = true) { // VM의 route 바인딩
         let scene = component.scene
-
+        
         scene.VM.routes.goCS
             .subscribe(onNext: { [weak self] _ in
                 self?.goCS()
             })
             .disposed(by: sceneDisposeBag)
-
+        
         scene.VM.routes.editProfile
             .map { scene.VM }
             .subscribe(onNext: { [weak self] vm in
@@ -42,60 +45,63 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             .disposed(by: sceneDisposeBag)
         
         scene.VM.routes.editPassword
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
+            .subscribe(onNext: { [weak self] _ in
                 self?.goEditPassword(animated: true)
             })
             .disposed(by: sceneDisposeBag)
         
         scene.VM.routes.editPhoneNumber
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
+            .subscribe(onNext: { [weak self] _ in
                 self?.goEditPhoneNumber(animated: true)
             })
             .disposed(by: sceneDisposeBag)
         
         scene.VM.routes.editNoti
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
+            .subscribe(onNext: { [weak self] _ in
                 self?.goEditNoti(animated: true)
             })
             .disposed(by: sceneDisposeBag)
         
         scene.VM.routes.goResign
-            .map { scene.VM }
-            .subscribe(onNext: { [weak self] vm in
+            .subscribe(onNext: { [weak self] _ in
                 self?.goResign(animated: true)
             })
             .disposed(by: sceneDisposeBag)
-//        scene.VM.routes.postListOrder
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.showPostListOrderModal(vm: vm, animated: false)
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.runningTag
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.showRunningTagModal(vm: vm, animated: false)
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.alarmList
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.pushAlarmListScene(vm: vm, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
-    }
 
+        scene.VM.routes.logout
+            .map { scene.VM }
+            .subscribe(onNext: { [weak self] vm in
+                self?.showLogoutModal(vm: vm)
+            })
+            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.goLogin
+            .subscribe(onNext: { _ in
+                self.pushLoginScene()
+            })
+            .disposed(by: sceneDisposeBag)
+        //
+        //        scene.VM.routes.runningTag
+        //            .map { scene.VM }
+        //            .subscribe(onNext: { [weak self] vm in
+        //                self?.showRunningTagModal(vm: vm, animated: false)
+        //            })
+        //            .disposed(by: sceneDisposeBag)
+        //
+        //        scene.VM.routes.alarmList
+        //            .map { scene.VM }
+        //            .subscribe(onNext: { [weak self] vm in
+        //                self?.pushAlarmListScene(vm: vm, animated: true)
+        //            })
+        //            .disposed(by: sceneDisposeBag)
+    }
+    
     private func goCS() {
         let comp = component.csComponent
         let coord = CsCoordinator(component: comp, navController: navigationController)
         
         comp.viewModel.routeInputs.needUpdate.onNext(true)
-
+        
         coordinate(coordinator: coord, animated: true) { coordResult in
             switch coordResult {
             case .backward:
@@ -103,11 +109,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }
         }
     }
-
+    
     private func goEditProfile(vm: MyPageViewModel, animated: Bool) {
         let comp = component.editProfileComponent
         let coord = EditProfileCoordinator(component: comp, navController: navigationController)
-
+        
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward:
@@ -119,7 +125,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     private func goEditPassword(animated: Bool) {
         let comp = component.editPasswordComponent
         let coord = EditPasswordFirstCoordinator(component: comp, navController: navigationController)
-
+        
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward:
@@ -127,11 +133,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }
         }
     }
-//
+    //
     private func goEditPhoneNumber(animated: Bool) {
         let comp = component.editPhoneNumberComponent
         let coord = EditPhoneNumberCoordinator(component: comp, navController: navigationController)
-
+        
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward:
@@ -139,11 +145,11 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }
         }
     }
-//
+    //
     private func goEditNoti(animated: Bool) {
         let comp = component.editNotiComponent
         let coord = EditNotiCoordinator(component: comp, navController: navigationController)
-
+        
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward:
@@ -155,7 +161,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
     private func goResign(animated: Bool) {
         let comp = component.resignComponent
         let coord = ResignCoordinator(component: comp, navController: navigationController)
-
+        
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
             case let .backward:
@@ -163,16 +169,34 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }
         }
     }
-//
-//    private func pushAlarmListScene(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.alarmListComponent
-//        let coord = AlarmListCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case .backward:
-//                vm.routeInputs.alarmChecked.onNext(())
-//            }
-//        }
-//    }
+    
+    private func showLogoutModal(vm: MyPageViewModel, whereFrom:String="logout") {
+        let comp = component.modalComponent
+        let coord = ModalCoordinator(component: comp, navController: navigationController)
+        
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .redirect:
+                vm.routeInputs.goLogin.onNext(true)
+            case .close:
+                break
+            }
+        }
+    }
+    
+    private func pushLoginScene() {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        
+        self.window = window
+        let navController = UINavigationController()
+        window.rootViewController = navController
+        AppContext.shared.rootNavigationController = navController
+        
+        window.makeKeyAndVisible()
+        
+        let comp = component.loginComponent
+        let coord = LoginCoordinator(component:comp, navController: navigationController)
+
+        coordinate(coordinator: coord)
+    }
 }

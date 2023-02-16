@@ -35,5 +35,12 @@ final class MyPageComponent {
     var resignComponent: ResignComponent {
         return ResignComponent()
     }
-//
+    
+    var modalComponent: ModalComponent {
+        return ModalComponent(whereFrom: "logout")
+    }
+    
+    var loginComponent: LoginComponent {
+        return LoginComponent()
+    }
 }

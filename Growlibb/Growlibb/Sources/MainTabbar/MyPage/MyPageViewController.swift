@@ -57,6 +57,8 @@ class MyPageViewController: BaseViewController {
                     self?.viewModel.inputs.editNoti.onNext(())
                 case 5:
                     self?.viewModel.inputs.goCS.onNext(())
+                case 6:
+                    self?.viewModel.inputs.logout.onNext(())
                 default:
                     self?.viewModel.inputs.goResign.onNext(())
 

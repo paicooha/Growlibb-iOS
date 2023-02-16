@@ -17,6 +17,8 @@ final class ModalViewModel: BaseViewModel{
                 switch whereFrom {
                 case "writeretrospect":
                     self.routes.backward.onNext(())
+                case "logout":
+                    self.routes.backward.onNext(())
                 default:
                     break
                 }
