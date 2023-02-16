@@ -81,7 +81,8 @@ class MyPageViewController: BaseViewController {
                 self.email.text = mypage.email
                 self.seedlevelLabel.text = "\(mypage.seedLevel)"
                 self.pointLabel.text = "\(mypage.point)"
-                self.retrospectLabel.text = "\(mypage.retrospectionCount)" //MARK: - 프로필 이미지 세팅하는 부분도 들어가야함
+                self.retrospectLabel.text = "\(mypage.retrospectionCount)"
+                self.profile.kf.setImage(with: URL(string: mypage.profileImageUrl ?? ""), placeholder: Asset.icMyProfile.image)
             })
             .disposed(by: disposeBag)
         
