@@ -48,7 +48,7 @@ final class MyPageAPIService {
             return .just(.error(alertMessage: nil))
         }
 
-        return provider.rx.request(.patchAlarm(reqeust: request, token: token))
+        return provider.rx.request(.patchAlarm(request: request, token: token))
             .asObservable()
             .mapResponse()
             .compactMap { try? $0?.json.rawData() ?? Data() }
@@ -62,13 +62,13 @@ final class MyPageAPIService {
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
     
-    func patchAlarm(request: PostCheckPhoneRequest) -> Observable<APIResult<BaseResponse?>> {
+    func patchPhoneNumber(request: PostCheckPhoneRequest) -> Observable<APIResult<BaseResponse?>> {
         guard let token = loginKeyChain.token
         else {
             return .just(.error(alertMessage: nil))
         }
 
-        return provider.rx.request(.patchPhone(reqeust: request, token: token))
+        return provider.rx.request(.patchPhone(request: request, token: token))
             .asObservable()
             .mapResponse()
             .compactMap { try? $0?.json.rawData() ?? Data() }

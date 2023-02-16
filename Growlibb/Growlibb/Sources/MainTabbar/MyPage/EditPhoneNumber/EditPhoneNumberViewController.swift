@@ -24,7 +24,8 @@ final class EditPhoneNumberViewController: BaseViewController {
     var authTimer: Timer?
     
     var email = ""
-    var userInfo = UserInfo()
+    
+    var isValidPhone = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,8 +89,35 @@ final class EditPhoneNumberViewController: BaseViewController {
             .subscribe({ _ in
                 //버튼 연타 방지
                 self.phoneButton.setDisable()
-                //휴대폰번호 중복 체크
-//                self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findEmailphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                
+                self.phoneGuideLabel.isHidden = true
+
+                //인증코드 타이머
+                self.authTimer?.invalidate()
+                
+                self.authTime = 180
+                self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
+                
+                //재인증 시 초기 세팅하기 위해 한번 더 설정하는 부분
+                self.isValidPhone = false //재인증할 수 있으므로 일단 false로 설정
+                
+                self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                self.phoneNumber = "+82\(self.phoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
+                print(self.phoneNumber)
+                
+                
+                PhoneAuthProvider.provider()
+                    .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
+                      if let error = error {
+                          AppContext.shared.makeToast("인증번호 전송에 실패하였습니다. 다시 시도해주세요.")
+                          print(error)
+                        return
+                      }
+                      // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달, 전송버튼 활성화
+                        self.verificationId = verificationID!
+                        self.phoneButton.setEnable()
+                        self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                  }
                 
             })
             .disposed(by: disposeBag)
@@ -120,7 +148,7 @@ final class EditPhoneNumberViewController: BaseViewController {
 
         bottomButton.rx.tap
             .subscribe({ [self] _ in
-
+                viewModel.inputs.newPhone.onNext((self.phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
             })
             .disposed(by: disposeBag)
     }
