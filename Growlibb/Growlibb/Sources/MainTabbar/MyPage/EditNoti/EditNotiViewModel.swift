@@ -11,28 +11,42 @@ final class EditNotiViewModel: BaseViewModel {
     
 
     init(
-        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared)
-    {
+        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        myPageAPIService: MyPageAPIService = MyPageAPIService()
+    ) {
         super.init()
-        
-        routeInputs.needUpdate
-            .subscribe(onNext: { _ in
-//                self.outputs.csList.onNext(self.csList)
-            })
-            .disposed(by: disposeBag)
-        
+
         inputs.backward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
         
-    }
+        inputs.pushSwitch
+            .flatMap { token in
+                myPageAPIService.patchAlarm(request: PatchFcmRequest(fcmToken: token))
+            }
+            .subscribe(onNext: { result in
+                switch result {
+                case .response(result: _):
+                    break
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self.toast.onNext(alertMessage)
+                    } else {
+                        self.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        }
 
     struct Input {
         var backward = PublishSubject<Void>()
+        var pushSwitch = PublishSubject<String?>()
     }
 
     struct Output {
-
+        
     }
 
     struct Route {
@@ -40,7 +54,6 @@ final class EditNotiViewModel: BaseViewModel {
     }
 
     struct RouteInput {
-        var needUpdate = PublishSubject<Bool>()
         
     }
 

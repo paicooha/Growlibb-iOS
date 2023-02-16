@@ -7,8 +7,11 @@
 
 import Foundation
 import UIKit
+import FirebaseMessaging
 
 class EditNotiViewController: BaseViewController {
+    
+    private var userKeyChainService = BasicUserKeyChainService.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,23 @@ class EditNotiViewController: BaseViewController {
     private func viewModelInput() {
         navBar.leftBtnItem.rx.tap
             .bind(to: viewModel.inputs.backward)
+            .disposed(by: disposeBag)
+        
+        alarmSwitch.rx.isOn
+            .subscribe(onNext: { isOn in
+                if isOn {
+                    let fcmToken = Messaging.messaging().fcmToken ?? ""
+                    if fcmToken.isEmpty {
+                        AppContext.shared.makeToast("문제가 발생했습니다. 다시 시도해주세요")
+                    }
+                    else{
+                        self.viewModel.inputs.pushSwitch.onNext(fcmToken)
+                    }
+                }
+                else{
+                    self.viewModel.inputs.pushSwitch.onNext(nil)
+                }
+            })
             .disposed(by: disposeBag)
         
     }
@@ -68,9 +88,9 @@ class EditNotiViewController: BaseViewController {
         view.onTintColor = .primaryBlue
 
         /*For off state*/
-        view.tintColor = .veryLightGray
+//        view.tintColor = .veryLightGray
         view.layer.cornerRadius = view.frame.height / 2.0
-        view.backgroundColor = .veryLightGray
+//        view.backgroundColor = .veryLightGray
         view.clipsToBounds = true
     }
     
@@ -83,6 +103,13 @@ class EditNotiViewController: BaseViewController {
 
 extension EditNotiViewController {
     private func setupViews() {
+        if userKeyChainService.fcmToken != nil || !userKeyChainService.fcmToken!.isEmpty {
+            alarmSwitch.isOn = true
+        }
+        else{
+            alarmSwitch.isOn = false
+        }
+        
         view.addSubviews([
             navBar,
             contentView,

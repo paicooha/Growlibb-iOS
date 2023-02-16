@@ -8,5 +8,5 @@
 import Foundation
 
 struct PatchFcmRequest: Encodable {
-    var fcmToken: String
+    var fcmToken: String?=nil
 }

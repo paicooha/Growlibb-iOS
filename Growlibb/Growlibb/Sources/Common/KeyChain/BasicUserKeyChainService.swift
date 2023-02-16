@@ -17,7 +17,7 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     let keychainWrapper: KeychainWrapper
 
-    var fcmToken: String {
+    var fcmToken: String? {
         get {
             guard let deviceToken: String = keychainWrapper[.User.fcmToken]
             else {
@@ -31,7 +31,7 @@ final class BasicUserKeyChainService: UserKeychainService {
         set {
             Log.d(tag: .info, "set deviceToken: \(newValue )")
             keychainWrapper.remove(forKey: .User.fcmToken)
-            keychainWrapper.set(newValue, forKey: KeychainWrapper.Key.User.fcmToken.rawValue)
+            keychainWrapper.set(newValue ?? "", forKey: KeychainWrapper.Key.User.fcmToken.rawValue)
         }
     }
 
@@ -73,6 +73,7 @@ final class BasicUserKeyChainService: UserKeychainService {
     func clear() {
         nickName = ""
         fcmToken = ""
+        level = 0
     }
 }
 
