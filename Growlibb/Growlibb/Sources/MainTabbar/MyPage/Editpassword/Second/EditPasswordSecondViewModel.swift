@@ -16,6 +16,28 @@ final class EditPasswordSecondViewModel: BaseViewModel {
     ) {
         super.init()
         
+        inputs.modify
+            .flatMap {  myPageAPIService.patchPassword(request: PatchPasswordRequest(phoneNumber: $0.phoneNumber, email: $0.email, password: $0.password, confirmPassword: $0.password)) }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(result: result):
+                    switch result!.code {
+                    case 1000:
+                        self?.toast.onNext("비밀번호가 성공적으로 변경되었습니다.")
+                        self?.routes.goMyPage.onNext(())
+                    default:
+                        self?.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
 //        routeInputs.needUpdate
 //            .flatMap { _ in
 //                myPageAPIService.getMyPage()
@@ -40,7 +62,7 @@ final class EditPasswordSecondViewModel: BaseViewModel {
     }
 
     struct Input {
-//        var goCS = PublishSubject<Void>()
+        var modify = PublishSubject<UserInfo>()
         var backward = PublishSubject<Void>()
     }
 
@@ -62,6 +84,7 @@ final class EditPasswordSecondViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
+        var goMyPage = PublishSubject<Void>()
     }
 
     struct RouteInput {

@@ -9,16 +9,13 @@ import UIKit
 
 final class EditPasswordSecondComponent {
     lazy var scene: (VC: EditPasswordSecondViewController, VM: EditPasswordSecondViewModel) = (VC: EditPasswordSecondViewController(viewModel: viewModel), VM: viewModel)
+    
+    lazy var viewModel = EditPasswordSecondViewModel()
 
-    lazy var viewModel: EditPasswordSecondViewModel = .init()
-
-//    var csComponent: CSComponent {
-//        return CSComponent()
-//    }
 //
-//    var writingPostComponent: WritingMainPostComponent {
-//        return WritingMainPostComponent()
-//    }
+    var mainTabComponent: MainTabComponent {
+        return MainTabComponent()
+    }
 //
 //    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
 //        return HomeFilterComponent(filter: filter)

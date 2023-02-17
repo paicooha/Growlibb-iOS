@@ -45,5 +45,23 @@ final class EditPasswordFirstCoordinator: BasicCoordinator<EditPasswordFirstResu
             .map { EditPasswordFirstResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.next
+            .subscribe(onNext: { [weak self] _ in
+                self?.goEditPasswordSecond(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
+    }
+    
+    private func goEditPasswordSecond(animated: Bool) {
+        let comp = component.editPasswordSecondComponent
+        let coord = EditPasswordSecondCoordinator(component: comp, navController: navigationController)
+        
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            }
+        }
     }
 }

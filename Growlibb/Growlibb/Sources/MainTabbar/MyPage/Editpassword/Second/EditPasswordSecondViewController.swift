@@ -50,20 +50,22 @@ class EditPasswordSecondViewController: BaseViewController {
             }
             
             //비밀번호 입력창에서도 비밀번호 확인 입력창과 일치하는지 검증해야함
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != passwordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " && !(passwordConfirmTextField.text ?? "").isEmpty {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" != passwordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" { //같지않으면
                 passwordConfirmGuideLabel.isHidden = false
-                
                 confirmButton.setDisable()
             }
-            else{
+            else if !textField.text!.isEmpty && !passwordConfirmTextField.text!.isEmpty && textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" == passwordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" {
                 passwordConfirmGuideLabel.isHidden = true
+                confirmButton.setEnable()
             }
         }
         else if textField == passwordConfirmTextField {
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " {
+            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" != passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" { //같지않으면
                 passwordConfirmGuideLabel.isHidden = false
+                confirmButton.setDisable()
             }
-            else{
+            else if !textField.text!.isEmpty && !passwordTextField.text!.isEmpty && textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" == passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" {
+                confirmButton.setEnable()
                 passwordConfirmGuideLabel.isHidden = true
             }
         }
@@ -79,25 +81,19 @@ class EditPasswordSecondViewController: BaseViewController {
         
         confirmButton.rx.tap
             .subscribe({ _ in
-                //                self.signUpDataManager.postCheckEmail(viewController: self, email: (self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                UserInfo.shared.password = self.passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.viewModel.inputs.modify.onNext(UserInfo.shared)
             })
             .disposed(by: disposeBag)
         
     }
     
     private func viewModelOutput() {
-
-        
-    }
-    
-    private var scrollView = UIScrollView(frame: .zero).then { view in
-        view.showsHorizontalScrollIndicator = false
-        view.showsVerticalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private var contentView = UIView().then { view in
-        view.translatesAutoresizingMaskIntoConstraints = false
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
     
     private var navBar = NavBar().then{ make in
@@ -146,7 +142,7 @@ class EditPasswordSecondViewController: BaseViewController {
     }
     
     private var confirmButton = LongButton().then { make in
-        make.setTitle(L10n.Next.Button.title, for: .normal)
+        make.setTitle(L10n.Modify.title, for: .normal)
         make.setDisable()
     }
 }

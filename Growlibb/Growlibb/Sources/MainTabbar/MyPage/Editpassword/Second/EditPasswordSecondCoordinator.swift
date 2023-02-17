@@ -45,5 +45,19 @@ final class EditPasswordSecondCoordinator: BasicCoordinator<EditPasswordSecondRe
             .map { EditPasswordSecondResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.goMyPage
+            .subscribe({ _ in
+                self.goMyPage(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
+
+    }
+    
+    private func goMyPage(animated: Bool) {
+        let comp = component.mainTabComponent
+        let coord = MainTabbarCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord, animated: animated)
     }
 }

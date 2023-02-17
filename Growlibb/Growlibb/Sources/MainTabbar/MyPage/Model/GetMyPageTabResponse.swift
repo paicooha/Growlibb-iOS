@@ -18,6 +18,6 @@ struct GetMyPageTabResponse: Decodable {
 // MARK: - Result
 struct MyPage: Decodable {
     var nickname, email: String
-    var profileImageUrl: String?
     var seedLevel, point, retrospectionCount: Int
+    var profileImageUrl: String?
 }

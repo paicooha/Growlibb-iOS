@@ -21,12 +21,9 @@ class EditPasswordFirstViewController: BaseViewController {
     
     var authTime = 180 //3분
     var authTimer: Timer?
-    
-    //    var sendCodebuttonTime = 2 //2초
-    //    var sendCodeButtonTimer: Timer?
-    
-    //아이디, 비밀번호, 인증번호를 모두 했는지 확인하기 위한 배열
-    var validCheckArray = [false, false, false]
+
+    //아이디, 인증번호를 모두 했는지 확인하기 위한 배열
+    var validCheckArray = [false, false]
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +43,7 @@ class EditPasswordFirstViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) { //다시 돌아올때 인증번호 초기화
         authTime = 180
-        validCheckArray[2] = false
+        validCheckArray[1] = false
         
         authcodeTextField.text = ""
         authGuideLabel.isHidden = true
@@ -133,13 +130,34 @@ class EditPasswordFirstViewController: BaseViewController {
                 //버튼 연타 방지 -> 인증번호 콜백시 활성화하도록 수정
                 self.phoneButton.setDisable()
                 self.authGuideLabel.isHidden = true
+                self.phoneGuideLabel.isHidden = true
+
+                //인증코드 타이머
+                self.authTimer?.invalidate()
                 
-//                self.sendCodebuttonTime = 2
-//                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.sendCodeTimerCallback), userInfo: nil, repeats: true)
-                self.validCheckArray[2] = false //한번 더 인증할 수 있으므로 일단 false로 두기
+                self.authTime = 180
+                self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
                 
-                //휴대폰번호 중복 체크
-//                self.signUpDataManager.postCheckPhone(viewController: self, phoneNumber: (self.phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                //재인증 시 초기 세팅하기 위해 한번 더 설정하는 부분
+                self.validCheckArray[1] = false //재인증할 수 있으므로 일단 false로 설정
+                
+                self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                self.phoneNumber = "+82\(self.phoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
+                print(self.phoneNumber)
+                
+                
+                PhoneAuthProvider.provider()
+                    .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
+                      if let error = error {
+                          AppContext.shared.makeToast("인증번호 전송에 실패하였습니다. 다시 시도해주세요.")
+                          print(error)
+                        return
+                      }
+                      // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달, 전송버튼 활성화
+                        self.verificationId = verificationID!
+                        self.phoneButton.setEnable()
+                        self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
+                  }
             })
             .disposed(by: disposeBag)
         
@@ -160,7 +178,7 @@ class EditPasswordFirstViewController: BaseViewController {
                     self.authTimerLabel.isHidden = true
                     self.authTimer?.invalidate()
                     
-                    self.validCheckArray[2] = true
+                    self.validCheckArray[1] = true
 
                     print("인증성공 : \(authData)")
                     self.checkAllPass()
@@ -170,7 +188,11 @@ class EditPasswordFirstViewController: BaseViewController {
         
         nextButton.rx.tap
             .subscribe({ _ in
-//                self.signUpDataManager.postCheckEmail(viewController: self, email: (self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                let postCheckPasswordRequest = PostCheckPasswordRequest(phoneNumber: self.phoneTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), email: self.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                UserInfo.shared.phoneNumber = postCheckPasswordRequest.phoneNumber
+                UserInfo.shared.email =
+                postCheckPasswordRequest.email
+                self.viewModel.inputs.checkpassword.onNext(postCheckPasswordRequest)
             })
             .disposed(by: disposeBag)
         
@@ -228,11 +250,11 @@ class EditPasswordFirstViewController: BaseViewController {
 //            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
 //            .disposed(by: disposeBag)
 //
-//        viewModel.toast
-//            .subscribe(onNext: { message in
-//                AppContext.shared.makeToast(message)
-//            })
-//            .disposed(by: disposeBag)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
     
     private var navBar = NavBar().then{ make in

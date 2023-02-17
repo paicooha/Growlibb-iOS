@@ -13,6 +13,9 @@ enum MyPageAPI {
     case patchAlarm(request: PatchFcmRequest, token: LoginToken)
     case patchPhone(request: PostCheckPhoneRequest, token: LoginToken)
     case logout(token: LoginToken)
+    case postCheckPassword(request: PostCheckPasswordRequest)
+    case patchPassword(request: PatchPasswordRequest)
+    case resign(request: ResignReason, token: LoginToken)
 //
 //
 //    case apply(postId: Int, userId: Int, token: LoginToken)
@@ -42,6 +45,12 @@ extension MyPageAPI: TargetType {
             return "/auth/v1/phone-number"
         case .logout:
             return "/auth/v1/logout"
+        case .postCheckPassword:
+            return "/auth/v1/check-password"
+        case .patchPassword:
+            return "/auth/v1/password"
+        case .resign:
+            return "/auth/v1/status"
 //        case let .detail(postId, userId, _):
 //            return "/postings/v2/\(postId)/\(userId)"
 //        case let .apply(postId, userId, _):
@@ -71,6 +80,12 @@ extension MyPageAPI: TargetType {
             return Method.patch
         case .logout:
             return Method.patch
+        case .postCheckPassword:
+            return Method.post
+        case .patchPassword:
+            return Method.patch
+        case .resign:
+            return Method.patch
 //        case .detail:
 //            return Method.get
 //        case .apply:
@@ -98,8 +113,14 @@ extension MyPageAPI: TargetType {
             return .requestJSONEncodable(request)
         case let .patchPhone(request, _):
             return .requestJSONEncodable(request)
-        case let .logout:
+        case .logout:
             return .requestPlain
+        case let .postCheckPassword(request):
+            return .requestJSONEncodable(request)
+        case let .patchPassword(request):
+            return .requestJSONEncodable(request)
+        case let .resign(request, _):
+            return .requestJSONEncodable(request)
 //            return .requestPlain
 //        case let .apply(_, userId, _):
 //            return .requestPlain
@@ -133,6 +154,8 @@ extension MyPageAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case let .logout(token):
             header["x-access-token"] = "\(token.jwt)"
+        case let .resign(_, token: token):
+            header["x-access-token"] = "\(token.jwt)"
 //        case let .detail(_, _, token):
 //            header["x-access-token"] = "\(token.jwt)"
 //        case let .apply(_, _, token):
@@ -149,6 +172,10 @@ extension MyPageAPI: TargetType {
 //            header["x-access-token"] = "\(token.jwt)"
 //        case let .report(_, _, token):
 //            header["x-access-token"] = "\(token.jwt)"
+        case .postCheckPassword:
+            break
+        case .patchPassword:
+            break
         }
         return header
     }
