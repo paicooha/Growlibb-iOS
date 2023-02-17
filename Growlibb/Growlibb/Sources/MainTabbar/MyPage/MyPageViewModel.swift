@@ -86,6 +86,10 @@ final class MyPageViewModel: BaseViewModel {
             .bind(to: routes.goResign)
             .disposed(by: disposeBag)
         
+        inputs.goRetrospectList
+            .bind(to: routes.goRetrospectList)
+            .disposed(by: disposeBag)
+        
     }
 
     struct Input {
@@ -96,7 +100,7 @@ final class MyPageViewModel: BaseViewModel {
         var editPhoneNumber = PublishSubject<Void>()
         var editNoti = PublishSubject<Void>()
         var goResign = PublishSubject<Void>()
-
+        var goRetrospectList = PublishSubject<Void>()
     }
 
     struct Output {
@@ -124,6 +128,7 @@ final class MyPageViewModel: BaseViewModel {
         var goResign = PublishSubject<Void>()
         var logout = PublishSubject<Void>()
         var goLogin = PublishSubject<Void>()
+        var goRetrospectList = PublishSubject<Void>()
     }
 
     struct RouteInput {

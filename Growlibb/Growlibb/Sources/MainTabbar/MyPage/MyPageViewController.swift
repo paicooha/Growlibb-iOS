@@ -46,7 +46,7 @@ class MyPageViewController: BaseViewController {
             .subscribe(onNext: { [weak self] index in
                 switch index.row {
                 case 0:
-                    break
+                    self?.viewModel.inputs.goRetrospectList.onNext(())
                 case 1:
                     self?.viewModel.inputs.editProfile.onNext(())
                 case 2:

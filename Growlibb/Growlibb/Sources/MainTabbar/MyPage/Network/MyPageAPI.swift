@@ -16,18 +16,7 @@ enum MyPageAPI {
     case postCheckPassword(request: PostCheckPasswordRequest)
     case patchPassword(request: PatchPasswordRequest)
     case resign(request: ResignReason, token: LoginToken)
-//
-//
-//    case apply(postId: Int, userId: Int, token: LoginToken)
-//    case accept(postId: Int, userId: Int, applicantId: Int, accept: Bool, token: LoginToken)
-//    case close(postId: Int, token: LoginToken)
-//    case delete(postId: Int, userId: Int, token: LoginToken)
-//
-//    case myPage(userId: Int, token: LoginToken)
-//    case attendance(postId: Int, userId: Int, token: LoginToken)
-//
-//    /// postings/:postId/report/:userId
-//    case report(postId: Int, userId: Int, token: LoginToken)
+    case getRetrospectList(page:Int, token:LoginToken)
 }
 
 extension MyPageAPI: TargetType {
@@ -51,22 +40,8 @@ extension MyPageAPI: TargetType {
             return "/auth/v1/password"
         case .resign:
             return "/auth/v1/status"
-//        case let .detail(postId, userId, _):
-//            return "/postings/v2/\(postId)/\(userId)"
-//        case let .apply(postId, userId, _):
-//            return "/runnings/request/\(postId)/\(userId)"
-//        case let .accept(postId, _, applicantId, accept, _):
-//            return "/runnings/request/\(postId)/handling/\(applicantId)/\(accept ? "Y" : "D")"
-//        case let .close(postId, _):
-//            return "/postings/\(postId)/closing"
-//        case let .delete(postId, userId, _):
-//            return "/postings/\(postId)/\(userId)/drop"
-//        case let .myPage(userId, _):
-//            return "/users/\(userId)/myPage/v2"
-//        case let .attendance(postId, userId, _):
-//            return "/runnings/\(postId)/attendees/\(userId)"
-//        case let .report(postId, userId, _):
-//            return "/postings/\(postId)/report/\(userId)"
+        case .getRetrospectList:
+            return "/retrospection/v1"
         }
     }
 
@@ -86,22 +61,8 @@ extension MyPageAPI: TargetType {
             return Method.patch
         case .resign:
             return Method.patch
-//        case .detail:
-//            return Method.get
-//        case .apply:
-//            return Method.post
-//        case .accept:
-//            return Method.patch
-//        case .close:
-//            return Method.post
-//        case .delete:
-//            return Method.patch
-//        case .myPage:
-//            return Method.get
-//        case .attendance:
-//            return Method.patch
-//        case .report:
-//            return Method.post
+        case .getRetrospectList:
+            return Method.get
         }
     }
 
@@ -121,25 +82,8 @@ extension MyPageAPI: TargetType {
             return .requestJSONEncodable(request)
         case let .resign(request, _):
             return .requestJSONEncodable(request)
-//            return .requestPlain
-//        case let .apply(_, userId, _):
-//            return .requestPlain
-//        case let .accept(_, userId, _, _, _):
-            ////            let query: [String: Any] = [
-            ////                "userId": userId,
-            ////            ]
-            ////            return .requestCompositeData(bodyData: Data(), urlParameters: query)
-//            return .requestPlain
-//        case .close:
-//            return .requestPlain
-//        case .delete:
-//            return .requestPlain
-//        case .myPage:
-//            return .requestPlain
-//        case .attendance:
-//            return .requestPlain
-//        case .report:
-//            return .requestPlain
+        case let .getRetrospectList(page, _):
+            return .requestParameters(parameters: ["page":page, "size":20], encoding: URLEncoding.default)
         }
     }
 
@@ -156,26 +100,12 @@ extension MyPageAPI: TargetType {
             header["x-access-token"] = "\(token.jwt)"
         case let .resign(_, token: token):
             header["x-access-token"] = "\(token.jwt)"
-//        case let .detail(_, _, token):
-//            header["x-access-token"] = "\(token.jwt)"
-//        case let .apply(_, _, token):
-//            header["x-access-token"] = "\(token.jwt)"
-//        case let .accept(_, _, _, _, token):
-//            header["x-access-token"] = "\(token.jwt)"
-//        case let .close(_, token):
-//            header["x-access-token"] = "\(token.jwt)"
-//        case let .delete(_, _, token):
-//            header["x-access-token"] = "\(token.jwt)"
-//        case let .myPage(_, token):
-//            header["x-access-token"] = "\(token.jwt)"
-//        case let .attendance(_, _, token):
-//            header["x-access-token"] = "\(token.jwt)"
-//        case let .report(_, _, token):
-//            header["x-access-token"] = "\(token.jwt)"
         case .postCheckPassword:
             break
         case .patchPassword:
             break
+        case let .getRetrospectList(_, token):
+            header["x-access-token"] = "\(token.jwt)"
         }
         return header
     }

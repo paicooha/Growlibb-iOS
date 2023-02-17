@@ -19,6 +19,7 @@ class UserInfo {
     var birthday:String
     var job:String
     var fcmToken:String
+    var profileUrl:String
     
     init(){
         userId = 0
@@ -30,5 +31,6 @@ class UserInfo {
         birthday = ""
         job = ""
         fcmToken = ""
+        profileUrl = ""
     }
 }

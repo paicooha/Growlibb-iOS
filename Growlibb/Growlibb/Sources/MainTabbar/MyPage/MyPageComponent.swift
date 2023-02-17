@@ -43,4 +43,8 @@ final class MyPageComponent {
     var loginComponent: LoginComponent {
         return LoginComponent()
     }
+    
+    var retrospectListComponent: RetrospectListComponent {
+        return RetrospectListComponent()
+    }
 }

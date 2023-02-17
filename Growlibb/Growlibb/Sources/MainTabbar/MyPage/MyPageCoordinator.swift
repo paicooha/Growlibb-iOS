@@ -80,6 +80,12 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 self.pushLoginScene()
             })
             .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.goRetrospectList
+            .subscribe(onNext: { _ in
+                self.goRetrospectList(animated: true)
+            })
+            .disposed(by: sceneDisposeBag)
         //
         //        scene.VM.routes.runningTag
         //            .map { scene.VM }
@@ -116,7 +122,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
-            case let .backward:
+            case .backward:
                 vm.routeInputs.needUpdate.onNext(true)
             }
         }
@@ -128,7 +134,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
-            case let .backward:
+            case .backward:
                 break
             }
         }
@@ -140,7 +146,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
-            case let .backward:
+            case .backward:
                 break
             }
         }
@@ -152,7 +158,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
-            case let .backward:
+            case .backward:
                 break
             }
         }
@@ -164,10 +170,24 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         
         coordinate(coordinator: coord, animated: animated) { coordResult in
             switch coordResult {
-            case let .backward:
+            case .backward:
                 break
             }
         }
+    }
+    
+    private func goRetrospectList(animated: Bool) {
+        let comp = component.retrospectListComponent
+        let coord = RetrospectListCoordinator(component: comp, navController: navigationController)
+        
+        coordinate(coordinator: coord, animated: animated) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            }
+        }
+        
+        comp.scene.VM.routeInputs.needUpdate.onNext(true)
     }
     
     private func showLogoutModal(vm: MyPageViewModel, whereFrom:String="logout") {

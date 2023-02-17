@@ -25,7 +25,7 @@
 		DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */; };
 		DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCC2912717700878BA3 /* BaseResponse.swift */; };
 		DA1D1DCF2912717E00878BA3 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */; };
-		DA288A73299CFDEC00D49401 /* ViewRetrospectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA288A72299CFDEC00D49401 /* ViewRetrospectCell.swift */; };
+		DA288A73299CFDEC00D49401 /* RetrospectListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA288A72299CFDEC00D49401 /* RetrospectListCell.swift */; };
 		DA3288A4298AC1B6003BA501 /* WriteRetrospectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3288A3298AC1B6003BA501 /* WriteRetrospectDataSource.swift */; };
 		DA42978729730097003AAA93 /* WriteRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42978629730097003AAA93 /* WriteRetrospectViewController.swift */; };
 		DA429789297300A0003AAA93 /* WriteRetrospectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */; };
@@ -40,6 +40,8 @@
 		DA4AB2EC299E95BE004790BC /* level_4.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA4AB2E7299E95BE004790BC /* level_4.gif */; };
 		DA4AB2ED299E95BE004790BC /* level_5.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA4AB2E8299E95BE004790BC /* level_5.gif */; };
 		DA4AB2EF299E9957004790BC /* ResignReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2EE299E9957004790BC /* ResignReason.swift */; };
+		DA4AB2F3299FCB38004790BC /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2F2299FCB38004790BC /* PatchProfileRequest.swift */; };
+		DA4AB2F5299FCFB7004790BC /* GetRetrospectListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */; };
 		DA4E55B129399B0300176B87 /* HomeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B029399B0300176B87 /* HomeDataManager.swift */; };
 		DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B229399BAE00176B87 /* GetHomeResponse.swift */; };
 		DA4E55B8293B78D300176B87 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B7293B78D300176B87 /* DateFormat.swift */; };
@@ -54,10 +56,10 @@
 		DA6C77A6298FD65600B80DB9 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */; };
 		DA6C77A8298FD66000B80DB9 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */; };
 		DA6C77AA298FF29100B80DB9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C77A9298FF29100B80DB9 /* WebKit.framework */; };
-		DA6C77AC298FFAB100B80DB9 /* ViewRetrospectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77AB298FFAB100B80DB9 /* ViewRetrospectComponent.swift */; };
-		DA6C77AE298FFAB800B80DB9 /* ViewRetrospectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77AD298FFAB800B80DB9 /* ViewRetrospectCoordinator.swift */; };
-		DA6C77B0298FFABE00B80DB9 /* ViewRetrospectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77AF298FFABE00B80DB9 /* ViewRetrospectViewModel.swift */; };
-		DA6C77B2298FFAC400B80DB9 /* ViewRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77B1298FFAC400B80DB9 /* ViewRetrospectViewController.swift */; };
+		DA6C77AC298FFAB100B80DB9 /* RetrospectListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77AB298FFAB100B80DB9 /* RetrospectListComponent.swift */; };
+		DA6C77AE298FFAB800B80DB9 /* RetrospectListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77AD298FFAB800B80DB9 /* RetrospectListCoordinator.swift */; };
+		DA6C77B0298FFABE00B80DB9 /* RetrospectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77AF298FFABE00B80DB9 /* RetrospectListViewModel.swift */; };
+		DA6C77B2298FFAC400B80DB9 /* RetrospectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77B1298FFAC400B80DB9 /* RetrospectListViewController.swift */; };
 		DA6C77B42990120E00B80DB9 /* EditNotiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77B32990120E00B80DB9 /* EditNotiViewController.swift */; };
 		DA6C77B62990121900B80DB9 /* EditNotiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77B52990121900B80DB9 /* EditNotiViewModel.swift */; };
 		DA6E2015291D223200F78173 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACF8216291C1EAF00AA74E8 /* Pretendard-SemiBold.otf */; };
@@ -217,7 +219,7 @@
 		DA1D1DCA2912716C00878BA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA1D1DCC2912717700878BA3 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		DA288A72299CFDEC00D49401 /* ViewRetrospectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRetrospectCell.swift; sourceTree = "<group>"; };
+		DA288A72299CFDEC00D49401 /* RetrospectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectListCell.swift; sourceTree = "<group>"; };
 		DA3288A3298AC1B6003BA501 /* WriteRetrospectDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectDataSource.swift; sourceTree = "<group>"; };
 		DA42978629730097003AAA93 /* WriteRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectViewController.swift; sourceTree = "<group>"; };
 		DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectComponent.swift; sourceTree = "<group>"; };
@@ -233,6 +235,8 @@
 		DA4AB2E7299E95BE004790BC /* level_4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_4.gif; path = ../../../../../Downloads/level_4.gif; sourceTree = "<group>"; };
 		DA4AB2E8299E95BE004790BC /* level_5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_5.gif; path = ../../../../../Downloads/level_5.gif; sourceTree = "<group>"; };
 		DA4AB2EE299E9957004790BC /* ResignReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignReason.swift; sourceTree = "<group>"; };
+		DA4AB2F2299FCB38004790BC /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
+		DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRetrospectListResponse.swift; sourceTree = "<group>"; };
 		DA4E55B029399B0300176B87 /* HomeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataManager.swift; sourceTree = "<group>"; };
 		DA4E55B229399BAE00176B87 /* GetHomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeResponse.swift; sourceTree = "<group>"; };
 		DA4E55B7293B78D300176B87 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
@@ -247,10 +251,10 @@
 		DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		DA6C77A9298FF29100B80DB9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		DA6C77AB298FFAB100B80DB9 /* ViewRetrospectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRetrospectComponent.swift; sourceTree = "<group>"; };
-		DA6C77AD298FFAB800B80DB9 /* ViewRetrospectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRetrospectCoordinator.swift; sourceTree = "<group>"; };
-		DA6C77AF298FFABE00B80DB9 /* ViewRetrospectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRetrospectViewModel.swift; sourceTree = "<group>"; };
-		DA6C77B1298FFAC400B80DB9 /* ViewRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRetrospectViewController.swift; sourceTree = "<group>"; };
+		DA6C77AB298FFAB100B80DB9 /* RetrospectListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectListComponent.swift; sourceTree = "<group>"; };
+		DA6C77AD298FFAB800B80DB9 /* RetrospectListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectListCoordinator.swift; sourceTree = "<group>"; };
+		DA6C77AF298FFABE00B80DB9 /* RetrospectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectListViewModel.swift; sourceTree = "<group>"; };
+		DA6C77B1298FFAC400B80DB9 /* RetrospectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectListViewController.swift; sourceTree = "<group>"; };
 		DA6C77B32990120E00B80DB9 /* EditNotiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiViewController.swift; sourceTree = "<group>"; };
 		DA6C77B52990121900B80DB9 /* EditNotiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiViewModel.swift; sourceTree = "<group>"; };
 		DA6E2017291D25D300F78173 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -595,7 +599,7 @@
 			children = (
 				DA80CBB5298EB93400E67212 /* MyPageCell.swift */,
 				DA80CBB7298EBB5E00E67212 /* MyPageDataSource.swift */,
-				DA288A72299CFDEC00D49401 /* ViewRetrospectCell.swift */,
+				DA288A72299CFDEC00D49401 /* RetrospectListCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -689,15 +693,15 @@
 			path = Resign;
 			sourceTree = "<group>";
 		};
-		DA80CBC9298EBF4000E67212 /* ViewRetrospect */ = {
+		DA80CBC9298EBF4000E67212 /* RetrospectList */ = {
 			isa = PBXGroup;
 			children = (
-				DA6C77AB298FFAB100B80DB9 /* ViewRetrospectComponent.swift */,
-				DA6C77AD298FFAB800B80DB9 /* ViewRetrospectCoordinator.swift */,
-				DA6C77AF298FFABE00B80DB9 /* ViewRetrospectViewModel.swift */,
-				DA6C77B1298FFAC400B80DB9 /* ViewRetrospectViewController.swift */,
+				DA6C77AB298FFAB100B80DB9 /* RetrospectListComponent.swift */,
+				DA6C77AD298FFAB800B80DB9 /* RetrospectListCoordinator.swift */,
+				DA6C77AF298FFABE00B80DB9 /* RetrospectListViewModel.swift */,
+				DA6C77B1298FFAC400B80DB9 /* RetrospectListViewController.swift */,
 			);
-			path = ViewRetrospect;
+			path = RetrospectList;
 			sourceTree = "<group>";
 		};
 		DA80CBCB298EBF5700E67212 /* EditRetrospect */ = {
@@ -764,6 +768,8 @@
 				DA4AB2E0299E8A26004790BC /* PostCheckPasswordRequest.swift */,
 				DA4AB2E2299E8ABB004790BC /* PatchPasswordRequest.swift */,
 				DA4AB2EE299E9957004790BC /* ResignReason.swift */,
+				DA4AB2F2299FCB38004790BC /* PatchProfileRequest.swift */,
+				DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1046,7 +1052,7 @@
 				DA80CBB0298EB53500E67212 /* Network */,
 				DA92799C298FBCB800BBA53F /* Model */,
 				DA80CBB1298EB54B00E67212 /* Cell */,
-				DA80CBC9298EBF4000E67212 /* ViewRetrospect */,
+				DA80CBC9298EBF4000E67212 /* RetrospectList */,
 				DA80CBCB298EBF5700E67212 /* EditRetrospect */,
 				DA80CBC5298EBF2500E67212 /* EditProfile */,
 				DA76A13C299A947D00400FBC /* EditPhoneNumber */,
@@ -1350,7 +1356,7 @@
 				DA1D1DCD2912717700878BA3 /* BaseResponse.swift in Sources */,
 				DACF17C6292F846C002734AA /* PostSignUpRequest.swift in Sources */,
 				DACF81D1291BAB9400AA74E8 /* Log.swift in Sources */,
-				DA6C77B0298FFABE00B80DB9 /* ViewRetrospectViewModel.swift in Sources */,
+				DA6C77B0298FFABE00B80DB9 /* RetrospectListViewModel.swift in Sources */,
 				DA76A150299A9E3D00400FBC /* ResignViewController.swift in Sources */,
 				DA92799B298FBC8F00BBA53F /* MyPageAPIService.swift in Sources */,
 				DACF81E4291BC42500AA74E8 /* LoginType.swift in Sources */,
@@ -1368,10 +1374,10 @@
 				DA88B4A42923B96900A4B1B5 /* MyPageComponent.swift in Sources */,
 				DA4E55B8293B78D300176B87 /* DateFormat.swift in Sources */,
 				DA8A8F2D2989833800C63D2B /* WriteRetrospectAPI.swift in Sources */,
-				DA288A73299CFDEC00D49401 /* ViewRetrospectCell.swift in Sources */,
+				DA288A73299CFDEC00D49401 /* RetrospectListCell.swift in Sources */,
 				DACF17B0292B7121002734AA /* SignUpFinalComponent.swift in Sources */,
 				DADA2F0B291D403C005E6B71 /* Assets+Generated.swift in Sources */,
-				DA6C77AC298FFAB100B80DB9 /* ViewRetrospectComponent.swift in Sources */,
+				DA6C77AC298FFAB100B80DB9 /* RetrospectListComponent.swift in Sources */,
 				DA6C77A8298FD66000B80DB9 /* PrivacyViewController.swift in Sources */,
 				DACF81E2291BC3D400AA74E8 /* LoginToken.swift in Sources */,
 				DACF81FE291BDCAB00AA74E8 /* MainTabbarController.swift in Sources */,
@@ -1411,22 +1417,24 @@
 				DA0895D2299935AD00A1713B /* EditProfileViewModel.swift in Sources */,
 				DA76A14A299A9E2D00400FBC /* ResignComponent.swift in Sources */,
 				DACF17AC292B4EB9002734AA /* SignUpSecondViewModel.swift in Sources */,
+				DA4AB2F3299FCB38004790BC /* PatchProfileRequest.swift in Sources */,
 				DA6E3D59293910010084F534 /* PatchFcmRequest.swift in Sources */,
 				DA8A8F37298986D200C63D2B /* ModalCoordinator.swift in Sources */,
 				DACF17C2292F56DF002734AA /* PostCheckNicknameRequest.swift in Sources */,
 				DACF8207291C03E000AA74E8 /* TutorialSecondViewModel.swift in Sources */,
 				DA9F8DD529352337007014A5 /* FindEmailorPasswordViewController.swift in Sources */,
+				DA4AB2F5299FCFB7004790BC /* GetRetrospectListResponse.swift in Sources */,
 				DAC1854729196213009D7181 /* NavBar.swift in Sources */,
 				DA0597D829213F2D005DFC79 /* UIButton+.swift in Sources */,
 				DA4E55BA293B796500176B87 /* DateUtil.swift in Sources */,
 				DACB0BCE297F12DB00ABCB8F /* BaseAPI.swift in Sources */,
-				DA6C77B2298FFAC400B80DB9 /* ViewRetrospectViewController.swift in Sources */,
+				DA6C77B2298FFAC400B80DB9 /* RetrospectListViewController.swift in Sources */,
 				DA88B4A02923B95900A4B1B5 /* RetrospectViewModel.swift in Sources */,
 				DA1D1DCB2912716C00878BA3 /* BaseViewController.swift in Sources */,
 				DA9F8DD32935232E007014A5 /* FindEmailorPasswordViewModel.swift in Sources */,
 				DA6C77A2298FD26E00B80DB9 /* NotiViewController.swift in Sources */,
 				DA80CBC0298EBE2400E67212 /* CSViewController.swift in Sources */,
-				DA6C77AE298FFAB800B80DB9 /* ViewRetrospectCoordinator.swift in Sources */,
+				DA6C77AE298FFAB800B80DB9 /* RetrospectListCoordinator.swift in Sources */,
 				DA88B4A62923B96E00A4B1B5 /* MyPageCoordinator.swift in Sources */,
 				DA8A8F322989853B00C63D2B /* PostRetrospectReqeust.swift in Sources */,
 				DA88B4AE2923BF9D00A4B1B5 /* UserKeyChainService.swift in Sources */,

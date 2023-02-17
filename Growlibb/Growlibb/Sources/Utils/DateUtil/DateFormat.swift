@@ -8,6 +8,7 @@
 import Foundation
 
 enum DateFormat {
+    case yyyyMMddKR
     case yyyyMddKR
     case yyyyMKR
     case yyMMdd
@@ -18,6 +19,8 @@ enum DateFormat {
 extension DateFormat {
     var formatString: String {
         switch self {
+        case .yyyyMMddKR:
+            return "yyyy년 MM월 dd일"
         case .yyyyMddKR:
             return "yyyy년 M월 dd일"
         case .yyyyMKR:
@@ -27,7 +30,7 @@ extension DateFormat {
         case .yyyyMDash:
             return "yyyy-MM"
         case .yyyyMddDash:
-            return "yyyy-M-dd"
+            return "yyyy-MM-dd"
         }
     }
 }
