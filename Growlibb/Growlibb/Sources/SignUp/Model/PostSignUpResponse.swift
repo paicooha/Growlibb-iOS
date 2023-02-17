@@ -20,12 +20,12 @@ struct PostSignUpResult: Codable {
     let jwt: String
     let userID: Int
     let email, phoneNumber, nickname: String
-    let seedLevel, point: Int
+    let seedLevel: Int
     let notificationStatus: String
 
     enum CodingKeys: String, CodingKey {
         case jwt
         case userID = "userId"
-        case email, phoneNumber, nickname, seedLevel, point, notificationStatus
+        case email, phoneNumber, nickname, seedLevel, notificationStatus
     }
 }
