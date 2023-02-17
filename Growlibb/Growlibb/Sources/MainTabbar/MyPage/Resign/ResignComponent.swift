@@ -12,13 +12,13 @@ final class ResignComponent {
 
     lazy var viewModel: ResignViewModel = .init()
 
-//    var csComponent: CSComponent {
-//        return CSComponent()
-//    }
-//
-//    var writingPostComponent: WritingMainPostComponent {
-//        return WritingMainPostComponent()
-//    }
+    var modalComponent: ModalComponent {
+        return ModalComponent(whereFrom: "resign")
+    }
+    
+    var loginComponent: LoginComponent {
+        return LoginComponent()
+    }
 //
 //    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
 //        return HomeFilterComponent(filter: filter)

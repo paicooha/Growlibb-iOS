@@ -16,6 +16,7 @@ import UIKit
 class ResignViewController: BaseViewController {
     
     private var userKeyChainService: UserKeychainService
+    private var isCheckBoxOn = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,8 @@ class ResignViewController: BaseViewController {
         
         viewModelInput()
         viewModelOutput()
+        
+        textView.delegate = self
     }
     
     init(viewModel: ResignViewModel) {
@@ -44,10 +47,24 @@ class ResignViewController: BaseViewController {
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
         
+        checkBox.rx.tap
+            .subscribe(onNext: { [self] _ in
+                if self.isCheckBoxOn {
+                    self.isCheckBoxOn = false
+                    self.checkBox.setImage(Asset.icCheckboxGray.image, for: .normal)
+                    self.completeButton.setDisable()
+                }
+                else{
+                    self.isCheckBoxOn = true
+                    self.checkBox.setImage(Asset.icCheckboxBlue.image, for: .normal)
+                    self.completeButton.setEnable()
+                }
+            })
+            .disposed(by: disposeBag)
+        
         completeButton.rx.tap
             .subscribe(onNext: { _ in
-//                self.getAllTextList()
-//                self.viewModel.inputs.complete.onNext(PostRetrospectRequest(done: self.doneTextList, keep: self.keepTextList, problem: self.problemTextList, attempt: self.tryTextList))
+                self.viewModel.inputs.resign.onNext(self.textView.text ?? "")
             })
             .disposed(by: disposeBag)
     }
@@ -76,7 +93,7 @@ class ResignViewController: BaseViewController {
     
     private var guideLabel = UILabel().then { view in
         view.text = L10n.MyPage.Resign.guide
-        view.font = .pretendardMedium12
+        view.font = .pretendardRegular12
         view.numberOfLines = 0
     }
     
@@ -115,6 +132,8 @@ class ResignViewController: BaseViewController {
         view.sizeToFit()
 
         view.font = .pretendardMedium12
+        view.text = L10n.MyPage.Resign.placeholder
+        view.textColor = .gray61
     }
     
     private var completeButton = LongButton().then { view in
@@ -133,6 +152,7 @@ extension ResignViewController {
         view.addSubviews([
             navBar,
             scrollView,
+            completeButton
         ])
         
         scrollView.addSubview(contentView)
@@ -145,7 +165,6 @@ extension ResignViewController {
             resignTitle,
             resignSubTitle,
             textView,
-            completeButton
         ])
     }
 
@@ -177,13 +196,13 @@ extension ResignViewController {
         }
         
         guideLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.leading.equalTo(titleLabel.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-40)
         }
         
         checkBox.snp.makeConstraints { make in
-            make.top.equalTo(guideLabel.snp.bottom).offset(20)
+            make.top.equalTo(guideLabel.snp.bottom).offset(10)
             make.leading.equalTo(titleLabel.snp.leading)
         }
         
@@ -199,7 +218,7 @@ extension ResignViewController {
         
         resignSubTitle.snp.makeConstraints { make in
             make.leading.equalTo(resignTitle.snp.leading)
-            make.top.equalTo(resignTitle.snp.bottom).offset(20)
+            make.top.equalTo(resignTitle.snp.bottom).offset(5)
         }
         
         textView.snp.makeConstraints { make in
@@ -207,13 +226,30 @@ extension ResignViewController {
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
             make.height.equalTo(220)
+            make.bottom.equalTo(contentView.snp.bottom)
         }
         
         completeButton.snp.makeConstraints{ make in
-            make.top.equalTo(textView.snp.bottom).offset(131)
-            make.leading.equalTo(contentView.snp.leading).offset(28)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-42)
+            make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.bottom.equalTo(view.snp.bottom).offset(-44)
+        }
+    }
+}
+
+extension ResignViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) { // textview edit 시작
+        if textView.text == L10n.MyPage.Resign.placeholder {
+            textView.text = nil // placeholder 제거
+            textView.textColor = .black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            // 비어있을 경우 placeholder 노출
+            textView.text = L10n.MyPage.Resign.placeholder
+            textView.textColor = .gray61
         }
     }
 }

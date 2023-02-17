@@ -12,35 +12,37 @@ final class ResignViewModel: BaseViewModel {
 
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        userKeyChainService:UserKeychainService = BasicUserKeyChainService.shared,
         myPageAPIService: MyPageAPIService = MyPageAPIService()
     ) {
         super.init()
         
-//        routeInputs.needUpdate
-//            .flatMap { _ in
-//                myPageAPIService.getMyPage()
-//            }
-//            .subscribe(onNext: { [weak self] result in
-//                switch result {
-//                case let .response(result: result):
-//                    self?.outputs.mypage.onNext(result!)
-//                case let .error(alertMessage):
-//                    if let alertMessage = alertMessage {
-//                        self?.toast.onNext(alertMessage)
-//                    } else {
-//                        self?.toast.onNext("데이터 불러오기에 실패했습니다.")
-//                    }
-//                }
-//                self?.outputs.mypagelist.onNext(self!.myPageList)
-//            })
-//            .disposed(by: disposeBag)
+        inputs.resign
+            .flatMap { myPageAPIService.resign(request: ResignReason(reason: $0))}
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .response(result: _):
+                    loginKeyChainService.clear() //정보 clear
+                    userKeyChainService.clear()
+                    self?.routes.modal.onNext(()) //회원탈퇴 성공 시 회원탈퇴 모달 띄우기
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
         inputs.backward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
     }
 
     struct Input {
-//        var goCS = PublishSubject<Void>()
+        var resign = PublishSubject<String>()
         var backward = PublishSubject<Void>()
     }
 
@@ -62,10 +64,12 @@ final class ResignViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
+        var modal = PublishSubject<Void>()
+        var goLogin = PublishSubject<Void>()
     }
 
     struct RouteInput {
-//        var needUpdate = PublishSubject<Bool>()
+        var goLogin = PublishSubject<Bool>()
 //        var filterChanged = PublishSubject<PostFilter>()
 //        var detailClosed = PublishSubject<Void>()
 //        var postListOrderChanged = PublishSubject<PostListOrder>()

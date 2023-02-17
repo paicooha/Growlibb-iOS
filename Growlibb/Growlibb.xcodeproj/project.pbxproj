@@ -39,6 +39,7 @@
 		DA4AB2EB299E95BE004790BC /* level_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA4AB2E6299E95BE004790BC /* level_1.gif */; };
 		DA4AB2EC299E95BE004790BC /* level_4.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA4AB2E7299E95BE004790BC /* level_4.gif */; };
 		DA4AB2ED299E95BE004790BC /* level_5.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA4AB2E8299E95BE004790BC /* level_5.gif */; };
+		DA4AB2EF299E9957004790BC /* ResignReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2EE299E9957004790BC /* ResignReason.swift */; };
 		DA4E55B129399B0300176B87 /* HomeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B029399B0300176B87 /* HomeDataManager.swift */; };
 		DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B229399BAE00176B87 /* GetHomeResponse.swift */; };
 		DA4E55B8293B78D300176B87 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B7293B78D300176B87 /* DateFormat.swift */; };
@@ -231,6 +232,7 @@
 		DA4AB2E6299E95BE004790BC /* level_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_1.gif; path = ../../../../../Downloads/level_1.gif; sourceTree = "<group>"; };
 		DA4AB2E7299E95BE004790BC /* level_4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_4.gif; path = ../../../../../Downloads/level_4.gif; sourceTree = "<group>"; };
 		DA4AB2E8299E95BE004790BC /* level_5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_5.gif; path = ../../../../../Downloads/level_5.gif; sourceTree = "<group>"; };
+		DA4AB2EE299E9957004790BC /* ResignReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignReason.swift; sourceTree = "<group>"; };
 		DA4E55B029399B0300176B87 /* HomeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataManager.swift; sourceTree = "<group>"; };
 		DA4E55B229399BAE00176B87 /* GetHomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeResponse.swift; sourceTree = "<group>"; };
 		DA4E55B7293B78D300176B87 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 				DA92799D298FBCE400BBA53F /* GetMyPageTabResponse.swift */,
 				DA4AB2E0299E8A26004790BC /* PostCheckPasswordRequest.swift */,
 				DA4AB2E2299E8ABB004790BC /* PatchPasswordRequest.swift */,
+				DA4AB2EE299E9957004790BC /* ResignReason.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1382,6 +1385,7 @@
 				DA0895D0299935A700A1713B /* EditProfileCoordinator.swift in Sources */,
 				DACB0BC9297F117D00ABCB8F /* RetrospectAPIService.swift in Sources */,
 				DA76A148299A98AE00400FBC /* EditNotiCoordinator.swift in Sources */,
+				DA4AB2EF299E9957004790BC /* ResignReason.swift in Sources */,
 				DACF81F8291BDC9100AA74E8 /* MainTabComponent.swift in Sources */,
 				DACF17B6292B7139002734AA /* SignUpFinalViewController.swift in Sources */,
 				DA4E55BD293BAC0200176B87 /* HomeRetrospectTableViewCell.swift in Sources */,

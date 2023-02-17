@@ -19,6 +19,8 @@ final class ModalViewModel: BaseViewModel{
                     self.routes.backward.onNext(())
                 case "logout":
                     self.routes.backward.onNext(())
+                case "resign":
+                    self.routes.backward.onNext(())
                 default:
                     break
                 }

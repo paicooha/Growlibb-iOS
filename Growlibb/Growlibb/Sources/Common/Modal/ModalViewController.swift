@@ -121,7 +121,10 @@ extension ModalViewController {
             emojiLabel.text = L10n.MyPage.Logout.emoji
             descriptionLabel.text = L10n.MyPage.Logout.title
         case "resign":
-            break
+            emojiLabel.text = L10n.MyPage.Resign.Modal.emoji
+            descriptionLabel.text = L10n.MyPage.Resign.Modal.title
+            noButton.isHidden = true
+            yesButton.setTitle(L10n.Confirm.Button.title, for: .normal)
         default:
             break
         }
@@ -152,7 +155,7 @@ extension ModalViewController {
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(emojiLabel.snp.bottom).offset(20)
+            make.top.equalTo(emojiLabel.snp.bottom).offset(15)
             make.centerX.equalTo(sheet.snp.centerX)
         }
         
@@ -174,7 +177,14 @@ extension ModalViewController {
         case "retrospect": //회고와 회원탈퇴일 경우에만 레이아웃이 다름
             break
         case "resign":
-            break
+            yesButton.snp.removeConstraints()
+            yesButton.snp.makeConstraints { make in
+                make.bottom.equalTo(sheet.snp.bottom).offset(-15)
+                make.centerX.equalTo(sheet.snp.centerX)
+                make.width.equalTo(200)
+                make.height.equalTo(39)
+            }
+            
         default:
             break
         }
