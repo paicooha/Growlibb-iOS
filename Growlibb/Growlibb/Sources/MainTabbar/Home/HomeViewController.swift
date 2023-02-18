@@ -575,6 +575,7 @@ extension HomeViewController {
                         
             retrospectListTableView.isHidden = false
             
+            retroSpectList.removeAll()
             retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
             retrospectListTableView.reloadData()
             retrospectListTableView.layoutIfNeeded()
