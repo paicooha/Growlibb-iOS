@@ -1,30 +1,31 @@
 //
-//  ViewRetrospectCoordinator.swift
+//  DetailRetrospectCoordinator.swift
 //  Growlibb
 //
-//  Created by 이유리 on 2023/02/05.
+//  Created by 이유리 on 2023/02/18.
 //
 
 import Foundation
 import RxSwift
 import UIKit
 
-enum RetrospectListResult {
+enum DetailRetrospectResult {
     case backward
+    case showModal
 }
 
-final class RetrospectListCoordinator: BasicCoordinator<RetrospectListResult> {
+final class DetailRetrospectCoordinator: BasicCoordinator<DetailRetrospectResult> {
     // MARK: Lifecycle
-    
-    init(component: RetrospectListComponent, navController: UINavigationController) {
+
+    init(component: DetailRetrospectComponent, navController: UINavigationController) {
         self.component = component
         super.init(navController: navController)
     }
-    
+
     // MARK: Internal
-    
-    var component: RetrospectListComponent
-    
+
+    var component: DetailRetrospectComponent
+
     override func start(animated _: Bool = true) { // VM의 route 바인딩
         let scene = component.scene
         
@@ -37,27 +38,21 @@ final class RetrospectListCoordinator: BasicCoordinator<RetrospectListResult> {
                 switch result {
                 case .backward:
                     self?.navigationController.popViewController(animated: true)
+                case .showModal:
+                    break
                 }
             })
             .disposed(by: sceneDisposeBag)
         
         scene.VM.routes.backward
-            .map { RetrospectListResult.backward }
+            .map { _ in DetailRetrospectResult.backward }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
-        
-        scene.VM.routes.goDetail
-            .subscribe(onNext: { id in
-                self.goRetrospectDetail(retrospectionId: id)
+
+        scene.VM.routes.modify
+            .subscribe(onNext: { [weak self] _ in
+//                self?.gomodifyRetrospect()
             })
             .disposed(by: sceneDisposeBag)
-    }
-    
-    private func goRetrospectDetail(retrospectionId: Int) {
-        
-        let comp = component.retrospectDetailComponent(retrospectionId: retrospectionId)
-        let coord = DetailRetrospectCoordinator(component:comp, navController: navigationController)
-
-        coordinate(coordinator: coord)
     }
 }

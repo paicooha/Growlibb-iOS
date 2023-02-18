@@ -17,6 +17,8 @@ enum MyPageAPI {
     case patchPassword(request: PatchPasswordRequest)
     case resign(request: ResignReason, token: LoginToken)
     case getRetrospectList(page:Int, token:LoginToken)
+    case getRetrospectDetail(retrospectionId: Int, token:LoginToken)
+//    case patchRetrospect(token:LoginToken)
 }
 
 extension MyPageAPI: TargetType {
@@ -42,6 +44,13 @@ extension MyPageAPI: TargetType {
             return "/auth/v1/status"
         case .getRetrospectList:
             return "/retrospection/v1"
+        case let .getRetrospectDetail(retrospectionId, _):
+            return "/retrospection/v1/\(retrospectionId)"
+            //        case .getRetrospectDetail:
+            //            return "/retrospection/v1"
+            //        }
+            //        case .patchRetrospect:
+            //            return "/retrospection/v1"
         }
     }
 
@@ -62,6 +71,13 @@ extension MyPageAPI: TargetType {
         case .resign:
             return Method.patch
         case .getRetrospectList:
+            return Method.get
+            //        case .getRetrospectDetail:
+            //            return Method.get
+            //        }
+            //        case .patchRetrospect:
+            //            return Method.patch
+        case .getRetrospectDetail:
             return Method.get
         }
     }
@@ -84,6 +100,10 @@ extension MyPageAPI: TargetType {
             return .requestJSONEncodable(request)
         case let .getRetrospectList(page, _):
             return .requestParameters(parameters: ["page":page, "size":20], encoding: URLEncoding.default)
+//        case .getRetrospectDetail(retrospectionId, _):
+//            return .requestParameters(parameters: ["retrospectionId":retrospectionId], encoding: URLEncoding.default)
+        case .getRetrospectDetail:
+            return .requestPlain
         }
     }
 
@@ -105,6 +125,8 @@ extension MyPageAPI: TargetType {
         case .patchPassword:
             break
         case let .getRetrospectList(_, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .getRetrospectDetail(_, token):
             header["x-access-token"] = "\(token.jwt)"
         }
         return header

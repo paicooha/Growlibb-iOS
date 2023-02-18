@@ -26,6 +26,7 @@ class RetrospectListViewController: BaseViewController {
         viewModelOutput()
         
         retrospectTableView.dataSource = self
+        retrospectTableView.delegate = self
         
         retrospectTableView.rx.prefetchRows
             .compactMap(\.last?.row)
@@ -132,7 +133,7 @@ extension RetrospectListViewController {
     }
 }
 
-extension RetrospectListViewController: UITableViewDataSource {
+extension RetrospectListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       self.retrospectList.count
     }
@@ -141,5 +142,9 @@ extension RetrospectListViewController: UITableViewDataSource {
       (tableView.dequeueReusableCell(withIdentifier: RetrospectListCell.id, for: indexPath) as! RetrospectListCell).then { view in
           view.prepare(dateString: self.retrospectList[indexPath.row].writtenDate)
       }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.viewModel.inputs.goDetail.onNext(retrospectList[indexPath.row].id)
     }
 }

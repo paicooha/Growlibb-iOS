@@ -42,6 +42,11 @@
 		DA4AB2EF299E9957004790BC /* ResignReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2EE299E9957004790BC /* ResignReason.swift */; };
 		DA4AB2F3299FCB38004790BC /* PatchProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2F2299FCB38004790BC /* PatchProfileRequest.swift */; };
 		DA4AB2F5299FCFB7004790BC /* GetRetrospectListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */; };
+		DA4AB2FA299FF341004790BC /* DetailRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2F9299FF341004790BC /* DetailRetrospectViewController.swift */; };
+		DA4AB2FC299FF347004790BC /* DetailRetrospectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2FB299FF347004790BC /* DetailRetrospectComponent.swift */; };
+		DA4AB2FE299FF34D004790BC /* DetailRetrospectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2FD299FF34D004790BC /* DetailRetrospectViewModel.swift */; };
+		DA4AB300299FF357004790BC /* DetailRetrospectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2FF299FF357004790BC /* DetailRetrospectCoordinator.swift */; };
+		DA4AB303299FF580004790BC /* GetDetailRetrospectResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB302299FF580004790BC /* GetDetailRetrospectResponse.swift */; };
 		DA4E55B129399B0300176B87 /* HomeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B029399B0300176B87 /* HomeDataManager.swift */; };
 		DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B229399BAE00176B87 /* GetHomeResponse.swift */; };
 		DA4E55B8293B78D300176B87 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4E55B7293B78D300176B87 /* DateFormat.swift */; };
@@ -50,6 +55,10 @@
 		DA5B89EC2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B89EB2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift */; };
 		DA5B89EE2974B694008CD739 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B89ED2974B694008CD739 /* ModalViewController.swift */; };
 		DA5D352F293CB56400150FF1 /* LogoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D352E293CB56400150FF1 /* LogoImageView.swift */; };
+		DA68B68329A0CA3700C8177D /* EditRetrospectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68229A0CA3700C8177D /* EditRetrospectComponent.swift */; };
+		DA68B68529A0CA3E00C8177D /* EditRetrospectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68429A0CA3E00C8177D /* EditRetrospectCoordinator.swift */; };
+		DA68B68729A0CA4700C8177D /* EditRetrospectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */; };
+		DA68B68929A0CA4E00C8177D /* EditRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */; };
 		DA69D3BF291E1D30007B982A /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69D3BE291E1D30007B982A /* TextField.swift */; };
 		DA6C77A2298FD26E00B80DB9 /* NotiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */; };
 		DA6C77A4298FD64500B80DB9 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A3298FD64500B80DB9 /* FAQViewController.swift */; };
@@ -237,6 +246,11 @@
 		DA4AB2EE299E9957004790BC /* ResignReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignReason.swift; sourceTree = "<group>"; };
 		DA4AB2F2299FCB38004790BC /* PatchProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchProfileRequest.swift; sourceTree = "<group>"; };
 		DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRetrospectListResponse.swift; sourceTree = "<group>"; };
+		DA4AB2F9299FF341004790BC /* DetailRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRetrospectViewController.swift; sourceTree = "<group>"; };
+		DA4AB2FB299FF347004790BC /* DetailRetrospectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRetrospectComponent.swift; sourceTree = "<group>"; };
+		DA4AB2FD299FF34D004790BC /* DetailRetrospectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRetrospectViewModel.swift; sourceTree = "<group>"; };
+		DA4AB2FF299FF357004790BC /* DetailRetrospectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRetrospectCoordinator.swift; sourceTree = "<group>"; };
+		DA4AB302299FF580004790BC /* GetDetailRetrospectResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailRetrospectResponse.swift; sourceTree = "<group>"; };
 		DA4E55B029399B0300176B87 /* HomeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataManager.swift; sourceTree = "<group>"; };
 		DA4E55B229399BAE00176B87 /* GetHomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeResponse.swift; sourceTree = "<group>"; };
 		DA4E55B7293B78D300176B87 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
@@ -245,6 +259,10 @@
 		DA5B89EB2974B66B008CD739 /* WriteRetrospectTutorialModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectTutorialModalViewController.swift; sourceTree = "<group>"; };
 		DA5B89ED2974B694008CD739 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		DA5D352E293CB56400150FF1 /* LogoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoImageView.swift; sourceTree = "<group>"; };
+		DA68B68229A0CA3700C8177D /* EditRetrospectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectComponent.swift; sourceTree = "<group>"; };
+		DA68B68429A0CA3E00C8177D /* EditRetrospectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectCoordinator.swift; sourceTree = "<group>"; };
+		DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectViewModel.swift; sourceTree = "<group>"; };
+		DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectViewController.swift; sourceTree = "<group>"; };
 		DA69D3BE291E1D30007B982A /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiViewController.swift; sourceTree = "<group>"; };
 		DA6C77A3298FD64500B80DB9 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
@@ -502,6 +520,26 @@
 			path = TutorialModal;
 			sourceTree = "<group>";
 		};
+		DA4AB2F8299FF324004790BC /* DetailRetrospect */ = {
+			isa = PBXGroup;
+			children = (
+				DA4AB2FB299FF347004790BC /* DetailRetrospectComponent.swift */,
+				DA4AB2FF299FF357004790BC /* DetailRetrospectCoordinator.swift */,
+				DA4AB2FD299FF34D004790BC /* DetailRetrospectViewModel.swift */,
+				DA4AB2F9299FF341004790BC /* DetailRetrospectViewController.swift */,
+			);
+			path = DetailRetrospect;
+			sourceTree = "<group>";
+		};
+		DA4AB301299FF565004790BC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */,
+				DA4AB302299FF580004790BC /* GetDetailRetrospectResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DA4E55AE29399AE400176B87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +734,9 @@
 		DA80CBC9298EBF4000E67212 /* RetrospectList */ = {
 			isa = PBXGroup;
 			children = (
+				DA4AB301299FF565004790BC /* Model */,
+				DA80CBCB298EBF5700E67212 /* EditRetrospect */,
+				DA4AB2F8299FF324004790BC /* DetailRetrospect */,
 				DA6C77AB298FFAB100B80DB9 /* RetrospectListComponent.swift */,
 				DA6C77AD298FFAB800B80DB9 /* RetrospectListCoordinator.swift */,
 				DA6C77AF298FFABE00B80DB9 /* RetrospectListViewModel.swift */,
@@ -707,6 +748,10 @@
 		DA80CBCB298EBF5700E67212 /* EditRetrospect */ = {
 			isa = PBXGroup;
 			children = (
+				DA68B68229A0CA3700C8177D /* EditRetrospectComponent.swift */,
+				DA68B68429A0CA3E00C8177D /* EditRetrospectCoordinator.swift */,
+				DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */,
+				DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */,
 			);
 			path = EditRetrospect;
 			sourceTree = "<group>";
@@ -769,7 +814,6 @@
 				DA4AB2E2299E8ABB004790BC /* PatchPasswordRequest.swift */,
 				DA4AB2EE299E9957004790BC /* ResignReason.swift */,
 				DA4AB2F2299FCB38004790BC /* PatchProfileRequest.swift */,
-				DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1053,7 +1097,6 @@
 				DA92799C298FBCB800BBA53F /* Model */,
 				DA80CBB1298EB54B00E67212 /* Cell */,
 				DA80CBC9298EBF4000E67212 /* RetrospectList */,
-				DA80CBCB298EBF5700E67212 /* EditRetrospect */,
 				DA80CBC5298EBF2500E67212 /* EditProfile */,
 				DA76A13C299A947D00400FBC /* EditPhoneNumber */,
 				DA80CBC7298EBF3200E67212 /* EditNoti */,
@@ -1300,6 +1343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DACF17BE292E6E67002734AA /* UserInfo.swift in Sources */,
+				DA4AB303299FF580004790BC /* GetDetailRetrospectResponse.swift in Sources */,
 				DA4AB2E3299E8ABB004790BC /* PatchPasswordRequest.swift in Sources */,
 				DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */,
 				DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */,
@@ -1309,6 +1353,7 @@
 				DACF17C4292F5726002734AA /* PostCheckEmailRequest.swift in Sources */,
 				DA6C77B42990120E00B80DB9 /* EditNotiViewController.swift in Sources */,
 				DACF17C8292F8611002734AA /* PostSignUpResponse.swift in Sources */,
+				DA68B68529A0CA3E00C8177D /* EditRetrospectCoordinator.swift in Sources */,
 				DA8A8F2F2989834900C63D2B /* WriteRetrospectAPIService.swift in Sources */,
 				DA0597D629213EF2005DFC79 /* ShortButton.swift in Sources */,
 				DA76A14E299A9E3800400FBC /* ResignViewModel.swift in Sources */,
@@ -1334,6 +1379,7 @@
 				DACF17C0292F560D002734AA /* SignUpDataManager.swift in Sources */,
 				DACF81DF291BC02800AA74E8 /* LoginKeyChainService.swift in Sources */,
 				DA7FDCD22937902F003C3792 /* PostCheckPhoneRequest.swift in Sources */,
+				DA4AB300299FF357004790BC /* DetailRetrospectCoordinator.swift in Sources */,
 				DA88B4B02923BFF700A4B1B5 /* BasicUserKeyChainService.swift in Sources */,
 				DA0597CE29213CC5005DFC79 /* SignUpFirstCoordinator.swift in Sources */,
 				DA0597D029213CCC005DFC79 /* SignUpFirstViewModel.swift in Sources */,
@@ -1344,11 +1390,13 @@
 				DACF81E6291BC5C300AA74E8 /* LoginComponent.swift in Sources */,
 				DA76A146299A98A300400FBC /* EditNotiComponent.swift in Sources */,
 				DAE5833C2923FF45005F5D6F /* SignUpSecondComponent.swift in Sources */,
+				DA4AB2FC299FF347004790BC /* DetailRetrospectComponent.swift in Sources */,
 				DA5D352F293CB56400150FF1 /* LogoImageView.swift in Sources */,
 				DA80CBB8298EBB5E00E67212 /* MyPageDataSource.swift in Sources */,
 				DA4AB2E1299E8A26004790BC /* PostCheckPasswordRequest.swift in Sources */,
 				DA42978B297300A7003AAA93 /* WriteRetrospectCoordinator.swift in Sources */,
 				DA9CEA67296AACCD00A9A709 /* UIScreen+.swift in Sources */,
+				DA68B68329A0CA3700C8177D /* EditRetrospectComponent.swift in Sources */,
 				DA927999298FBC3500BBA53F /* MyPageAPI.swift in Sources */,
 				DA7FDCD0293782CF003C3792 /* PostFindEmailResponse.swift in Sources */,
 				DA6C77A6298FD65600B80DB9 /* TermsOfUseViewController.swift in Sources */,
@@ -1366,6 +1414,7 @@
 				DA7FDCCA293781E0003C3792 /* PostFindEmailRequest.swift in Sources */,
 				DA88B4AA2923B9A100A4B1B5 /* MyPageViewController.swift in Sources */,
 				DABB110829137C7700FC3FE7 /* UIColor+Zeplin.swift in Sources */,
+				DA4AB2FE299FF34D004790BC /* DetailRetrospectViewModel.swift in Sources */,
 				DA3288A4298AC1B6003BA501 /* WriteRetrospectDataSource.swift in Sources */,
 				DA88B4972923B93800A4B1B5 /* HomeViewModel.swift in Sources */,
 				DA87E117299BD9FA00F6B4B7 /* EditPasswordFirstComponent.swift in Sources */,
@@ -1379,6 +1428,7 @@
 				DADA2F0B291D403C005E6B71 /* Assets+Generated.swift in Sources */,
 				DA6C77AC298FFAB100B80DB9 /* RetrospectListComponent.swift in Sources */,
 				DA6C77A8298FD66000B80DB9 /* PrivacyViewController.swift in Sources */,
+				DA68B68729A0CA4700C8177D /* EditRetrospectViewModel.swift in Sources */,
 				DACF81E2291BC3D400AA74E8 /* LoginToken.swift in Sources */,
 				DACF81FE291BDCAB00AA74E8 /* MainTabbarController.swift in Sources */,
 				DA88B4952923B93200A4B1B5 /* HomeCoordinator.swift in Sources */,
@@ -1399,6 +1449,8 @@
 				DA0597D229213CD3005DFC79 /* SignUpFirstViewController.swift in Sources */,
 				DACF8205291C03CD00AA74E8 /* TutorialSecondViewController.swift in Sources */,
 				DACF81EC291BC5E300AA74E8 /* LoginViewController.swift in Sources */,
+				DA68B68929A0CA4E00C8177D /* EditRetrospectViewController.swift in Sources */,
+				DA4AB2FA299FF341004790BC /* DetailRetrospectViewController.swift in Sources */,
 				DACF81D3291BBDCE00AA74E8 /* BasicCoordinator.swift in Sources */,
 				DACF81F0291BC7BF00AA74E8 /* TutorialFirstCoordinator.swift in Sources */,
 				DA9F8DD129352320007014A5 /* FindEmailorPasswordCoordinator.swift in Sources */,

@@ -12,7 +12,7 @@ final class RetrospectListComponent {
 
     lazy var viewModel: RetrospectListViewModel = .init()
 
-//    var retrospectDetailComponent: RetrospectDetailComponent(retrospectId) {
-//        return EditRetrospectComponent()
-//    }
+    func retrospectDetailComponent(retrospectionId: Int) -> DetailRetrospectComponent {
+        return DetailRetrospectComponent(retrospectionId: retrospectionId)
+    }
 }

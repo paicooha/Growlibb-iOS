@@ -174,4 +174,25 @@ final class MyPageAPIService {
             .timeout(.seconds(2), scheduler: MainScheduler.instance)
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
     }
+    
+    func getDetailRetrospect(retrospectionId: Int) ->
+        Observable<APIResult<GetDetailRetrospectResult?>> {
+        guard let token = loginKeyChain.token
+        else {
+            return .just(.error(alertMessage: nil))
+        }
+
+        return provider.rx.request(.getRetrospectDetail(retrospectionId: retrospectionId, token: token))
+            .asObservable()
+            .mapResponse()
+            .compactMap { try? $0?.json["result"].rawData() ?? nil }
+            .decode(type: GetDetailRetrospectResult?.self, decoder: JSONDecoder())
+            .catch { error in
+                Log.e("\(error)")
+                return .just(nil)
+            } // 에러발생시 nil observable return
+            .map { APIResult.response(result: $0) }
+            .timeout(.seconds(2), scheduler: MainScheduler.instance)
+            .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요"))
+    }
 }

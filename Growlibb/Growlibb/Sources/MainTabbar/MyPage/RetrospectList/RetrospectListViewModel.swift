@@ -43,10 +43,14 @@ final class RetrospectListViewModel: BaseViewModel {
         inputs.backward
             .bind(to: routes.backward)
             .disposed(by: disposeBag)
+        
+        inputs.goDetail
+            .bind(to: routes.goDetail)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
-//        var goCS = PublishSubject<Void>()
+        var goDetail = PublishSubject<Int>()
         var backward = PublishSubject<Void>()
     }
 
@@ -67,6 +71,7 @@ final class RetrospectListViewModel: BaseViewModel {
     }
 
     struct Route {
+        var goDetail = PublishSubject<Int>()
         var backward = PublishSubject<Void>()
     }
 
