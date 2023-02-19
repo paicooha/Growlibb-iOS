@@ -6,3 +6,53 @@
 //
 
 import Foundation
+import RxSwift
+import UIKit
+
+enum EditRetrospectResult {
+    case backward
+    case edited
+}
+
+final class EditRetrospectCoordinator: BasicCoordinator<EditRetrospectResult> {
+    // MARK: Lifecycle
+
+    init(component: EditRetrospectComponent, navController: UINavigationController) {
+        self.component = component
+        super.init(navController: navController)
+    }
+
+    // MARK: Internal
+
+    var component: EditRetrospectComponent
+
+    override func start(animated _: Bool = true) { // VM의 route 바인딩
+        let scene = component.scene
+        
+        navigationController.pushViewController(scene.VC, animated: true)
+        
+        closeSignal
+            .subscribe(onNext: { [weak self] result in
+                Log.d(tag: .lifeCycle, "VC poped")
+
+                switch result {
+                case .backward:
+                    self?.navigationController.popViewController(animated: true)
+                case .edited:
+                    break
+                }
+            })
+            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.backward
+            .map { EditRetrospectResult.backward }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
+
+        scene.VM.routes.edited
+            .subscribe(onNext: { [weak self] _ in
+//                self?.gomodifyRetrospect()
+            })
+            .disposed(by: sceneDisposeBag)
+    }
+}

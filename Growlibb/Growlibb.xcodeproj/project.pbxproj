@@ -76,6 +76,10 @@
 		DA6E2018291D25D300F78173 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6E2017291D25D300F78173 /* Images.xcassets */; };
 		DA6E2022291D2B6500F78173 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6E2024291D2B6500F78173 /* Localizable.strings */; };
 		DA6E3D59293910010084F534 /* PatchFcmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E3D58293910010084F534 /* PatchFcmRequest.swift */; };
+		DA6EAF2029A21F5800BF99ED /* PatchRetrospectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6EAF1F29A21F5800BF99ED /* PatchRetrospectRequest.swift */; };
+		DA6EAF2429A2548C00BF99ED /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6EAF2329A2548C00BF99ED /* UITableView+.swift */; };
+		DA6EAF2729A26AD900BF99ED /* EditRetrospectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6EAF2629A26AD900BF99ED /* EditRetrospectDataSource.swift */; };
+		DA6EAF2929A2707500BF99ED /* EditRetrospectConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6EAF2829A2707500BF99ED /* EditRetrospectConfig.swift */; };
 		DA76A146299A98A300400FBC /* EditNotiComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A145299A98A300400FBC /* EditNotiComponent.swift */; };
 		DA76A148299A98AE00400FBC /* EditNotiCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */; };
 		DA76A14A299A9E2D00400FBC /* ResignComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A149299A9E2D00400FBC /* ResignComponent.swift */; };
@@ -279,6 +283,10 @@
 		DA6E2023291D2B6500F78173 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA6E2025291D2B9800F78173 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA6E3D58293910010084F534 /* PatchFcmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchFcmRequest.swift; sourceTree = "<group>"; };
+		DA6EAF1F29A21F5800BF99ED /* PatchRetrospectRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchRetrospectRequest.swift; sourceTree = "<group>"; };
+		DA6EAF2329A2548C00BF99ED /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		DA6EAF2629A26AD900BF99ED /* EditRetrospectDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectDataSource.swift; sourceTree = "<group>"; };
+		DA6EAF2829A2707500BF99ED /* EditRetrospectConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectConfig.swift; sourceTree = "<group>"; };
 		DA76A145299A98A300400FBC /* EditNotiComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiComponent.swift; sourceTree = "<group>"; };
 		DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiCoordinator.swift; sourceTree = "<group>"; };
 		DA76A149299A9E2D00400FBC /* ResignComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignComponent.swift; sourceTree = "<group>"; };
@@ -536,6 +544,7 @@
 			children = (
 				DA4AB2F4299FCFB7004790BC /* GetRetrospectListResponse.swift */,
 				DA4AB302299FF580004790BC /* GetDetailRetrospectResponse.swift */,
+				DA6EAF1F29A21F5800BF99ED /* PatchRetrospectRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -591,6 +600,15 @@
 				DAE5833A2923FE98005F5D6F /* Final */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		DA6EAF2529A26ACF00BF99ED /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				DA6EAF2629A26AD900BF99ED /* EditRetrospectDataSource.swift */,
+				DA6EAF2829A2707500BF99ED /* EditRetrospectConfig.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		DA76A13C299A947D00400FBC /* EditPhoneNumber */ = {
@@ -748,6 +766,7 @@
 		DA80CBCB298EBF5700E67212 /* EditRetrospect */ = {
 			isa = PBXGroup;
 			children = (
+				DA6EAF2529A26ACF00BF99ED /* Config */,
 				DA68B68229A0CA3700C8177D /* EditRetrospectComponent.swift */,
 				DA68B68429A0CA3E00C8177D /* EditRetrospectCoordinator.swift */,
 				DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */,
@@ -1142,6 +1161,7 @@
 				DACF17B9292E12A2002734AA /* UITextField+.swift */,
 				DA9CEA66296AACCD00A9A709 /* UIScreen+.swift */,
 				DA80CBAE298EA79B00E67212 /* UITextView+.swift */,
+				DA6EAF2329A2548C00BF99ED /* UITableView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1345,6 +1365,7 @@
 				DACF17BE292E6E67002734AA /* UserInfo.swift in Sources */,
 				DA4AB303299FF580004790BC /* GetDetailRetrospectResponse.swift in Sources */,
 				DA4AB2E3299E8ABB004790BC /* PatchPasswordRequest.swift in Sources */,
+				DA6EAF2029A21F5800BF99ED /* PatchRetrospectRequest.swift in Sources */,
 				DAC185442919616F009D7181 /* TutorialFirstViewModel.swift in Sources */,
 				DA4E55B329399BAE00176B87 /* GetHomeResponse.swift in Sources */,
 				DA88B4A82923B97400A4B1B5 /* MyPageViewModel.swift in Sources */,
@@ -1373,6 +1394,7 @@
 				DACF81D6291BBE6300AA74E8 /* AppContext.swift in Sources */,
 				DACF17B2292B7128002734AA /* SignUpFinalCoordinator.swift in Sources */,
 				DACF81FA291BDC9800AA74E8 /* MainTabbarCoordinator.swift in Sources */,
+				DA6EAF2929A2707500BF99ED /* EditRetrospectConfig.swift in Sources */,
 				DA7FDCC8293781C3003C3792 /* FindDataManager.swift in Sources */,
 				DA42978D297300AF003AAA93 /* WriteRetrospectViewModel.swift in Sources */,
 				DA80CBBA298EBE1100E67212 /* CSComponent.swift in Sources */,
@@ -1478,6 +1500,7 @@
 				DA4AB2F5299FCFB7004790BC /* GetRetrospectListResponse.swift in Sources */,
 				DAC1854729196213009D7181 /* NavBar.swift in Sources */,
 				DA0597D829213F2D005DFC79 /* UIButton+.swift in Sources */,
+				DA6EAF2429A2548C00BF99ED /* UITableView+.swift in Sources */,
 				DA4E55BA293B796500176B87 /* DateUtil.swift in Sources */,
 				DACB0BCE297F12DB00ABCB8F /* BaseAPI.swift in Sources */,
 				DA6C77B2298FFAC400B80DB9 /* RetrospectListViewController.swift in Sources */,
@@ -1504,6 +1527,7 @@
 				DA76A14C299A9E3300400FBC /* ResignCoordinator.swift in Sources */,
 				DA95BC2729116D8B003C81CE /* AppDelegate.swift in Sources */,
 				DA7FDCCC29378204003C3792 /* PostFindPasswordRequest.swift in Sources */,
+				DA6EAF2729A26AD900BF99ED /* EditRetrospectDataSource.swift in Sources */,
 				DA9F8DCF29352311007014A5 /* FindEmailorPasswordComponent.swift in Sources */,
 				DACF17B8292B7488002734AA /* Regex.swift in Sources */,
 				DA87E11B299BDA0900F6B4B7 /* EditPasswordFirstViewModel.swift in Sources */,

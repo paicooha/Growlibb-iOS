@@ -23,6 +23,7 @@ struct GetDetailRetrospectResult: Codable {
 
 // MARK: - Attempt
 struct Attempt: Codable {
-    var id: Int
+    var id: Int?
     var content: String
+    var deletionStatus: String?
 }

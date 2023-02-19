@@ -49,7 +49,7 @@ class DetailRetrospectViewController: BaseViewController {
         
         modifyButton.rx.tap
             .subscribe(onNext: { _ in
-
+                self.viewModel.inputs.modify.onNext(self.retrospectionId)
             })
             .disposed(by: disposeBag)
     }

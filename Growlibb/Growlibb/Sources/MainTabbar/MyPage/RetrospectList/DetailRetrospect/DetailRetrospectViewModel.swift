@@ -45,7 +45,7 @@ final class DetailRetrospectViewModel: BaseViewModel {
 
     struct Input {
         var backward = PublishSubject<Void>()
-        var modify = PublishSubject<Void>()
+        var modify = PublishSubject<Int>()
     }
 
     struct Output {
@@ -58,7 +58,7 @@ final class DetailRetrospectViewModel: BaseViewModel {
 
     struct Route {
         var backward = PublishSubject<Void>()
-        var modify = PublishSubject<Void>()
+        var modify = PublishSubject<Int>()
     }
 
     struct RouteInput {

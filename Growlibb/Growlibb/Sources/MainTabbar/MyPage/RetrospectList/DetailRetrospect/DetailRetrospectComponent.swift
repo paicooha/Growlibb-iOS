@@ -22,5 +22,9 @@ final class DetailRetrospectComponent {
     init(retrospectionId: Int) {
         self.retrospectionId = retrospectionId
     }
+    
+    func editRetrospectComponent(retrospectionId: Int) -> EditRetrospectComponent {
+        return EditRetrospectComponent(retrospectionId: retrospectionId)
+    }
 
 }

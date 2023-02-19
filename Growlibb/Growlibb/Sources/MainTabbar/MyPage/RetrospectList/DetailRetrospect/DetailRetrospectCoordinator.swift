@@ -50,9 +50,17 @@ final class DetailRetrospectCoordinator: BasicCoordinator<DetailRetrospectResult
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.modify
-            .subscribe(onNext: { [weak self] _ in
-//                self?.gomodifyRetrospect()
+            .subscribe(onNext: { id in
+                self.goEditRetrospect(retrospectionId: id)
             })
             .disposed(by: sceneDisposeBag)
+    }
+    
+    private func goEditRetrospect(retrospectionId: Int) {
+        
+        let comp = component.editRetrospectComponent(retrospectionId: retrospectionId)
+        let coord = EditRetrospectCoordinator(component:comp, navController: navigationController)
+
+        coordinate(coordinator: coord)
     }
 }
