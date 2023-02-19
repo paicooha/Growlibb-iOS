@@ -11,8 +11,14 @@ import SnapKit
 import Then
 import UIKit
 
-class WriteRetrospectCell: UITableViewCell {
+protocol TextViewDelegate {
+    func updateTextViewHeight(_ cell:WriteRetrospectCell,_ textView:UITextView)
+}
 
+class WriteRetrospectCell: UITableViewCell {
+    
+    var delegate: TextViewDelegate?
+    
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -23,6 +29,7 @@ class WriteRetrospectCell: UITableViewCell {
         
         setup() // cell 세팅
         initialLayout() // cell 레이아웃 설정
+        textView.delegate = self
     }
     
     var disposeBag = DisposeBag()
@@ -63,6 +70,7 @@ class WriteRetrospectCell: UITableViewCell {
 
 extension WriteRetrospectCell {
     private func setup() {
+        selectionStyle = .none
 
         contentView.addSubviews([
             backGround,
@@ -96,4 +104,12 @@ extension WriteRetrospectCell {
 
 extension WriteRetrospectCell {
     static let id: String = "\(WriteRetrospectCell.self)"
+}
+
+extension WriteRetrospectCell: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if let delegate = delegate {
+            delegate.updateTextViewHeight(self, textView)
+        }
+    }
 }

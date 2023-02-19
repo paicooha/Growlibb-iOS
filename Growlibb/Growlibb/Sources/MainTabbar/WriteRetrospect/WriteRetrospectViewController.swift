@@ -108,6 +108,7 @@ class WriteRetrospectViewController: BaseViewController {
             else { return UITableViewCell() }
             
             cell.selectionStyle = .none
+            cell.delegate = self
             
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
@@ -117,9 +118,7 @@ class WriteRetrospectViewController: BaseViewController {
             if indexPath.row != 0 {
                 cell.deleteButton.isHidden = false
             }
-            
-            cell.textView.delegate = self
-            
+                        
             return cell
         }
         
@@ -129,8 +128,15 @@ class WriteRetrospectViewController: BaseViewController {
         
         viewModel.outputs.doneList
             .subscribe({ _ in
+                let newSize = self.doneTableView.sizeThatFits(CGSize(width: self.doneTableView.frame.width,
+                                                            height: CGFloat.greatestFiniteMagnitude))
+
+                    UIView.setAnimationsEnabled(false)
+                self.doneTableView.beginUpdates()
+                self.doneTableView.endUpdates()
+                
                 self.doneTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.doneTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                    make.height.equalTo(newSize)
                 }
             })
             .disposed(by: disposeBag)
@@ -155,7 +161,7 @@ class WriteRetrospectViewController: BaseViewController {
                 cell.deleteButton.isHidden = false
             }
             
-            cell.textView.delegate = self
+            cell.delegate = self
             
             return cell
         }
@@ -191,7 +197,7 @@ class WriteRetrospectViewController: BaseViewController {
                 cell.deleteButton.isHidden = false
             }
             
-            cell.textView.delegate = self
+            cell.delegate = self
             
             return cell
         }
@@ -227,7 +233,7 @@ class WriteRetrospectViewController: BaseViewController {
                 cell.deleteButton.isHidden = false
             }
             
-            cell.textView.delegate = self
+            cell.delegate = self
             
             return cell
         }
@@ -269,6 +275,7 @@ class WriteRetrospectViewController: BaseViewController {
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
+        view.rowHeight = UITableView.automaticDimension
         
         return view
     }()
@@ -277,6 +284,7 @@ class WriteRetrospectViewController: BaseViewController {
         view.setTitle("", for: .normal)
         view.setBackgroundImage(Asset.icPlusButtonGray.image, for: .normal)
         view.imageView?.contentMode = .scaleAspectFill //이미지가 꽉차게 하는 기능
+        view.setDisable()
     }
     
     private var keepTitle = UILabel().then { view in
@@ -560,7 +568,7 @@ extension WriteRetrospectViewController {
         }
         
         donePlusButton.snp.makeConstraints { make in
-            make.top.equalTo(doneTableView.snp.bottom).offset(5)
+            make.top.equalTo(doneTableView.snp.bottom)
             make.leading.trailing.equalTo(doneTableView)
         }
         
@@ -642,6 +650,92 @@ extension WriteRetrospectViewController {
 
 extension WriteRetrospectViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
+        if isAllListNotEmpty() {
+            completeButton.setEnable()
+        }
+        else {
+            completeButton.setDisable()
+        }
+    }
+}
+
+extension WriteRetrospectViewController: TextViewDelegate {
+    func updateTextViewHeight(_ cell: WriteRetrospectCell, _ textView: UITextView) {
+        //셀 텍스트뷰 길이에 맞게 늘어나도록
+        if cell.tableView! == doneTableView {
+            let size = textView.sizeThatFits(textView.bounds.size)
+            let newSize = doneTableView.sizeThatFits(CGSize(width: size.width,
+                                                        height: CGFloat.greatestFiniteMagnitude))
+            cell.backGround.snp.updateConstraints { make in
+                make.height.equalTo(size.height)
+            }
+            
+            if size.height != newSize.height {
+                UIView.setAnimationsEnabled(false)
+                doneTableView.performBatchUpdates({
+                    doneTableView.snp.updateConstraints { make in
+                        make.height.equalTo(newSize)
+                    }
+                })
+                UIView.setAnimationsEnabled(true)
+            }
+        }
+        else if cell.tableView! == keepTableView {
+            let size = textView.sizeThatFits(textView.bounds.size)
+            let newSize = keepTableView.sizeThatFits(CGSize(width: size.width,
+                                                        height: CGFloat.greatestFiniteMagnitude))
+            cell.backGround.snp.updateConstraints { make in
+                make.height.equalTo(size.height)
+            }
+            
+            if size.height != newSize.height {
+                UIView.setAnimationsEnabled(false)
+                keepTableView.performBatchUpdates({
+                    keepTableView.snp.updateConstraints { make in
+                        make.height.equalTo(newSize)
+                    }
+                })
+                UIView.setAnimationsEnabled(true)
+            }
+        }
+        else if cell.tableView! == problemTableView {
+            let size = textView.sizeThatFits(textView.bounds.size)
+            let newSize = problemTableView.sizeThatFits(CGSize(width: size.width,
+                                                        height: CGFloat.greatestFiniteMagnitude))
+            cell.backGround.snp.updateConstraints { make in
+                make.height.equalTo(size.height)
+            }
+            
+            if size.height != newSize.height {
+                UIView.setAnimationsEnabled(false)
+                problemTableView.performBatchUpdates({
+                    problemTableView.snp.updateConstraints { make in
+                        make.height.equalTo(newSize)
+                    }
+                })
+                UIView.setAnimationsEnabled(true)
+            }
+        }
+        else {
+            let size = textView.sizeThatFits(textView.bounds.size)
+            let newSize = tryTableView.sizeThatFits(CGSize(width: size.width,
+                                                        height: CGFloat.greatestFiniteMagnitude))
+            cell.backGround.snp.updateConstraints { make in
+                make.height.equalTo(size.height)
+            }
+            
+            if size.height != newSize.height {
+                UIView.setAnimationsEnabled(false)
+                tryTableView.performBatchUpdates({
+                    tryTableView.snp.updateConstraints { make in
+                        make.height.equalTo(newSize)
+                    }
+                })
+                UIView.setAnimationsEnabled(true)
+            }
+        }
+        
+        //모두 내용이 차있는지 확인
         if isAllListNotEmpty() {
             completeButton.setEnable()
         }
