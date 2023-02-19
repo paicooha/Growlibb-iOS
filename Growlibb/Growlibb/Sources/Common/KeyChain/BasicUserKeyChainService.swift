@@ -17,7 +17,7 @@ final class BasicUserKeyChainService: UserKeychainService {
 
     let keychainWrapper: KeychainWrapper
 
-    var fcmToken: String? {
+    var fcmToken: String {
         get {
             guard let deviceToken: String = keychainWrapper[.User.fcmToken]
             else {

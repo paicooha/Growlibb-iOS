@@ -8,7 +8,7 @@
 import Foundation
 
 protocol UserKeychainService {
-    var fcmToken: String? { get set }
+    var fcmToken: String { get set }
     var nickName: String { get set }
     var level: Int { get set }
 

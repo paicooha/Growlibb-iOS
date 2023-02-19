@@ -6,14 +6,18 @@
 //
 
 import RxSwift
+import FirebaseMessaging
 
 final class EditNotiViewModel: BaseViewModel {
     
+    var fcmToken:String? = nil
+    var userKeyChainService: UserKeychainService
 
     init(
-        loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared,
+        userKeyChainService: UserKeychainService = BasicUserKeyChainService.shared,
         myPageAPIService: MyPageAPIService = MyPageAPIService()
     ) {
+        self.userKeyChainService = userKeyChainService
         super.init()
 
         inputs.backward
@@ -21,13 +25,27 @@ final class EditNotiViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         inputs.pushSwitch
+            .do(onNext: { [self] token in
+                if token != nil {
+                    self.fcmToken = token
+                }
+                else{
+                    self.fcmToken = nil
+                }
+            })
             .flatMap { token in
                 myPageAPIService.patchAlarm(request: PatchFcmRequest(fcmToken: token))
             }
             .subscribe(onNext: { result in
                 switch result {
                 case .response(result: _):
-                    break
+                    if self.fcmToken == nil {
+                        self.userKeyChainService.fcmToken = ""
+                    }
+                    else{
+                        self.userKeyChainService.fcmToken = Messaging.messaging().fcmToken ?? ""
+                    }
+                    print(userKeyChainService.fcmToken)
                 case let .error(alertMessage):
                     if let alertMessage = alertMessage {
                         self.toast.onNext(alertMessage)

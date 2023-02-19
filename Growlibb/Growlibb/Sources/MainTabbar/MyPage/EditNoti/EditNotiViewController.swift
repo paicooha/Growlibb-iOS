@@ -20,6 +20,8 @@ class EditNotiViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
+        
+        print(userKeyChainService.fcmToken)
     }
 
     init(viewModel: EditNotiViewModel) {
@@ -39,8 +41,10 @@ class EditNotiViewController: BaseViewController {
             .bind(to: viewModel.inputs.backward)
             .disposed(by: disposeBag)
         
-        alarmSwitch.rx.isOn
-            .subscribe(onNext: { isOn in
+        alarmSwitch
+             .rx.controlEvent(.valueChanged)
+             .withLatestFrom(alarmSwitch.rx.value)
+             .subscribe(onNext : { isOn in
                 if isOn {
                     let fcmToken = Messaging.messaging().fcmToken ?? ""
                     if fcmToken.isEmpty {
@@ -103,11 +107,11 @@ class EditNotiViewController: BaseViewController {
 
 extension EditNotiViewController {
     private func setupViews() {
-        if userKeyChainService.fcmToken != nil || !userKeyChainService.fcmToken!.isEmpty {
-            alarmSwitch.isOn = true
+        if userKeyChainService.fcmToken == "" {
+            alarmSwitch.isOn = false
         }
         else{
-            alarmSwitch.isOn = false
+            alarmSwitch.isOn = true
         }
         
         view.addSubviews([
