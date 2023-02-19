@@ -36,12 +36,19 @@ final class RetrospectViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         inputs.writeretrospect
-            .bind(to: routes.writeretrospect)
+            .subscribe(onNext: { [self] id in
+                if id == 0 {
+                    routes.writeretrospect.onNext(())
+                }
+                else{
+                    routes.editRetrospect.onNext(id)
+                }
+            })
             .disposed(by: disposeBag)
     }
 
     struct Input {
-        var writeretrospect = PublishSubject<Void>()
+        var writeretrospect = PublishSubject<Int>()
     }
 
     struct Output {
@@ -50,6 +57,7 @@ final class RetrospectViewModel: BaseViewModel {
 
     struct Route {
         var writeretrospect = PublishSubject<Void>()
+        var editRetrospect = PublishSubject<Int>()
     }
 
     struct RouteInput {

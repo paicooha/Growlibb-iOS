@@ -121,7 +121,7 @@ final class WriteRetrospectViewModel: BaseViewModel {
             .subscribe(onNext: { [ weak self] result in
                 switch result {
                 case .response(result: _):
-                    self?.routes.backward.onNext(true)
+                    self?.routes.completed.onNext(())
                 case .error(alertMessage: let alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)
@@ -155,6 +155,7 @@ final class WriteRetrospectViewModel: BaseViewModel {
     struct Route {
         var backward = PublishSubject<Bool>()
         var showTutorial = PublishSubject<Void>()
+        var completed = PublishSubject<Void>()
     }
 
     struct RouteInput {

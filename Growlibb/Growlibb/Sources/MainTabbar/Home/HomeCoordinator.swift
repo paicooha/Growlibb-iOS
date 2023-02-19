@@ -152,6 +152,8 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
 //                vm.routeInputs.needUpdate.onNext(true)
             case .showModal:
                 break
+            case .completed:
+                break
             }
         }
     }

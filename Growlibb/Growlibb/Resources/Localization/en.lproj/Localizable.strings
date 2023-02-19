@@ -122,6 +122,7 @@
 "Main.RetrospectTab.Title" = "회고";
 "Main.MyPage.Title" = "내 메뉴";
 "Main.Button.goRetrospect" = "회고 작성하러 가기 👉🏻";
+"Main.Button.editRetrospect" = "회고 수정하러 가기 👉🏻";
 
 // MARK: - Home
 "Home.title.nickname" = "님, 오늘도 화이팅입니다!";
@@ -202,3 +203,7 @@
 "MyPage.CS.FAQ" = "FAQ";
 "MyPage.CS.yakgwan" = "이용약관";
 "MyPage.CS.privacy" = "개인정보처리방침";
+
+// MARK: - Retrospect
+"Retrospect.Edit.title" = "회고 수정";
+

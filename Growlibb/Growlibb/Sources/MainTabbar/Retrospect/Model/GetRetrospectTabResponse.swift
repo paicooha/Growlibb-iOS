@@ -19,4 +19,5 @@ struct GetRetrospectTabResponse: Decodable {
 struct RetrospectInfo: Decodable {
     var point, needPointForLevel, continuousWritingCount, needContinuousRetrospection: Int
     var gender: String
+    var todayWrittenRetrospectionId: Int
 }

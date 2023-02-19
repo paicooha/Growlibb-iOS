@@ -147,6 +147,8 @@ internal enum L10n {
   }
   internal enum Main {
     internal enum Button {
+      /// 회고 수정하러 가기 👉🏻
+      internal static let editRetrospect = L10n.tr("Localizable", "Main.Button.editRetrospect", fallback: "회고 수정하러 가기 👉🏻")
       /// 회고 작성하러 가기 👉🏻
       internal static let goRetrospect = L10n.tr("Localizable", "Main.Button.goRetrospect", fallback: "회고 작성하러 가기 👉🏻")
     }
@@ -258,6 +260,10 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "No.title", fallback: "아니오")
   }
   internal enum Retrospect {
+    internal enum Edit {
+      /// 회고 수정
+      internal static let title = L10n.tr("Localizable", "Retrospect.Edit.title", fallback: "회고 수정")
+    }
     internal enum Continuous {
       internal enum Description {
         /// 님!

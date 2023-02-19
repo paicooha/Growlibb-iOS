@@ -17,6 +17,8 @@ import Gifu
 class RetrospectViewController: BaseViewController {
     
     var level = 0
+    var retrospectId = 0
+    
     private var userKeyChainService: UserKeychainService
     var dateUtil = DateUtil.shared
     var myeongeonList = [L10n.Retrospect.Myeongeon.first, L10n.Retrospect.Myeongeon.second, L10n.Retrospect.Myeongeon.third, L10n.Retrospect.Myeongeon.fourth, L10n.Retrospect.Myeongeon.fifth]
@@ -46,7 +48,9 @@ class RetrospectViewController: BaseViewController {
 
     private func viewModelInput() {
         goRetrospectButton.rx.tap
-            .bind(to: viewModel.inputs.writeretrospect)
+            .subscribe(onNext: { _ in
+                self.viewModel.inputs.writeretrospect.onNext(self.retrospectId)
+            })
             .disposed(by: disposeBag)
     }
 
@@ -67,6 +71,15 @@ class RetrospectViewController: BaseViewController {
                 self!.pointRightView.label.text = "\(info.needPointForLevel)\(L10n.Retrospect.Morepoint.Description.first)\(self!.userKeyChainService.level+1)\(L10n.Retrospect.Morepoint.Description.second)"
                 self!.countLeftView.label.text = "\(gender)\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Continuous.Description.first)\(info.continuousWritingCount)\(L10n.Retrospect.Continuous.Description.second)"
                 self!.countRightView.label.text = "\(info.needContinuousRetrospection)\(L10n.Retrospect.Morecontinuous.description)"
+                
+                self!.retrospectId = info.todayWrittenRetrospectionId
+                
+                if info.todayWrittenRetrospectionId == 0 {
+                    self!.goRetrospectButton.setTitle(L10n.Main.Button.goRetrospect, for: .normal)
+                }
+                else{
+                    self!.goRetrospectButton.setTitle(L10n.Main.Button.editRetrospect, for: .normal)
+                }
             })
             .disposed(by: disposeBag)
 

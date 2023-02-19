@@ -16,9 +16,9 @@ final class RetrospectComponent {
         return WriteRetrospectComponent()
     }
 
-//    var writingPostComponent: WritingRetr {
-//        return WritingMainPostComponent()
-//    }
+    func editRetrospectComponent(retrospectionId: Int) -> EditRetrospectComponent {
+        return EditRetrospectComponent(retrospectionId: retrospectionId)
+    }
 //
 //    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
 //        return HomeFilterComponent(filter: filter)

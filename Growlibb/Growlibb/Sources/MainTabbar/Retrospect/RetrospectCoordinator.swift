@@ -35,12 +35,11 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
             })
             .disposed(by: sceneDisposeBag)
 //
-//        scene.VM.routes.alarmList
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.pushAlarmListScene(vm: vm, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
+        scene.VM.routes.editRetrospect
+            .subscribe(onNext: { id in
+                self.goEditRetrospect(retrospectionId: id)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushWriteRetrospectScene(vm: RetrospectViewModel) {
@@ -50,23 +49,20 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
         coordinate(coordinator: coord) { coordResult in
             switch coordResult {
             case .backward:
-                vm.routeInputs.needUpdate.onNext(true)
+                break
             case .showModal:
                 break
+            case .completed:
+                vm.routeInputs.needUpdate.onNext(true) //회고 수정하기로 바꿔야함 (작성완료 시)
             }
         }
     }
 //
-//    private func showPostListOrderModal(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.postListOrderModal()
-//        let coord = PostOrderModalCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .ok(order: order):
-//                vm.routeInputs.postListOrderChanged.onNext(order)
-//            case .cancel: break
-//            }
-//        }
-//    }
+    private func goEditRetrospect(retrospectionId: Int) {
+        
+        let comp = component.editRetrospectComponent(retrospectionId: retrospectionId)
+        let coord = EditRetrospectCoordinator(component:comp, navController: navigationController)
+
+        coordinate(coordinator: coord)
+    }
 }

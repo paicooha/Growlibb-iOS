@@ -284,7 +284,6 @@ class WriteRetrospectViewController: BaseViewController {
         view.setTitle("", for: .normal)
         view.setBackgroundImage(Asset.icPlusButtonGray.image, for: .normal)
         view.imageView?.contentMode = .scaleAspectFill //이미지가 꽉차게 하는 기능
-        view.setDisable()
     }
     
     private var keepTitle = UILabel().then { view in

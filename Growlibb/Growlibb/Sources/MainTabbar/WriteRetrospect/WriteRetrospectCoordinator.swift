@@ -10,6 +10,7 @@ import RxSwift
 import UIKit
 
 enum WriteRetrospectResult {
+    case completed
     case backward
     case showModal
 }
@@ -40,6 +41,8 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
                     self?.navigationController.popViewController(animated: true)
                 case .showModal:
                     break
+                case .completed:
+                    self?.navigationController.popViewController(animated: true)
                 }
             })
             .disposed(by: sceneDisposeBag)
@@ -59,6 +62,11 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
             .subscribe(onNext: { [weak self] _ in
                 self?.showWriteRetrospectTutorialModal()
             })
+            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.completed
+            .map { WriteRetrospectResult.completed }
+            .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
 //
 //        scene.VM.routes.writingPost
