@@ -111,10 +111,10 @@ class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
-    private var navBar = NavBar().then { navBar in
-//        navBar.rightBtnItem.isHidden = false
-        navBar.titleLabel.isHidden = true
-    }
+//    private var navBar = NavBar().then { navBar in
+////        navBar.rightBtnItem.isHidden = false
+//        navBar.titleLabel.isHidden = true
+//    }
     
     private var scrollView = UIScrollView().then { view in
         view.showsVerticalScrollIndicator = false
@@ -205,7 +205,6 @@ class MyPageViewController: BaseViewController {
 extension MyPageViewController {
     private func setupViews() {
         view.addSubviews([
-            navBar,
             scrollView,
         ])
         
@@ -223,14 +222,8 @@ extension MyPageViewController {
     }
 
     private func initialLayout() {
-        navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-        }
-        
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.snp.bottom)
@@ -245,7 +238,7 @@ extension MyPageViewController {
         }
         
         profile.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top)
+            make.top.equalTo(contentView.snp.top).offset(58)
             make.centerX.equalTo(contentView.snp.centerX)
             make.width.height.equalTo(100)
         }
