@@ -42,6 +42,8 @@ class WriteRetrospectCell: UITableViewCell {
 //        self.deleteButton.isHidden = true
     }
     
+    var id: Int?
+    
     var backGround = UIView().then { view in
         view.backgroundColor = .veryLightGray
         view.clipsToBounds = true

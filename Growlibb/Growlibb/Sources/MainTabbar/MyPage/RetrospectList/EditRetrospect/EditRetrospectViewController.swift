@@ -14,6 +14,10 @@ import Then
 import UIKit
 
 class EditRetrospectViewController: BaseViewController {
+    var originalDoneList = [Attempt]()
+    var originalKeepList = [Attempt]()
+    var originalProblemList = [Attempt]()
+    var originalTryList = [Attempt]()
     
     var doneList = [Attempt]()
     var keepList = [Attempt]()
@@ -70,9 +74,10 @@ class EditRetrospectViewController: BaseViewController {
         
         donePlusButton.rx.tap
             .subscribe(onNext: { _ in
-                self.completeButton.setDisable()
-                self.doneList.append(Attempt(content: ""))
-                self.doneTableView.insertRows(at: [IndexPath(row: self.doneList.count-1, section: 0)], with: .none)
+//                self.completeButton.setDisable()
+                self.doneList.append(Attempt(id: nil, content: ""))
+                print(self.doneList.count)
+                self.doneTableView.insertRows(at: [IndexPath(row: self.doneList.count-1, section: 0)], with: .fade)
                 
                 self.doneTableView.snp.updateConstraints { make in
                     make.height.equalTo(self.doneTableView.contentSize.height) //스크롤뷰 높이 늘리기
@@ -82,9 +87,9 @@ class EditRetrospectViewController: BaseViewController {
         
         keepPlusButton.rx.tap
             .subscribe(onNext: { _ in
-                self.completeButton.setDisable()
-                self.keepList.append(Attempt(content: ""))
-                self.keepTableView.insertRows(at: [IndexPath(row: self.keepList.count-1, section: 0)], with: .none)
+//                self.completeButton.setDisable()
+                self.keepList.append(Attempt(id: nil, content: ""))
+                self.keepTableView.insertRows(at: [IndexPath(row: self.keepList.count-1, section: 0)], with: .fade)
                 
                 self.keepTableView.snp.updateConstraints { make in
                     make.height.equalTo(self.keepTableView.contentSize.height) //스크롤뷰 높이 늘리기
@@ -94,9 +99,9 @@ class EditRetrospectViewController: BaseViewController {
         
         problemPlusButton.rx.tap
             .subscribe(onNext: { _ in
-                self.completeButton.setDisable()
-                self.problemList.append(Attempt(content: ""))
-                self.problemTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .none)
+//                self.completeButton.setDisable()
+                self.problemList.append(Attempt(id: nil, content: ""))
+                self.problemTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .fade)
                 
                 self.problemTableView.snp.updateConstraints { make in
                     make.height.equalTo(self.problemTableView.contentSize.height) //스크롤뷰 높이 늘리기
@@ -106,9 +111,9 @@ class EditRetrospectViewController: BaseViewController {
         
         tryPlusButton.rx.tap
             .subscribe(onNext: { _ in
-                self.completeButton.setDisable()
-                self.tryList.append(Attempt(content: ""))
-                self.tryTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .none)
+//                self.completeButton.setDisable()
+                self.tryList.append(Attempt(id: nil, content: ""))
+                self.tryTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .fade)
                 
                 self.tryTableView.snp.updateConstraints { make in
                     make.height.equalTo(self.tryTableView.contentSize.height) //스크롤뷰 높이 늘리기
@@ -118,7 +123,12 @@ class EditRetrospectViewController: BaseViewController {
         
         completeButton.rx.tap
             .subscribe(onNext: { _ in
-//                self.viewModel.inputs.complete.onNext(PostRetrospectRequest(done: self.doneTextList, keep: self.keepTextList, problem: self.problemTextList, attempt: self.tryTextList))
+                self.getEditedList()
+                print(self.editedKeepList)
+                print(self.editedProblemList)
+                print(self.editedTryList)
+                print(self.editedDoneList)
+                self.viewModel.inputs.complete.onNext(PatchRetrospectRequest(id: self.retrospectionId, done: self.editedDoneList, keep: self.editedKeepList, problem: self.editedProblemList, attempt: self.editedTryList))
             })
             .disposed(by: disposeBag)
     }
@@ -133,6 +143,7 @@ class EditRetrospectViewController: BaseViewController {
         
         viewModel.outputs.doneList
             .subscribe(onNext: { list in
+                self.originalDoneList.append(contentsOf: list)
                 self.doneList.append(contentsOf: list)
                 self.doneTableView.reloadData()
                 
@@ -145,6 +156,7 @@ class EditRetrospectViewController: BaseViewController {
         
         viewModel.outputs.keepList
             .subscribe(onNext: { list in
+                self.originalKeepList.append(contentsOf: list)
                 self.keepList.append(contentsOf: list)
                 self.keepTableView.reloadData()
                 
@@ -157,6 +169,7 @@ class EditRetrospectViewController: BaseViewController {
         
         viewModel.outputs.problemList
             .subscribe(onNext: { list in
+                self.originalProblemList.append(contentsOf: list)
                 self.problemList.append(contentsOf: list)
                 self.problemTableView.reloadData()
                 
@@ -169,6 +182,7 @@ class EditRetrospectViewController: BaseViewController {
         
         viewModel.outputs.tryList
             .subscribe(onNext: { list in
+                self.originalTryList.append(contentsOf: list)
                 self.tryList.append(contentsOf: list)
                 self.tryTableView.reloadData()
                 
@@ -274,7 +288,7 @@ class EditRetrospectViewController: BaseViewController {
     }
     
     private var completeButton = LongButton().then { view in
-        view.setDisable()
+//        view.setDisable()
         view.setTitle(L10n.Edit.title, for: .normal)
     }
     
@@ -297,7 +311,7 @@ class EditRetrospectViewController: BaseViewController {
     }
     
     func isDoneListNotEmpty() -> Bool {
-        for index in 0..<viewModel.doneCount {
+        for index in 0..<doneList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -309,7 +323,7 @@ class EditRetrospectViewController: BaseViewController {
     }
 
     func isDoneListEmpty() -> Bool {
-        for index in 0..<viewModel.doneCount {
+        for index in 0..<doneList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -321,7 +335,7 @@ class EditRetrospectViewController: BaseViewController {
     }
 
     func isKeepListNotEmpty() -> Bool {
-        for index in 0..<viewModel.keepCount {
+        for index in 0..<keepList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -333,7 +347,7 @@ class EditRetrospectViewController: BaseViewController {
     }
 
     func isKeepListEmpty() -> Bool {
-        for index in 0..<viewModel.keepCount {
+        for index in 0..<keepList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -345,7 +359,7 @@ class EditRetrospectViewController: BaseViewController {
     }
 
     func isProblemListNotEmpty() -> Bool {
-        for index in 0..<viewModel.problemCount {
+        for index in 0..<problemList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -357,7 +371,7 @@ class EditRetrospectViewController: BaseViewController {
     }
 
     func isProblemListEmpty() -> Bool {
-        for index in 0..<viewModel.problemCount {
+        for index in 0..<problemList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -369,7 +383,7 @@ class EditRetrospectViewController: BaseViewController {
     }
 
     func isTryListNotEmpty() -> Bool {
-        for index in 0..<viewModel.tryCount {
+        for index in 0..<tryList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -381,7 +395,7 @@ class EditRetrospectViewController: BaseViewController {
     }
 
     func isTryListEmpty() -> Bool {
-        for index in 0..<viewModel.tryCount {
+        for index in 0..<tryList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -392,49 +406,124 @@ class EditRetrospectViewController: BaseViewController {
         return true
     }
 
-    func getAllTextList() {
-//        self.doneTextList.removeAll()
-//        self.keepTextList.removeAll()
-//        self.problemTextList.removeAll()
-//        self.tryTextList.removeAll()
-//
-//        for index in 0..<viewModel.doneCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                self.doneTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-//            }
-//        }
-//
-//
-//        for index in 0..<viewModel.keepCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                self.keepTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-//            }
-//        }
-//
-//
-//        for index in 0..<viewModel.problemCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                self.problemTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-//            }
-//        }
-//
-//
-//        for index in 0..<viewModel.tryCount {
-//            let indexpath = IndexPath(row: index, section: 0)
-//            if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-//                self.tryTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-//            }
-//        }
+    func getEditedList(){
+        //새로운 내용 추가
+        for index in 0..<doneList.count {
+            if self.doneList[index].id == nil {
+                let indexpath = IndexPath(row: index, section: 0)
+                if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                    
+                    self.editedDoneList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                }
+            }
+        }
+        
+        //이미있는 항목 중 수정된 항목
+        for i in 0..<doneList.count {
+            for j in 0..<originalDoneList.count {
+                if doneList[i].id == originalDoneList[j].id { // 이미 있는 항목
+                    let indexpath = IndexPath(row: i, section: 0)
+                    if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                            
+                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalDoneList[j].content { //수정된 경우
+                            self.editedDoneList.append(RetrospectItem(id: originalDoneList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        }
+                        else{ //수정 안한 경우
+                            self.editedDoneList.append(RetrospectItem(id: originalDoneList[j].id, content: originalDoneList[j].content, deletionStatus: "N"))
+                        }
+                    }
+                }
+            }
+        }
+        
+        //새로운 내용 추가
+        for index in 0..<keepList.count {
+            if self.keepList[index].id == nil {
+                let indexpath = IndexPath(row: index, section: 0)
+                if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                    
+                    self.editedKeepList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                }
+            }
+        }
+        
+        //이미있는 항목 중 수정된 항목
+        for i in 0..<keepList.count {
+            for j in 0..<originalKeepList.count {
+                if keepList[i].id == originalKeepList[j].id { // 이미 있는 항목
+                    let indexpath = IndexPath(row: i, section: 0)
+                    if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                            
+                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalKeepList[j].content { //수정된 경우
+                            self.editedKeepList.append(RetrospectItem(id: originalKeepList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        }
+                        else{ //수정 안한 경우
+                            self.editedKeepList.append(RetrospectItem(id: originalKeepList[j].id, content: originalKeepList[j].content, deletionStatus: "N"))
+                        }
+                    }
+                }
+            }
+        }
+        
+        //새로운 내용 추가
+        for index in 0..<problemList.count {
+            if self.problemList[index].id == nil {
+                let indexpath = IndexPath(row: index, section: 0)
+                if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                    
+                    self.editedProblemList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                }
+            }
+        }
+        
+        //이미있는 항목 중 수정된 항목
+        for i in 0..<problemList.count {
+            for j in 0..<originalProblemList.count {
+                if problemList[i].id == originalProblemList[j].id { // 이미 있는 항목
+                    let indexpath = IndexPath(row: i, section: 0)
+                    if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                            
+                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalProblemList[j].content { //수정된 경우
+                            self.editedProblemList.append(RetrospectItem(id: originalProblemList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        }
+                        else{ //수정 안한 경우
+                            self.editedProblemList.append(RetrospectItem(id: originalProblemList[j].id, content: originalProblemList[j].content, deletionStatus: "N"))
+                        }
+                    }
+                }
+            }
+        }
+        
+        //새로운 내용 추가
+        for index in 0..<tryList.count {
+            if self.tryList[index].id == nil {
+                let indexpath = IndexPath(row: index, section: 0)
+                if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                    
+                    self.editedTryList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                }
+            }
+        }
+        
+        //이미있는 항목 중 수정된 항목
+        for i in 0..<tryList.count {
+            for j in 0..<originalTryList.count {
+                if tryList[i].id == originalTryList[j].id { // 이미 있는 항목
+                    let indexpath = IndexPath(row: i, section: 0)
+                    if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
+                            
+                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalTryList[j].content { //수정된 경우
+                            self.editedTryList.append(RetrospectItem(id: originalTryList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        }
+                        else{ //수정 안한 경우
+                            self.editedTryList.append(RetrospectItem(id: originalTryList[j].id, content: originalTryList[j].content, deletionStatus: "N"))
+                        }
+                    }
+                }
+            }
+        }
+        
     }
-//
-//    func addEditedList(){
-//        for i in doneList {
-//            if i.id != nil
-//        }
-//    }
 }
 
 // MARK: - Layout
@@ -582,12 +671,12 @@ extension EditRetrospectViewController {
 
 extension EditRetrospectViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        if isAllListNotEmpty() {
-            completeButton.setEnable()
-        }
-        else {
-            completeButton.setDisable()
-        }
+//        if isAllListNotEmpty() {
+//            completeButton.setEnable()
+//        }
+//        else {
+//            completeButton.setDisable()
+//        }
     }
 }
 
@@ -611,18 +700,21 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WriteRetrospectCell.id, for: indexPath) as? WriteRetrospectCell
         else { return UITableViewCell() }
         
-        cell.edited = self
         cell.delegate = self
         
         if tableView == doneTableView {
             cell.textView.text = doneList[indexPath.row].content
-    //            cell.delegate = self
+            cell.id = doneList[indexPath.row].id ?? 0
             
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
-                .subscribe(onNext: { id in
-                    self.doneList.remove(at: id)
-                    self.doneTableView.deleteRows(at: [IndexPath(row: self.doneList.count, section:0)], with: .fade)
+                .subscribe(onNext: { index in
+                    if self.doneList[index].id != nil {
+                        self.editedDoneList.append(RetrospectItem(id: self.doneList[index].id, content:self.doneList[index].content, deletionStatus: "Y"))
+                    }
+                    
+                    self.doneList.remove(at: index)
+                    self.doneTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.doneTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.doneTableView.contentSize.height)
                     }
@@ -637,13 +729,17 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
         }
         else if tableView == keepTableView {
             cell.textView.text = keepList[indexPath.row].content
-    //            cell.delegate = self
+            cell.id = keepList[indexPath.row].id ?? 0
             
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
-                .subscribe(onNext: { id in
-                    self.keepList.remove(at: id)
-                    self.keepTableView.deleteRows(at: [IndexPath(row: self.keepList.count, section:0)], with: .fade)
+                .subscribe(onNext: { index in
+                    if self.keepList[index].id != nil {
+                        self.editedKeepList.append(RetrospectItem(id: self.keepList[index].id, content:self.keepList[index].content, deletionStatus: "Y"))
+                    }
+                    
+                    self.keepList.remove(at: index)
+                    self.keepTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.keepTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.keepTableView.contentSize.height)
                     }
@@ -658,13 +754,18 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
         }
         else if tableView == problemTableView {
             cell.textView.text = problemList[indexPath.row].content
-    //            cell.delegate = self
+            cell.id = problemList[indexPath.row].id ?? 0
+
             
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
-                .subscribe(onNext: { id in
-                    self.problemList.remove(at: id)
-                    self.problemTableView.deleteRows(at: [IndexPath(row: self.problemList.count, section:0)], with: .fade)
+                .subscribe(onNext: { index in
+                    if self.problemList[index].id != nil {
+                        self.editedProblemList.append(RetrospectItem(id: self.problemList[index].id, content:self.problemList[index].content, deletionStatus: "Y"))
+                    }
+                    
+                    self.problemList.remove(at: index)
+                    self.problemTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.problemTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.problemTableView.contentSize.height)
                     }
@@ -679,13 +780,17 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
         }
         else {
             cell.textView.text = tryList[indexPath.row].content
-    //            cell.delegate = self
+            cell.id = tryList[indexPath.row].id
             
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
-                .subscribe(onNext: { id in
-                    self.tryList.remove(at: id)
-                    self.tryTableView.deleteRows(at: [IndexPath(row: self.tryList.count, section:0)], with: .fade)
+                .subscribe(onNext: { index in
+                    if self.tryList[index].id != nil {
+                        self.editedTryList.append(RetrospectItem(id: self.tryList[index].id, content:self.tryList[index].content, deletionStatus: "Y"))
+                    }
+                    
+                    self.tryList.remove(at: index)
+                    self.tryTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.tryTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.tryTableView.contentSize.height)
                     }
@@ -701,7 +806,7 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
     }
 }
 
-extension EditRetrospectViewController: EditedTextViewDelegate, TextViewDelegate {
+extension EditRetrospectViewController: TextViewDelegate {
     func updateTextViewHeight(_ cell: WriteRetrospectCell, _ textView: UITextView) {
         if cell.tableView! == doneTableView {
             let size = textView.sizeThatFits(textView.bounds.size)
@@ -775,9 +880,5 @@ extension EditRetrospectViewController: EditedTextViewDelegate, TextViewDelegate
                 UIView.setAnimationsEnabled(true)
             }
         }
-    }
-    
-    func getEditedTextViewId(_ cell: WriteRetrospectCell, _ textView: UITextView) {
-        
     }
 }

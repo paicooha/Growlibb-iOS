@@ -45,8 +45,22 @@ final class EditRetrospectViewModel: BaseViewModel {
         
         inputs.complete
             .flatMap { myPageAPIService.patchRetrospect(request: $0)}
-            .subscribe(onNext: { _ in
-                
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .response(result: result):
+                    if result!.isSuccess {
+                        self?.toast.onNext("회고 수정이 완료되었습니다.")
+                        self?.inputs.backward.onNext(())
+                    }else{
+                        self?.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                    }
+                case let .error(alertMessage):
+                    if let alertMessage = alertMessage {
+                        self?.toast.onNext(alertMessage)
+                    } else {
+                        self?.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
+                    }
+                }
             })
             .disposed(by: disposeBag)
         
