@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import UIKit
 
 enum EditPasswordSecondResult {
@@ -15,6 +16,9 @@ enum EditPasswordSecondResult {
 
 final class EditPasswordSecondCoordinator: BasicCoordinator<EditPasswordSecondResult> {
     // MARK: Lifecycle
+    var window: UIWindow?
+    var appCoordinator: AppCoordinator?
+    var appComponent: AppComponent?
     
     init(component: EditPasswordSecondComponent, navController: UINavigationController) {
         self.component = component
@@ -55,11 +59,7 @@ final class EditPasswordSecondCoordinator: BasicCoordinator<EditPasswordSecondRe
     }
     
     private func goMyPage(animated: Bool) {
-        let comp = component.mainTabComponent
-        let coord = MainTabbarCoordinator(component: comp, navController: navigationController)
+        self.navigationController.popToRootViewController(animated: true)
 
-        coordinate(coordinator: coord, animated: animated)
-        
-        comp.viewModel.routes.myPage.onNext(())
     }
 }
