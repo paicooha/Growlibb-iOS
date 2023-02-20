@@ -21,7 +21,6 @@ class EditNotiViewController: BaseViewController {
         viewModelInput()
         viewModelOutput()
         
-        print(userKeyChainService.fcmToken)
     }
 
     init(viewModel: EditNotiViewModel) {

@@ -87,7 +87,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate: MessagingDelegate {
     func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         Log.d(tag: .info, "FCMToken : \(fcmToken ?? "-")")
-        if BasicUserKeyChainService.shared.fcmToken != "" { //알림설정이 on인 경우에만 받기
+        if !BasicUserKeyChainService.shared.fcmToken.isEmpty { //알림설정이 on인 경우에만 받기
+            print("FCMToken : \(BasicUserKeyChainService.shared.fcmToken)")
             if let fcmToken = fcmToken {
                 BasicUserKeyChainService.shared.fcmToken = fcmToken
             }
