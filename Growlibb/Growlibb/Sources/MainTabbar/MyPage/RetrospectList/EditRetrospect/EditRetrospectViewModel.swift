@@ -50,7 +50,7 @@ final class EditRetrospectViewModel: BaseViewModel {
                 case let .response(result: result):
                     if result!.isSuccess {
                         self?.toast.onNext("회고 수정이 완료되었습니다.")
-                        self?.inputs.backward.onNext(())
+                        self?.routes.edited.onNext(())
                     }else{
                         self?.toast.onNext("오류가 발생했습니다. 다시 시도해주세요")
                     }

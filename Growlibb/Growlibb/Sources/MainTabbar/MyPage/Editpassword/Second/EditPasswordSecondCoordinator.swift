@@ -59,5 +59,7 @@ final class EditPasswordSecondCoordinator: BasicCoordinator<EditPasswordSecondRe
         let coord = MainTabbarCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord, animated: animated)
+        
+        comp.viewModel.routes.myPage.onNext(())
     }
 }

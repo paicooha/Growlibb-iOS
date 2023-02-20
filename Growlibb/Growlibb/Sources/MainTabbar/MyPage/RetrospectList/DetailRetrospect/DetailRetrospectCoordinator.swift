@@ -51,16 +51,24 @@ final class DetailRetrospectCoordinator: BasicCoordinator<DetailRetrospectResult
 
         scene.VM.routes.modify
             .subscribe(onNext: { id in
-                self.goEditRetrospect(retrospectionId: id)
+                self.goEditRetrospect(vm: scene.VM, retrospectionId: id)
             })
             .disposed(by: sceneDisposeBag)
     }
     
-    private func goEditRetrospect(retrospectionId: Int) {
+    private func goEditRetrospect(vm: DetailRetrospectViewModel, retrospectionId: Int) {
         
         let comp = component.editRetrospectComponent(retrospectionId: retrospectionId)
         let coord = EditRetrospectCoordinator(component:comp, navController: navigationController)
-
-        coordinate(coordinator: coord)
+        
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+                
+            case .backward:
+                break
+            case .edited:
+                vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
     }
 }

@@ -39,7 +39,7 @@ final class EditRetrospectCoordinator: BasicCoordinator<EditRetrospectResult> {
                 case .backward:
                     self?.navigationController.popViewController(animated: true)
                 case .edited:
-                    break
+                    self?.navigationController.popViewController(animated: true)
                 }
             })
             .disposed(by: sceneDisposeBag)
@@ -50,9 +50,8 @@ final class EditRetrospectCoordinator: BasicCoordinator<EditRetrospectResult> {
             .disposed(by: sceneDisposeBag)
 
         scene.VM.routes.edited
-            .subscribe(onNext: { [weak self] _ in
-//                self?.gomodifyRetrospect()
-            })
+            .map { EditRetrospectResult.edited }
+            .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
     }
 }

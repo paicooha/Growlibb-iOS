@@ -63,6 +63,13 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
         let comp = component.editRetrospectComponent(retrospectionId: retrospectionId)
         let coord = EditRetrospectCoordinator(component:comp, navController: navigationController)
 
-        coordinate(coordinator: coord)
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case .edited:
+                break
+            }
+        }
     }
 }
