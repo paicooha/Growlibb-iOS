@@ -40,6 +40,8 @@ target 'Growlibb' do
   pod 'Firebase/Messaging'
   # Firebase Crashlytics
   pod 'Firebase/Crashlytics'
+  # Firebase Storage
+  pod 'Firebase/Storage'
 
   # Toast
   pod 'Toast-Swift', '~> 5.0.1'

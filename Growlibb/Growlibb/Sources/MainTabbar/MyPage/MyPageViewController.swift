@@ -82,7 +82,9 @@ class MyPageViewController: BaseViewController {
                 self.seedlevelLabel.text = "\(mypage.seedLevel)"
                 self.pointLabel.text = "\(mypage.point)"
                 self.retrospectLabel.text = "\(mypage.retrospectionCount)"
-                self.profile.kf.setImage(with: URL(string: mypage.profileImageUrl ?? ""), placeholder: Asset.icMyProfile.image)
+                
+                let processor = ResizingImageProcessor(referenceSize: CGSize(width: 100, height: 100)) |> RoundCornerImageProcessor(cornerRadius: 50)
+                self.profile.kf.setImage(with: URL(string: mypage.profileImageUrl ?? ""), placeholder: Asset.icMyProfile.image, options: [.processor(processor)])
             })
             .disposed(by: disposeBag)
         
@@ -124,7 +126,8 @@ class MyPageViewController: BaseViewController {
     }
     
     private var profile = UIImageView().then { view in
-        view.image = Asset.icMyProfile.image
+        view.layer.cornerRadius = view.frame.size.width/2
+        view.clipsToBounds = true
     }
     
     private var nickname = UILabel().then { view in
@@ -244,6 +247,7 @@ extension MyPageViewController {
         profile.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top)
             make.centerX.equalTo(contentView.snp.centerX)
+            make.width.height.equalTo(100)
         }
         
         nickname.snp.makeConstraints { make in

@@ -12,16 +12,21 @@ import Then
 import UIKit
 import SnapKit
 import DropDown
-import FirebaseMessaging
+import FirebaseStorage
+import Kingfisher
+import Photos
 import AnyFormatKit
 
 final class EditProfileViewController: BaseViewController {
+    let storage = Storage.storage() //인스턴스 생성
     
     let jobList = [L10n.Job.it, L10n.Job.man, L10n.Job.pub, L10n.Job.off, L10n.Job.res, L10n.Job.arc, L10n.Job.med,
                    L10n.Job.hel, L10n.Job.pla, L10n.Job.des,
                    L10n.Job.sel, L10n.Job.hou, L10n.Job.stu, L10n.Job.etc, L10n.Job.not]
     private var userKeyChainService: UserKeychainService
     private var loginKeyChainService: LoginKeyChainService
+    
+    let processor = ResizingImageProcessor(referenceSize: CGSize(width: 100, height: 100)) |> RoundCornerImageProcessor(cornerRadius: 50)
     
     //닉네임 중복확인, 생년월일, 직업 체크여부를 확인하기 위한 배열
     var validCheckArray = [false, false, false]
@@ -72,11 +77,11 @@ final class EditProfileViewController: BaseViewController {
         nicknameGuideLabel.isHidden = true
         
         if nicknameTextField.text?.count ?? 0 >= 1 {
-            confirmButton.setEnable()
+            nicknameButton.setEnable()
             checkMaxLength(textField: textField, maxLength: 10)
         }
         else{
-            confirmButton.setDisable()
+            nicknameButton.setDisable()
         }
         confirmButton.setDisable()
     }
@@ -90,7 +95,7 @@ final class EditProfileViewController: BaseViewController {
         
         nicknameButton.rx.tap
             .subscribe({ _ in
-//                self.signUpDataManager.postCheckNickname(viewController: self, nickname: self.nicknameTextField.text!)
+                self.viewModel.inputs.checkNickName.onNext(self.nicknameTextField.text!)
             })
             .disposed(by: disposeBag)
         
@@ -117,79 +122,80 @@ final class EditProfileViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        profileImageView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                let picker = UIImagePickerController()
+                picker.allowsEditing = true
+                picker.delegate = self
+                
+                picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+                PHPhotoLibrary.requestAuthorization { [weak self] status in
+                    DispatchQueue.main.async {
+                        switch status {
+                        case .authorized:
+                            self?.present(picker, animated: true)
+                        default:
+                            AppContext.shared.makeToast("설정화면에서 앨범 접근권한을 설정해주세요")
+                        }
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+                
+        
         confirmButton.rx.tap
             .subscribe({ [self] _ in
                 UserInfo.shared.nickName = self.nicknameTextField.text!
                 UserInfo.shared.birthday = self.birthTextField.text!
-                UserInfo.shared.fcmToken = Messaging.messaging().fcmToken ?? ""
-//                self.signUpDataManager.postSignUp(viewController: self)
+                viewModel.inputs.complete.onNext(())
+                print(UserInfo.shared)
             })
             .disposed(by: disposeBag)
     }
 //
     private func viewModelOutput() {
-//        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-//
-//        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
-//            [weak self] _, collectionView, indexPath, item in
-//
-//                guard let self = self,
-//                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
-//                else { return UICollectionViewCell() }
-//
-//                cell.postInfoView.bookMarkIcon.rx.tap
-//                    .map { indexPath.row }
-//                    .subscribe(onNext: { [weak self] idx in
-//                        self?.viewModel.inputs.tapPostBookMark.onNext(idx)
-//                    })
-//                    .disposed(by: cell.disposeBag)
-//
-//                cell.configure(with: item)
-//                return cell
-//        }
-//
-//        viewModel.outputs.posts
-//            .do(onNext: { [weak self] configs in
-//                self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
-//
-//                if configs.isEmpty {
-//                    self?.emptyLabel.isHidden = false
-//                    switch self?.runningTagInt {
-//                    case 0:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
-//                    case 1:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
-//                    default:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
-//                    }
-//                } else {
-//                    self?.emptyLabel.isHidden = true
-//                }
-//            })
-//            .map { [BasicPostSection(items: $0)] }
-//            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
-//            .disposed(by: disposeBag)
-//
-//        viewModel.toast
-//            .subscribe(onNext: { message in
-//                AppContext.shared.makeToast(message)
-//            })
-//            .disposed(by: disposeBag)
-    }
-
-    private var scrollView = UIScrollView().then { view in
-        view.showsHorizontalScrollIndicator = false
-        view.showsVerticalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.alwaysBounceVertical = false
-    }
-    
-    private var contentView = UIView().then { view in
-        view.translatesAutoresizingMaskIntoConstraints = false
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.mypage
+            .subscribe(onNext: { mypage in
+                self.nicknameTextField.text = mypage.nickname
+                UserInfo.shared.profileUrl = mypage.profileImageUrl
+                
+                self.profileImageView.kf.setImage(with: URL(string: mypage.profileImageUrl ?? ""), placeholder: Asset.icMyProfile.image, options: [.processor(self.processor)])
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.checkNickname
+            .subscribe(onNext: { isValidNickname in
+                if isValidNickname {
+//                    self.confirmButton.setEnable()
+                    self.nicknameGuideLabel.isHidden = false
+                    self.nicknameGuideLabel.text = L10n.SignUp.Nickname.Guidelabel.valid
+                    self.validCheckArray[0] = true
+                }
+                else{
+//                    self.confirmButton.setDisable()
+                    self.nicknameGuideLabel.isHidden = false
+                    self.nicknameGuideLabel.text = L10n.SignUp.Nickname.Guidelabel.exist
+                    self.validCheckArray[0] = false
+                }
+                self.checkAllPass()
+            })
+            .disposed(by: disposeBag)
     }
     
     private var profileImageView = UIImageView().then { view in
         view.image = Asset.icMyProfile.image
+        view.layer.borderWidth = 1.0
+        view.layer.masksToBounds = false
+        view.layer.borderColor = UIColor.clear.cgColor
+        view.layer.cornerRadius = view.frame.size.width / 2
+        view.clipsToBounds = true
     }
     
     private var profileIcon = UIImageView().then { view in
@@ -215,7 +221,7 @@ final class EditProfileViewController: BaseViewController {
 
     private var nicknameButton = ShortButton().then { make in
         make.setTitle(L10n.SignUp.Nickname.checkDuplicate, for: .normal)
-        make.setDisable()
+        make.setEnable() //처음에 서버로 불러와져서 채워져있음
     }
     
     private var nicknameGuideLabel = UILabel().then{ make in
@@ -324,6 +330,23 @@ final class EditProfileViewController: BaseViewController {
             self?.dropdownImageView.image = Asset.icDropdownDown.image
         }
     }
+    
+    func uploadFirebase(image: UIImage) {
+        guard let imageData = image.jpegData(compressionQuality: 0.4) else { return }
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        
+        let imageName = UUID().uuidString + String(Date().timeIntervalSince1970)
+        
+        let firebaseReference = Storage.storage().reference().child("\(imageName)")
+        firebaseReference.putData(imageData, metadata: metaData) { metaData, error in
+            firebaseReference.downloadURL { url, _ in
+                print(url)
+                self.profileImageView.kf.setImage(with: url, placeholder: Asset.icMyProfile.image, options: [.processor(self.processor)])
+                UserInfo.shared.profileUrl = url!.absoluteString
+            }
+        }
+    }
 }
 
 // MARK: - Layout
@@ -334,13 +357,6 @@ extension EditProfileViewController {
         
         view.addSubviews([
             navBar,
-            scrollView,
-            confirmButton
-        ])
-        
-        scrollView.addSubview(contentView)
-        
-        contentView.addSubviews([
             profileImageView,
             nicknameTitleLabel,
             nicknameGuideLabel,
@@ -355,6 +371,7 @@ extension EditProfileViewController {
             jobTitleLabel,
             jobSelectButton,
             dropdownImageView,
+            confirmButton
         ])
         
         profileImageView.addSubview(profileIcon)
@@ -367,24 +384,9 @@ extension EditProfileViewController {
             make.trailing.equalTo(view.snp.trailing)
         }
         
-        scrollView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.snp.bottom)
-        }
-        
-        contentView.snp.makeConstraints{ make in
-            make.top.equalTo(scrollView.snp.top)
-            make.leading.equalTo(scrollView.snp.leading)
-            make.trailing.equalTo(scrollView.snp.trailing)
-            make.bottom.equalTo(scrollView.snp.bottom)
-            make.width.equalTo(scrollView.snp.width)
-        }
-        
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(10)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.top.equalTo(navBar.snp.bottom).offset(10)
+            make.centerX.equalTo(view.snp.centerX)
             make.width.height.equalTo(100)
         }
         
@@ -395,7 +397,7 @@ extension EditProfileViewController {
         
         nicknameTitleLabel.snp.makeConstraints{ make in
             make.top.equalTo(profileImageView.snp.bottom).offset(36)
-            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.leading.equalTo(view.snp.leading).offset(28)
         }
         
         nicknameTextField.snp.makeConstraints{ make in
@@ -412,7 +414,7 @@ extension EditProfileViewController {
         nicknameButton.snp.makeConstraints{ make in
             make.centerY.equalTo(nicknameTextField.snp.centerY)
             make.width.equalTo(98)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
         }
         
         genderTitleLabel.snp.makeConstraints{ make in
@@ -423,13 +425,13 @@ extension EditProfileViewController {
         manButton.snp.makeConstraints{ make in
             make.leading.equalTo(genderTitleLabel.snp.leading)
             make.top.equalTo(genderTitleLabel.snp.bottom).offset(5)
-            make.trailing.equalTo(contentView.snp.centerX).offset(-6)
+            make.trailing.equalTo(view.snp.centerX).offset(-6)
         }
         
         womanButton.snp.makeConstraints{ make in
             make.centerY.equalTo(manButton.snp.centerY)
-            make.leading.equalTo(contentView.snp.centerX).offset(6)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.leading.equalTo(view.snp.centerX).offset(6)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
         }
         
         birthTitleLabel.snp.makeConstraints{ make in
@@ -440,7 +442,7 @@ extension EditProfileViewController {
         birthTextField.snp.makeConstraints{ make in
             make.top.equalTo(birthTitleLabel.snp.bottom).offset(5)
             make.leading.equalTo(birthTitleLabel.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
         }
         
         birthGuideLabel.snp.makeConstraints{ make in
@@ -457,7 +459,7 @@ extension EditProfileViewController {
             make.top.equalTo(jobTitleLabel.snp.bottom).offset(5)
             make.height.equalTo(57)
             make.leading.equalTo(jobTitleLabel.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
         }
         
         dropdownImageView.snp.makeConstraints { make in
@@ -466,10 +468,9 @@ extension EditProfileViewController {
         }
         
         confirmButton.snp.makeConstraints{ make in
-            make.top.equalTo(jobSelectButton.snp.bottom).offset(56)
-            make.leading.equalTo(contentView.snp.leading).offset(28)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.bottom.equalTo(contentView.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
+            make.leading.equalTo(view.snp.leading).offset(28)
+            make.trailing.equalTo(view.snp.trailing).offset(-28)
+            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
     }
 }
@@ -505,5 +506,71 @@ extension EditProfileViewController: UITextFieldDelegate{
         checkAllPass()
         
         return false
+    }
+}
+
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        let originalImage = info[.originalImage] as? UIImage
+        let editedImage = info[.editedImage] as? UIImage
+        
+        uploadFirebase(image: editedImage ?? originalImage!)
+        
+        picker.dismiss(animated: true)
+    }
+
+    func photoAuth() -> Bool {
+        let authorizationState = PHPhotoLibrary.authorizationStatus()
+        var isAuth = false
+
+        switch authorizationState {
+        case .authorized:
+            return true
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { state in
+                if state == .authorized {
+                    isAuth = true
+                }
+            }
+            return isAuth
+        case .restricted:
+            break
+        case .denied:
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+        return false
+    }
+
+    func cameraAuth() -> Bool {
+        return AVCaptureDevice.authorizationStatus(for: .video) == AVAuthorizationStatus.authorized
+    }
+
+    func authSettingOpen(authString: String) {
+        if let AppName = Bundle.main.infoDictionary!["CFBundleName"] as? String {
+            let message = "\(AppName)이(가) \(authString) 접근 허용이 되어있지 않습니다. \r\n 설정화면으로 가시겠습니까?"
+            let alert = UIAlertController(title: "설정", message: message, preferredStyle: .alert)
+
+            let cancel = UIAlertAction(title: "취소", style: .default) { action in
+                alert.dismiss(animated: true, completion: nil)
+                print("\(String(describing: action.title)) 클릭")
+            }
+
+            let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+
+            present(alert, animated: true, completion: nil)
+        }
     }
 }

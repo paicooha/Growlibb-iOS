@@ -18,14 +18,16 @@ enum MyPageAPI {
     case resign(request: ResignReason, token: LoginToken)
     case getRetrospectList(page:Int, token:LoginToken)
     case getRetrospectDetail(retrospectionId: Int, token:LoginToken)
-//    case patchRetrospect(token:LoginToken)
+    case postCheckNickname(request: PostCheckNicknameRequest, token:LoginToken)
+    case patchProfile(request: PatchProfileRequest, token: LoginToken)
+    case patchRetrospect(request: PatchRetrospectRequest, token:LoginToken)
 }
 
 extension MyPageAPI: TargetType {
     var baseURL: URL {
         return BaseAPI.url
     }
-
+    
     var path: String {
         switch self {
         case .getMyPage:
@@ -46,14 +48,15 @@ extension MyPageAPI: TargetType {
             return "/retrospection/v1"
         case let .getRetrospectDetail(retrospectionId, _):
             return "/retrospection/v1/\(retrospectionId)"
-            //        case .getRetrospectDetail:
-            //            return "/retrospection/v1"
-            //        }
-            //        case .patchRetrospect:
-            //            return "/retrospection/v1"
+        case .postCheckNickname:
+            return "/auth/v1/check-nickname"
+        case .patchProfile:
+            return "/auth/v1/profile"
+        case .patchRetrospect:
+            return "/retrospection/v1"
         }
     }
-
+    
     var method: Moya.Method {
         switch self {
         case .getMyPage:
@@ -72,16 +75,17 @@ extension MyPageAPI: TargetType {
             return Method.patch
         case .getRetrospectList:
             return Method.get
-            //        case .getRetrospectDetail:
-            //            return Method.get
-            //        }
-            //        case .patchRetrospect:
-            //            return Method.patch
         case .getRetrospectDetail:
             return Method.get
+        case .postCheckNickname:
+            return Method.post
+        case .patchProfile:
+            return Method.patch
+        case .patchRetrospect:
+            return Method.patch
         }
     }
-
+    
     var task: Task {
         switch self {
         case .getMyPage:
@@ -100,13 +104,17 @@ extension MyPageAPI: TargetType {
             return .requestJSONEncodable(request)
         case let .getRetrospectList(page, _):
             return .requestParameters(parameters: ["page":page, "size":20], encoding: URLEncoding.default)
-//        case .getRetrospectDetail(retrospectionId, _):
-//            return .requestParameters(parameters: ["retrospectionId":retrospectionId], encoding: URLEncoding.default)
         case .getRetrospectDetail:
             return .requestPlain
+        case let .patchProfile(request, _):
+            return .requestJSONEncodable(request)
+        case let .patchRetrospect(request, _):
+            return .requestJSONEncodable(request)
+        case let .postCheckNickname(request, _):
+            return .requestJSONEncodable(request)
         }
     }
-
+    
     var headers: [String: String]? {
         var header = ["x-access-token": ""]
         switch self {
@@ -127,6 +135,12 @@ extension MyPageAPI: TargetType {
         case let .getRetrospectList(_, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .getRetrospectDetail(_, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .postCheckNickname(_, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .patchProfile(_, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .patchRetrospect(_, token):
             header["x-access-token"] = "\(token.jwt)"
         }
         return header

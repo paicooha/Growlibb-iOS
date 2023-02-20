@@ -233,6 +233,7 @@
 		DA1D1DCC2912717700878BA3 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		DA1D1DCE2912717E00878BA3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		DA288A72299CFDEC00D49401 /* RetrospectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectListCell.swift; sourceTree = "<group>"; };
+		DA3158B729A366A10050415E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA3288A3298AC1B6003BA501 /* WriteRetrospectDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectDataSource.swift; sourceTree = "<group>"; };
 		DA42978629730097003AAA93 /* WriteRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectViewController.swift; sourceTree = "<group>"; };
 		DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectComponent.swift; sourceTree = "<group>"; };
@@ -350,7 +351,6 @@
 		DA95BC2D29116D8B003C81CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA95BC2F29116D8D003C81CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA95BC3229116D8D003C81CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DA95BC3429116D8D003C81CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA9CEA66296AACCD00A9A709 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		DA9F8DCE29352311007014A5 /* FindEmailorPasswordComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmailorPasswordComponent.swift; sourceTree = "<group>"; };
 		DA9F8DD029352320007014A5 /* FindEmailorPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmailorPasswordCoordinator.swift; sourceTree = "<group>"; };
@@ -868,8 +868,8 @@
 			isa = PBXGroup;
 			children = (
 				DA4660EC294DA39500940149 /* Growlibb.entitlements */,
-				DA95BC3429116D8D003C81CE /* Info.plist */,
 				DA4660EA294DA03E00940149 /* GoogleService-Info.plist */,
+				DA3158B729A366A10050415E /* Info.plist */,
 				DA95BC2629116D8B003C81CE /* AppDelegate.swift */,
 				DA95BC2829116D8B003C81CE /* SceneDelegate.swift */,
 				DA95BC3A29116D9F003C81CE /* Ignore */,
