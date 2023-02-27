@@ -40,7 +40,7 @@ class HomeViewController: BaseViewController {
         
         retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
 
-        homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: Date(), format: .yyyyMDash))
+//        homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: Date(), format: .yyyyMDash))
     }
 
     init(viewModel: HomeViewModel) {
@@ -71,6 +71,12 @@ class HomeViewController: BaseViewController {
         
         goRetrospectButton.rx.tap
             .bind(to: viewModel.inputs.writeretrospect)
+            .disposed(by: disposeBag)
+        
+        viewModel.routeInputs.needUpdate
+            .subscribe(onNext: { _ in
+                self.homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: Date(), format: .yyyyMDash))
+            })
             .disposed(by: disposeBag)
 //
 //        postCollectionView.rx.itemSelected

@@ -149,11 +149,10 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
             switch coordResult {
             case .backward:
                 break
-//                vm.routeInputs.needUpdate.onNext(true)
             case .showModal:
                 break
             case .completed:
-                break
+                vm.routeInputs.needUpdate.onNext(true)
             }
         }
     }

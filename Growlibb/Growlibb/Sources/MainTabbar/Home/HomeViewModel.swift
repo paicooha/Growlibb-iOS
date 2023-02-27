@@ -13,6 +13,7 @@ final class HomeViewModel: BaseViewModel {
     init(
         loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared
     ) {
+        
         inputs.writeretrospect
             .bind(to: routes.writeretrospect)
             .disposed(by: disposeBag)
@@ -31,7 +32,7 @@ final class HomeViewModel: BaseViewModel {
     }
 
     struct RouteInput {
-//        var needUpdate = PublishSubject<Bool>()
+        var needUpdate = PublishSubject<Bool>()
 //        var filterChanged = PublishSubject<PostFilter>()
 //        var detailClosed = PublishSubject<Void>()
 //        var postListOrderChanged = PublishSubject<PostListOrder>()

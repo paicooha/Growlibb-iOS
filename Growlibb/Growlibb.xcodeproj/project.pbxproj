@@ -872,7 +872,6 @@
 				DA3158B729A366A10050415E /* Info.plist */,
 				DA95BC2629116D8B003C81CE /* AppDelegate.swift */,
 				DA95BC2829116D8B003C81CE /* SceneDelegate.swift */,
-				DA95BC3A29116D9F003C81CE /* Ignore */,
 				DA95BC3B29116DA4003C81CE /* Sources */,
 				DA95BC3C29116DAA003C81CE /* Resources */,
 				DA95BC2A29116D8B003C81CE /* ViewController.swift */,
@@ -880,13 +879,6 @@
 				DA95BC3129116D8D003C81CE /* LaunchScreen.storyboard */,
 			);
 			path = Growlibb;
-			sourceTree = "<group>";
-		};
-		DA95BC3A29116D9F003C81CE /* Ignore */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Ignore;
 			sourceTree = "<group>";
 		};
 		DA95BC3B29116DA4003C81CE /* Sources */ = {

@@ -22,6 +22,7 @@ class MainTabViewController: BaseViewController {
         viewModelOutput()
 
         showSelectedVC(at: 0)
+        viewModel.inputs.homeSelected.onNext(())
     }
 
     init(viewModel: MainTabViewModel) {
