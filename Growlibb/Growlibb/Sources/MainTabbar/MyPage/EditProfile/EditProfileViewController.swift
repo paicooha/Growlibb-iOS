@@ -189,6 +189,15 @@ final class EditProfileViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
+    private var scrollView = UIScrollView().then { view in
+        view.showsVerticalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private var contentView = UIView().then { view in
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private var profileImageView = UIImageView().then { view in
         view.image = Asset.icMyProfile.image
         view.layer.borderWidth = 1.0
@@ -356,6 +365,12 @@ extension EditProfileViewController {
     private func setupViews() {
         
         view.addSubviews([
+            scrollView,
+        ])
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubviews([
             navBar,
             profileImageView,
             nicknameTitleLabel,
@@ -378,10 +393,25 @@ extension EditProfileViewController {
     }
 
     private func initialLayout() {
-        navBar.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints{ make in
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+            make.width.equalTo(scrollView.snp.width)
+        }
+        
+        navBar.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
         }
         
         profileImageView.snp.makeConstraints { make in
@@ -468,9 +498,10 @@ extension EditProfileViewController {
         }
         
         confirmButton.snp.makeConstraints{ make in
-            make.leading.equalTo(view.snp.leading).offset(28)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
+            make.top.equalTo(dropdownImageView.snp.bottom).offset(56)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.bottom.equalTo(contentView.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? -42 : -22)
         }
     }
 }
