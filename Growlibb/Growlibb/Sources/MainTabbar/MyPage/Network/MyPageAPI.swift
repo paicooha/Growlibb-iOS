@@ -19,6 +19,7 @@ enum MyPageAPI {
     case getRetrospectList(page:Int, token:LoginToken)
     case getRetrospectDetail(retrospectionId: Int, token:LoginToken)
     case postCheckNickname(request: PostCheckNicknameRequest, token:LoginToken)
+    case getProfile(token: LoginToken)
     case patchProfile(request: PatchProfileRequest, token: LoginToken)
     case patchRetrospect(request: PatchRetrospectRequest, token:LoginToken)
 }
@@ -54,6 +55,8 @@ extension MyPageAPI: TargetType {
             return "/auth/v1/profile"
         case .patchRetrospect:
             return "/retrospection/v1"
+        case .getProfile:
+            return "/auth/v1/profile"
         }
     }
     
@@ -83,6 +86,8 @@ extension MyPageAPI: TargetType {
             return Method.patch
         case .patchRetrospect:
             return Method.patch
+        case .getProfile:
+            return Method.get
         }
     }
     
@@ -112,6 +117,8 @@ extension MyPageAPI: TargetType {
             return .requestJSONEncodable(request)
         case let .postCheckNickname(request, _):
             return .requestJSONEncodable(request)
+        case let .getProfile:
+            return .requestPlain
         }
     }
     
@@ -141,6 +148,8 @@ extension MyPageAPI: TargetType {
         case let .patchProfile(_, token):
             header["x-access-token"] = "\(token.jwt)"
         case let .patchRetrospect(_, token):
+            header["x-access-token"] = "\(token.jwt)"
+        case let .getProfile(token):
             header["x-access-token"] = "\(token.jwt)"
         }
         return header

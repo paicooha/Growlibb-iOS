@@ -32,6 +32,7 @@
 		DA42978B297300A7003AAA93 /* WriteRetrospectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */; };
 		DA42978D297300AF003AAA93 /* WriteRetrospectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42978C297300AF003AAA93 /* WriteRetrospectViewModel.swift */; };
 		DA4660EB294DA03E00940149 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA4660EA294DA03E00940149 /* GoogleService-Info.plist */; };
+		DA46A19229ACE8B200CDD597 /* GetMyProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA46A19129ACE8B200CDD597 /* GetMyProfileResponse.swift */; };
 		DA4AB2E1299E8A26004790BC /* PostCheckPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2E0299E8A26004790BC /* PostCheckPasswordRequest.swift */; };
 		DA4AB2E3299E8ABB004790BC /* PatchPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AB2E2299E8ABB004790BC /* PatchPasswordRequest.swift */; };
 		DA4AB2E9299E95BE004790BC /* level_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA4AB2E4299E95BE004790BC /* level_3.gif */; };
@@ -241,6 +242,7 @@
 		DA42978C297300AF003AAA93 /* WriteRetrospectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectViewModel.swift; sourceTree = "<group>"; };
 		DA4660EA294DA03E00940149 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA4660EC294DA39500940149 /* Growlibb.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Growlibb.entitlements; sourceTree = "<group>"; };
+		DA46A19129ACE8B200CDD597 /* GetMyProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyProfileResponse.swift; sourceTree = "<group>"; };
 		DA4AB2E0299E8A26004790BC /* PostCheckPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCheckPasswordRequest.swift; sourceTree = "<group>"; };
 		DA4AB2E2299E8ABB004790BC /* PatchPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchPasswordRequest.swift; sourceTree = "<group>"; };
 		DA4AB2E4299E95BE004790BC /* level_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = level_3.gif; path = ../../../../../Downloads/level_3.gif; sourceTree = "<group>"; };
@@ -833,6 +835,7 @@
 				DA4AB2E2299E8ABB004790BC /* PatchPasswordRequest.swift */,
 				DA4AB2EE299E9957004790BC /* ResignReason.swift */,
 				DA4AB2F2299FCB38004790BC /* PatchProfileRequest.swift */,
+				DA46A19129ACE8B200CDD597 /* GetMyProfileResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1439,6 +1442,7 @@
 				DA8A8F2D2989833800C63D2B /* WriteRetrospectAPI.swift in Sources */,
 				DA288A73299CFDEC00D49401 /* RetrospectListCell.swift in Sources */,
 				DACF17B0292B7121002734AA /* SignUpFinalComponent.swift in Sources */,
+				DA46A19229ACE8B200CDD597 /* GetMyProfileResponse.swift in Sources */,
 				DADA2F0B291D403C005E6B71 /* Assets+Generated.swift in Sources */,
 				DA6C77AC298FFAB100B80DB9 /* RetrospectListComponent.swift in Sources */,
 				DA6C77A8298FD66000B80DB9 /* PrivacyViewController.swift in Sources */,

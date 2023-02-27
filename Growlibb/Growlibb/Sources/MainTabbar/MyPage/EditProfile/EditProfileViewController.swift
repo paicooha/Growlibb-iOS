@@ -29,7 +29,7 @@ final class EditProfileViewController: BaseViewController {
     let processor = ResizingImageProcessor(referenceSize: CGSize(width: 100, height: 100)) |> RoundCornerImageProcessor(cornerRadius: 50)
     
     //닉네임 중복확인, 생년월일, 직업 체크여부를 확인하기 위한 배열
-    var validCheckArray = [false, false, false]
+    var validCheckArray = [true, true, true]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,14 +76,15 @@ final class EditProfileViewController: BaseViewController {
         validCheckArray[0] = false
         nicknameGuideLabel.isHidden = true
         
-        if nicknameTextField.text?.count ?? 0 >= 1 {
+        if nicknameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0 >= 1 && nicknameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) != UserInfo.shared.nickName {
             nicknameButton.setEnable()
             checkMaxLength(textField: textField, maxLength: 10)
         }
         else{
+            validCheckArray[0] = true
             nicknameButton.setDisable()
         }
-        confirmButton.setDisable()
+        checkAllPass()
     }
     
     private var viewModel: EditProfileViewModel
@@ -163,10 +164,29 @@ final class EditProfileViewController: BaseViewController {
         
         viewModel.outputs.mypage
             .subscribe(onNext: { mypage in
+                UserInfo.shared.nickName = mypage.nickname
                 self.nicknameTextField.text = mypage.nickname
-                UserInfo.shared.profileUrl = mypage.profileImageUrl
                 
+                UserInfo.shared.profileUrl = mypage.profileImageUrl
                 self.profileImageView.kf.setImage(with: URL(string: mypage.profileImageUrl ?? ""), placeholder: Asset.icMyProfile.image, options: [.processor(self.processor)])
+                
+                UserInfo.shared.job = mypage.job
+                self.jobSelectButton.setTitle(mypage.job, for: .normal)
+                self.jobSelectButton.setTitleColor(.black, for: .normal)
+
+                UserInfo.shared.birthday = mypage.birthday
+                self.birthTextField.text = mypage.birthday
+                
+                if mypage.gender == "M" {
+                    self.manButton.setBlueButton()
+                    self.womanButton.setGrayButton()
+                    UserInfo.shared.gender = "M"
+                }
+                else{
+                    self.manButton.setGrayButton()
+                    self.womanButton.setBlueButton()
+                    UserInfo.shared.gender = "F"
+                }
             })
             .disposed(by: disposeBag)
         
@@ -230,7 +250,7 @@ final class EditProfileViewController: BaseViewController {
 
     private var nicknameButton = ShortButton().then { make in
         make.setTitle(L10n.SignUp.Nickname.checkDuplicate, for: .normal)
-        make.setEnable() //처음에 서버로 불러와져서 채워져있음
+        make.setDisable() //처음에 변경 전이기 때문에 비활성화함
     }
     
     private var nicknameGuideLabel = UILabel().then{ make in
@@ -300,7 +320,7 @@ final class EditProfileViewController: BaseViewController {
     
     private var confirmButton = LongButton().then { make in
         make.setTitle(L10n.Edit.title, for: .normal)
-        make.setDisable()
+        make.setEnable() //처음엔 다 채워져있기때문에 enable
     }
     
     private func setDropdown(){

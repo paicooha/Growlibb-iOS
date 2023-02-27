@@ -19,7 +19,7 @@ final class EditProfileViewModel: BaseViewModel {
         
         routeInputs.needUpdate
             .flatMap { _ in
-                myPageAPIService.getMyPage()
+                myPageAPIService.getMyProfile()
             }
             .subscribe(onNext: { [weak self] result in
                 switch result {
@@ -90,7 +90,7 @@ final class EditProfileViewModel: BaseViewModel {
     }
 
     struct Output {
-        var mypage = ReplaySubject<MyPage>.create(bufferSize: 1)
+        var mypage = ReplaySubject<MyProfile>.create(bufferSize: 1)
         var checkNickname = PublishSubject<Bool>()
 //        var mypagelist = ReplaySubject<[String]>.create(bufferSize: 1)
 //        var refresh = PublishSubject<Void>()
