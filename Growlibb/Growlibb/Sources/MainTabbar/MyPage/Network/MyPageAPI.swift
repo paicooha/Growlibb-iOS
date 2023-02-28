@@ -117,7 +117,7 @@ extension MyPageAPI: TargetType {
             return .requestJSONEncodable(request)
         case let .postCheckNickname(request, _):
             return .requestJSONEncodable(request)
-        case let .getProfile:
+        case .getProfile:
             return .requestPlain
         }
     }
