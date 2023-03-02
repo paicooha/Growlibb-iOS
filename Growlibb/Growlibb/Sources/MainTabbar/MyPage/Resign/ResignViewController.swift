@@ -126,7 +126,7 @@ class ResignViewController: BaseViewController {
         view.isScrollEnabled = false
         view.showsVerticalScrollIndicator = false
         
-        view.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 0)
+        view.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         view.layer.cornerRadius = 12
         view.clipsToBounds = true
         view.sizeToFit()
