@@ -16,4 +16,8 @@ extension UITextView {
         
         return Int(estimatedSize.height / (self.font!.lineHeight))
     }
+    
+    func isEmpty() -> Bool {
+        return (self.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "").isEmpty
+    }
 }

@@ -143,6 +143,7 @@
 		DA95BC2E29116D8B003C81CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA95BC2C29116D8B003C81CE /* Main.storyboard */; };
 		DA95BC3029116D8D003C81CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA95BC2F29116D8D003C81CE /* Assets.xcassets */; };
 		DA95BC3329116D8D003C81CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA95BC3129116D8D003C81CE /* LaunchScreen.storyboard */; };
+		DA977F4529B0FCB70043CC3E /* RetrospectPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA977F4429B0FCB70043CC3E /* RetrospectPlusButton.swift */; };
 		DA9CEA67296AACCD00A9A709 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9CEA66296AACCD00A9A709 /* UIScreen+.swift */; };
 		DA9F8DCF29352311007014A5 /* FindEmailorPasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F8DCE29352311007014A5 /* FindEmailorPasswordComponent.swift */; };
 		DA9F8DD129352320007014A5 /* FindEmailorPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F8DD029352320007014A5 /* FindEmailorPasswordCoordinator.swift */; };
@@ -353,6 +354,7 @@
 		DA95BC2D29116D8B003C81CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA95BC2F29116D8D003C81CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA95BC3229116D8D003C81CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DA977F4429B0FCB70043CC3E /* RetrospectPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectPlusButton.swift; sourceTree = "<group>"; };
 		DA9CEA66296AACCD00A9A709 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		DA9F8DCE29352311007014A5 /* FindEmailorPasswordComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmailorPasswordComponent.swift; sourceTree = "<group>"; };
 		DA9F8DD029352320007014A5 /* FindEmailorPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmailorPasswordCoordinator.swift; sourceTree = "<group>"; };
@@ -955,6 +957,7 @@
 				DA69D3BE291E1D30007B982A /* TextField.swift */,
 				DA0597D529213EF2005DFC79 /* ShortButton.swift */,
 				DA5D352E293CB56400150FF1 /* LogoImageView.swift */,
+				DA977F4429B0FCB70043CC3E /* RetrospectPlusButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1457,6 +1460,7 @@
 				DACC7F6E29895A5400C17F1E /* WriteRetrospectCell.swift in Sources */,
 				DA42978729730097003AAA93 /* WriteRetrospectViewController.swift in Sources */,
 				DA0895D0299935A700A1713B /* EditProfileCoordinator.swift in Sources */,
+				DA977F4529B0FCB70043CC3E /* RetrospectPlusButton.swift in Sources */,
 				DACB0BC9297F117D00ABCB8F /* RetrospectAPIService.swift in Sources */,
 				DA76A148299A98AE00400FBC /* EditNotiCoordinator.swift in Sources */,
 				DA4AB2EF299E9957004790BC /* ResignReason.swift in Sources */,
