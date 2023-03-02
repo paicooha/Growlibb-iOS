@@ -74,7 +74,9 @@ class EditRetrospectViewController: BaseViewController {
         
         donePlusButton.rx.tap
             .subscribe(onNext: { _ in
-//                self.completeButton.setDisable()
+                self.completeButton.setDisable()
+                self.donePlusButton.setDisable()
+                
                 self.doneList.append(Attempt(id: nil, content: ""))
                 print(self.doneList.count)
                 self.doneTableView.insertRows(at: [IndexPath(row: self.doneList.count-1, section: 0)], with: .fade)
@@ -87,7 +89,9 @@ class EditRetrospectViewController: BaseViewController {
         
         keepPlusButton.rx.tap
             .subscribe(onNext: { _ in
-//                self.completeButton.setDisable()
+                self.completeButton.setDisable()
+                self.keepPlusButton.setDisable()
+                
                 self.keepList.append(Attempt(id: nil, content: ""))
                 self.keepTableView.insertRows(at: [IndexPath(row: self.keepList.count-1, section: 0)], with: .fade)
                 
@@ -99,7 +103,9 @@ class EditRetrospectViewController: BaseViewController {
         
         problemPlusButton.rx.tap
             .subscribe(onNext: { _ in
-//                self.completeButton.setDisable()
+                self.completeButton.setDisable()
+                self.problemPlusButton.setDisable()
+
                 self.problemList.append(Attempt(id: nil, content: ""))
                 self.problemTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .fade)
                 
@@ -111,7 +117,9 @@ class EditRetrospectViewController: BaseViewController {
         
         tryPlusButton.rx.tap
             .subscribe(onNext: { _ in
-//                self.completeButton.setDisable()
+                self.completeButton.setDisable()
+                self.tryPlusButton.setDisable()
+
                 self.tryList.append(Attempt(id: nil, content: ""))
                 self.tryTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .fade)
                 
@@ -221,10 +229,8 @@ class EditRetrospectViewController: BaseViewController {
         return view
     }()
     
-    private var donePlusButton = LongButton().then { view in //MARK: - 플러스 버튼 활성화 로직 고민
-        view.setTitle("", for: .normal)
-        view.setBackgroundImage(Asset.icPlusButtonGray.image, for: .normal)
-        view.imageView?.contentMode = .scaleAspectFill //이미지가 꽉차게 하는 기능
+    private var donePlusButton = RetrospectPlusButton().then { view in
+        view.setEnable()
     }
     
     private var keepTitle = UILabel().then { view in
@@ -241,10 +247,8 @@ class EditRetrospectViewController: BaseViewController {
         return view
     }()
     
-    private var keepPlusButton = LongButton().then { view in
-        view.setTitle("", for: .normal)
-        view.setBackgroundImage(Asset.icPlusButtonGray.image, for: .normal)
-        view.imageView?.contentMode = .scaleAspectFill
+    private var keepPlusButton = RetrospectPlusButton().then { view in
+        view.setEnable()
     }
     
     private var problemTitle = UILabel().then { view in
@@ -261,10 +265,8 @@ class EditRetrospectViewController: BaseViewController {
         return view
     }()
     
-    private var problemPlusButton = LongButton().then { view in
-        view.setTitle("", for: .normal)
-        view.setBackgroundImage(Asset.icPlusButtonGray.image, for: .normal)
-        view.imageView?.contentMode = .scaleAspectFill
+    private var problemPlusButton = RetrospectPlusButton().then { view in
+        view.setEnable()
     }
     
     private var tryTitle = UILabel().then { view in
@@ -281,14 +283,12 @@ class EditRetrospectViewController: BaseViewController {
         return view
     }()
     
-    private var tryPlusButton = LongButton().then { view in
-        view.setTitle("", for: .normal)
-        view.setBackgroundImage(Asset.icPlusButtonGray.image, for: .normal)
-        view.imageView?.contentMode = .scaleAspectFill
+    private var tryPlusButton = RetrospectPlusButton().then { view in
+        view.setEnable()
     }
     
     private var completeButton = LongButton().then { view in
-//        view.setDisable()
+        view.setEnable() //처음엔 내용이 다 있으므로
         view.setTitle(L10n.Edit.title, for: .normal)
     }
     
@@ -314,7 +314,7 @@ class EditRetrospectViewController: BaseViewController {
         for index in 0..<doneList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if cell.textView.isEmpty(){
                     return false
                 }
             }
@@ -669,17 +669,6 @@ extension EditRetrospectViewController {
     }
 }
 
-extension EditRetrospectViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-//        if isAllListNotEmpty() {
-//            completeButton.setEnable()
-//        }
-//        else {
-//            completeButton.setDisable()
-//        }
-    }
-}
-
 extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == doneTableView {
@@ -718,6 +707,20 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.doneTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.doneTableView.contentSize.height)
                     }
+                    
+                    if self.isDoneListEmpty() {
+                        self.donePlusButton.setDisable()
+                    }
+                    else{
+                        self.donePlusButton.setEnable()
+                        
+                        if self.isAllListNotEmpty() {
+                            self.completeButton.setEnable()
+                        }
+                        else{
+                            self.completeButton.setDisable()
+                        }
+                    }
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -742,6 +745,20 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.keepTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.keepTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.keepTableView.contentSize.height)
+                    }
+                    
+                    if self.isKeepListEmpty() {
+                        self.keepPlusButton.setDisable()
+                    }
+                    else{
+                        self.keepPlusButton.setEnable()
+                        
+                        if self.isAllListNotEmpty() {
+                            self.completeButton.setEnable()
+                        }
+                        else{
+                            self.completeButton.setDisable()
+                        }
                     }
                 })
                 .disposed(by: cell.disposeBag)
@@ -769,6 +786,20 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.problemTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.problemTableView.contentSize.height)
                     }
+                    
+                    if self.isProblemListEmpty() {
+                        self.problemPlusButton.setDisable()
+                    }
+                    else{
+                        self.problemPlusButton.setEnable()
+                        
+                        if self.isAllListNotEmpty() {
+                            self.completeButton.setEnable()
+                        }
+                        else{
+                            self.completeButton.setDisable()
+                        }
+                    }
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -794,6 +825,20 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.tryTableView.snp.updateConstraints { make in
                         make.height.equalTo(self.tryTableView.contentSize.height)
                     }
+                    
+                    if self.isTryListEmpty() {
+                        self.tryPlusButton.setDisable()
+                    }
+                    else{
+                        self.tryPlusButton.setEnable()
+                        
+                        if self.isAllListNotEmpty() {
+                            self.completeButton.setEnable()
+                        }
+                        else{
+                            self.completeButton.setDisable()
+                        }
+                    }
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -807,8 +852,23 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
 }
 
 extension EditRetrospectViewController: TextViewDelegate {
-    func updateTextViewHeight(_ cell: WriteRetrospectCell, _ textView: UITextView) {
+    func textViewDidChange(_ cell: WriteRetrospectCell, _ textView: UITextView) {
         if cell.tableView! == doneTableView {
+            if isDoneListNotEmpty() { //내용이 모두 차있을 때
+                donePlusButton.setEnable()
+                
+                if isAllListNotEmpty() {
+                    completeButton.setEnable()
+                }
+                else{
+                    completeButton.setDisable()
+                }
+            }
+            else{
+                donePlusButton.setDisable()
+                completeButton.setDisable()
+            }
+            
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = doneTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
@@ -827,6 +887,21 @@ extension EditRetrospectViewController: TextViewDelegate {
             }
         }
         else if cell.tableView! == keepTableView {
+            if isKeepListNotEmpty() { //내용이 모두 차있을 때
+                keepPlusButton.setEnable()
+                
+                if isAllListNotEmpty() {
+                    completeButton.setEnable()
+                }
+                else{
+                    completeButton.setDisable()
+                }
+            }
+            else{
+                keepPlusButton.setDisable()
+                completeButton.setDisable()
+            }
+            
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = keepTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
@@ -845,6 +920,21 @@ extension EditRetrospectViewController: TextViewDelegate {
             }
         }
         else if cell.tableView! == problemTableView {
+            if isProblemListNotEmpty() { //내용이 모두 차있을 때
+                problemPlusButton.setEnable()
+                
+                if isAllListNotEmpty() {
+                    completeButton.setEnable()
+                }
+                else{
+                    completeButton.setDisable()
+                }
+            }
+            else{
+                problemPlusButton.setDisable()
+                completeButton.setDisable()
+            }
+            
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = problemTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
@@ -863,6 +953,21 @@ extension EditRetrospectViewController: TextViewDelegate {
             }
         }
         else {
+            if isTryListNotEmpty() { //내용이 모두 차있을 때
+                tryPlusButton.setEnable()
+                
+                if isAllListNotEmpty() {
+                    completeButton.setEnable()
+                }
+                else{
+                    completeButton.setDisable()
+                }
+            }
+            else{
+                tryPlusButton.setDisable()
+                completeButton.setDisable()
+            }
+            
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = tryTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
