@@ -225,8 +225,7 @@ extension DetailRetrospectViewController {
     private func setupViews() {
         view.addSubviews([
             navBar,
-            scrollView,
-            modifyButton,
+            scrollView
         ])
         
         scrollView.addSubview(contentView)
@@ -240,6 +239,7 @@ extension DetailRetrospectViewController {
             problemTableView,
             tryTitle,
             tryTableView,
+            modifyButton
         ])
     }
 
@@ -254,7 +254,7 @@ extension DetailRetrospectViewController {
             make.top.equalTo(navBar.snp.bottom)
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(modifyButton.snp.top).offset(-20)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         contentView.snp.makeConstraints{ make in
@@ -314,9 +314,10 @@ extension DetailRetrospectViewController {
         }
         
         modifyButton.snp.makeConstraints{ make in
-            make.leading.equalTo(view.snp.leading).offset(28)
-            make.trailing.equalTo(view.snp.trailing).offset(-28)
-            make.bottom.equalTo(view.snp.bottom).offset(-42)
+            make.top.equalTo(tryTableView.snp.bottom).offset(60)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-42)
         }
     }
 }
