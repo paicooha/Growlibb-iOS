@@ -123,7 +123,7 @@ extension MyPageAPI: TargetType {
     }
     
     var headers: [String: String]? {
-        var header = ["x-access-token": ""]
+        var header = ["x-access-token": "", "Platform":"iOS"]
         switch self {
         case let .getMyPage(token):
             header["x-access-token"] = "\(token.jwt)"

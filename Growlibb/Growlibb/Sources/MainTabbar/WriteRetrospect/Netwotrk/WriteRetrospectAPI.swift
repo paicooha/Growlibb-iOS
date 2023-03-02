@@ -39,7 +39,7 @@ extension WriteRetrospectAPI: TargetType {
     }
 
     var headers: [String: String]? {
-        var header = ["x-access-token": "", "type":"iOS"]
+        var header = ["x-access-token": "", "Platform":"iOS"]
         switch self {
         case let .postRetrospect(_, token):
             header["x-access-token"] = "\(token.jwt)"
