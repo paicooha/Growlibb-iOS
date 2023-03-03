@@ -1227,6 +1227,7 @@
 				DA95BC2029116D8B003C81CE /* Frameworks */,
 				DA95BC2129116D8B003C81CE /* Resources */,
 				4661280D7FC2C05B550098DB /* [CP] Embed Pods Frameworks */,
+				DA76579329B1CC3C0017ED72 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1312,6 +1313,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Growlibb/Pods-Growlibb-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DA76579329B1CC3C0017ED72 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\n",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		DA945F0A291D2E260050F54E /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1709,6 +1729,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2ATZ5H5VN5;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
