@@ -589,7 +589,7 @@ extension EditRetrospectViewController {
         }
         
         donePlusButton.snp.makeConstraints { make in
-            make.top.equalTo(doneTableView.snp.bottom).offset(5)
+            make.top.equalTo(doneTableView.snp.bottom)
             make.leading.trailing.equalTo(doneTableView)
         }
         
@@ -610,7 +610,7 @@ extension EditRetrospectViewController {
         }
         
         keepPlusButton.snp.makeConstraints { make in
-            make.top.equalTo(keepTableView.snp.bottom).offset(5)
+            make.top.equalTo(keepTableView.snp.bottom)
             make.leading.trailing.equalTo(keepTableView)
         }
         
@@ -631,7 +631,7 @@ extension EditRetrospectViewController {
         }
         
         problemPlusButton.snp.makeConstraints { make in
-            make.top.equalTo(problemTableView.snp.bottom).offset(5)
+            make.top.equalTo(problemTableView.snp.bottom)
             make.leading.trailing.equalTo(problemTableView)
         }
         
@@ -652,7 +652,7 @@ extension EditRetrospectViewController {
         }
         
         tryPlusButton.snp.makeConstraints { make in
-            make.top.equalTo(tryTableView.snp.bottom).offset(5)
+            make.top.equalTo(tryTableView.snp.bottom)
             make.leading.trailing.equalTo(tryTableView)
         }
         
