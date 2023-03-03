@@ -12,7 +12,7 @@ import Then
 import UIKit
 
 protocol TextViewDelegate {
-    func updateTextViewHeight(_ cell:WriteRetrospectCell,_ textView:UITextView)
+    func textViewDidChange(_ cell:WriteRetrospectCell,_ textView:UITextView)
 }
 
 class WriteRetrospectCell: UITableViewCell {
@@ -106,12 +106,13 @@ extension WriteRetrospectCell {
 
 extension WriteRetrospectCell {
     static let id: String = "\(WriteRetrospectCell.self)"
+    static let height: Int = 44
 }
 
 extension WriteRetrospectCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if let delegate = delegate {
-            delegate.updateTextViewHeight(self, textView)
+            delegate.textViewDidChange(self, textView)
         }
     }
 }
