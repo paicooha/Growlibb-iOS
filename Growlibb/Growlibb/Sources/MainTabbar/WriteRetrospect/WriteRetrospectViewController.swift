@@ -32,7 +32,7 @@ class WriteRetrospectViewController: BaseViewController {
             viewModel.inputs.showTutorial.onNext(())
         }
         
-        viewModel.routeInputs.needUpdate.onNext(true)
+//        viewModel.routeInputs.needUpdate.onNext(true)
     }
     
     init(viewModel: WriteRetrospectViewModel) {
@@ -113,10 +113,10 @@ class WriteRetrospectViewController: BaseViewController {
             
             cell.selectionStyle = .none
             cell.delegate = self
+            cell.textView.text = ""
             
             cell.deleteButton.rx.tap
-                .map { indexPath.row }
-                .subscribe(onNext: { index in
+                .subscribe(onNext: { _ in
                     if self.isDoneListEmpty() {
                         self.donePlusButton.setDisable()
                     }
@@ -131,7 +131,7 @@ class WriteRetrospectViewController: BaseViewController {
                         }
                     }
                     
-                    self.viewModel.inputs.deleteDone.onNext(index)
+                    self.viewModel.inputs.deleteDone.onNext(self.doneTableView.indexPath(for: cell)!.row)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -173,8 +173,7 @@ class WriteRetrospectViewController: BaseViewController {
             cell.selectionStyle = .none
             
             cell.deleteButton.rx.tap
-                .map { indexPath.row }
-                .subscribe(onNext: { index in
+                .subscribe(onNext: { _ in
                     if self.isKeepListEmpty() {
                         self.keepPlusButton.setDisable()
                     }
@@ -189,7 +188,7 @@ class WriteRetrospectViewController: BaseViewController {
                         }
                     }
                     
-                    self.viewModel.inputs.deleteKeep.onNext(index)
+                    self.viewModel.inputs.deleteKeep.onNext(self.keepTableView.indexPath(for: cell)!.row)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -225,9 +224,8 @@ class WriteRetrospectViewController: BaseViewController {
             cell.selectionStyle = .none
             
             cell.deleteButton.rx.tap
-                .map { indexPath.row }
-                .subscribe(onNext: { index in
-                    if self.isKeepListEmpty() {
+                .subscribe(onNext: { _ in
+                    if self.isProblemListEmpty() {
                         self.problemPlusButton.setDisable()
                     }
                     else{
@@ -241,7 +239,7 @@ class WriteRetrospectViewController: BaseViewController {
                         }
                     }
                     
-                    self.viewModel.inputs.deleteProblem.onNext(index)
+                    self.viewModel.inputs.deleteProblem.onNext(self.problemTableView.indexPath(for: cell)!.row)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -279,7 +277,7 @@ class WriteRetrospectViewController: BaseViewController {
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
                 .subscribe(onNext: { index in
-                    if self.isKeepListEmpty() {
+                    if self.isTryListEmpty() {
                         self.tryPlusButton.setDisable()
                     }
                     else{
@@ -293,8 +291,7 @@ class WriteRetrospectViewController: BaseViewController {
                         }
                     }
                     
-                    self.viewModel.inputs.deleteTry.onNext(index)
-                })
+                    self.viewModel.inputs.deleteTry.onNext(self.tryTableView.indexPath(for: cell)!.row)})
                 .disposed(by: cell.disposeBag)
             
             if indexPath.row != 0 {
@@ -640,7 +637,7 @@ extension WriteRetrospectViewController {
         }
         
         keepPlusButton.snp.makeConstraints { make in
-            make.top.equalTo(keepTableView.snp.bottom).offset(5)
+            make.top.equalTo(keepTableView.snp.bottom)
             make.leading.trailing.equalTo(keepTableView)
         }
         
@@ -661,7 +658,7 @@ extension WriteRetrospectViewController {
         }
         
         problemPlusButton.snp.makeConstraints { make in
-            make.top.equalTo(problemTableView.snp.bottom).offset(5)
+            make.top.equalTo(problemTableView.snp.bottom)
             make.leading.trailing.equalTo(problemTableView)
         }
         
@@ -682,7 +679,7 @@ extension WriteRetrospectViewController {
         }
         
         tryPlusButton.snp.makeConstraints { make in
-            make.top.equalTo(tryTableView.snp.bottom).offset(5)
+            make.top.equalTo(tryTableView.snp.bottom)
             make.leading.trailing.equalTo(tryTableView)
         }
         
