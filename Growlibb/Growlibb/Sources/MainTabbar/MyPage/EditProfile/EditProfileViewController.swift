@@ -428,6 +428,10 @@ extension EditProfileViewController {
             make.width.equalTo(scrollView.snp.width)
         }
         
+        navBar.topNotchView.snp.updateConstraints { make in
+            make.height.equalTo(0)
+        }
+        
         navBar.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
