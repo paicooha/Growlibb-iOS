@@ -114,6 +114,7 @@ final class WriteRetrospectViewModel: BaseViewModel {
                 switch result {
                 case .response(result: _):
                     self?.routes.completed.onNext(())
+                    self?.toast.onNext("오늘의 회고 작성이 완료되었습니다.")
                 case .error(alertMessage: let alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)
