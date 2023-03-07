@@ -111,7 +111,6 @@ class WriteRetrospectViewController: BaseViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WriteRetrospectCell.id, for: indexPath) as? WriteRetrospectCell
             else { return UITableViewCell() }
             
-            cell.selectionStyle = .none
             cell.delegate = self
             cell.textView.text = ""
             
@@ -129,8 +128,9 @@ class WriteRetrospectViewController: BaseViewController {
                         else{
                             self.completeButton.setDisable()
                         }
+                        
                     }
-                    
+                    guard self.doneTableView.indexPath(for: cell) != nil else { return }
                     self.viewModel.inputs.deleteDone.onNext(self.doneTableView.indexPath(for: cell)!.row)
                 })
                 .disposed(by: cell.disposeBag)
@@ -170,7 +170,8 @@ class WriteRetrospectViewController: BaseViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WriteRetrospectCell.id, for: indexPath) as? WriteRetrospectCell
             else { return UITableViewCell() }
             
-            cell.selectionStyle = .none
+            cell.delegate = self
+            cell.textView.text = ""
             
             cell.deleteButton.rx.tap
                 .subscribe(onNext: { _ in
@@ -188,6 +189,7 @@ class WriteRetrospectViewController: BaseViewController {
                         }
                     }
                     
+                    guard (self.keepTableView.indexPath(for: cell) != nil) else { return }
                     self.viewModel.inputs.deleteKeep.onNext(self.keepTableView.indexPath(for: cell)!.row)
                 })
                 .disposed(by: cell.disposeBag)
@@ -195,9 +197,7 @@ class WriteRetrospectViewController: BaseViewController {
             if indexPath.row != 0 {
                 cell.deleteButton.isHidden = false
             }
-            
-            cell.delegate = self
-            
+                        
             return cell
         }
         
@@ -221,7 +221,8 @@ class WriteRetrospectViewController: BaseViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WriteRetrospectCell.id, for: indexPath) as? WriteRetrospectCell
             else { return UITableViewCell() }
             
-            cell.selectionStyle = .none
+            cell.delegate = self
+            cell.textView.text = ""
             
             cell.deleteButton.rx.tap
                 .subscribe(onNext: { _ in
@@ -239,6 +240,7 @@ class WriteRetrospectViewController: BaseViewController {
                         }
                     }
                     
+                    guard (self.problemTableView.indexPath(for: cell) != nil) else { return }
                     self.viewModel.inputs.deleteProblem.onNext(self.problemTableView.indexPath(for: cell)!.row)
                 })
                 .disposed(by: cell.disposeBag)
@@ -246,9 +248,7 @@ class WriteRetrospectViewController: BaseViewController {
             if indexPath.row != 0 {
                 cell.deleteButton.isHidden = false
             }
-            
-            cell.delegate = self
-            
+                        
             return cell
         }
         
@@ -272,7 +272,8 @@ class WriteRetrospectViewController: BaseViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WriteRetrospectCell.id, for: indexPath) as? WriteRetrospectCell
             else { return UITableViewCell() }
             
-            cell.selectionStyle = .none
+            cell.delegate = self
+            cell.textView.text = ""
             
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
@@ -291,15 +292,16 @@ class WriteRetrospectViewController: BaseViewController {
                         }
                     }
                     
-                    self.viewModel.inputs.deleteTry.onNext(self.tryTableView.indexPath(for: cell)!.row)})
+                    self.viewModel.toast.onNext(self.tryTableView.indexPath(for: cell)!.row.description)
+                    self.viewModel.inputs.deleteTry.onNext(self.tryTableView.indexPath(for: cell)!.row)
+                    
+                })
                 .disposed(by: cell.disposeBag)
             
             if indexPath.row != 0 {
                 cell.deleteButton.isHidden = false
             }
-            
-            cell.delegate = self
-            
+                        
             return cell
         }
         
@@ -419,7 +421,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isDoneListNotEmpty() -> Bool {
-        for index in 0..<viewModel.doneCount {
+        for index in 0..<self.viewModel.outputs.doneList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -431,7 +433,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isDoneListEmpty() -> Bool {
-        for index in 0..<viewModel.doneCount {
+        for index in 0..<self.viewModel.outputs.doneList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -443,7 +445,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isKeepListNotEmpty() -> Bool {
-        for index in 0..<viewModel.keepCount {
+        for index in 0..<self.viewModel.outputs.keepList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -455,7 +457,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isKeepListEmpty() -> Bool {
-        for index in 0..<viewModel.keepCount {
+        for index in 0..<self.viewModel.outputs.keepList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -467,7 +469,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isProblemListNotEmpty() -> Bool {
-        for index in 0..<viewModel.problemCount {
+        for index in 0..<self.viewModel.outputs.problemList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -479,7 +481,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isProblemListEmpty() -> Bool {
-        for index in 0..<viewModel.problemCount {
+        for index in 0..<self.viewModel.outputs.problemList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -491,7 +493,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isTryListNotEmpty() -> Bool {
-        for index in 0..<viewModel.tryCount {
+        for index in 0..<self.viewModel.outputs.tryList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -503,7 +505,7 @@ class WriteRetrospectViewController: BaseViewController {
     }
     
     func isTryListEmpty() -> Bool {
-        for index in 0..<viewModel.tryCount {
+        for index in 0..<self.viewModel.outputs.tryList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -520,7 +522,7 @@ class WriteRetrospectViewController: BaseViewController {
         self.problemTextList.removeAll()
         self.tryTextList.removeAll()
         
-        for index in 0..<viewModel.doneCount {
+        for index in 0..<self.viewModel.outputs.doneList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 self.doneTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -528,7 +530,7 @@ class WriteRetrospectViewController: BaseViewController {
         }
         
 
-        for index in 0..<viewModel.keepCount {
+        for index in 0..<self.viewModel.outputs.keepList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 self.keepTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -536,7 +538,7 @@ class WriteRetrospectViewController: BaseViewController {
         }
         
 
-        for index in 0..<viewModel.problemCount {
+        for index in 0..<self.viewModel.outputs.doneList.value[0].items.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                 self.problemTextList.append(cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
