@@ -426,7 +426,6 @@ extension HomeViewController {
             make.trailing.equalTo(scrollView.snp.trailing)
             make.bottom.equalTo(scrollView.snp.bottom)
             make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(scrollView.snp.height).priority(.low)
         }
         
         logo.snp.makeConstraints{ make in
@@ -463,7 +462,7 @@ extension HomeViewController {
             make.top.equalTo(calendarHeaderTitle.snp.bottom).offset(30)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
-            make.height.equalToSuperview().multipliedBy(0.3)
+            make.height.equalTo(230)
         }
         
         retrospectTitle.snp.makeConstraints { make in
@@ -490,8 +489,8 @@ extension HomeViewController {
             make.top.equalTo(noRetrospectView.snp.bottom).offset(15)
             make.leading.equalTo(retrospectTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+            make.bottom.equalToSuperview().offset(-21)
             make.height.equalTo(50)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-21)
         }
     }
 }
@@ -574,6 +573,23 @@ extension HomeViewController {
         if result.latestRetrospectionInfos.isEmpty{
             noRetrospectView.isHidden = false
             goRetrospectButton.isHidden = false
+            
+            retrospectListTableView.snp.removeConstraints()
+            
+            noRetrospectView.snp.makeConstraints{ make in
+                make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
+                make.leading.equalTo(retrospectTitle.snp.leading)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+                make.height.equalTo(124)
+            }
+            
+            goRetrospectButton.snp.makeConstraints{ make in
+                make.top.equalTo(noRetrospectView.snp.bottom).offset(15)
+                make.leading.equalTo(retrospectTitle.snp.leading)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+                make.bottom.equalToSuperview().offset(-21)
+                make.height.equalTo(50)
+            }
         }
         else{ //회고 데이터가 있을 경우
             noRetrospectView.isHidden = true
@@ -585,12 +601,16 @@ extension HomeViewController {
             retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
             retrospectListTableView.reloadData()
             retrospectListTableView.layoutIfNeeded()
-                
-            retrospectListTableView.snp.updateConstraints { make in
+            
+            noRetrospectView.snp.removeConstraints()
+            goRetrospectButton.snp.removeConstraints()
+            
+            retrospectListTableView.snp.makeConstraints{ make in
+                make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
+                make.leading.equalTo(retrospectTitle.snp.leading)
+                make.trailing.equalTo(contentView.snp.trailing).offset(-28)
+                make.bottom.equalToSuperview().offset(-21)
                 make.height.equalTo(66 * retroSpectList.count)
-            }
-            noRetrospectView.snp.updateConstraints{ make in
-                make.height.equalTo(66 * retroSpectList.count - 65)
             }
         }
         
