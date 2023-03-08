@@ -37,7 +37,6 @@ final class AppCoordinator: BasicCoordinator<Void> {
     var component: AppComponent
 
     override func start(animated _: Bool = true) {
-        BasicLoginKeyChainService.shared.clearIfFirstLaunched()
         window.makeKeyAndVisible()
         
         if UserDefaults.standard.bool(forKey: "isPassedTutorial"){
@@ -49,6 +48,10 @@ final class AppCoordinator: BasicCoordinator<Void> {
             }
         }
         else{
+            //삭제 또는 재설치한 경우이므로 keychain 초기화
+            userKeyChainService.clear()
+            loginKeyChainService.clear()
+            
             self.showTutorial(animated: true)
         }
     }
