@@ -463,11 +463,11 @@ extension HomeViewController {
             make.top.equalTo(calendarHeaderTitle.snp.bottom).offset(30)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
-            make.height.equalTo(200) //추후에 높이 수정해야함
+            make.height.equalToSuperview().multipliedBy(0.3)
         }
         
         retrospectTitle.snp.makeConstraints { make in
-            make.top.equalTo(calendar.snp.bottom).offset(UIScreen.main.isWiderThan375pt ? 52 : 26)
+            make.top.equalTo(calendar.snp.bottom).offset(26)
             make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
