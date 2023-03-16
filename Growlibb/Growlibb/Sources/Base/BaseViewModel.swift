@@ -9,17 +9,6 @@ import UIKit
 import RxSwift
 
 class BaseViewModel {
-    init() {
-        #if DEBUG
-            print("[init:   ViewModel]  \(Self.self) ")
-        #endif
-        Log.d(tag: .lifeCycle, "VM Initialized")
-    }
-
-    deinit {
-        Log.d(tag: .lifeCycle, "VM Deinitailized")
-    }
-
     var toast = PublishSubject<String?>()
     var toastActivity = PublishSubject<Bool>()
 }
