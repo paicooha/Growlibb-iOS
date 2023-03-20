@@ -17,7 +17,7 @@ final class MyPageAPIService {
     let provider: MoyaProvider<MyPageAPI>
     let loginKeyChain: LoginKeyChainService
 
-    init(provider: MoyaProvider<MyPageAPI> = .init(), loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
+    init(provider: MoyaProvider<MyPageAPI> = .init(plugins: [MoyaPlugin(verbose: true)]), loginKeyChainService: LoginKeyChainService = BasicLoginKeyChainService.shared) {
         loginKeyChain = loginKeyChainService
         self.provider = provider
     }
@@ -42,13 +42,13 @@ final class MyPageAPIService {
             .catchAndReturn(.error(alertMessage: "네트워크 연결을 다시 확인해 주세요")) // error 발생시 error observable return
     }
     
-    func patchAlarm(request: PatchFcmRequest) -> Observable<APIResult<BaseResponse?>> {
+    func patchAlarm(fcmToken: String?) -> Observable<APIResult<BaseResponse?>> {
         guard let token = loginKeyChain.token
         else {
             return .just(.error(alertMessage: nil))
         }
 
-        return provider.rx.request(.patchAlarm(request: request, token: token))
+        return provider.rx.request(.patchAlarm(request: PatchFcmRequest(fcmToken: fcmToken), token: token))
             .asObservable()
             .mapResponse()
             .compactMap { try? $0?.json.rawData() ?? Data() }

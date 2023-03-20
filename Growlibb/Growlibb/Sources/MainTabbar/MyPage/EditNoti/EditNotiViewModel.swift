@@ -34,7 +34,7 @@ final class EditNotiViewModel: BaseViewModel {
                 }
             })
             .flatMap { token in
-                myPageAPIService.patchAlarm(request: PatchFcmRequest(fcmToken: token))
+                myPageAPIService.patchAlarm(fcmToken: self.fcmToken)
             }
             .subscribe(onNext: { result in
                 switch result {

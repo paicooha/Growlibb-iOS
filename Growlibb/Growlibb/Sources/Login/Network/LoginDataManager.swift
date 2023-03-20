@@ -48,7 +48,7 @@ class LoginDataManager {
             }
     }
     
-    func patchFcmToken(viewController: AppCoordinator, fcmToken: String) {
+    func patchFcmToken(viewController: AppCoordinator, _ fcmToken: String) {
         let parameters = PatchFcmRequest(fcmToken: fcmToken)
         
         AF.request("\(Constants.BASE_URL)v1/fcm-token", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constants().HEADERS)

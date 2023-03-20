@@ -574,6 +574,8 @@ extension HomeViewController {
             noRetrospectView.isHidden = false
             goRetrospectButton.isHidden = false
             
+            retrospectListTableView.isHidden = true
+            
             retrospectListTableView.snp.removeConstraints()
             
             noRetrospectView.snp.makeConstraints{ make in
