@@ -112,9 +112,15 @@ final class WriteRetrospectViewModel: BaseViewModel {
             .flatMap { writeRetrospectAPIService.postRetrospect(request: $0) }
             .subscribe(onNext: { [ weak self] result in
                 switch result {
-                case .response(result: _):
-                    self?.routes.completed.onNext(())
-                    self?.toast.onNext("오늘의 회고 작성이 완료되었습니다.")
+                case let .response(result: result):
+                    if let result = result {
+                        if result.eventScore != 0 { //이벤트 팝업
+                            self?.routes.showEventModal.onNext((result.eventCondition, result.eventScore))
+                        } else {
+                            self?.routes.completed.onNext(())
+                        }
+                        self?.toast.onNext("오늘의 회고 작성이 완료되었습니다.")
+                    }
                 case .error(alertMessage: let alertMessage):
                     if let alertMessage = alertMessage {
                         self?.toast.onNext(alertMessage)
@@ -149,6 +155,7 @@ final class WriteRetrospectViewModel: BaseViewModel {
         var backward = PublishSubject<Bool>()
         var showTutorial = PublishSubject<Void>()
         var completed = PublishSubject<Void>()
+        var showEventModal = PublishSubject<(Int, Int)>()
     }
 
     struct RouteInput {

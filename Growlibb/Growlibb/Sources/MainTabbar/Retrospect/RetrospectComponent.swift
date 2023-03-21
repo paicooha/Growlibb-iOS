@@ -19,20 +19,8 @@ final class RetrospectComponent {
     func editRetrospectComponent(retrospectionId: Int) -> EditRetrospectComponent {
         return EditRetrospectComponent(retrospectionId: retrospectionId)
     }
-//
-//    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
-//        return HomeFilterComponent(filter: filter)
-//    }
-//
-//    func postListOrderModal() -> PostOrderModalComponent {
-//        return PostOrderModalComponent()
-//    }
-//
-//    func runningTagModal() -> RunningTagModalComponent {
-//        return RunningTagModalComponent()
-//    }
-//
-//    var alarmListComponent: AlarmListComponent {
-//        return AlarmListComponent()
-//    }
+    
+    var modalComponent: ModalComponent {
+        return ModalComponent(whereFrom: "event")
+    }
 }

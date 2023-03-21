@@ -19,9 +19,10 @@ struct PostRetrospectResult: Codable {
     var retrospectionID, seedLevel, point: Int
     var eventTitle: String?
     var eventCondition: Int
+    var eventScore: Int
 
     enum CodingKeys: String, CodingKey {
         case retrospectionID = "retrospectionId"
-        case seedLevel, point, eventTitle, eventCondition
+        case seedLevel, point, eventTitle, eventCondition, eventScore
     }
 }

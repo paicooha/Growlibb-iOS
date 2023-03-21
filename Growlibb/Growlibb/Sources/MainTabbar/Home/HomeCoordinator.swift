@@ -149,7 +149,7 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
             switch coordResult {
             case .backward:
                 break
-            case .showModal:
+            case .showEventModal:
                 break
             case .completed:
                 vm.routeInputs.needUpdate.onNext(true)

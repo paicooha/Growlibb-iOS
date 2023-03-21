@@ -40,6 +40,13 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
                 self.goEditRetrospect(retrospectionId: id)
             })
             .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.eventShowModal
+            .map { (vm: scene.VM, eventInfo: $0 ) }
+            .subscribe(onNext: { [ weak self] info in
+                self?.showEventModal(vm: info.vm, eventInfo: info.eventInfo)
+            })
+            .disposed(by: sceneDisposeBag)
     }
 
     private func pushWriteRetrospectScene(vm: RetrospectViewModel) {
@@ -50,8 +57,8 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
             switch coordResult {
             case .backward:
                 break
-            case .showModal:
-                break
+            case let .showEventModal(eventDay, eventScore):
+                vm.routes.eventShowModal.onNext((eventDay, eventScore))
             case .completed:
                 vm.routeInputs.needUpdate.onNext(true) //회고 수정하기로 바꿔야함 (작성완료 시)
             }
@@ -68,6 +75,21 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
             case .backward:
                 break
             case .edited:
+                break
+            }
+        }
+    }
+    
+    private func showEventModal(vm: RetrospectViewModel, whereFrom:String="event", eventInfo: (Int, Int)) {
+        let comp = component.modalComponent
+        let coord = ModalCoordinator(component: comp, navController: navigationController)
+        comp.eventDescription = "\(L10n.Retrospect.Modal.Event.title)\(eventInfo.0)\(L10n.Retrospect.Modal.Event.first)\(eventInfo.1)\(L10n.Retrospect.Modal.Event.second)"
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .redirect:
+                break
+            case .close:
                 break
             }
         }

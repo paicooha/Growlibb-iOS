@@ -23,9 +23,10 @@ class ModalViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: ModalViewModel, whereFrom: String) {
+    init(viewModel: ModalViewModel, whereFrom: String, eventDescription: String?) {
         self.viewModel = viewModel
         self.whereFrom = whereFrom
+        self.eventDescription = eventDescription
         super.init()
     }
 
@@ -36,6 +37,7 @@ class ModalViewController: BaseViewController {
 
     private var viewModel: ModalViewModel
     private var whereFrom: String
+    private var eventDescription: String? = nil
 
     private func viewModelInput() {
         sheet.rx.tapGesture(configuration: { _, delegate in
@@ -57,9 +59,7 @@ class ModalViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         yesButton.rx.tap
-            .subscribe({ _ in
-                self.viewModel.inputs.yes.onNext(self.whereFrom)
-            })
+            .bind(to: viewModel.inputs.yes)
             .disposed(by: disposeBag)
     }
 
@@ -125,6 +125,11 @@ extension ModalViewController {
             descriptionLabel.text = L10n.MyPage.Resign.Modal.title
             noButton.isHidden = true
             yesButton.setTitle(L10n.Confirm.Button.title, for: .normal)
+        case "event":
+            emojiLabel.text = L10n.Retrospect.Modal.Event.emoji
+            descriptionLabel.text = eventDescription
+            noButton.isHidden = true
+            yesButton.setTitle(L10n.Confirm.Button.title, for: .normal)
         default:
             break
         }
@@ -177,6 +182,20 @@ extension ModalViewController {
         case "retrospect": //회고와 회원탈퇴일 경우에만 레이아웃이 다름
             break
         case "resign":
+            yesButton.snp.removeConstraints()
+            yesButton.snp.makeConstraints { make in
+                make.bottom.equalTo(sheet.snp.bottom).offset(-15)
+                make.centerX.equalTo(sheet.snp.centerX)
+                make.width.equalTo(200)
+                make.height.equalTo(39)
+            }
+        case "event":
+            sheet.snp.updateConstraints { make in
+                make.height.equalTo(221)
+            }
+            emojiLabel.snp.updateConstraints { make in
+                make.top.equalTo(sheet.snp.top).offset(20)
+            }
             yesButton.snp.removeConstraints()
             yesButton.snp.makeConstraints { make in
                 make.bottom.equalTo(sheet.snp.bottom).offset(-15)

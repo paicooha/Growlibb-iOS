@@ -19,20 +19,4 @@ final class WriteRetrospectComponent {
     var modalComponent: ModalComponent {
         return ModalComponent(whereFrom: "writeretrospect")
     }
-//
-//    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
-//        return HomeFilterComponent(filter: filter)
-//    }
-//
-//    func postListOrderModal() -> PostOrderModalComponent {
-//        return PostOrderModalComponent()
-//    }
-//
-//    func runningTagModal() -> RunningTagModalComponent {
-//        return RunningTagModalComponent()
-//    }
-//
-//    var alarmListComponent: AlarmListComponent {
-//        return AlarmListComponent()
-//    }
 }

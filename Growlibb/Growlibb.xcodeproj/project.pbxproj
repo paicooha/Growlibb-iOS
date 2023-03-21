@@ -500,13 +500,6 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		DA4297842973006A003AAA93 /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Alert;
-			sourceTree = "<group>";
-		};
 		DA42978529730087003AAA93 /* WriteRetrospect */ = {
 			isa = PBXGroup;
 			children = (
@@ -1101,7 +1094,6 @@
 				DACB0BCA297F118500ABCB8F /* Model */,
 				DACB0BC5297F116800ABCB8F /* Network */,
 				DAF8B01D2975612000380D28 /* View */,
-				DA4297842973006A003AAA93 /* Alert */,
 				DA88B49A2923B94A00A4B1B5 /* RetrospectComponent.swift */,
 				DA88B49D2923B95400A4B1B5 /* RetrospectCoordinator.swift */,
 				DA88B49F2923B95900A4B1B5 /* RetrospectViewModel.swift */,

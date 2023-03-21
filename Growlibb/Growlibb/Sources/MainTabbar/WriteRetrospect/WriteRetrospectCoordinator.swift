@@ -12,7 +12,7 @@ import UIKit
 enum WriteRetrospectResult {
     case completed
     case backward
-    case showModal
+    case showEventModal(eventDay: Int, eventScore: Int)
 }
 
 final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> {
@@ -34,16 +34,7 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
         
         closeSignal
             .subscribe(onNext: { [weak self] result in
-                Log.d(tag: .lifeCycle, "VC poped")
-
-                switch result {
-                case .backward:
-                    self?.navigationController.popViewController(animated: true)
-                case .showModal:
-                    break
-                case .completed:
-                    self?.navigationController.popViewController(animated: true)
-                }
+                self?.navigationController.popViewController(animated: true)
             })
             .disposed(by: sceneDisposeBag)
         
@@ -68,46 +59,12 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
             .map { WriteRetrospectResult.completed }
             .bind(to: closeSignal)
             .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.writingPost
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.pushWritingPostScene(vm: vm, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.detailPost
-//            .map { (vm: scene.VM, postId: $0) }
-//            .subscribe(onNext: { [weak self] input in
-//                self?.pushDetailPostScene(vm: input.vm, postId: input.postId, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.nonMemberCover
-//            .map { .needCover }
-//            .subscribe(closeSignal)
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.postListOrder
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.showPostListOrderModal(vm: vm, animated: false)
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.runningTag
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.showRunningTagModal(vm: vm, animated: false)
-//            })
-//            .disposed(by: sceneDisposeBag)
-//
-//        scene.VM.routes.alarmList
-//            .map { scene.VM }
-//            .subscribe(onNext: { [weak self] vm in
-//                self?.pushAlarmListScene(vm: vm, animated: true)
-//            })
-//            .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.showEventModal
+            .map { WriteRetrospectResult.showEventModal(eventDay: $0.0, eventScore: $0.1) }
+            .bind(to: closeSignal)
+            .disposed(by: sceneDisposeBag)
+
     }
 
     private func showWriteRetrospectTutorialModal() {
@@ -136,56 +93,4 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
             }
         }
     }
-//
-//    private func pushHomeFilterScene(vm: HomeViewModel, filter: PostFilter, animated: Bool) {
-//        let comp = component.postFilterComponent(filter: filter)
-//        let coord = HomeFilterCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(
-//            coordinator: coord, animated: animated
-//        ) { coordResult in
-//            switch coordResult {
-//            case let .backward(filter):
-//                vm.routeInputs.filterChanged.onNext(filter)
-//            }
-//        }
-//    }
-//
-//    private func showPostListOrderModal(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.postListOrderModal()
-//        let coord = PostOrderModalCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .ok(order: order):
-//                vm.routeInputs.postListOrderChanged.onNext(order)
-//            case .cancel: break
-//            }
-//        }
-//    }
-//
-//    private func showRunningTagModal(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.runningTagModal()
-//        let coord = RunningTagModalCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case let .ok(tag: tag):
-//                vm.routeInputs.runningTagChanged.onNext(tag)
-//            case .cancel: break
-//            }
-//        }
-//    }
-//
-//    private func pushAlarmListScene(vm: HomeViewModel, animated: Bool) {
-//        let comp = component.alarmListComponent
-//        let coord = AlarmListCoordinator(component: comp, navController: navigationController)
-//
-//        coordinate(coordinator: coord, animated: animated) { coordResult in
-//            switch coordResult {
-//            case .backward:
-//                vm.routeInputs.alarmChecked.onNext(())
-//            }
-//        }
-//    }
 }

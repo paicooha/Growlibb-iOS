@@ -13,18 +13,7 @@ final class ModalViewModel: BaseViewModel{
         super.init()
         
         inputs.yes
-            .subscribe(onNext: { whereFrom in
-                switch whereFrom {
-                case "writeretrospect":
-                    self.routes.backward.onNext(())
-                case "logout":
-                    self.routes.backward.onNext(())
-                case "resign":
-                    self.routes.backward.onNext(())
-                default:
-                    break
-                }
-            })
+            .bind(to: routes.backward)
             .disposed(by: disposeBag)
         
         inputs.no
@@ -34,7 +23,7 @@ final class ModalViewModel: BaseViewModel{
 
     struct Input {
         var no = PublishSubject<Void>()
-        var yes = PublishSubject<String>()
+        var yes = PublishSubject<Void>()
     }
 
     struct Output {

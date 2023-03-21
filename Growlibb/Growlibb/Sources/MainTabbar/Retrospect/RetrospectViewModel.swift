@@ -58,6 +58,7 @@ final class RetrospectViewModel: BaseViewModel {
     struct Route {
         var writeretrospect = PublishSubject<Void>()
         var editRetrospect = PublishSubject<Int>()
+        var eventShowModal = PublishSubject<(Int, Int)>()
     }
 
     struct RouteInput {
