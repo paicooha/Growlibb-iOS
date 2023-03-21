@@ -74,13 +74,13 @@
 "SignUp.nickname.checkDuplicate" = "중복확인";
 "SignUp.nickname.guidelabel.exist" = "이미 존재하는 닉네임입니다.";
 "SignUp.nickname.guidelabel.valid" = "사용 가능한 닉네임입니다.";
-"SignUp.gender.title" = "성별";
+"SignUp.gender.title" = "성별(선택)";
 "SignUp.gender.man" = "남자";
 "SignUp.gender.woman" = "여자";
-"SignUp.birth.title" = "생년월일";
+"SignUp.birth.title" = "생년월일(선택)";
 "SignUp.birth.placeholder" = "생년월일 8자를 입력해주세요.";
 "SignUp.birth.guidelabel" = "생년월일을 올바르게 입력해주세요.";
-"SignUp.job.title" = "직업";
+"SignUp.job.title" = "직업(선택)";
 "SignUp.job.placeholder" = "직업을 선택해주세요.";
 
 // MARK: Final
