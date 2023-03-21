@@ -19,20 +19,4 @@ final class ResignComponent {
     var loginComponent: LoginComponent {
         return LoginComponent()
     }
-//
-//    func postFilterComponent(filter: PostFilter) -> HomeFilterComponent {
-//        return HomeFilterComponent(filter: filter)
-//    }
-//
-//    func postListOrderModal() -> PostOrderModalComponent {
-//        return PostOrderModalComponent()
-//    }
-//
-//    func runningTagModal() -> RunningTagModalComponent {
-//        return RunningTagModalComponent()
-//    }
-//
-//    var alarmListComponent: AlarmListComponent {
-//        return AlarmListComponent()
-//    }
 }

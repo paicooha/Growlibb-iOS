@@ -206,50 +206,9 @@ class EditPasswordFirstViewController: BaseViewController {
             nextButton.setDisable()
         }
     }
-//
+
     private func viewModelOutput() {
-//        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-//
-//        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
-//            [weak self] _, collectionView, indexPath, item in
-//
-//                guard let self = self,
-//                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
-//                else { return UICollectionViewCell() }
-//
-//                cell.postInfoView.bookMarkIcon.rx.tap
-//                    .map { indexPath.row }
-//                    .subscribe(onNext: { [weak self] idx in
-//                        self?.viewModel.inputs.tapPostBookMark.onNext(idx)
-//                    })
-//                    .disposed(by: cell.disposeBag)
-//
-//                cell.configure(with: item)
-//                return cell
-//        }
-//
-//        viewModel.outputs.posts
-//            .do(onNext: { [weak self] configs in
-//                self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
-//
-//                if configs.isEmpty {
-//                    self?.emptyLabel.isHidden = false
-//                    switch self?.runningTagInt {
-//                    case 0:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
-//                    case 1:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
-//                    default:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
-//                    }
-//                } else {
-//                    self?.emptyLabel.isHidden = true
-//                }
-//            })
-//            .map { [BasicPostSection(items: $0)] }
-//            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
-//            .disposed(by: disposeBag)
-//
+
         viewModel.toast
             .subscribe(onNext: { message in
                 AppContext.shared.makeToast(message)
@@ -452,68 +411,6 @@ extension EditPasswordFirstViewController {
         }
     }
 }
-//
-//extension EditPasswordFirstViewController {
-//    func didSuccessCheckEmail(code:Int){
-//        if code == 1000{
-//            self.emailGuideLabel.isHidden = true
-//            UserInfo.shared.email = self.emailTextField.text!
-//            UserInfo.shared.password = self.passwordTextField.text!
-//            UserInfo.shared.phoneNumber = self.phoneTextField.text!
-//            self.viewModel.inputs.tapNext.onNext(())
-//        }
-//        else if code == 2012 {
-//            self.emailGuideLabel.isHidden = false
-//            self.emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.exist
-//            validCheckArray[0] = false
-//            nextButton.setDisable()
-//            AppContext.shared.makeToast("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.")
-//        }
-//    }
-//
-//    func didSuccessCheckPhone(code:Int){
-//        if code == 1000{ //중복 x
-//            self.phoneGuideLabel.isHidden = true
-//
-//            //인증코드 타이머
-//            self.authTimer?.invalidate()
-//
-//            self.authTime = 180
-//            self.authTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.authtimerCallback), userInfo: nil, repeats: true)
-//
-//            //재인증 시 초기 세팅하기 위해 한번 더 설정하는 부분
-//            self.validCheckArray[2] = false //재인증할 수 있으므로 일단 false로 설정
-//
-//            self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
-//            self.phoneNumber = "+82\(self.phoneTextField.text!.replacingOccurrences(of: "-", with: "").suffix(10))"
-//            print(self.phoneNumber)
-//
-//
-//            PhoneAuthProvider.provider()
-//                .verifyPhoneNumber(self.phoneNumber, uiDelegate: nil) { verificationID, error in
-//                  if let error = error {
-//                      AppContext.shared.makeToast("인증번호 전송에 실패하였습니다. 다시 시도해주세요.")
-//                      print(error)
-//                    return
-//                  }
-//                  // 에러가 없다면 사용자에게 인증코드와 verificationID(인증ID) 전달, 전송버튼 활성화
-//                    self.verificationId = verificationID!
-//                    self.phoneButton.setEnable()
-//                    self.phoneButton.setTitle(L10n.SignUp.Phone.resendCode, for: .normal)
-//              }
-//        }
-//        else if code == 2022 { //중복 o
-//            self.phoneGuideLabel.isHidden = false
-//            validCheckArray[2] = false
-//
-//            self.phoneButton.setDisable()
-//        }
-//    }
-//
-//    func failedToRequest(message: String) {
-//        AppContext.shared.makeToast(message)
-//    }
-//}
 
 extension EditPasswordFirstViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

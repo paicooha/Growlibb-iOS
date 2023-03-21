@@ -30,7 +30,7 @@ class HomeViewController: BaseViewController {
         initialLayout()
 
         viewModelInput()
-//        viewModelOutput()
+        viewModelOutput()
         
         calendar.delegate = self
         calendar.dataSource = self
@@ -40,7 +40,6 @@ class HomeViewController: BaseViewController {
         
         retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
 
-//        homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: Date(), format: .yyyyMDash))
     }
 
     init(viewModel: HomeViewModel) {
@@ -78,191 +77,14 @@ class HomeViewController: BaseViewController {
                 self.homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: Date(), format: .yyyyMDash))
             })
             .disposed(by: disposeBag)
-//
-//        postCollectionView.rx.itemSelected
-//            .map { $0.item }
-//            .bind(to: viewModel.inputs.tapPost)
-//            .disposed(by: disposeBag)
-//
-//        selectedPostCollectionView.rx.itemSelected
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.tapSelectedPost)
-//            .disposed(by: disposeBag)
-//
-//        mapView.postSelected
-//            .bind(to: viewModel.inputs.tapPostPin)
-//            .disposed(by: disposeBag)
-//
-//        mapView.regionWillChange
-//            .bind(to: viewModel.inputs.moveRegion)
-//            .disposed(by: disposeBag)
-//
-//        mapView.regionChanged
-//            .bind(to: viewModel.inputs.regionChanged)
-//            .disposed(by: disposeBag)
-//
-//        homeLocationButton.rx.tapGesture(configuration: nil)
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.toHomeLocation)
-//            .disposed(by: disposeBag)
-//
-//        refreshPostListButton.rx.tapGesture(configuration: nil)
-//            .map { _ in true }
-//            .bind(to: viewModel.inputs.needUpdate)
-//            .disposed(by: disposeBag)
-//
-//        writePostButton.rx.tapGesture(configuration: nil)
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.writingPost)
-//            .disposed(by: disposeBag)
-//
-//        filterIconView.rx.tapGesture(configuration: nil)
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.showDetailFilter)
-//            .disposed(by: disposeBag)
-//
-//        orderTagView.rx.tapGesture(configuration: nil)
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.tapPostListOrder)
-//            .disposed(by: disposeBag)
-//
-//        runningTagView.rx.tapGesture(configuration: nil)
-//            .map { _ in }
-//            .bind(to: viewModel.inputs.tapRunningTag)
-//            .disposed(by: disposeBag)
-//
-//        navBar.rightBtnItem.rx.tap
-//            .bind(to: viewModel.inputs.tapAlarm)
-//            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
-//        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-//        selectedPostCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-//        typealias PostSectionDataSource = RxCollectionViewSectionedAnimatedDataSource<BasicPostSection>
-//
-//        viewModel.outputs.posts
-//            .map {
-//                $0.reduce(into: [PostCellConfig]()) {
-//                    $0.append(PostCellConfig(from: $1))
-//                }
-//            }
-//            .map { [BasicPostSection(items: $0)] }
-//            .bind(to: postCollectionView.rx.items(dataSource: PostSectionDataSource { [weak self] _, collectionView, indexPath, item in
-//                guard let self = self else { return UICollectionViewCell() }
-//                return self.configureCell(collectionView, indexPath, item)
-//            }))
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.showClosedPost
-//            .subscribe(onNext: { [weak self] show in
-//                self?.showClosedPost(show)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.posts
-//            .subscribe(onNext: { [unowned self] posts in
-//                self.mapView.update(with: posts)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.posts
-//            .map { $0.count }
-//            .subscribe(onNext: { [unowned self] count in
-//                let hideEmptyGuide = count != 0
-//                self.postEmptyGuideLabel.isHidden = hideEmptyGuide
-//                self.adviseWritingPostView.isHidden = hideEmptyGuide
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.changeRegion
-//            .subscribe(onNext: { [weak self] region in
-//                self?.mapView.setRegion(to: region.location, radius: region.distance)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.showRefreshRegion
-//            .map { !$0 }
-//            .subscribe(onNext: { [weak self] hidden in
-//                self?.refreshPostListButton.isHidden = hidden
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.focusSelectedPost
-//            .map {
-//                if let post = $0 {
-//                    return [PostCellConfig(from: post)]
-//                } else {
-//                    return []
-//                }
-//            }
-//            .map { [BasicPostSection(items: $0)] }
-//            .bind(to: selectedPostCollectionView.rx.items(dataSource: PostSectionDataSource { [weak self] _, collectionView, indexPath, item in
-//                guard let self = self else { return UICollectionViewCell() }
-//                return self.configureCell(collectionView, indexPath, item)
-//            }))
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.focusSelectedPost
-//            .subscribe(onNext: { [unowned self] post in
-//                let hideSelectedPost = (post == nil)
-//                self.postCollectionView.isHidden = !hideSelectedPost
-//                self.selectedPostCollectionView.isHidden = hideSelectedPost
-//
-//                if post != nil {
-//                    self.mapView.isAnnotationHidden = true
-//                    self.setBottomSheetState(to: .halfOpen, animated: true) { [weak self] in
-//                        self?.mapView.isAnnotationHidden = false
-//                    }
-//                }
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.highLightFilter
-//            .subscribe(onNext: { [unowned self] highlight in
-//                self.filterIconView.image = highlight ? Asset.filterHighlighted.uiImage : Asset.filter.uiImage
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.postListOrderChanged
-//            .subscribe(onNext: { [unowned self] listOrder in
-//                self.orderTagView.label.text = listOrder.text
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.runningTagChanged
-//            .subscribe(onNext: { [unowned self] tag in
-//                self.runningTagView.label.text = tag.name
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.titleLocationChanged
-//            .subscribe(onNext: { [unowned self] title in
-//                if let title = title {
-//                    navBar.titleLabel.font = .iosBody17R
-//                    navBar.titleLabel.text = title
-//                    navBar.titleLabel.textColor = .darkG35
-//                    navBar.titleSpacing = 12
-//                } else {
-//                    navBar.titleLabel.font = .aggroLight
-//                    navBar.titleLabel.text = L10n.Home.PostList.NavBar.title
-//                    navBar.titleLabel.textColor = .primarydark
-//                    navBar.titleSpacing = 8
-//                }
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.outputs.alarmChecked
-//            .subscribe(onNext: { [weak self] isChecked in
-//                self?.navBar.rightBtnItem.setImage(isChecked ? Asset.alarmNomal.uiImage : Asset.alarmNew.uiImage, for: .normal)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.toast
-//            .subscribe(onNext: { message in
-//                AppContext.shared.makeToast(message)
-//            })
-//            .disposed(by: disposeBag)
+        viewModel.toast
+            .subscribe(onNext: { message in
+                AppContext.shared.makeToast(message)
+            })
+            .disposed(by: disposeBag)
     }
     
     private var currentPage: Date?

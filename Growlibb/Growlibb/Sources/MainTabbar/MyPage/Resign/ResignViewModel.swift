@@ -70,11 +70,7 @@ final class ResignViewModel: BaseViewModel {
 
     struct RouteInput {
         var goLogin = PublishSubject<Bool>()
-//        var filterChanged = PublishSubject<PostFilter>()
-//        var detailClosed = PublishSubject<Void>()
-//        var postListOrderChanged = PublishSubject<PostListOrder>()
-//        var runningTagChanged = PublishSubject<RunningTag>()
-//        var alarmChecked = PublishSubject<Void>()
+
     }
 
     var disposeBag = DisposeBag()

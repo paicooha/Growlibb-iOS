@@ -34,7 +34,7 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
                 self?.pushWriteRetrospectScene(vm: vm)
             })
             .disposed(by: sceneDisposeBag)
-//
+
         scene.VM.routes.editRetrospect
             .subscribe(onNext: { id in
                 self.goEditRetrospect(retrospectionId: id)
@@ -64,7 +64,7 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
             }
         }
     }
-//
+
     private func goEditRetrospect(retrospectionId: Int) {
         
         let comp = component.editRetrospectComponent(retrospectionId: retrospectionId)

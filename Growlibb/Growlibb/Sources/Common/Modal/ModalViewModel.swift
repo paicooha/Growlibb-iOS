@@ -36,11 +36,7 @@ final class ModalViewModel: BaseViewModel{
     }
 
     struct RouteInput {
-//        var filterChanged = PublishSubject<PostFilter>()
-//        var detailClosed = PublishSubject<Void>()
-//        var postListOrderChanged = PublishSubject<PostListOrder>()
-//        var runningTagChanged = PublishSubject<RunningTag>()
-//        var alarmChecked = PublishSubject<Void>()
+
     }
 
     var disposeBag = DisposeBag()

@@ -56,18 +56,7 @@ final class RetrospectListViewModel: BaseViewModel {
 
     struct Output {
         var retrospectList = PublishSubject<[Retrospection]?>()
-//        var mypagelist = ReplaySubject<[String]>.create(bufferSize: 1)
-//        var refresh = PublishSubject<Void>()
-//        var bookMarked = PublishSubject<(id: Int, marked: Bool)>()
-//        var highLightFilter = PublishSubject<Bool>()
-//        var showClosedPost = PublishSubject<Bool>()
-//        var showRefreshRegion = PublishSubject<Bool>()
-//        var changeRegion = ReplaySubject<(location: CLLocationCoordinate2D, distance: CLLocationDistance)>.create(bufferSize: 1)
-//        var focusSelectedPost = PublishSubject<Post?>()
-//        var postListOrderChanged = PublishSubject<PostListOrder>()
-//        var runningTagChanged = PublishSubject<RunningTag>()
-//        var titleLocationChanged = PublishSubject<String?>()
-//        var alarmChecked = PublishSubject<Bool>()
+
     }
 
     struct Route {
@@ -77,11 +66,7 @@ final class RetrospectListViewModel: BaseViewModel {
 
     struct RouteInput {
         var needUpdate = PublishSubject<Bool>()
-//        var filterChanged = PublishSubject<PostFilter>()
-//        var detailClosed = PublishSubject<Void>()
-//        var postListOrderChanged = PublishSubject<PostListOrder>()
-//        var runningTagChanged = PublishSubject<RunningTag>()
-//        var alarmChecked = PublishSubject<Void>()
+
     }
 
     var disposeBag = DisposeBag()

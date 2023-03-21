@@ -86,20 +86,6 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
                 self.goRetrospectList(animated: true)
             })
             .disposed(by: sceneDisposeBag)
-        //
-        //        scene.VM.routes.runningTag
-        //            .map { scene.VM }
-        //            .subscribe(onNext: { [weak self] vm in
-        //                self?.showRunningTagModal(vm: vm, animated: false)
-        //            })
-        //            .disposed(by: sceneDisposeBag)
-        //
-        //        scene.VM.routes.alarmList
-        //            .map { scene.VM }
-        //            .subscribe(onNext: { [weak self] vm in
-        //                self?.pushAlarmListScene(vm: vm, animated: true)
-        //            })
-        //            .disposed(by: sceneDisposeBag)
     }
     
     private func goCS() {
@@ -141,7 +127,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }
         }
     }
-    //
+    
     private func goEditPhoneNumber(animated: Bool) {
         let comp = component.editPhoneNumberComponent
         let coord = EditPhoneNumberCoordinator(component: comp, navController: navigationController)
@@ -153,7 +139,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
             }
         }
     }
-    //
+    
     private func goEditNoti(animated: Bool) {
         let comp = component.editNotiComponent
         let coord = EditNotiCoordinator(component: comp, navController: navigationController)

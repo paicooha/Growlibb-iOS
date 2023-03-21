@@ -458,47 +458,6 @@ class SignUpFirstViewController: BaseViewController {
     }
 //
 //    private func viewModelOutput() {
-//        postCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-//
-//        let dataSource = RxCollectionViewSectionedReloadDataSource<BasicPostSection> {
-//            [weak self] _, collectionView, indexPath, item in
-//
-//                guard let self = self,
-//                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasicPostCell.id, for: indexPath) as? BasicPostCell
-//                else { return UICollectionViewCell() }
-//
-//                cell.postInfoView.bookMarkIcon.rx.tap
-//                    .map { indexPath.row }
-//                    .subscribe(onNext: { [weak self] idx in
-//                        self?.viewModel.inputs.tapPostBookMark.onNext(idx)
-//                    })
-//                    .disposed(by: cell.disposeBag)
-//
-//                cell.configure(with: item)
-//                return cell
-//        }
-//
-//        viewModel.outputs.posts
-//            .do(onNext: { [weak self] configs in
-//                self?.numPostLabel.text = "총 \(configs.count) 건" // 태그에 따라서 총 찜한 목록의 게시글이 바뀜
-//
-//                if configs.isEmpty {
-//                    self?.emptyLabel.isHidden = false
-//                    switch self?.runningTagInt {
-//                    case 0:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Before.title
-//                    case 1:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.After.title
-//                    default:
-//                        self?.emptyLabel.text = L10n.BookMark.Main.Empty.Holiday.title
-//                    }
-//                } else {
-//                    self?.emptyLabel.isHidden = true
-//                }
-//            })
-//            .map { [BasicPostSection(items: $0)] }
-//            .bind(to: postCollectionView.rx.items(dataSource: dataSource))
-//            .disposed(by: disposeBag)
 //
 //        viewModel.toast
 //            .subscribe(onNext: { message in
@@ -506,6 +465,7 @@ class SignUpFirstViewController: BaseViewController {
 //            })
 //            .disposed(by: disposeBag)
 //    }
+    
     private var scrollView = UIScrollView(frame: .zero).then { view in
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
