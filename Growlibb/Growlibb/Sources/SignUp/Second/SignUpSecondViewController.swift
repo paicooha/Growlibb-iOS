@@ -24,8 +24,8 @@ final class SignUpSecondViewController: BaseViewController {
     private var userKeyChainService: UserKeychainService
     private var loginKeyChainService: LoginKeyChainService
     
-    //닉네임 중복확인, 생년월일, 직업 체크여부를 확인하기 위한 배열
-    var validCheckArray = [false, false, false]
+    //닉네임 중복확인 여부 -> v230322 (성별, 생년월일, 직업 선택으로 바뀜)
+    var validCheck = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,17 +59,16 @@ final class SignUpSecondViewController: BaseViewController {
     }
     
     func checkAllPass(){
-        if validCheckArray.allSatisfy({$0}){ //모두 true
+        if validCheck { //모두 true
             nextButton.setEnable()
         }
         else{
-            print(validCheckArray)
             nextButton.setDisable()
         }
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
-        validCheckArray[0] = false
+        validCheck = false
         nicknameGuideLabel.isHidden = true
         
         if nicknameTextField.text?.count ?? 0 >= 1 {
@@ -119,10 +118,12 @@ final class SignUpSecondViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         nextButton.rx.tap
-            .subscribe({ [self] _ in
+            .subscribe({ _ in
                 UserInfo.shared.nickName = self.nicknameTextField.text!
-                UserInfo.shared.birthday = self.birthTextField.text!
-                UserInfo.shared.fcmToken = Messaging.messaging().fcmToken ?? ""
+                UserInfo.shared.birthday = self.birthTextField.text ?? nil
+                if let token = Messaging.messaging().fcmToken {
+                    UserInfo.shared.fcmToken = token
+                }
                 self.signUpDataManager.postSignUp(viewController: self)
             })
             .disposed(by: disposeBag)
@@ -194,7 +195,7 @@ final class SignUpSecondViewController: BaseViewController {
     
     private var manButton = ShortButton().then { make in
         make.setTitle(L10n.SignUp.Gender.man, for: .normal)
-        make.setBlueButton()
+        make.setGrayButton()
     }
     
     private var womanButton = ShortButton().then { make in
@@ -274,7 +275,6 @@ final class SignUpSecondViewController: BaseViewController {
             self?.jobSelectButton.setTitleColor(.black, for: .normal)
             
             self?.dropdownImageView.image = Asset.icDropdownDown.image
-            self?.validCheckArray[2] = true
             self?.checkAllPass()
             
             UserInfo.shared.job = item
@@ -438,13 +438,13 @@ extension SignUpSecondViewController {
 extension SignUpSecondViewController {
     func didSuccessCheckNickname(code:Int){
         if code == 1000{
-            validCheckArray[0] = true
+            validCheck = true
             self.nicknameGuideLabel.isHidden = false
             self.nicknameGuideLabel.text = L10n.SignUp.Nickname.Guidelabel.valid
             checkAllPass()
         }
         else if code == 2023 {
-            validCheckArray[0] = false
+            validCheck = false
             self.nicknameGuideLabel.isHidden = false
             self.nicknameGuideLabel.text = L10n.SignUp.Nickname.Guidelabel.exist
         }
@@ -485,11 +485,9 @@ extension SignUpSecondViewController: UITextFieldDelegate{
         
         if textFieldText.count == 10 && Regex().isValidBirthday(input: textFieldText.replacingOccurrences(of: "-", with: "")) {
             birthGuideLabel.isHidden = true
-            validCheckArray[1] = true
         }
         else{
             birthGuideLabel.isHidden = false
-            validCheckArray[1] = false
         }
         checkAllPass()
         

@@ -14,10 +14,10 @@ class UserInfo {
     var email:String
     var password:String
     var phoneNumber:String
-    var gender:String
+    var gender:String?
     var nickName:String
-    var birthday:String
-    var job:String
+    var birthday:String?
+    var job:String?
     var fcmToken:String
     var profileUrl:String?
     
@@ -26,10 +26,10 @@ class UserInfo {
         email = ""
         password = ""
         phoneNumber = ""
-        gender = "M"
+        gender = nil
         nickName = ""
-        birthday = ""
-        job = ""
+        birthday = nil
+        job = nil
         fcmToken = ""
         profileUrl = nil
     }

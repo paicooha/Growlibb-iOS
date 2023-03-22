@@ -8,8 +8,8 @@
 import Foundation
 
 struct PatchProfileRequest: Encodable {
-    var profileImageURL: String
-    var nickname, gender, birthday, job: String
+    var profileImageURL, nickname: String
+    var gender, birthday, job: String?
 
     enum CodingKeys: String, CodingKey {
         case profileImageURL = "profileImageUrl"

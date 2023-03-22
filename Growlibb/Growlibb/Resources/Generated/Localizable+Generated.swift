@@ -371,8 +371,8 @@ internal enum L10n {
       internal static let guidelabel = L10n.tr("Localizable", "SignUp.birth.guidelabel", fallback: "생년월일을 올바르게 입력해주세요.")
       /// 생년월일 8자를 입력해주세요.
       internal static let placeholder = L10n.tr("Localizable", "SignUp.birth.placeholder", fallback: "생년월일 8자를 입력해주세요.")
-      /// 생년월일
-      internal static let title = L10n.tr("Localizable", "SignUp.birth.title", fallback: "생년월일")
+      /// 생년월일(선택)
+      internal static let title = L10n.tr("Localizable", "SignUp.birth.title", fallback: "생년월일(선택)")
     }
     internal enum Code {
       /// 인증번호를 다시 입력해주세요.
@@ -403,16 +403,16 @@ internal enum L10n {
     internal enum Gender {
       /// 남자
       internal static let man = L10n.tr("Localizable", "SignUp.gender.man", fallback: "남자")
-      /// 성별
-      internal static let title = L10n.tr("Localizable", "SignUp.gender.title", fallback: "성별")
+      /// 성별(선택)
+      internal static let title = L10n.tr("Localizable", "SignUp.gender.title", fallback: "성별(선택)")
       /// 여자
       internal static let woman = L10n.tr("Localizable", "SignUp.gender.woman", fallback: "여자")
     }
     internal enum Job {
       /// 직업을 선택해주세요.
       internal static let placeholder = L10n.tr("Localizable", "SignUp.job.placeholder", fallback: "직업을 선택해주세요.")
-      /// 직업
-      internal static let title = L10n.tr("Localizable", "SignUp.job.title", fallback: "직업")
+      /// 직업(선택)
+      internal static let title = L10n.tr("Localizable", "SignUp.job.title", fallback: "직업(선택)")
     }
     internal enum Nickname {
       /// 중복확인

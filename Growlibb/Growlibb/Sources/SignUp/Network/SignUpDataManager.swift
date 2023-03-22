@@ -55,7 +55,7 @@ class SignUpDataManager {
     }
     
     func postSignUp(viewController: SignUpSecondViewController) {
-        let parameters = PostSignUpRequest(email: UserInfo.shared.email, password: UserInfo.shared.password, phoneNumber: UserInfo.shared.phoneNumber, gender: UserInfo.shared.gender, nickname: UserInfo.shared.nickName, birthday: UserInfo.shared.birthday, job: UserInfo.shared.job, fcmToken: UserInfo.shared.fcmToken)
+        let parameters = PostSignUpRequest(email: UserInfo.shared.email, password: UserInfo.shared.password, phoneNumber: UserInfo.shared.phoneNumber, nickname: UserInfo.shared.nickName, fcmToken: UserInfo.shared.fcmToken, gender: UserInfo.shared.gender, birthday: UserInfo.shared.birthday, job: UserInfo.shared.job)
         AF.request("\(Constants.BASE_URL)auth/v1/sign-up", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: PostSignUpResponse.self) { response in

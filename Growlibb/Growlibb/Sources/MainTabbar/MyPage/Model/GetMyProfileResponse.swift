@@ -18,9 +18,8 @@ struct GetMyProfileResponse: Decodable {
 // MARK: - Result
 struct MyProfile: Decodable {
     var userID: Int
-    var nickname, email, phoneNumber, birthday: String
-    var gender, job: String
-    var profileImageUrl: String?
+    var nickname, email, phoneNumber: String
+    var profileImageUrl, birthday, gender, job: String?
 
     enum CodingKeys: String, CodingKey {
         case userID = "userId"

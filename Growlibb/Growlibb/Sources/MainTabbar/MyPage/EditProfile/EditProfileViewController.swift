@@ -28,8 +28,8 @@ final class EditProfileViewController: BaseViewController {
     
     let processor = ResizingImageProcessor(referenceSize: CGSize(width: 100, height: 100)) |> RoundCornerImageProcessor(cornerRadius: 50)
     
-    //닉네임 중복확인, 생년월일, 직업 체크여부를 확인하기 위한 배열
-    var validCheckArray = [true, true, true]
+    //닉네임 중복확인 체크여부를 확인 v230322 성별, 생년월일, 직업 기입 선택사항으로 변화
+    var validCheck = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,17 +63,16 @@ final class EditProfileViewController: BaseViewController {
     }
     
     func checkAllPass(){
-        if validCheckArray.allSatisfy({$0}){ //모두 true
+        if validCheck { //모두 true
             confirmButton.setEnable()
         }
         else{
-            print(validCheckArray)
             confirmButton.setDisable()
         }
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
-        validCheckArray[0] = false
+        validCheck = false
         nicknameGuideLabel.isHidden = true
         
         if nicknameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0 >= 1 && nicknameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) != UserInfo.shared.nickName {
@@ -81,7 +80,7 @@ final class EditProfileViewController: BaseViewController {
             checkMaxLength(textField: textField, maxLength: 10)
         }
         else{
-            validCheckArray[0] = true
+            validCheck = true
             nicknameButton.setDisable()
         }
         checkAllPass()
@@ -170,19 +169,23 @@ final class EditProfileViewController: BaseViewController {
                 UserInfo.shared.profileUrl = mypage.profileImageUrl
                 self.profileImageView.kf.setImage(with: URL(string: mypage.profileImageUrl ?? ""), placeholder: Asset.icMyProfile.image, options: [.processor(self.processor)])
                 
-                UserInfo.shared.job = mypage.job
-                self.jobSelectButton.setTitle(mypage.job, for: .normal)
-                self.jobSelectButton.setTitleColor(.black, for: .normal)
+                if mypage.job != nil {
+                    UserInfo.shared.job = mypage.job
+                    self.jobSelectButton.setTitle(mypage.job, for: .normal)
+                    self.jobSelectButton.setTitleColor(.black, for: .normal)
+                }
 
-                UserInfo.shared.birthday = mypage.birthday
-                self.birthTextField.text = mypage.birthday
+                if mypage.birthday != nil {
+                    UserInfo.shared.birthday = mypage.birthday
+                    self.birthTextField.text = mypage.birthday
+                }
                 
                 if mypage.gender == "M" {
                     self.manButton.setBlueButton()
                     self.womanButton.setGrayButton()
                     UserInfo.shared.gender = "M"
                 }
-                else{
+                else if mypage.gender == "F" {
                     self.manButton.setGrayButton()
                     self.womanButton.setBlueButton()
                     UserInfo.shared.gender = "F"
@@ -196,13 +199,13 @@ final class EditProfileViewController: BaseViewController {
 //                    self.confirmButton.setEnable()
                     self.nicknameGuideLabel.isHidden = false
                     self.nicknameGuideLabel.text = L10n.SignUp.Nickname.Guidelabel.valid
-                    self.validCheckArray[0] = true
+                    self.validCheck = true
                 }
                 else{
 //                    self.confirmButton.setDisable()
                     self.nicknameGuideLabel.isHidden = false
                     self.nicknameGuideLabel.text = L10n.SignUp.Nickname.Guidelabel.exist
-                    self.validCheckArray[0] = false
+                    self.validCheck = false
                 }
                 self.checkAllPass()
             })
@@ -267,7 +270,7 @@ final class EditProfileViewController: BaseViewController {
     
     private var manButton = ShortButton().then { make in
         make.setTitle(L10n.SignUp.Gender.man, for: .normal)
-        make.setBlueButton()
+        make.setGrayButton()
     }
     
     private var womanButton = ShortButton().then { make in
@@ -347,7 +350,6 @@ final class EditProfileViewController: BaseViewController {
             self?.jobSelectButton.setTitleColor(.black, for: .normal)
             
             self?.dropdownImageView.image = Asset.icDropdownDown.image
-            self?.validCheckArray[2] = true
             self?.checkAllPass()
             
             UserInfo.shared.job = item
@@ -552,11 +554,9 @@ extension EditProfileViewController: UITextFieldDelegate{
         
         if textFieldText.count == 10 && Regex().isValidBirthday(input: textFieldText.replacingOccurrences(of: "-", with: "")) {
             birthGuideLabel.isHidden = true
-            validCheckArray[1] = true
         }
         else{
             birthGuideLabel.isHidden = false
-            validCheckArray[1] = false
         }
         checkAllPass()
         

@@ -8,6 +8,6 @@
 import Foundation
 
 struct PostSignUpRequest: Codable {
-    let email, password, phoneNumber, gender: String
-    let nickname, birthday, job, fcmToken: String
+    let email, password, phoneNumber, nickname, fcmToken: String
+    let gender, birthday, job: String?
 }
