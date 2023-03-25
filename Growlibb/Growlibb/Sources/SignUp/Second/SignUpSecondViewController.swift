@@ -103,17 +103,27 @@ final class SignUpSecondViewController: BaseViewController {
         
         manButton.rx.tap
             .subscribe({ _ in
-                UserInfo.shared.gender = "M"
-                self.manButton.setBlueButton()
-                self.womanButton.setGrayButton()
+                if UserInfo.shared.gender == "M" {
+                    UserInfo.shared.gender = ""
+                    self.manButton.setGrayButton()
+                } else {
+                    UserInfo.shared.gender = "M"
+                    self.manButton.setBlueButton()
+                    self.womanButton.setGrayButton()
+                }
             })
             .disposed(by: disposeBag)
         
         womanButton.rx.tap
             .subscribe({ _ in
-                UserInfo.shared.gender = "F"
-                self.manButton.setGrayButton()
-                self.womanButton.setBlueButton()
+                if UserInfo.shared.gender == "F" {
+                    UserInfo.shared.gender = ""
+                    self.womanButton.setGrayButton()
+                } else {
+                    UserInfo.shared.gender = "F"
+                    self.womanButton.setBlueButton()
+                    self.manButton.setGrayButton()
+                }
             })
             .disposed(by: disposeBag)
         
@@ -484,10 +494,15 @@ extension SignUpSecondViewController: UITextFieldDelegate{
         let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
         if textFieldText.count == 10 && Regex().isValidBirthday(input: textFieldText.replacingOccurrences(of: "-", with: "")) {
+            self.validCheck = true
             birthGuideLabel.isHidden = true
         }
-        else{
+        else if !textFieldText.isEmpty && !Regex().isValidBirthday(input: textFieldText.replacingOccurrences(of: "-", with: "")) {
+            self.validCheck = false
             birthGuideLabel.isHidden = false
+        } else if textFieldText.isEmpty {
+            self.validCheck = true //생년월일 정보를 지우고싶을 수 있으므로
+            birthGuideLabel.isHidden = true
         }
         checkAllPass()
         
