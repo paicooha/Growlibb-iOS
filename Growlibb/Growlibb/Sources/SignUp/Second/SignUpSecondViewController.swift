@@ -285,7 +285,6 @@ final class SignUpSecondViewController: BaseViewController {
             self?.jobSelectButton.setTitleColor(.black, for: .normal)
             
             self?.dropdownImageView.image = Asset.icDropdownDown.image
-            self?.checkAllPass()
             
             UserInfo.shared.job = item
         }
