@@ -31,8 +31,6 @@ class WriteRetrospectViewController: BaseViewController {
         if !UserDefaults.standard.bool(forKey: "isPassedWriteRetrospectTutorial") {
             viewModel.inputs.showTutorial.onNext(())
         }
-        
-//        viewModel.routeInputs.needUpdate.onNext(true)
     }
     
     init(viewModel: WriteRetrospectViewModel) {
@@ -116,20 +114,8 @@ class WriteRetrospectViewController: BaseViewController {
             
             cell.deleteButton.rx.tap
                 .subscribe(onNext: { _ in
-                    if self.isDoneListEmpty() {
-                        self.donePlusButton.setDisable()
-                    }
-                    else{
-                        self.donePlusButton.setEnable()
-                        
-                        if self.isAllListNotEmpty() {
-                            self.completeButton.setEnable()
-                        }
-                        else{
-                            self.completeButton.setDisable()
-                        }
-                        
-                    }
+                    self.controlButtonByIsEmptyList("done")
+
                     guard self.doneTableView.indexPath(for: cell) != nil else { return }
                     self.viewModel.inputs.deleteDone.onNext(self.doneTableView.indexPath(for: cell)!.row)
                 })
@@ -175,21 +161,9 @@ class WriteRetrospectViewController: BaseViewController {
             
             cell.deleteButton.rx.tap
                 .subscribe(onNext: { _ in
-                    if self.isKeepListEmpty() {
-                        self.keepPlusButton.setDisable()
-                    }
-                    else{
-                        self.keepPlusButton.setEnable()
-                        
-                        if self.isAllListNotEmpty() {
-                            self.completeButton.setEnable()
-                        }
-                        else{
-                            self.completeButton.setDisable()
-                        }
-                    }
+                    self.controlButtonByIsEmptyList("keep")
                     
-                    guard (self.keepTableView.indexPath(for: cell) != nil) else { return }
+                    guard (self.keepTableView.indexPath(for: cell) != nil) else { return } //삭제 버튼을 빠르게 눌렀을 때 cell의 인덱스를 nil로 인식하는 부분 방지를 위해 guard침
                     self.viewModel.inputs.deleteKeep.onNext(self.keepTableView.indexPath(for: cell)!.row)
                 })
                 .disposed(by: cell.disposeBag)
@@ -226,19 +200,7 @@ class WriteRetrospectViewController: BaseViewController {
             
             cell.deleteButton.rx.tap
                 .subscribe(onNext: { _ in
-                    if self.isProblemListEmpty() {
-                        self.problemPlusButton.setDisable()
-                    }
-                    else{
-                        self.problemPlusButton.setEnable()
-                        
-                        if self.isAllListNotEmpty() {
-                            self.completeButton.setEnable()
-                        }
-                        else{
-                            self.completeButton.setDisable()
-                        }
-                    }
+                    self.controlButtonByIsEmptyList("problem")
                     
                     guard (self.problemTableView.indexPath(for: cell) != nil) else { return }
                     self.viewModel.inputs.deleteProblem.onNext(self.problemTableView.indexPath(for: cell)!.row)
@@ -278,21 +240,9 @@ class WriteRetrospectViewController: BaseViewController {
             cell.deleteButton.rx.tap
                 .map { indexPath.row }
                 .subscribe(onNext: { index in
-                    if self.isTryListEmpty() {
-                        self.tryPlusButton.setDisable()
-                    }
-                    else{
-                        self.tryPlusButton.setEnable()
-                        
-                        if self.isAllListNotEmpty() {
-                            self.completeButton.setEnable()
-                        }
-                        else{
-                            self.completeButton.setDisable()
-                        }
-                    }
+                    self.controlButtonByIsEmptyList("try")
                     
-                    self.viewModel.toast.onNext(self.tryTableView.indexPath(for: cell)!.row.description)
+                    guard (self.tryTableView.indexPath(for: cell) != nil) else { return }
                     self.viewModel.inputs.deleteTry.onNext(self.tryTableView.indexPath(for: cell)!.row)
                     
                 })
@@ -400,6 +350,23 @@ class WriteRetrospectViewController: BaseViewController {
     private var completeButton = LongButton().then { view in
         view.setDisable()
         view.setTitle(L10n.WriteRetrospect.Enroll.Button.title, for: .normal)
+    }
+    
+    func controlButtonByIsEmptyList(_ type: String) {
+        switch type {
+        case "done":
+            self.isDoneListEmpty() ? self.donePlusButton.setDisable() : self.donePlusButton.setEnable()
+        case "keep":
+            self.isKeepListEmpty() ? self.keepPlusButton.setDisable() : self.keepPlusButton.setEnable()
+        case "problem":
+            self.isProblemListEmpty() ? self.problemPlusButton.setDisable() : self.problemPlusButton.setEnable()
+        case "try":
+            self.isTryListEmpty() ? self.tryPlusButton.setDisable() : self.tryPlusButton.setEnable()
+        default:
+            break
+        }
+        
+        self.isAllListNotEmpty() ? self.completeButton.setEnable() : self.completeButton.setDisable()
     }
     
     func isAllListNotEmpty() -> Bool {
