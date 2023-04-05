@@ -59,17 +59,9 @@ class RetrospectViewController: BaseViewController {
             .subscribe(onNext: { [weak self] info in
                 self!.stackView.isHidden = false
                 
-                var gender = ""
-                if info.gender == "M"{
-                    gender = L10n.Retrospect.Gender.Icon.man
-                }
-                else{
-                    gender = L10n.Retrospect.Gender.Icon.woman
-                }
-                
-                self!.pointLeftView.label.text = "\(gender)\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Point.Description.first)\(info.point)\(L10n.Retrospect.Point.Description.second)"
+                self!.pointLeftView.label.text = "\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Point.Description.first)\(info.point)\(L10n.Retrospect.Point.Description.second)"
                 self!.pointRightView.label.text = "\(info.needPointForLevel)\(L10n.Retrospect.Morepoint.Description.first)\(self!.userKeyChainService.level+1)\(L10n.Retrospect.Morepoint.Description.second)"
-                self!.countLeftView.label.text = "\(gender)\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Continuous.Description.first)\(info.continuousWritingCount)\(L10n.Retrospect.Continuous.Description.second)"
+                self!.countLeftView.label.text = "\(self!.userKeyChainService.nickName)\(L10n.Retrospect.Continuous.Description.first)\(info.continuousWritingCount)\(L10n.Retrospect.Continuous.Description.second)"
                 self!.countRightView.label.text = "\(info.needContinuousRetrospection)\(L10n.Retrospect.Morecontinuous.description)"
                 
                 self!.retrospectId = info.todayWrittenRetrospectionId

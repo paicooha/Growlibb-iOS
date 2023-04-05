@@ -273,14 +273,6 @@ internal enum L10n {
         internal static let second = L10n.tr("Localizable", "Retrospect.continuous.description.second", fallback: "번 회고를 작성하셨군요!")
       }
     }
-    internal enum Gender {
-      internal enum Icon {
-        /// 👦🏻 
-        internal static let man = L10n.tr("Localizable", "Retrospect.gender.icon.man", fallback: "👦🏻 ")
-        /// 👩🏻 
-        internal static let woman = L10n.tr("Localizable", "Retrospect.gender.icon.woman", fallback: "👩🏻 ")
-      }
-    }
     internal enum Modal {
       internal enum Event {
         /// 🎉
