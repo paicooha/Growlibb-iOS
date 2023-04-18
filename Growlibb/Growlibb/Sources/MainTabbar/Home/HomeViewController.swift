@@ -21,6 +21,7 @@ class HomeViewController: BaseViewController {
     private var userKeyChainService: UserKeychainService
     var retroSpectList = [LatestRetrospectionInfo]()
     var dateUtil = DateUtil.shared
+    private var observer: NSObjectProtocol?
     
     var datesWithEvent = [Date]()
         
@@ -39,13 +40,33 @@ class HomeViewController: BaseViewController {
         retrospectListTableView.dataSource = self
         
         retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
-
+        
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [unowned self] notification in
+            changeEvent()
+        }
     }
 
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         self.userKeyChainService = BasicUserKeyChainService.shared
         super.init()
+    }
+    
+    deinit { //옵저버 해지 -> 메모리 관리
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        changeEvent()
+    }
+    
+    func changeEvent(){
+        if dateLabel.text != DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd) { //날짜가 달라진 경우 바꿔주기
+            dateLabel.text = DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd)
+            calendar.reloadData() //calendar reload
+        }
     }
 
     @available(*, unavailable)
