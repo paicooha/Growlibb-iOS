@@ -15,7 +15,7 @@ import Toast_Swift
 import UIKit
 import FSCalendar
 
-class HomeViewController: BaseViewController {
+final class HomeViewController: BaseViewController { //final : 이후에 상속될 가능성이 없음을 의미함으로써 성능을 향상시킴
     
     lazy var homeDataManager = HomeDataManager()
     private var userKeyChainService: UserKeychainService
@@ -23,7 +23,7 @@ class HomeViewController: BaseViewController {
     var dateUtil = DateUtil.shared
     private var observer: NSObjectProtocol?
     
-    var datesWithEvent = [Date]()
+    var datesWithRetrospect = [Date]()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +41,8 @@ class HomeViewController: BaseViewController {
         
         retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
         
-        observer = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [unowned self] notification in
-            changeEvent()
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [unowned self] _ in
+            changeTitleAndCalendarDate()
         }
     }
 
@@ -59,13 +59,14 @@ class HomeViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        changeEvent()
+        changeTitleAndCalendarDate()
     }
     
-    func changeEvent(){
+    func changeTitleAndCalendarDate(){
         if dateLabel.text != DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd) { //날짜가 달라진 경우 바꿔주기
             dateLabel.text = DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd)
-            calendar.reloadData() //calendar reload
+            calendar.appearance.todayColor = .primaryBlue //오늘날짜로 파란 dot 재설정
+            calendar.reloadData()
         }
     }
 
@@ -366,13 +367,13 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
                 return .black
             }
         }
-        else{
+        else{ //오늘 -> 하얀색
             return .white
         }
     }
     
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int { //이벤트가 있을 시, 점을 몇개 표시할건지
-        if self.datesWithEvent.contains(date){
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int { //이벤트가 있을 시, 날짜 아래 회고가 있을 때의 점을 몇개 표시할건지
+        if self.datesWithRetrospect.contains(date){
             return 1
         }
         else{
@@ -460,14 +461,14 @@ extension HomeViewController {
         }
         
         if !result.retrospectionDates.isEmpty{
-            datesWithEvent.removeAll()
+            datesWithRetrospect.removeAll()
             
             for i in result.retrospectionDates{
-                datesWithEvent.append(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
+                datesWithRetrospect.append(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
 //                print(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
 //                print(DateUtil.shared.now)
             }
-            datesWithEvent = datesWithEvent.filter { dateUtil.formattedString(for: $0, format: .yyMMdd) != dateUtil.formattedString(for: dateUtil.now, format: .yyMMdd) }
+            datesWithRetrospect = datesWithRetrospect.filter { dateUtil.formattedString(for: $0, format: .yyMMdd) != dateUtil.formattedString(for: dateUtil.now, format: .yyMMdd) }
             calendar.reloadData()
         }
     }
