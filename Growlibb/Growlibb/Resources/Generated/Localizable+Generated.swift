@@ -45,6 +45,10 @@ internal enum L10n {
       }
     }
     internal enum Password {
+      internal enum Button {
+        /// 변경하기
+        internal static let title = L10n.tr("Localizable", "Find.password.button.title", fallback: "변경하기")
+      }
       internal enum Find {
         /// 비밀번호를 재설정 해주세요!
         internal static let title = L10n.tr("Localizable", "Find.password.find.title", fallback: "비밀번호를 재설정 해주세요!")

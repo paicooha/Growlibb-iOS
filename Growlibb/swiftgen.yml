@@ -69,7 +69,7 @@ xcassets:
 
 strings:
   inputs:
-    - Localization/en.lproj
+    - Localization/ko.lproj
   outputs:
     templateName: structured-swift5
     output: Localizable+Generated.swift
