@@ -14,8 +14,7 @@ target 'Growlibb' do
   pod 'RxDataSources', '~> 5.0'
   # RxGesture
   pod 'RxGesture'
-  # RxKeyboard
-  pod 'RxKeyboard'
+
   # Moya with rx
   pod 'Moya/RxSwift', '~> 15.0'
   # SwiftyJson
