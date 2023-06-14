@@ -465,8 +465,6 @@ extension HomeViewController {
             
             for i in result.retrospectionDates{
                 datesWithRetrospect.append(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
-//                print(DateUtil.shared.getDate(from: i, format: .yyyyMddDash)!)
-//                print(DateUtil.shared.now)
             }
             datesWithRetrospect = datesWithRetrospect.filter { dateUtil.formattedString(for: $0, format: .yyMMdd) != dateUtil.formattedString(for: dateUtil.now, format: .yyMMdd) }
             calendar.reloadData()

@@ -38,8 +38,6 @@ final class SignUpSecondViewController: BaseViewController {
         viewModelInput()
 //        viewModelOutput()
         
-//        nicknameTextField.delegate = self
-        //실시간으로 textfield 입력하는 부분 이벤트 받아서 처리
         nicknameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         birthTextField.delegate = self

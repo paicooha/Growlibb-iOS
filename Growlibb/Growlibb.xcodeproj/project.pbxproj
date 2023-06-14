@@ -62,7 +62,6 @@
 		DA68B68929A0CA4E00C8177D /* EditRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */; };
 		DA69D3BF291E1D30007B982A /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69D3BE291E1D30007B982A /* TextField.swift */; };
 		DA6C77A2298FD26E00B80DB9 /* NotiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */; };
-		DA6C77A4298FD64500B80DB9 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A3298FD64500B80DB9 /* FAQViewController.swift */; };
 		DA6C77A6298FD65600B80DB9 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */; };
 		DA6C77A8298FD66000B80DB9 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */; };
 		DA6C77AA298FF29100B80DB9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C77A9298FF29100B80DB9 /* WebKit.framework */; };
@@ -274,7 +273,6 @@
 		DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectViewController.swift; sourceTree = "<group>"; };
 		DA69D3BE291E1D30007B982A /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiViewController.swift; sourceTree = "<group>"; };
-		DA6C77A3298FD64500B80DB9 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		DA6C77A9298FF29100B80DB9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -663,7 +661,6 @@
 			children = (
 				DA80CBC4298EBF0B00E67212 /* Privacy */,
 				DA80CBC3298EBEFD00E67212 /* TermsOfUse */,
-				DA80CBC2298EBEF800E67212 /* FAQ */,
 				DA80CBC1298EBEF200E67212 /* Noti */,
 				DA80CBB9298EBE1100E67212 /* CSComponent.swift */,
 				DA80CBBB298EBE1600E67212 /* CSCoordinator.swift */,
@@ -679,14 +676,6 @@
 				DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */,
 			);
 			path = Noti;
-			sourceTree = "<group>";
-		};
-		DA80CBC2298EBEF800E67212 /* FAQ */ = {
-			isa = PBXGroup;
-			children = (
-				DA6C77A3298FD64500B80DB9 /* FAQViewController.swift */,
-			);
-			path = FAQ;
 			sourceTree = "<group>";
 		};
 		DA80CBC3298EBEFD00E67212 /* TermsOfUse */ = {
@@ -1443,7 +1432,6 @@
 				DA76A150299A9E3D00400FBC /* ResignViewController.swift in Sources */,
 				DA92799B298FBC8F00BBA53F /* MyPageAPIService.swift in Sources */,
 				DACF81E4291BC42500AA74E8 /* LoginType.swift in Sources */,
-				DA6C77A4298FD64500B80DB9 /* FAQViewController.swift in Sources */,
 				DACF17AA292B4EB2002734AA /* SignUpSecondCoordinator.swift in Sources */,
 				DA88B49B2923B94A00A4B1B5 /* RetrospectComponent.swift in Sources */,
 				DA7FDCCA293781E0003C3792 /* PostFindEmailRequest.swift in Sources */,

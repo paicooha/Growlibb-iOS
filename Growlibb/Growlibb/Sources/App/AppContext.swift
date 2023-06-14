@@ -10,7 +10,6 @@ import UIKit
 
 class AppContext {
     static let shared = AppContext()
-    private init() {}
 
     var rootNavigationController: UINavigationController?
 

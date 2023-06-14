@@ -11,7 +11,6 @@ class Log {
     enum Tag {
         case lifeCycle
         case network
-        case warning
         case info
         case error
         case custom(String)
@@ -22,10 +21,8 @@ class Log {
                 return "❤️"
             case .network:
                 return "📡"
-            case .warning:
-                return "⚠️"
             case .error:
-                return "❌"
+                return "🚨"
             case .info:
                 return "🔎"
             case let .custom(string):

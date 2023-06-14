@@ -23,9 +23,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
     var authTime = 180 //3분
     var authTimer: Timer?
     
-//    var sendCodebuttonTime = 2 //2초
-//    var sendCodeButtonTimer: Timer?
-    
     var email = ""
     var userInfo = UserInfo()
     
@@ -156,16 +153,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
         }
     }
     
-//    @objc func findEmailsendCodeTimerCallback() {
-//        sendCodebuttonTime -= 1
-//
-//        if (sendCodebuttonTime == 0){
-//            sendCodeButtonTimer?.invalidate()
-//            findEmailphoneButton.setEnable()
-//        }
-//
-//    }
-    
     @objc func findPasswordauthtimerCallback() {
         findpasswordauthTimerLabel.isHidden = false
         authTime -= 1
@@ -278,8 +265,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 //버튼 연타 방지
                 self.findEmailphoneButton.setDisable()
                 
-//                self.sendCodebuttonTime = 2
-//                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.findEmailsendCodeTimerCallback), userInfo: nil, repeats: true)
                 self.validCheckArray[0] = false //한번 더 인증할 수 있으므로 일단 false로 두기
                 
                 //휴대폰번호 중복 체크
@@ -300,7 +285,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
                         self.findEmailauthGuideLabel.isHidden = false
                         return
                     }
-//                    self.findEmailauthGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
                     self.findEmailauthGuideLabel.text = L10n.SignUp.Code.Correct.guidelabel
                     self.findEmailauthTimerLabel.isHidden = true
                     self.authTimer?.invalidate()
@@ -316,9 +300,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
             .subscribe({ _ in
                 //버튼 연타 방지
                 self.findpasswordphoneButton.setDisable()
-                
-//                self.sendCodebuttonTime = 2
-//                self.sendCodeButtonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.findPasswordsendCodeTimerCallback), userInfo: nil, repeats: true)
                 
                 //휴대폰번호 중복 체크
                 self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findpasswordphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
@@ -337,7 +318,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
                         self.findpasswordauthGuideLabel.isHidden = false
                         return
                     }
-//                    self.findpasswordauthGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
                     self.findpasswordauthGuideLabel.text = L10n.SignUp.Code.Correct.guidelabel
                     self.findpasswordauthTimerLabel.isHidden = true
                     self.authTimer?.invalidate()

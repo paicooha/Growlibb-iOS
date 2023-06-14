@@ -38,9 +38,6 @@ class MyPageViewController: BaseViewController {
     private var viewModel: MyPageViewModel
 
     private func viewModelInput() {
-//        navBar.rightBtnItem.rx.tap
-//            .bind(to: viewModel.inputs.goCS)
-//            .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] index in
@@ -61,7 +58,6 @@ class MyPageViewController: BaseViewController {
                     self?.viewModel.inputs.logout.onNext(())
                 default:
                     self?.viewModel.inputs.goResign.onNext(())
-
                 }
             })
             .disposed(by: disposeBag)
@@ -110,11 +106,6 @@ class MyPageViewController: BaseViewController {
             .bind(to: tableView.rx.items(dataSource: myListTableViewDataSource))
             .disposed(by: disposeBag)
     }
-
-//    private var navBar = NavBar().then { navBar in
-////        navBar.rightBtnItem.isHidden = false
-//        navBar.titleLabel.isHidden = true
-//    }
     
     private var scrollView = UIScrollView().then { view in
         view.showsVerticalScrollIndicator = false
