@@ -56,7 +56,6 @@ extension BaseViewController: UIGestureRecognizerDelegate {
             UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false //같은 뷰에 여러 tap gesture가 있을 때, 해당 tap이 다른 tap을 방해하지 않기 위한 설정
         view.addGestureRecognizer(tap)
-        print("VC tapped")
     }
 
     @objc func dismissKeyboard() {
