@@ -15,7 +15,7 @@ import Toast_Swift
 import UIKit
 import FSCalendar
 
-final class HomeViewController: BaseViewController { //final : 이후에 상속될 가능성이 없음을 의미함으로써 성능을 향상시킴
+final class HomeViewController: BaseViewController {
     
     lazy var homeDataManager = HomeDataManager()
     private var userKeyChainService: UserKeychainService
@@ -60,14 +60,6 @@ final class HomeViewController: BaseViewController { //final : 이후에 상속�
     
     override func viewWillAppear(_ animated: Bool) {
         changeTitleAndCalendarDate()
-    }
-    
-    func changeTitleAndCalendarDate(){
-        if dateLabel.text != DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd) { //날짜가 달라진 경우 바꿔주기
-            dateLabel.text = DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd)
-            calendar.appearance.todayColor = .primaryBlue //오늘날짜로 파란 dot 재설정
-            calendar.reloadData()
-        }
     }
 
     @available(*, unavailable)
@@ -152,37 +144,6 @@ final class HomeViewController: BaseViewController { //final : 이후에 상속�
 
     }
     
-    private var retrospectTitle = UILabel().then { view in
-        view.font = .pretendardMedium16
-        view.textColor = .black
-        view.text = L10n.Home.Recent.title
-    }
-    
-    private var retrospectListTableView = UITableView().then { view in
-        view.isHidden = true
-        view.separatorColor = .clear //구분선 없애기
-        view.showsVerticalScrollIndicator = false
-        view.isScrollEnabled = false
-    }
-    
-    private var noRetrospectView = UIButton().then { view in
-        view.isHidden = true
-        
-        view.backgroundColor = .veryLightGray
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 12
-        
-        view.setTitle(L10n.Home.Recent.nodata, for: .normal)
-        view.setTitleColor(.black, for: .normal)
-        view.titleLabel?.font = .pretendardMedium12
-    }
-    
-    private var goRetrospectButton = LongButton().then { view in
-        view.isHidden = true
-        view.titleLabel?.font = .pretendardMedium12
-        view.setTitle(L10n.Main.Button.goRetrospect, for: .normal)
-    }
-    
     private var calendar = FSCalendar().then { view in
         view.scope = .month //월 표시
         view.locale = Locale(identifier: "ko_KR") //요일을 한글로 표시하기 위함
@@ -222,6 +183,55 @@ final class HomeViewController: BaseViewController { //final : 이후에 상속�
         view.textColor = .black
         view.text = DateUtil.shared.formattedString(for: Date(), format: DateFormat.yyyyMKR)
     }
+    
+    private var retrospectTitle = UILabel().then { view in
+        view.font = .pretendardMedium16
+        view.textColor = .black
+        view.text = L10n.Home.Recent.title
+    }
+    
+    private var retrospectListTableView = UITableView().then { view in
+        view.isHidden = true
+        view.separatorColor = .clear //구분선 없애기
+        view.showsVerticalScrollIndicator = false
+        view.isScrollEnabled = false
+    }
+    
+    private var noRetrospectView = UIButton().then { view in
+        view.isHidden = true
+        
+        view.backgroundColor = .veryLightGray
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 12
+        
+        view.setTitle(L10n.Home.Recent.nodata, for: .normal)
+        view.setTitleColor(.black, for: .normal)
+        view.titleLabel?.font = .pretendardMedium12
+    }
+    
+    private var goRetrospectButton = LongButton().then { view in
+        view.isHidden = true
+        view.titleLabel?.font = .pretendardMedium12
+        view.setTitle(L10n.Main.Button.goRetrospect, for: .normal)
+    }
+    
+    private lazy var stackView = UIStackView().then { view in
+        view.addArrangedSubviews([retrospectListTableView,
+                                 noRetrospectView,
+                                 goRetrospectButton])
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .equalSpacing
+        view.spacing = 15
+    }
+    
+    func changeTitleAndCalendarDate(){
+        if dateLabel.text != DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd) { //날짜가 달라진 경우 바꿔주기
+            dateLabel.text = DateUtil.shared.formattedString(for: DateUtil.shared.now, format: .yyMMdd)
+            calendar.appearance.todayColor = .primaryBlue //오늘날짜로 파란 dot 재설정
+            calendar.reloadData()
+        }
+    }
 }
 
 // MARK: - Layout
@@ -240,13 +250,11 @@ extension HomeViewController {
             dateLabel,
             titleLabel,
             retrospectTitle,
-            retrospectListTableView,
-            noRetrospectView,
-            goRetrospectButton,
             calendar,
             prevMonthButton,
             nextMonthButton,
-            calendarHeaderTitle
+            calendarHeaderTitle,
+            stackView
         ])
         
         let attributedTitleString = NSMutableAttributedString(string: "\(self.userKeyChainService.nickName)\(L10n.Home.Title.nickname)")
@@ -315,26 +323,23 @@ extension HomeViewController {
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
         }
         
-        retrospectListTableView.snp.makeConstraints{ make in
+        stackView.snp.makeConstraints { make in
             make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
-            make.leading.equalTo(retrospectTitle.snp.leading)
+            make.leading.equalTo(contentView.snp.leading).offset(28)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(189)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-21)
         }
         
         noRetrospectView.snp.makeConstraints{ make in
-            make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
-            make.leading.equalTo(retrospectTitle.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
             make.height.equalTo(124)
         }
-        
+
         goRetrospectButton.snp.makeConstraints{ make in
-            make.top.equalTo(noRetrospectView.snp.bottom).offset(15)
-            make.leading.equalTo(retrospectTitle.snp.leading)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.bottom.equalToSuperview().offset(-21)
             make.height.equalTo(50)
+        }
+        
+        retrospectListTableView.snp.makeConstraints { make in
+            make.height.equalTo(0)
         }
     }
 }
@@ -419,25 +424,8 @@ extension HomeViewController {
             goRetrospectButton.isHidden = false
             
             retrospectListTableView.isHidden = true
-            
-            retrospectListTableView.snp.removeConstraints()
-            
-            noRetrospectView.snp.makeConstraints{ make in
-                make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
-                make.leading.equalTo(retrospectTitle.snp.leading)
-                make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-                make.height.equalTo(124)
-            }
-            
-            goRetrospectButton.snp.makeConstraints{ make in
-                make.top.equalTo(noRetrospectView.snp.bottom).offset(15)
-                make.leading.equalTo(retrospectTitle.snp.leading)
-                make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-                make.bottom.equalToSuperview().offset(-21)
-                make.height.equalTo(50)
-            }
         }
-        else{ //회고 데이터가 있을 경우
+        else{
             noRetrospectView.isHidden = true
             goRetrospectButton.isHidden = true
                         
@@ -446,17 +434,9 @@ extension HomeViewController {
             retroSpectList.removeAll()
             retroSpectList.append(contentsOf: result.latestRetrospectionInfos)
             retrospectListTableView.reloadData()
-            retrospectListTableView.layoutIfNeeded()
             
-            noRetrospectView.snp.removeConstraints()
-            goRetrospectButton.snp.removeConstraints()
-            
-            retrospectListTableView.snp.makeConstraints{ make in
-                make.top.equalTo(retrospectTitle.snp.bottom).offset(15)
-                make.leading.equalTo(retrospectTitle.snp.leading)
-                make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-                make.bottom.equalToSuperview().offset(-21)
-                make.height.equalTo(66 * retroSpectList.count)
+            retrospectListTableView.snp.updateConstraints { make in
+                make.height.equalTo(65 * retroSpectList.count)
             }
         }
         
