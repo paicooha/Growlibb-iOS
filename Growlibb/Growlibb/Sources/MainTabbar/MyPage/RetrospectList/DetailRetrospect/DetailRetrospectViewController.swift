@@ -81,7 +81,7 @@ class DetailRetrospectViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.outputs.doneList
-            .subscribe(onNext: { hi in
+            .subscribe(onNext: { _ in
                 self.doneTableView.snp.updateConstraints { make in
                     make.height.equalTo(self.doneTableView.contentSize.height) //스크롤뷰 높이 늘리기
                 }
@@ -145,7 +145,6 @@ class DetailRetrospectViewController: BaseViewController {
     
     private var navBar = NavBar().then { navBar in
         navBar.leftBtnItem.isHidden = false
-//        navBar.titleLabel.text = L10n.WriteRetrospect.title
     }
     
     private var scrollView = UIScrollView().then { view in

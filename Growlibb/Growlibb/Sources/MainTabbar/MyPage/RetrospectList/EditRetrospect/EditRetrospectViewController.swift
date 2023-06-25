@@ -872,9 +872,6 @@ extension EditRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = doneTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
             
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
