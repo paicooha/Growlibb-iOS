@@ -505,7 +505,6 @@
 				DA32889E298ABFC5003BA501 /* Config */,
 				DA8A8F302989850500C63D2B /* Model */,
 				DA8A8F2B2989832800C63D2B /* Netwotrk */,
-				DACC7F6C29895A4600C17F1E /* Cell */,
 				DA42978E297300D3003AAA93 /* TutorialModal */,
 				DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */,
 				DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */,
@@ -618,6 +617,21 @@
 				DA87E120299BDA3F00F6B4B7 /* EditPhoneNumberViewController.swift */,
 			);
 			path = EditPhoneNumber;
+			sourceTree = "<group>";
+		};
+		DA7E8C6D2A5878FA00A18450 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DAC1854629196213009D7181 /* NavBar.swift */,
+				DACF820F291C11D700AA74E8 /* LongButton.swift */,
+				DA69D3BE291E1D30007B982A /* TextField.swift */,
+				DA0597D529213EF2005DFC79 /* ShortButton.swift */,
+				DA5D352E293CB56400150FF1 /* LogoImageView.swift */,
+				DA977F4429B0FCB70043CC3E /* RetrospectPlusButton.swift */,
+				DA7E8C6B2A586D5800A18450 /* RetrospectTableView.swift */,
+				DACC7F6D29895A5400C17F1E /* WriteRetrospectCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DA7FDCC5293781B6003C3792 /* Model */ = {
@@ -934,16 +948,10 @@
 		DAC1854529196203009D7181 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DA7E8C6D2A5878FA00A18450 /* View */,
 				DA8A8F33298986AB00C63D2B /* Modal */,
 				DA5D352C293CAEFD00150FF1 /* Model */,
 				DACF81DB291BBF1A00AA74E8 /* KeyChain */,
-				DAC1854629196213009D7181 /* NavBar.swift */,
-				DACF820F291C11D700AA74E8 /* LongButton.swift */,
-				DA69D3BE291E1D30007B982A /* TextField.swift */,
-				DA0597D529213EF2005DFC79 /* ShortButton.swift */,
-				DA5D352E293CB56400150FF1 /* LogoImageView.swift */,
-				DA977F4429B0FCB70043CC3E /* RetrospectPlusButton.swift */,
-				DA7E8C6B2A586D5800A18450 /* RetrospectTableView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -998,14 +1006,6 @@
 				DACB0BCB297F11CC00ABCB8F /* GetRetrospectTabResponse.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		DACC7F6C29895A4600C17F1E /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				DACC7F6D29895A5400C17F1E /* WriteRetrospectCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		DACF81D4291BBE4300AA74E8 /* App */ = {
