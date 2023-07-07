@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FindEmailorPasswordComponent {
+final class FindEmailorPasswordComponent {
     var scene: (VC: UIViewController, VM: FindEmailorPasswordViewModel) {
         let viewModel = self.viewModel
         return (FindEmailorPasswordViewController(viewModel: viewModel), viewModel)

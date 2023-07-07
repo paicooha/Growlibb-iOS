@@ -14,7 +14,7 @@ import Then
 import UIKit
 import SafariServices
 
-class CSViewController: BaseViewController {
+final class CSViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

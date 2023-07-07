@@ -14,7 +14,7 @@ import SnapKit
 import FirebaseAuth
 import AnyFormatKit
 
-class EditPasswordSecondViewController: BaseViewController {
+final class EditPasswordSecondViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

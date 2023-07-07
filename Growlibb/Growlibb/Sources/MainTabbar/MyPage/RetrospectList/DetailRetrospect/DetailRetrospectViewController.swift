@@ -12,7 +12,7 @@ import SnapKit
 import Then
 import UIKit
 
-class DetailRetrospectViewController: BaseViewController {
+final class DetailRetrospectViewController: BaseViewController {
     
     let dateUtil = DateUtil.shared
     

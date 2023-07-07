@@ -15,7 +15,7 @@ protocol TextViewDelegate {
     func textViewDidChange(_ cell:WriteRetrospectCell,_ textView:UITextView)
 }
 
-class WriteRetrospectCell: UITableViewCell {
+final class WriteRetrospectCell: UITableViewCell {
     
     var delegate: TextViewDelegate?
     

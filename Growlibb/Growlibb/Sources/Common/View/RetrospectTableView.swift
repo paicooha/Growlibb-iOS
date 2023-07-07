@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RetrospectTableView: UITableView {
+final class RetrospectTableView: UITableView {
 
     override func layoutSubviews() {
         super.layoutSubviews()

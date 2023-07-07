@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginComponent {
+final class LoginComponent {
     var scene: (VC: UIViewController, VM: LoginViewModel) {
         let viewModel = self.viewModel
         return (LoginViewController(viewModel: viewModel), viewModel)

@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class ResignViewController: BaseViewController {
+final class ResignViewController: BaseViewController {
     
     private var userKeyChainService: UserKeychainService
     private var isCheckBoxOn = false

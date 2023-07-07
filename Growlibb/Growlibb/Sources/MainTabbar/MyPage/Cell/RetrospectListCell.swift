@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import SnapKit
 
-class RetrospectListCell: UITableViewCell {
+final class RetrospectListCell: UITableViewCell {
     
     var dateUtil = DateUtil.shared
 

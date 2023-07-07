@@ -13,7 +13,7 @@ import SnapKit
 import Then
 import UIKit
 
-class EditRetrospectViewController: BaseViewController {
+final class EditRetrospectViewController: BaseViewController {
     var originalDoneList = [Attempt]()
     var originalKeepList = [Attempt]()
     var originalProblemList = [Attempt]()

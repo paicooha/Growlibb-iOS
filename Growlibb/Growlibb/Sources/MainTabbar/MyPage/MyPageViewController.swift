@@ -14,7 +14,7 @@ import Then
 import UIKit
 import Kingfisher
 
-class MyPageViewController: BaseViewController {
+final class MyPageViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

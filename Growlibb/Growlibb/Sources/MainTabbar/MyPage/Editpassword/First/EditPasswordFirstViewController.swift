@@ -14,7 +14,7 @@ import SnapKit
 import FirebaseAuth
 import AnyFormatKit
 
-class EditPasswordFirstViewController: BaseViewController {
+final class EditPasswordFirstViewController: BaseViewController {
         
     var phoneNumber = ""
     var verificationId = ""
