@@ -78,11 +78,10 @@ class EditRetrospectViewController: BaseViewController {
                 self.donePlusButton.setDisable()
                 
                 self.doneList.append(Attempt(id: nil, content: ""))
-                print(self.doneList.count)
                 self.doneTableView.insertRows(at: [IndexPath(row: self.doneList.count-1, section: 0)], with: .fade)
                 
                 self.doneTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.doneTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                    make.height.greaterThanOrEqualTo(self.doneTableView.contentSize.height) //스크롤뷰 높이 늘리기
                 }
             })
             .disposed(by: disposeBag)
@@ -96,7 +95,7 @@ class EditRetrospectViewController: BaseViewController {
                 self.keepTableView.insertRows(at: [IndexPath(row: self.keepList.count-1, section: 0)], with: .fade)
                 
                 self.keepTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.keepTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                    make.height.greaterThanOrEqualTo(self.keepTableView.contentSize.height) //스크롤뷰 높이 늘리기
                 }
             })
             .disposed(by: disposeBag)
@@ -110,7 +109,7 @@ class EditRetrospectViewController: BaseViewController {
                 self.problemTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .fade)
                 
                 self.problemTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.problemTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                    make.height.greaterThanOrEqualTo(self.problemTableView.contentSize.height) //스크롤뷰 높이 늘리기
                 }
             })
             .disposed(by: disposeBag)
@@ -124,7 +123,7 @@ class EditRetrospectViewController: BaseViewController {
                 self.tryTableView.insertRows(at: [IndexPath(row: self.problemList.count-1, section: 0)], with: .fade)
                 
                 self.tryTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.tryTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                    make.height.greaterThanOrEqualTo(self.tryTableView.contentSize.height) //스크롤뷰 높이 늘리기
                 }
             })
             .disposed(by: disposeBag)
@@ -132,10 +131,6 @@ class EditRetrospectViewController: BaseViewController {
         completeButton.rx.tap
             .subscribe(onNext: { _ in
                 self.getEditedList()
-                print(self.editedKeepList)
-                print(self.editedProblemList)
-                print(self.editedTryList)
-                print(self.editedDoneList)
                 self.viewModel.inputs.complete.onNext(PatchRetrospectRequest(id: self.retrospectionId, done: self.editedDoneList, keep: self.editedKeepList, problem: self.editedProblemList, attempt: self.editedTryList))
             })
             .disposed(by: disposeBag)
@@ -155,8 +150,9 @@ class EditRetrospectViewController: BaseViewController {
                 self.doneList.append(contentsOf: list)
                 self.doneTableView.reloadData()
                 
+                self.doneTableView.layoutIfNeeded()
                 self.doneTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.doneTableView.contentSize.height)
+                    make.height.greaterThanOrEqualTo(self.doneTableView.contentSize.height)
                 }
             })
             .disposed(by: disposeBag)
@@ -169,7 +165,7 @@ class EditRetrospectViewController: BaseViewController {
                 self.keepTableView.reloadData()
                 
                 self.keepTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.keepTableView.contentSize.height)
+                    make.height.greaterThanOrEqualTo(self.keepTableView.contentSize.height)
                 }
             })
             .disposed(by: disposeBag)
@@ -182,7 +178,7 @@ class EditRetrospectViewController: BaseViewController {
                 self.problemTableView.reloadData()
                 
                 self.problemTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.problemTableView.contentSize.height)
+                    make.height.greaterThanOrEqualTo(self.problemTableView.contentSize.height)
                 }
                 
             })
@@ -195,7 +191,7 @@ class EditRetrospectViewController: BaseViewController {
                 self.tryTableView.reloadData()
                 
                 self.tryTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.tryTableView.contentSize.height)
+                    make.height.greaterThanOrEqualTo(self.tryTableView.contentSize.height)
                 }
             })
             .disposed(by: disposeBag)
@@ -220,12 +216,14 @@ class EditRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Done.title
     }
     
-    private var doneTableView: UITableView = {
-        let view = UITableView()
+    private var doneTableView: RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
@@ -238,12 +236,13 @@ class EditRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Keep.title
     }
     
-    private var keepTableView: UITableView = {
-        let view = UITableView()
+    private var keepTableView: RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
@@ -256,12 +255,13 @@ class EditRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Problem.title
     }
     
-    private var problemTableView : UITableView = {
-        let view = UITableView()
+    private var problemTableView : RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
@@ -274,12 +274,13 @@ class EditRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Try.title
     }
     
-    private var tryTableView : UITableView = {
-        let view = UITableView()
+    private var tryTableView : RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
@@ -585,7 +586,7 @@ extension EditRetrospectViewController {
             make.top.equalTo(doneTitle.snp.bottom).offset(15)
             make.leading.equalTo(doneTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(doneTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(doneTableView.contentSize.height)
         }
         
         donePlusButton.snp.makeConstraints { make in
@@ -606,7 +607,7 @@ extension EditRetrospectViewController {
             make.top.equalTo(keepTitle.snp.bottom).offset(15)
             make.leading.equalTo(keepTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(keepTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(keepTableView.contentSize.height)
         }
         
         keepPlusButton.snp.makeConstraints { make in
@@ -627,7 +628,7 @@ extension EditRetrospectViewController {
             make.top.equalTo(problemTitle.snp.bottom).offset(15)
             make.leading.equalTo(problemTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(problemTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(problemTableView.contentSize.height)
         }
         
         problemPlusButton.snp.makeConstraints { make in
@@ -648,7 +649,7 @@ extension EditRetrospectViewController {
             make.top.equalTo(tryTitle.snp.bottom).offset(15)
             make.leading.equalTo(tryTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(tryTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(tryTableView.contentSize.height)
         }
         
         tryPlusButton.snp.makeConstraints { make in
@@ -705,7 +706,7 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.doneList.remove(at: index)
                     self.doneTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.doneTableView.snp.updateConstraints { make in
-                        make.height.equalTo(self.doneTableView.contentSize.height)
+                        make.height.greaterThanOrEqualTo(self.doneTableView.contentSize.height)
                     }
                     
                     if self.isDoneListEmpty() {
@@ -744,7 +745,7 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.keepList.remove(at: index)
                     self.keepTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.keepTableView.snp.updateConstraints { make in
-                        make.height.equalTo(self.keepTableView.contentSize.height)
+                        make.height.greaterThanOrEqualTo(self.keepTableView.contentSize.height)
                     }
                     
                     if self.isKeepListEmpty() {
@@ -784,7 +785,7 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.problemList.remove(at: index)
                     self.problemTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.problemTableView.snp.updateConstraints { make in
-                        make.height.equalTo(self.problemTableView.contentSize.height)
+                        make.height.greaterThanOrEqualTo(self.problemTableView.contentSize.height)
                     }
                     
                     if self.isProblemListEmpty() {
@@ -823,7 +824,7 @@ extension EditRetrospectViewController: UITableViewDataSource, UITableViewDelega
                     self.tryList.remove(at: index)
                     self.tryTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .fade)
                     self.tryTableView.snp.updateConstraints { make in
-                        make.height.equalTo(self.tryTableView.contentSize.height)
+                        make.height.greaterThanOrEqualTo(self.tryTableView.contentSize.height)
                     }
                     
                     if self.isTryListEmpty() {
@@ -877,7 +878,7 @@ extension EditRetrospectViewController: TextViewDelegate {
                 UIView.setAnimationsEnabled(false)
                 doneTableView.performBatchUpdates({
                     doneTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)
@@ -902,15 +903,12 @@ extension EditRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = keepTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
             
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
                 keepTableView.performBatchUpdates({
                     keepTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)
@@ -935,15 +933,12 @@ extension EditRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = problemTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
             
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
                 problemTableView.performBatchUpdates({
                     problemTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)
@@ -968,15 +963,12 @@ extension EditRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = tryTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
             
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
                 tryTableView.performBatchUpdates({
                     tryTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)

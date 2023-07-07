@@ -82,8 +82,9 @@ class DetailRetrospectViewController: BaseViewController {
         
         viewModel.outputs.doneList
             .subscribe(onNext: { _ in
-                self.doneTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.doneTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.doneTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.doneTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -100,8 +101,9 @@ class DetailRetrospectViewController: BaseViewController {
         
         viewModel.outputs.keepList
             .subscribe({ _ in
-                self.keepTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.keepTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.keepTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.keepTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -118,8 +120,9 @@ class DetailRetrospectViewController: BaseViewController {
         
         viewModel.outputs.problemList
             .subscribe({ _ in
-                self.problemTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.problemTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.problemTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.problemTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -136,8 +139,9 @@ class DetailRetrospectViewController: BaseViewController {
         
         viewModel.outputs.tryList
             .subscribe({ _ in
-                self.tryTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.tryTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.tryTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.tryTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -159,62 +163,71 @@ class DetailRetrospectViewController: BaseViewController {
     private var doneTitle = UILabel().then { view in
         view.font = .pretendardSemibold16
         view.text = L10n.WriteRetrospect.Done.title
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private var doneTableView: UITableView = {
-        let view = UITableView()
+    private var doneTableView: RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+//        view.estimatedRowHeight = 44
+//        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
     private var keepTitle = UILabel().then { view in
         view.font = .pretendardSemibold16
         view.text = L10n.WriteRetrospect.Keep.title
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private var keepTableView: UITableView = {
-        let view = UITableView()
+    private var keepTableView: RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
     private var problemTitle = UILabel().then { view in
         view.font = .pretendardSemibold16
         view.text = L10n.WriteRetrospect.Problem.title
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private var problemTableView : UITableView = {
-        let view = UITableView()
+    private var problemTableView : RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
     private var tryTitle = UILabel().then { view in
         view.font = .pretendardSemibold16
         view.text = L10n.WriteRetrospect.Try.title
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private var tryTableView : UITableView = {
-        let view = UITableView()
+    private var tryTableView : RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
     private var modifyButton = LongButton().then { view in
         view.setEnable()
         view.setTitle(L10n.Edit.title, for: .normal)
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -273,7 +286,7 @@ extension DetailRetrospectViewController {
             make.top.equalTo(doneTitle.snp.bottom).offset(15)
             make.leading.equalTo(doneTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(doneTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(doneTableView.contentSize.height)
         }
         
         keepTitle.snp.makeConstraints{ make in
@@ -285,7 +298,7 @@ extension DetailRetrospectViewController {
             make.top.equalTo(keepTitle.snp.bottom).offset(15)
             make.leading.equalTo(keepTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(keepTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(keepTableView.contentSize.height)
         }
         
         problemTitle.snp.makeConstraints{ make in
@@ -297,7 +310,7 @@ extension DetailRetrospectViewController {
             make.top.equalTo(problemTitle.snp.bottom).offset(15)
             make.leading.equalTo(problemTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(problemTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(problemTableView.contentSize.height)
         }
         
         tryTitle.snp.makeConstraints{ make in
@@ -309,7 +322,7 @@ extension DetailRetrospectViewController {
             make.top.equalTo(tryTitle.snp.bottom).offset(15)
             make.leading.equalTo(tryTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(tryTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(tryTableView.contentSize.height)
         }
         
         modifyButton.snp.makeConstraints{ make in
