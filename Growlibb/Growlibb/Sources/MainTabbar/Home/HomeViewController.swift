@@ -190,7 +190,7 @@ final class HomeViewController: BaseViewController {
         view.text = L10n.Home.Recent.title
     }
     
-    private var retrospectListTableView = UITableView().then { view in
+    private var retrospectListTableView = RetrospectTableView().then { view in
         view.isHidden = true
         view.separatorColor = .clear //구분선 없애기
         view.showsVerticalScrollIndicator = false
@@ -339,7 +339,7 @@ extension HomeViewController {
         }
         
         retrospectListTableView.snp.makeConstraints { make in
-            make.height.equalTo(0)
+            make.height.greaterThanOrEqualTo(0)
         }
     }
 }
@@ -436,7 +436,7 @@ extension HomeViewController {
             retrospectListTableView.reloadData()
             
             retrospectListTableView.snp.updateConstraints { make in
-                make.height.equalTo(65 * retroSpectList.count)
+                make.height.greaterThanOrEqualTo(retrospectListTableView.contentSize.height)
             }
         }
         

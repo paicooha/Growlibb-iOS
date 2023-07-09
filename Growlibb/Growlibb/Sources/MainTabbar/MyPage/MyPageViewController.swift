@@ -87,7 +87,7 @@ final class MyPageViewController: BaseViewController {
         typealias MyPageListDataSource
         = RxTableViewSectionedReloadDataSource<MyPageSection>
         
-        let myListTableViewDataSource = MyPageListDataSource { [self] _, tableView, indexPath, item in
+        let myListTableViewDataSource = MyPageListDataSource { _, tableView, indexPath, item in
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageCell.id, for: indexPath) as? MyPageCell
             else { return UITableViewCell() }
