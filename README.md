@@ -13,15 +13,17 @@
 
 - 코드 방식으로 개발 (SnapKit)
 
-**디자인패턴**
+**아키텍처**
 
-- MVVM 패턴
+- MVVM-C
+  - Coordinator를 활용하여 ViewController로부터 화면 전환 로직 분리
 
 **라이브러리**
 
 - Alamofire: API 통신에 사용
-- RxSwift(+RxCocoa): 일관된 코드로 비동기 프로그래밍 구현
+- RxSwift(+RxCocoa)
 - Firebase
+   - Auth: 회원가입 시 휴대폰 인증에 사용
    - Analytics/Crashlytics  : 유저 리포트 및 버그 트래킹을 위해 활용
    - Cloud Messaging: 푸시알림 구현에 활용
    - Storage: 사진을 이미지로 변환하여 url로 저장함에 있어서 파이어베이스에 이미지 저장해서 나온 url 활용
@@ -49,17 +51,10 @@
 
 ### 디렉토리 구조
 
+
 ```bash
-.
 ├── Growlibb
 │   ├── Growlibb
-│   │   ├── AppDelegate.swift
-│   │   ├── Base.lproj
-│   │   │   ├── LaunchScreen.storyboard
-│   │   │   └── Main.storyboard
-│   │   ├── GoogleService-Info.plist
-│   │   ├── Growlibb.entitlements
-│   │   ├── Info.plist
 │   │   ├── Resources
 │   │   │   ├── Assets.xcassets
 │   │   │   ├── Localization
@@ -83,89 +78,32 @@
 │   │   │   ├── Common	       // 도메인 모두 Component, ViewModel, ViewController, Coordinator로 통일
 │   │   │   │   ├── Alert
 │   │   │   │   ├── KeyChain
-│   │   │   │   │   ├── BasicLoginKeyChainService.swift
-│   │   │   │   │   ├── BasicUserKeyChainService.swift
-│   │   │   │   │   ├── LoginKeyChainService.swift
-│   │   │   │   │   └── UserKeyChainService.swift
 │   │   │   │   ├── Modal
 │   │   │   │   ├── Model
 │   │   │   ├── Constants.swift
 │   │   │   ├── Extensions
-│   │   │   │   ├── UIButton+.swift
-│   │   │   │   ├── UIScreen+.swift
-│   │   │   │   ├── UIStackView+.swift
-│   │   │   │   ├── UITableView+.swift
-│   │   │   │   ├── UITextField+.swift
-│   │   │   │   ├── UITextView+.swift
-│   │   │   │   └── UIView+.swift
 │   │   │   ├── FindEmailorPassword
-│   │   │   │   ├── Model
-│   │   │   │   └── Network
 │   │   │   ├── Login
-│   │   │   │   ├── Model
-│   │   │   │   └── Network
 │   │   │   ├── MainTabbar
 │   │   │   │   ├── Home
-│   │   │   │   │   ├── Cell
-│   │   │   │   │   ├── Model
-│   │   │   │   │   └── Network
 │   │   │   │   ├── MyPage
 │   │   │   │   │   ├── CSCenter
-│   │   │   │   │   │   ├── Noti
-│   │   │   │   │   │   ├── Privacy
-│   │   │   │   │   │   └── TermsOfUse
-│   │   │   │   │   ├── Cell
 │   │   │   │   │   ├── EditNoti
 │   │   │   │   │   ├── EditPhoneNumber
 │   │   │   │   │   ├── EditProfile
 │   │   │   │   │   ├── Editpassword
-│   │   │   │   │   │   ├── First
-│   │   │   │   │   │   └── Second
-│   │   │   │   │   ├── Model
-│   │   │   │   │   ├── Network
 │   │   │   │   │   ├── Resign
 │   │   │   │   │   └── RetrospectList
 │   │   │   │   │       ├── DetailRetrospect
 │   │   │   │   │       ├── EditRetrospect
-│   │   │   │   │       │   ├── Config
-│   │   │   │   │       ├── Model
 │   │   │   │   ├── Retrospect
-│   │   │   │   │   ├── Model
-│   │   │   │   │   ├── Network
-│   │   │   │   │   ├── View
-│   │   │   │   │   └── WriteRetrospect
 │   │   │   │   └── WriteRetrospect
-│   │   │   │       ├── Cell
-│   │   │   │       ├── Config
-│   │   │   │       ├── Model
-│   │   │   │       ├── Netwotrk
-│   │   │   │       ├── TutorialModal
 │   │   │   ├── SignUp
 │   │   │   │   ├── Final
 │   │   │   │   ├── First
-│   │   │   │   ├── Model
-│   │   │   │   ├── Network
 │   │   │   │   └── Second
 │   │   │   ├── Tutorial
 │   │   │   │   ├── First
 │   │   │   │   └── Second
 │   │   │   └── Utils
-│   │   │       ├── DateUtil
-│   │   │       │   ├── DateFormat.swift
-│   │   │       │   └── DateUtil.swift
-│   │   │       ├── JSONError.swift
-│   │   │       ├── Log.swift
-│   │   │       ├── MoyaPlugin.swift
-│   │   │       ├── Regex.swift
-│   │   │       └── RxResponse.swift
 ```
-
-
-## 트러블 슈팅 & 개선사항
-
-1. UITableViewCell이 한번에 인식되지 않고, 꾹 눌러야만 인식되는 이슈
-2. 앱이 백그라운드 -> 포그라운드로 올 때 캘린더가 이전 날짜로 표시되는 현상 (앱 생명주기 관련)
-
-하단 링크를 통해 상세 과정과 내용을 확인하실 수 있습니다.
-
-[클릭 시 링크 이동](https://windy-laundry-812.notion.site/80209bde9b074c09b8218bf160b3baa8?pvs=4)
