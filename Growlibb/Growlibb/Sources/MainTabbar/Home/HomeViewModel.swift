@@ -17,10 +17,15 @@ final class HomeViewModel: BaseViewModel {
         inputs.writeretrospect
             .bind(to: routes.writeretrospect)
             .disposed(by: disposeBag)
+        
+        inputs.detailRetrospect
+            .bind(to: routes.detailRetrospect)
+            .disposed(by: disposeBag)
     }
 
     struct Input {
         var writeretrospect = PublishSubject<Void>()
+        var detailRetrospect = PublishSubject<Int>()
     }
 
     struct Output {
@@ -29,6 +34,7 @@ final class HomeViewModel: BaseViewModel {
 
     struct Route {
         var writeretrospect = PublishSubject<Void>()
+        var detailRetrospect = PublishSubject<Int>()
     }
 
     struct RouteInput {

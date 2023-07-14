@@ -12,7 +12,11 @@ final class HomeComponent {
 
     lazy var viewModel: HomeViewModel = .init()
 
-    func writeRetrospectComponent() -> WriteRetrospectComponent {
+    var writeRetrospectComponent: WriteRetrospectComponent {
         return WriteRetrospectComponent()
+    }
+    
+    func detailRetrospectComponent(retrospectionId: Int) -> DetailRetrospectComponent {
+        return DetailRetrospectComponent(retrospectionId: retrospectionId)
     }
 }

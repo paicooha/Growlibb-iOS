@@ -55,7 +55,6 @@ class RetrospectListViewController: BaseViewController {
             .bind(to: self.viewModel.routes.backward)
             .disposed(by: disposeBag)
         
-//        tableView.rx.itemSelected
     }
     
     private func viewModelOutput(){

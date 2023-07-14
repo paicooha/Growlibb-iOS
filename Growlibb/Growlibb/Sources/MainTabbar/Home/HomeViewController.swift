@@ -36,7 +36,6 @@ final class HomeViewController: BaseViewController {
         calendar.delegate = self
         calendar.dataSource = self
         
-        retrospectListTableView.delegate = self
         retrospectListTableView.dataSource = self
         
         retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
@@ -91,6 +90,12 @@ final class HomeViewController: BaseViewController {
                 self.homeDataManager.getHome(viewController: self, date: DateUtil.shared.formattedString(for: Date(), format: .yyyyMDash))
             })
             .disposed(by: disposeBag)
+        
+        // MARK: - ViewModel 코드로 개선 필요 
+        retrospectListTableView.rx.itemSelected
+            .map { self.retroSpectList[$0.row].id }
+            .bind(to: viewModel.inputs.detailRetrospect)
+            .disposed(by: disposeBag)
     }
 
     private func viewModelOutput() {
@@ -99,7 +104,7 @@ final class HomeViewController: BaseViewController {
                 AppContext.shared.makeToast(message)
             })
             .disposed(by: disposeBag)
-    }
+        }
     
     private var currentPage: Date?
     
@@ -397,7 +402,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         retroSpectList.count
     }
