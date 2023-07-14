@@ -36,6 +36,7 @@ final class HomeViewController: BaseViewController {
         calendar.delegate = self
         calendar.dataSource = self
         
+        retrospectListTableView.delegate = self
         retrospectListTableView.dataSource = self
         
         retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
@@ -402,7 +403,7 @@ extension HomeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         retroSpectList.count
     }
