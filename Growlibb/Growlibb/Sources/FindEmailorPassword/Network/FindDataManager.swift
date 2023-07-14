@@ -11,7 +11,7 @@ import Alamofire
 class FindDataManager {
     func postFindEmail(viewController: FindEmailorPasswordViewController, phoneNumber: String) {
         let parameters = PostFindEmailRequest(phoneNumber: phoneNumber)
-        AF.request("\(Constants.BASE_URL)auth/v1/search-email", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+        AF.request("\(Secret.BASE_URL)auth/v1/search-email", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: PostFindEmailResponse.self) { response in
                 switch response.result {
@@ -26,7 +26,7 @@ class FindDataManager {
     
     func postFindPassword(viewController: FindEmailorPasswordViewController, phoneNumber: String, email: String) {
         let parameters = PostFindPasswordRequest(phoneNumber: phoneNumber, email: email)
-        AF.request("\(Constants.BASE_URL)auth/v1/check-password", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+        AF.request("\(Secret.BASE_URL)auth/v1/check-password", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
@@ -41,7 +41,7 @@ class FindDataManager {
     
     func postpatchPassword(viewController: FindEmailorPasswordViewController, userInfo:UserInfo) {
         let parameters = PatchResetPasswordRequest(phoneNumber: userInfo.phoneNumber, email: userInfo.email, password: userInfo.password, confirmPassword: userInfo.password)
-        AF.request("\(Constants.BASE_URL)auth/v1/password", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+        AF.request("\(Secret.BASE_URL)auth/v1/password", method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {

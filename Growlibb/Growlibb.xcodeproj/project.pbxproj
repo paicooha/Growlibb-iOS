@@ -61,6 +61,7 @@
 		DA68B68729A0CA4700C8177D /* EditRetrospectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */; };
 		DA68B68929A0CA4E00C8177D /* EditRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */; };
 		DA69D3BF291E1D30007B982A /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69D3BE291E1D30007B982A /* TextField.swift */; };
+		DA6B50442A61C20A0018CC82 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6B50432A61C20A0018CC82 /* Secret.swift */; };
 		DA6C77A2298FD26E00B80DB9 /* NotiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */; };
 		DA6C77A6298FD65600B80DB9 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */; };
 		DA6C77A8298FD66000B80DB9 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */; };
@@ -273,6 +274,7 @@
 		DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectViewModel.swift; sourceTree = "<group>"; };
 		DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectViewController.swift; sourceTree = "<group>"; };
 		DA69D3BE291E1D30007B982A /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		DA6B50432A61C20A0018CC82 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiViewController.swift; sourceTree = "<group>"; };
 		DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
@@ -889,6 +891,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7CD55429140FB000B8613C /* Constants.swift */,
+				DA6B50432A61C20A0018CC82 /* Secret.swift */,
 				DACF81D4291BBE4300AA74E8 /* App */,
 				DAC1854529196203009D7181 /* Common */,
 				DA95BC3D29116DB5003C81CE /* Base */,
@@ -1527,6 +1530,7 @@
 				DA7FDCCE29378255003C3792 /* PatchResetPasswordRequest.swift in Sources */,
 				DA88B4992923B94300A4B1B5 /* HomeViewController.swift in Sources */,
 				DA8A8F39298986DA00C63D2B /* ModalViewModel.swift in Sources */,
+				DA6B50442A61C20A0018CC82 /* Secret.swift in Sources */,
 				DABB110A29137EA800FC3FE7 /* Font.swift in Sources */,
 				DACF81E8291BC5CC00AA74E8 /* LoginCoordinator.swift in Sources */,
 				DA88B49E2923B95400A4B1B5 /* RetrospectCoordinator.swift in Sources */,

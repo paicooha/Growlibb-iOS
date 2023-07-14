@@ -11,7 +11,7 @@ import Alamofire
 class SignUpDataManager {
     func postCheckEmail(viewController: SignUpFirstViewController, email: String) {
         let parameters = PostCheckEmailRequest(email: email)
-        AF.request("\(Constants.BASE_URL)auth/v1/check-email", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+        AF.request("\(Secret.BASE_URL)auth/v1/check-email", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
@@ -26,7 +26,7 @@ class SignUpDataManager {
     
     func postCheckNickname(viewController: SignUpSecondViewController, nickname: String) {
         let parameters = PostCheckNicknameRequest(nickname: nickname)
-        AF.request("\(Constants.BASE_URL)auth/v1/check-nickname", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+        AF.request("\(Secret.BASE_URL)auth/v1/check-nickname", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
@@ -41,7 +41,7 @@ class SignUpDataManager {
     
     func postCheckPhone(viewController: SignUpFirstViewController, phoneNumber: String) {
         let parameters = PostCheckPhoneRequest(phoneNumber: phoneNumber)
-        AF.request("\(Constants.BASE_URL)auth/v1/check-phone-number", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+        AF.request("\(Secret.BASE_URL)auth/v1/check-phone-number", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: BaseResponse.self) { response in
                 switch response.result {
@@ -56,7 +56,7 @@ class SignUpDataManager {
     
     func postSignUp(viewController: SignUpSecondViewController) {
         let parameters = PostSignUpRequest(email: UserInfo.shared.email, password: UserInfo.shared.password, phoneNumber: UserInfo.shared.phoneNumber, nickname: UserInfo.shared.nickName, fcmToken: UserInfo.shared.fcmToken, gender: UserInfo.shared.gender, birthday: UserInfo.shared.birthday, job: UserInfo.shared.job)
-        AF.request("\(Constants.BASE_URL)auth/v1/sign-up", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
+        AF.request("\(Secret.BASE_URL)auth/v1/sign-up", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: PostSignUpResponse.self) { response in
                 switch response.result {

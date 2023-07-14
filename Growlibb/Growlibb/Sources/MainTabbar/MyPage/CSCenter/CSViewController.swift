@@ -80,7 +80,7 @@ final class CSViewController: BaseViewController {
         typealias CsListDataSource
         = RxTableViewSectionedReloadDataSource<MyPageSection>
         
-        let csListTableViewDataSource = CsListDataSource { [self] _, tableView, indexPath, item in
+        let csListTableViewDataSource = CsListDataSource { _, tableView, indexPath, item in
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageCell.id, for: indexPath) as? MyPageCell
             else { return UITableViewCell() }
