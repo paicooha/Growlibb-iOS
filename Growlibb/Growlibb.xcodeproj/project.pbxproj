@@ -61,6 +61,7 @@
 		DA68B68729A0CA4700C8177D /* EditRetrospectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */; };
 		DA68B68929A0CA4E00C8177D /* EditRetrospectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */; };
 		DA69D3BF291E1D30007B982A /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69D3BE291E1D30007B982A /* TextField.swift */; };
+		DA6B50442A61C20A0018CC82 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6B50432A61C20A0018CC82 /* Secret.swift */; };
 		DA6C77A2298FD26E00B80DB9 /* NotiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */; };
 		DA6C77A6298FD65600B80DB9 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */; };
 		DA6C77A8298FD66000B80DB9 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */; };
@@ -87,6 +88,7 @@
 		DA76A14E299A9E3800400FBC /* ResignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A14D299A9E3800400FBC /* ResignViewModel.swift */; };
 		DA76A150299A9E3D00400FBC /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A14F299A9E3D00400FBC /* ResignViewController.swift */; };
 		DA7CD55529140FB000B8613C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7CD55429140FB000B8613C /* Constants.swift */; };
+		DA7E8C6C2A586D5800A18450 /* RetrospectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E8C6B2A586D5800A18450 /* RetrospectTableView.swift */; };
 		DA7FDCC8293781C3003C3792 /* FindDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDCC7293781C3003C3792 /* FindDataManager.swift */; };
 		DA7FDCCA293781E0003C3792 /* PostFindEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDCC9293781E0003C3792 /* PostFindEmailRequest.swift */; };
 		DA7FDCCC29378204003C3792 /* PostFindPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDCCB29378204003C3792 /* PostFindPasswordRequest.swift */; };
@@ -272,6 +274,7 @@
 		DA68B68629A0CA4700C8177D /* EditRetrospectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectViewModel.swift; sourceTree = "<group>"; };
 		DA68B68829A0CA4E00C8177D /* EditRetrospectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectViewController.swift; sourceTree = "<group>"; };
 		DA69D3BE291E1D30007B982A /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		DA6B50432A61C20A0018CC82 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		DA6C77A1298FD26E00B80DB9 /* NotiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiViewController.swift; sourceTree = "<group>"; };
 		DA6C77A5298FD65600B80DB9 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		DA6C77A7298FD66000B80DB9 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +299,7 @@
 		DA76A14D299A9E3800400FBC /* ResignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignViewModel.swift; sourceTree = "<group>"; };
 		DA76A14F299A9E3D00400FBC /* ResignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
 		DA7CD55429140FB000B8613C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DA7E8C6B2A586D5800A18450 /* RetrospectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectTableView.swift; sourceTree = "<group>"; };
 		DA7FDCC7293781C3003C3792 /* FindDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindDataManager.swift; sourceTree = "<group>"; };
 		DA7FDCC9293781E0003C3792 /* PostFindEmailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFindEmailRequest.swift; sourceTree = "<group>"; };
 		DA7FDCCB29378204003C3792 /* PostFindPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFindPasswordRequest.swift; sourceTree = "<group>"; };
@@ -503,7 +507,6 @@
 				DA32889E298ABFC5003BA501 /* Config */,
 				DA8A8F302989850500C63D2B /* Model */,
 				DA8A8F2B2989832800C63D2B /* Netwotrk */,
-				DACC7F6C29895A4600C17F1E /* Cell */,
 				DA42978E297300D3003AAA93 /* TutorialModal */,
 				DA429788297300A0003AAA93 /* WriteRetrospectComponent.swift */,
 				DA42978A297300A7003AAA93 /* WriteRetrospectCoordinator.swift */,
@@ -616,6 +619,21 @@
 				DA87E120299BDA3F00F6B4B7 /* EditPhoneNumberViewController.swift */,
 			);
 			path = EditPhoneNumber;
+			sourceTree = "<group>";
+		};
+		DA7E8C6D2A5878FA00A18450 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DAC1854629196213009D7181 /* NavBar.swift */,
+				DACF820F291C11D700AA74E8 /* LongButton.swift */,
+				DA69D3BE291E1D30007B982A /* TextField.swift */,
+				DA0597D529213EF2005DFC79 /* ShortButton.swift */,
+				DA5D352E293CB56400150FF1 /* LogoImageView.swift */,
+				DA977F4429B0FCB70043CC3E /* RetrospectPlusButton.swift */,
+				DA7E8C6B2A586D5800A18450 /* RetrospectTableView.swift */,
+				DACC7F6D29895A5400C17F1E /* WriteRetrospectCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DA7FDCC5293781B6003C3792 /* Model */ = {
@@ -873,6 +891,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7CD55429140FB000B8613C /* Constants.swift */,
+				DA6B50432A61C20A0018CC82 /* Secret.swift */,
 				DACF81D4291BBE4300AA74E8 /* App */,
 				DAC1854529196203009D7181 /* Common */,
 				DA95BC3D29116DB5003C81CE /* Base */,
@@ -932,15 +951,10 @@
 		DAC1854529196203009D7181 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DA7E8C6D2A5878FA00A18450 /* View */,
 				DA8A8F33298986AB00C63D2B /* Modal */,
 				DA5D352C293CAEFD00150FF1 /* Model */,
 				DACF81DB291BBF1A00AA74E8 /* KeyChain */,
-				DAC1854629196213009D7181 /* NavBar.swift */,
-				DACF820F291C11D700AA74E8 /* LongButton.swift */,
-				DA69D3BE291E1D30007B982A /* TextField.swift */,
-				DA0597D529213EF2005DFC79 /* ShortButton.swift */,
-				DA5D352E293CB56400150FF1 /* LogoImageView.swift */,
-				DA977F4429B0FCB70043CC3E /* RetrospectPlusButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -995,14 +1009,6 @@
 				DACB0BCB297F11CC00ABCB8F /* GetRetrospectTabResponse.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		DACC7F6C29895A4600C17F1E /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				DACC7F6D29895A5400C17F1E /* WriteRetrospectCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		DACF81D4291BBE4300AA74E8 /* App */ = {
@@ -1476,6 +1482,7 @@
 				DACF81EC291BC5E300AA74E8 /* LoginViewController.swift in Sources */,
 				DA68B68929A0CA4E00C8177D /* EditRetrospectViewController.swift in Sources */,
 				DA4AB2FA299FF341004790BC /* DetailRetrospectViewController.swift in Sources */,
+				DA7E8C6C2A586D5800A18450 /* RetrospectTableView.swift in Sources */,
 				DACF81D3291BBDCE00AA74E8 /* BasicCoordinator.swift in Sources */,
 				DACF81F0291BC7BF00AA74E8 /* TutorialFirstCoordinator.swift in Sources */,
 				DA9F8DD129352320007014A5 /* FindEmailorPasswordCoordinator.swift in Sources */,
@@ -1523,6 +1530,7 @@
 				DA7FDCCE29378255003C3792 /* PatchResetPasswordRequest.swift in Sources */,
 				DA88B4992923B94300A4B1B5 /* HomeViewController.swift in Sources */,
 				DA8A8F39298986DA00C63D2B /* ModalViewModel.swift in Sources */,
+				DA6B50442A61C20A0018CC82 /* Secret.swift in Sources */,
 				DABB110A29137EA800FC3FE7 /* Font.swift in Sources */,
 				DACF81E8291BC5CC00AA74E8 /* LoginCoordinator.swift in Sources */,
 				DA88B49E2923B95400A4B1B5 /* RetrospectCoordinator.swift in Sources */,
@@ -1729,7 +1737,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nangmangorae.growlibb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1770,7 +1778,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nangmangorae.growlibb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

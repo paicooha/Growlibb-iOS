@@ -14,7 +14,7 @@ import Then
 import UIKit
 import Kingfisher
 
-class MyPageViewController: BaseViewController {
+final class MyPageViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +87,7 @@ class MyPageViewController: BaseViewController {
         typealias MyPageListDataSource
         = RxTableViewSectionedReloadDataSource<MyPageSection>
         
-        let myListTableViewDataSource = MyPageListDataSource { [self] _, tableView, indexPath, item in
+        let myListTableViewDataSource = MyPageListDataSource { _, tableView, indexPath, item in
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageCell.id, for: indexPath) as? MyPageCell
             else { return UITableViewCell() }

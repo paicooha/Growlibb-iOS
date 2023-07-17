@@ -45,6 +45,6 @@ extension UIColor {
     }
     
     @nonobjc class var modalBgColor: UIColor {
-        return UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 0.5)
+        return UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
     }
 }

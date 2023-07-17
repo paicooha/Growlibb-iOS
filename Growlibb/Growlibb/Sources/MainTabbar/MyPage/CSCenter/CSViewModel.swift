@@ -23,8 +23,8 @@ final class CSViewModel: BaseViewModel {
         super.init()
         
         routeInputs.needUpdate
-            .subscribe(onNext: { _ in
-                self.outputs.csList.onNext(self.csList)
+            .subscribe(onNext: { [weak self] _ in
+                self?.outputs.csList.onNext(self?.csList ?? [])
             })
             .disposed(by: disposeBag)
         

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import FirebaseMessaging
 
-class EditNotiViewController: BaseViewController {
+final class EditNotiViewController: BaseViewController {
     
     private var userKeyChainService = BasicUserKeyChainService.shared
 

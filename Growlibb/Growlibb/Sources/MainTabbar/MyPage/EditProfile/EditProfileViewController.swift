@@ -381,7 +381,6 @@ final class EditProfileViewController: BaseViewController {
         let firebaseReference = Storage.storage().reference().child("\(imageName)")
         firebaseReference.putData(imageData, metadata: metaData) { metaData, error in
             firebaseReference.downloadURL { url, _ in
-                print(url)
                 self.profileImageView.kf.setImage(with: url, placeholder: Asset.icMyProfile.image, options: [.processor(self.processor)])
                 UserInfo.shared.profileUrl = url!.absoluteString
             }

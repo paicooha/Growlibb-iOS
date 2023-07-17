@@ -8,7 +8,7 @@
 import Toast_Swift
 import UIKit
 
-class AppContext {
+final class AppContext {
     static let shared = AppContext()
 
     var rootNavigationController: UINavigationController?

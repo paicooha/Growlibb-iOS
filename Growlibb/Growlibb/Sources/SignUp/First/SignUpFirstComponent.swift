@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpFirstComponent {
+final class SignUpFirstComponent {
     var scene: (VC: UIViewController, VM: SignUpFirstViewModel) {
         let viewModel = self.viewModel
         return (SignUpFirstViewController(viewModel: viewModel), viewModel)

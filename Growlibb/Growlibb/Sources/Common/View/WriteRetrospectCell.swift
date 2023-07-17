@@ -15,7 +15,7 @@ protocol TextViewDelegate {
     func textViewDidChange(_ cell:WriteRetrospectCell,_ textView:UITextView)
 }
 
-class WriteRetrospectCell: UITableViewCell {
+final class WriteRetrospectCell: UITableViewCell {
     
     var delegate: TextViewDelegate?
     
@@ -38,8 +38,6 @@ class WriteRetrospectCell: UITableViewCell {
         super.prepareForReuse()
         
         disposeBag = DisposeBag()
-//        self.textView.text = ""
-//        self.deleteButton.isHidden = true
     }
     
     var id: Int?
@@ -86,7 +84,6 @@ extension WriteRetrospectCell {
             make.top.equalTo(self.contentView.snp.top)
             make.leading.equalTo(self.contentView.snp.leading)
             make.trailing.equalTo(self.contentView.snp.trailing)
-            make.height.equalTo(39)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
         }
         

@@ -10,7 +10,7 @@ import RxSwift
 import UIKit
 
 enum HomeResult {
-    case needCover
+    
 }
 
 final class HomeCoordinator: BasicCoordinator<HomeResult> {
@@ -34,10 +34,17 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 self?.pushWriteRetrospectScene(vm: vm)
             })
             .disposed(by: sceneDisposeBag)
+        
+        scene.VM.routes.detailRetrospect
+            .map { (scene.VM, $0) }
+            .subscribe(onNext: { [weak self] (vm, id) in
+                self?.pushDetailRetrospectScene(vm: vm, retrospectionId: id)
+            })
+            .disposed(by: sceneDisposeBag)
     }
         
     private func pushWriteRetrospectScene(vm: HomeViewModel) {
-        let comp = component.writeRetrospectComponent()
+        let comp = component.writeRetrospectComponent
         let coord = WriteRetrospectCoordinator(component: comp, navController: navigationController)
 
         coordinate(coordinator: coord) { coordResult in
@@ -48,6 +55,20 @@ final class HomeCoordinator: BasicCoordinator<HomeResult> {
                 break
             case .completed:
                 vm.routeInputs.needUpdate.onNext(true)
+            }
+        }
+    }
+    
+    private func pushDetailRetrospectScene(vm: HomeViewModel, retrospectionId: Int) {
+        let comp = component.detailRetrospectComponent(retrospectionId: retrospectionId)
+        let coord = DetailRetrospectCoordinator(component: comp, navController: navigationController)
+
+        coordinate(coordinator: coord) { coordResult in
+            switch coordResult {
+            case .backward:
+                break
+            case .showModal:
+                break
             }
         }
     }

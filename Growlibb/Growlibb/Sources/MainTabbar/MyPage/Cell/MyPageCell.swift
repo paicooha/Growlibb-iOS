@@ -11,7 +11,7 @@ import RxSwift
 import Then
 import SnapKit
 
-class MyPageCell: UITableViewCell {
+final class MyPageCell: UITableViewCell {
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {

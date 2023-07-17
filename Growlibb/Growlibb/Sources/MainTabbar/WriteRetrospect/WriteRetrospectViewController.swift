@@ -134,15 +134,9 @@ class WriteRetrospectViewController: BaseViewController {
         
         viewModel.outputs.doneList
             .subscribe({ _ in
-                let newSize = self.doneTableView.sizeThatFits(CGSize(width: self.doneTableView.frame.width,
-                                                            height: CGFloat.greatestFiniteMagnitude))
-
-                    UIView.setAnimationsEnabled(false)
-                self.doneTableView.beginUpdates()
-                self.doneTableView.endUpdates()
-                
-                self.doneTableView.snp.updateConstraints { make in
-                    make.height.equalTo(newSize)
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.doneTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.doneTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -181,8 +175,9 @@ class WriteRetrospectViewController: BaseViewController {
         
         viewModel.outputs.keepList
             .subscribe({ _ in
-                self.keepTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.keepTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.keepTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.keepTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -220,8 +215,9 @@ class WriteRetrospectViewController: BaseViewController {
         
         viewModel.outputs.problemList
             .subscribe({ _ in
-                self.problemTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.problemTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.problemTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.problemTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -261,8 +257,9 @@ class WriteRetrospectViewController: BaseViewController {
         
         viewModel.outputs.tryList
             .subscribe({ _ in
-                self.tryTableView.snp.updateConstraints { make in
-                    make.height.equalTo(self.tryTableView.contentSize.height) //스크롤뷰 높이 늘리기
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    self.tryTableView.snp.updateConstraints { make in            make.height.greaterThanOrEqualTo(self.tryTableView.contentSize.height)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -287,13 +284,13 @@ class WriteRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Done.title
     }
     
-    private var doneTableView: UITableView = {
-        let view = UITableView()
+    private var doneTableView: RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
+        view.estimatedRowHeight = 44
         view.rowHeight = UITableView.automaticDimension
-        
         return view
     }()
     
@@ -304,11 +301,13 @@ class WriteRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Keep.title
     }
     
-    private var keepTableView: UITableView = {
-        let view = UITableView()
+    private var keepTableView: RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         
         return view
     }()
@@ -320,12 +319,13 @@ class WriteRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Problem.title
     }
     
-    private var problemTableView : UITableView = {
-        let view = UITableView()
+    private var problemTableView : RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
@@ -336,12 +336,13 @@ class WriteRetrospectViewController: BaseViewController {
         view.text = L10n.WriteRetrospect.Try.title
     }
     
-    private var tryTableView : UITableView = {
-        let view = UITableView()
+    private var tryTableView : RetrospectTableView = {
+        let view = RetrospectTableView()
         view.isScrollEnabled = false
         view.separatorStyle = .none
         view.register(WriteRetrospectCell.self, forCellReuseIdentifier: WriteRetrospectCell.id)
-        
+        view.estimatedRowHeight = 44
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
@@ -581,7 +582,7 @@ extension WriteRetrospectViewController {
             make.top.equalTo(doneTitle.snp.bottom).offset(15)
             make.leading.equalTo(doneTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(doneTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(doneTableView.contentSize.height)
         }
         
         donePlusButton.snp.makeConstraints { make in
@@ -602,7 +603,7 @@ extension WriteRetrospectViewController {
             make.top.equalTo(keepTitle.snp.bottom).offset(15)
             make.leading.equalTo(keepTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(keepTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(keepTableView.contentSize.height)
         }
         
         keepPlusButton.snp.makeConstraints { make in
@@ -623,7 +624,7 @@ extension WriteRetrospectViewController {
             make.top.equalTo(problemTitle.snp.bottom).offset(15)
             make.leading.equalTo(problemTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(problemTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(problemTableView.contentSize.height)
         }
         
         problemPlusButton.snp.makeConstraints { make in
@@ -644,7 +645,7 @@ extension WriteRetrospectViewController {
             make.top.equalTo(tryTitle.snp.bottom).offset(15)
             make.leading.equalTo(tryTitle.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing).offset(-28)
-            make.height.equalTo(tryTableView.contentSize.height)
+            make.height.greaterThanOrEqualTo(tryTableView.contentSize.height)
         }
         
         tryPlusButton.snp.makeConstraints { make in
@@ -698,15 +699,12 @@ extension WriteRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = doneTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
             
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
                 doneTableView.performBatchUpdates({
                     doneTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)
@@ -731,15 +729,12 @@ extension WriteRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = keepTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
-            
+
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
                 keepTableView.performBatchUpdates({
                     keepTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)
@@ -764,15 +759,12 @@ extension WriteRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = problemTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
             
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
                 problemTableView.performBatchUpdates({
                     problemTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)
@@ -797,15 +789,12 @@ extension WriteRetrospectViewController: TextViewDelegate {
             let size = textView.sizeThatFits(textView.bounds.size)
             let newSize = tryTableView.sizeThatFits(CGSize(width: size.width,
                                                         height: CGFloat.greatestFiniteMagnitude))
-            cell.backGround.snp.updateConstraints { make in
-                make.height.equalTo(size.height)
-            }
             
             if size.height != newSize.height {
                 UIView.setAnimationsEnabled(false)
                 tryTableView.performBatchUpdates({
                     tryTableView.snp.updateConstraints { make in
-                        make.height.equalTo(newSize)
+                        make.height.greaterThanOrEqualTo(newSize)
                     }
                 })
                 UIView.setAnimationsEnabled(true)

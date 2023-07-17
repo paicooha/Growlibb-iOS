@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpSecondComponent {
+final class SignUpSecondComponent {
     var scene: (VC: UIViewController, VM: SignUpSecondViewModel) {
         let viewModel = self.viewModel
         return (SignUpSecondViewController(viewModel: viewModel), viewModel)
