@@ -22,7 +22,7 @@
 
 ## 아키텍처
 ### MVVM-C
-<img width="600" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/0e9cc9b1-1e9b-44f4-8d17-98f4e58f0b87"/>
+<img width="400" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/0e9cc9b1-1e9b-44f4-8d17-98f4e58f0b87"/> <br/>
 
 - **App**: AppCoordinator, AppContext(앱 전체에 공통적으로 적용되는 속성 혹은 기능 정의)
 - **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, UI / 유용한 도구 모음 Util / Extension, Localization 등
