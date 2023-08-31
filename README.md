@@ -14,31 +14,30 @@
 -   **언어**  : Swift
 -   **UI**: UIKit, 코드 방식(SnapKit)
 -   **아키텍처**  : MVVM + Coordinator
--   **비동기 처리**  : RxSwift, RxCocoa, DispatchQueue
+-   **의존성 관리 도구** : CocoaPods
+-   **비동기 처리**  : RxSwift, DispatchQueue
 -   **네트워킹** : Alamofire
 -   **기타**: Firebase Auth (문자 인증), Cloud Messaging (푸시알림), Analytics/Crashlytics (유저 및 버그 리포트)
--   **협업**:  Figma, Zeplin
+-   **협업**:  Figma, Zeplin, Slack, Notion
 
 
 ## 아키텍처
 ### MVVM-C
-<img width="500" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/0e9cc9b1-1e9b-44f4-8d17-98f4e58f0b87"/> <br/>
 
-- **App**: AppCoordinator, AppContext(앱 전체에 공통적으로 적용되는 속성 혹은 기능 정의)
-- **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, UI / 유용한 도구 모음 Util / Extension, Localization 등
-- **Feature**: 
+<img width="800" src="https://github.com/paicooha/Growlibb-iOS/assets/37764504/dc730ec6-df58-492b-a1f9-f5c49d15c1e5"/> <br/>
+
+- **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, CustomView / 유용한 도구 모음 Util / Extension, Localization 등
+- **Feature**:
   - 튜토리얼, 회원가입, 로그인, 아이디/비밀번호 찾기
   - 탭바 기준으로 Home, Retrospect, MyPage로 분리
   - 각 Feature는 ViewController, ViewModel, Component, Coordinator를 가짐
-- **Component**: 화면 별로 필요한 ViewController, ViewModel을 소유하며 화면 전환 가능성이 있는 Component를 생성 및 전달
+- **Component**: 화면 별로 필요한 ViewController, ViewModel의 Builder 역할을 하는 클래스로, 현재 화면 전환의 계층에 존재하는 Component를 생성 및 데이터 전달
 - **Coordinator**: ViewController의 화면 전환 및 전환에 따른 추가 작업 로직 분리, 화면 계층 관리
- - **ViewModel**: Alamofire 기반의 APIService에서 통신한 내용과 UserDefaults의 localDB에 의존하여 데이터를 획득하며, View는 ViewModel을 바인딩함 (RxSwift, RxCocoa)
+- **ViewModel**
+   - Data Layer: Alamofire 기반의 Data Manager에서 네트워크 통신한 내용과 UserDefaults의 localDB, KeyChainService로부터 키체인에 저장된 데이터를 획득
+   - Presentation Layer: View는 ViewModel을 바인딩하며 (RxSwift, RxCocoa), ViewModel은 UI 관련한 로직 수행 및 뷰바인딩 변수 소유
+   - Input/Output Modeling: Viewd에서 ViewModel로 Input, ViewModel에서 View로 Output을 하기 위한 로직을 구조체로 묶어서 분리하여 유지보수의 용이성을 높임
 
-## Experience
--  **회원가입 시 앱 기능에 불필요한 정보를 요구하면 리젝**당할 수 있음을 깨닫고, 불필요한 정보는 선택사항으로 입력할 수 있도록 수정하여 리젝 이슈에 대응하였음
--   iPhone 8/SE/미니와 같은 해상도가 작은 기기에서 Autolayout이 화면 요구사항과 달라질 수 있음을 인지하고, **레이아웃에서 뷰가 차지하는 비율 및 UIScreen의 bounds 속성을 이용해 아이폰 기종별로 화면 요구사항이 적절하게 구현될 수 있도록 대응**해보는 계기가 되었음
--   **Extension**을 사용하여 프로젝트에서 사용하는 클래스에서 공통적으로 요구되는 추가 속성 및 메소드를 모듈화할 수 있음을 깨달았고, 자주 쓰이는 속성이나 메소드를 extension으로 관리하는 계기가 되었음
--   UI와 UX를 디자이너와 논의 및 개선하면서 중요성을 인지하고, Human Interface Guideline에 대한 중요성을 확인할 수 있었던 계기가 된 프로젝트. 이후 진행하는 프로젝트는 해당 가이드라인에 기반하여 디자이너와 논의할 예정
 
 ## 주요 기능 설명
 
@@ -48,12 +47,12 @@
 <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/5e31ba9b-8968-4b47-8851-192d39570587" />  <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/251f4d72-a25a-49bd-9ab7-41560d0e548b" />  <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/d2a5b1af-10ea-4f2b-b4e2-d3c58d0e1395" />
 
 **2) 홈 화면**
-일주일간 작성한 회고 기록, 해당 월 회고 데이터를 달력을 통해 확인할 수 있습니다.
+- 일주일간 작성한 회고 기록, 해당 월 회고 데이터를 달력을 통해 확인할 수 있습니다.
 
 <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/9e18e8bf-65e1-482d-9a84-798939f3944b" /> 
 
 **3) 회고 탭**
-회고 기록 현황을 애니메이션과 함께 보여주고, 회고를 DONE / KEEP / PROBLEM / TRY에 따라 작성할 수 있습니다.
+- 회고 기록 현황을 애니메이션과 함께 보여주고, 회고를 DONE / KEEP / PROBLEM / TRY에 따라 작성할 수 있습니다.
 
 <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/de76de06-8554-475f-accd-1fa2f57d0ecf" />
 <img width="200" src="https://github.com/runner-be/RunnerBe-iOS/assets/37764504/441b1dce-7a1a-4bed-b188-f4974f440a74" />
