@@ -79,7 +79,7 @@ final class WriteRetrospectCoordinator: BasicCoordinator<WriteRetrospectResult> 
         }
     }
 
-    private func showTrueDeleteModal(vm: WriteRetrospectViewModel, whereFrom:String="writeretrospect") {
+    private func showTrueDeleteModal(vm: WriteRetrospectViewModel) {
         let comp = component.modalComponent
         let coord = ModalCoordinator(component: comp, navController: navigationController)
 

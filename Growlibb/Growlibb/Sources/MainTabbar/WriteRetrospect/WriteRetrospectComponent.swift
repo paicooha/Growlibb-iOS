@@ -17,6 +17,6 @@ final class WriteRetrospectComponent {
     }
 
     var modalComponent: ModalComponent {
-        return ModalComponent(whereFrom: "writeretrospect")
+        return ModalComponent(whereFrom: .writeretrospect)
     }
 }

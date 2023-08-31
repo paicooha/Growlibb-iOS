@@ -23,7 +23,7 @@ class ModalViewController: BaseViewController {
         viewModelOutput()
     }
 
-    init(viewModel: ModalViewModel, whereFrom: String, eventDescription: String?) {
+    init(viewModel: ModalViewModel, whereFrom: ModalKind, eventDescription: String?) {
         self.viewModel = viewModel
         self.whereFrom = whereFrom
         self.eventDescription = eventDescription
@@ -36,7 +36,7 @@ class ModalViewController: BaseViewController {
     }
 
     private var viewModel: ModalViewModel
-    private var whereFrom: String
+    private var whereFrom: ModalKind
     private var eventDescription: String? = nil
 
     private func viewModelInput() {
@@ -112,20 +112,20 @@ extension ModalViewController {
         view.backgroundColor = .modalBgColor
         
         switch self.whereFrom {
-        case "writeretrospect":
+        case .writeretrospect:
             emojiLabel.text = L10n.WriteRetrospect.Modal.NotYet.emoji
             descriptionLabel.text = L10n.WriteRetrospect.Modal.NotYet.title
-        case "retrospect":
+        case .retrospect:
             emojiLabel.text = L10n.Retrospect.Modal.Event.emoji
-        case "logout":
+        case .logout:
             emojiLabel.text = L10n.MyPage.Logout.emoji
             descriptionLabel.text = L10n.MyPage.Logout.title
-        case "resign":
+        case .resign:
             emojiLabel.text = L10n.MyPage.Resign.Modal.emoji
             descriptionLabel.text = L10n.MyPage.Resign.Modal.title
             noButton.isHidden = true
             yesButton.setTitle(L10n.Confirm.Button.title, for: .normal)
-        case "event":
+        case .event:
             emojiLabel.text = L10n.Retrospect.Modal.Event.emoji
             descriptionLabel.text = eventDescription
             noButton.isHidden = true
@@ -179,9 +179,7 @@ extension ModalViewController {
         }
         
         switch self.whereFrom {
-        case "retrospect": //회고와 회원탈퇴일 경우에만 레이아웃이 다름
-            break
-        case "resign":
+        case .resign:
             yesButton.snp.removeConstraints()
             yesButton.snp.makeConstraints { make in
                 make.bottom.equalTo(sheet.snp.bottom).offset(-15)
@@ -189,7 +187,7 @@ extension ModalViewController {
                 make.width.equalTo(200)
                 make.height.equalTo(39)
             }
-        case "event":
+        case .event:
             sheet.snp.updateConstraints { make in
                 make.height.equalTo(221)
             }

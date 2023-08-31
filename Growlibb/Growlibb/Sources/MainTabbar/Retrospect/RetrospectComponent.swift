@@ -21,6 +21,6 @@ final class RetrospectComponent {
     }
     
     var modalComponent: ModalComponent {
-        return ModalComponent(whereFrom: "event")
+        return ModalComponent(whereFrom: .event)
     }
 }

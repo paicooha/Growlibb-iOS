@@ -15,14 +15,14 @@ final class ModalComponent {
     }
 
     var viewModel: ModalViewModel {
-        return ModalViewModel(whereFrom: whereFrom)
+        return ModalViewModel()
     }
 
-    init(whereFrom: String, eventDescription: String? = nil) {
+    init(whereFrom: ModalKind, eventDescription: String? = nil) {
         self.whereFrom = whereFrom
         self.eventDescription = eventDescription
     }
 
-    var whereFrom: String
+    var whereFrom: ModalKind
     var eventDescription: String? = nil
 }

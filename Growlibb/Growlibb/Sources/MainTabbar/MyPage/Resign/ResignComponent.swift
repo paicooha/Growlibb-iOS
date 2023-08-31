@@ -13,7 +13,7 @@ final class ResignComponent {
     lazy var viewModel: ResignViewModel = .init()
 
     var modalComponent: ModalComponent {
-        return ModalComponent(whereFrom: "resign")
+        return ModalComponent(whereFrom: .resign)
     }
     
     var loginComponent: LoginComponent {

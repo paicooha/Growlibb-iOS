@@ -178,7 +178,7 @@ final class MyPageCoordinator: BasicCoordinator<MyPageResult> {
         comp.scene.VM.routeInputs.needUpdate.onNext(true)
     }
     
-    private func showLogoutModal(vm: MyPageViewModel, whereFrom:String="logout") {
+    private func showLogoutModal(vm: MyPageViewModel) {
         let comp = component.modalComponent
         let coord = ModalCoordinator(component: comp, navController: navigationController)
         

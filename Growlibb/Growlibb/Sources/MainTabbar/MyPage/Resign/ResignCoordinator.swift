@@ -63,7 +63,7 @@ final class ResignCoordinator: BasicCoordinator<ResignResult> {
             .disposed(by: sceneDisposeBag)
     }
     
-    private func showResignModal(vm: ResignViewModel, whereFrom: String = "resign") {
+    private func showResignModal(vm: ResignViewModel) {
         let comp = component.modalComponent
         let coord = ModalCoordinator(component: comp, navController: navigationController)
         

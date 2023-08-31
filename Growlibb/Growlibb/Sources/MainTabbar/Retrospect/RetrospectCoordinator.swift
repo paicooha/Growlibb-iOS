@@ -80,7 +80,7 @@ final class RetrospectCoordinator: BasicCoordinator<RetrospectResult> {
         }
     }
     
-    private func showEventModal(vm: RetrospectViewModel, whereFrom:String="event", eventInfo: (Int, Int)) {
+    private func showEventModal(vm: RetrospectViewModel, eventInfo: (Int, Int)) {
         let comp = component.modalComponent
         let coord = ModalCoordinator(component: comp, navController: navigationController)
         comp.eventDescription = "\(L10n.Retrospect.Modal.Event.title)\(eventInfo.0)\(L10n.Retrospect.Modal.Event.first)\(eventInfo.1)\(L10n.Retrospect.Modal.Event.second)"

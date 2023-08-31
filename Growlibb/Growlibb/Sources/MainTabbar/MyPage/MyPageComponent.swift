@@ -37,7 +37,7 @@ final class MyPageComponent {
     }
     
     var modalComponent: ModalComponent {
-        return ModalComponent(whereFrom: "logout")
+        return ModalComponent(whereFrom: .logout)
     }
     
     var loginComponent: LoginComponent {
