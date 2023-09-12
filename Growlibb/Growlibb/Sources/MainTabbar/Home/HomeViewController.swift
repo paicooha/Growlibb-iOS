@@ -32,18 +32,6 @@ final class HomeViewController: BaseViewController {
 
         viewModelInput()
         viewModelOutput()
-        
-        calendar.delegate = self
-        calendar.dataSource = self
-        
-        retrospectListTableView.delegate = self
-        retrospectListTableView.dataSource = self
-        
-        retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
-        
-        observer = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [unowned self] _ in
-            changeTitleAndCalendarDate()
-        }
     }
 
     init(viewModel: HomeViewModel) {
@@ -92,7 +80,6 @@ final class HomeViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        // MARK: - ViewModel 코드로 개선 필요 
         retrospectListTableView.rx.itemSelected
             .map { self.retroSpectList[$0.row].id }
             .bind(to: viewModel.inputs.detailRetrospect)
@@ -263,10 +250,20 @@ extension HomeViewController {
             stackView
         ])
         
-        let attributedTitleString = NSMutableAttributedString(string: "\(self.userKeyChainService.nickName)\(L10n.Home.Title.nickname)")
-        attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 0, length: self.userKeyChainService.nickName.count+2))
+        titleLabel.attributedText = NSMutableAttributedString(string: "\(self.userKeyChainService.nickName)\(L10n.Home.Title.nickname)")
+            .addBlueStringStyleToRange(ranges: [NSRange(location: 0, length: self.userKeyChainService.nickName.count+2)])
         
-        titleLabel.attributedText = attributedTitleString
+        calendar.delegate = self
+        calendar.dataSource = self
+        
+        retrospectListTableView.delegate = self
+        retrospectListTableView.dataSource = self
+        
+        retrospectListTableView.register(HomeRetrospectTableViewCell.self, forCellReuseIdentifier: HomeRetrospectTableViewCell.id)
+        
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [unowned self] _ in
+            changeTitleAndCalendarDate()
+        }
     }
 
     private func initialLayout() {

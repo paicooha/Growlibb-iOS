@@ -81,6 +81,7 @@
 		DA6EAF2429A2548C00BF99ED /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6EAF2329A2548C00BF99ED /* UITableView+.swift */; };
 		DA6EAF2729A26AD900BF99ED /* EditRetrospectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6EAF2629A26AD900BF99ED /* EditRetrospectDataSource.swift */; };
 		DA6EAF2929A2707500BF99ED /* EditRetrospectConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6EAF2829A2707500BF99ED /* EditRetrospectConfig.swift */; };
+		DA7237DD2AAF7BF5008F6873 /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7237DC2AAF7BF5008F6873 /* NSMutableAttributedString+.swift */; };
 		DA76A146299A98A300400FBC /* EditNotiComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A145299A98A300400FBC /* EditNotiComponent.swift */; };
 		DA76A148299A98AE00400FBC /* EditNotiCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */; };
 		DA76A14A299A9E2D00400FBC /* ResignComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A149299A9E2D00400FBC /* ResignComponent.swift */; };
@@ -292,6 +293,7 @@
 		DA6EAF2329A2548C00BF99ED /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		DA6EAF2629A26AD900BF99ED /* EditRetrospectDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectDataSource.swift; sourceTree = "<group>"; };
 		DA6EAF2829A2707500BF99ED /* EditRetrospectConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRetrospectConfig.swift; sourceTree = "<group>"; };
+		DA7237DC2AAF7BF5008F6873 /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
 		DA76A145299A98A300400FBC /* EditNotiComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiComponent.swift; sourceTree = "<group>"; };
 		DA76A147299A98AE00400FBC /* EditNotiCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotiCoordinator.swift; sourceTree = "<group>"; };
 		DA76A149299A9E2D00400FBC /* ResignComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignComponent.swift; sourceTree = "<group>"; };
@@ -1149,6 +1151,7 @@
 				DA9CEA66296AACCD00A9A709 /* UIScreen+.swift */,
 				DA80CBAE298EA79B00E67212 /* UITextView+.swift */,
 				DA6EAF2329A2548C00BF99ED /* UITableView+.swift */,
+				DA7237DC2AAF7BF5008F6873 /* NSMutableAttributedString+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1369,6 +1372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA7237DD2AAF7BF5008F6873 /* NSMutableAttributedString+.swift in Sources */,
 				DACF17BE292E6E67002734AA /* UserInfo.swift in Sources */,
 				DA4AB303299FF580004790BC /* GetDetailRetrospectResponse.swift in Sources */,
 				DA4AB2E3299E8ABB004790BC /* PatchPasswordRequest.swift in Sources */,

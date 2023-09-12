@@ -14,14 +14,6 @@ import SnapKit
 
 final class TutorialSecondViewController: BaseViewController {
     
-    var titleLabelString = L10n.Tutorial.Second.title
-    var attributedTitleString = NSMutableAttributedString()
-    
-    var detailLabelString = L10n.Tutorial.Second.description
-    var attributedDetailString = NSMutableAttributedString()
-    
-    let detailLabelParagraph = NSMutableParagraphStyle()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -100,19 +92,15 @@ extension TutorialSecondViewController {
             button
         ])
         
-        attributedTitleString = NSMutableAttributedString(string: titleLabelString)
-        attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 10, length: 2))
+        titleLabel.attributedText = NSMutableAttributedString(string: L10n.Tutorial.Second.title)
+            .addBlueStringStyleToRange(ranges: [NSRange(location: 10, length: 2)])
         
-        titleLabel.attributedText = attributedTitleString
-        
-        attributedDetailString = NSMutableAttributedString(string: detailLabelString)
+        let detailLabelParagraph = NSMutableParagraphStyle()
         detailLabelParagraph.lineSpacing = 6
-        attributedDetailString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 26, length: 4))
-        attributedDetailString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 32, length: 5))
-        attributedDetailString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 42, length: 8))
-        attributedDetailString.addAttribute(NSAttributedString.Key.paragraphStyle, value: detailLabelParagraph, range: NSRange(location: 0, length: attributedDetailString.length))
-        
-        detailLabel.attributedText = attributedDetailString
+        detailLabel.attributedText = NSMutableAttributedString(string: L10n.Tutorial.Second.description)
+            .addBlueStringStyleToRange(ranges: [NSRange(location: 26, length: 4), NSRange(location: 32, length: 5), NSRange(location: 42, length: 8)])
+            .style(attrs: [.paragraphStyle: detailLabelParagraph], range: NSRange(location: 0, length: L10n.Tutorial.First.description.count))
+
     }
 
     private func initialLayout() {

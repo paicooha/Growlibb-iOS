@@ -38,15 +38,6 @@ class SignUpFirstViewController: BaseViewController {
         initialLayout()
         
         viewModelInput()
-        //        viewModelOutput()
-        
-        //실시간으로 textfield 입력하는 부분 이벤트 받아서 처리
-        emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        passwordConfirmTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        authcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        phoneTextField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) { //다시 돌아올때 인증번호 초기화
@@ -440,15 +431,6 @@ class SignUpFirstViewController: BaseViewController {
             nextButton.setDisable()
         }
     }
-//
-//    private func viewModelOutput() {
-//
-//        viewModel.toast
-//            .subscribe(onNext: { message in
-//                AppContext.shared.makeToast(message)
-//            })
-//            .disposed(by: disposeBag)
-//    }
     
     private var scrollView = UIScrollView(frame: .zero).then { view in
         view.showsHorizontalScrollIndicator = false
@@ -609,18 +591,16 @@ class SignUpFirstViewController: BaseViewController {
     private var serviceAgreeTitle = UILabel().then{ make in
         make.font = .pretendardMedium14
         make.textColor = .black
-        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.service)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 13, length: 4))
-        make.attributedText = attributedString
+        make.attributedText = NSMutableAttributedString(string: L10n.SignUp.Agree.service)
+            .addBlueStringStyleToRange(ranges: [NSRange(location: 13, length: 4)])
     }
     
     private var seeServiceLabel = UILabel().then{ make in
         make.font = .pretendardMedium14
         make.textColor = .black
         make.text = L10n.SignUp.Agree.seecontent
-        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.seecontent)
-        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSRange.init(location: 0, length: 4))
-        make.attributedText = attributedString
+        make.attributedText = NSMutableAttributedString(string: L10n.SignUp.Agree.seecontent)
+            .style(attrs: [.underlineStyle: 1], range: NSRange(location: 0, length: 4))
         
     }
     
@@ -631,18 +611,16 @@ class SignUpFirstViewController: BaseViewController {
     private var privacyAgreeTitle = UILabel().then{ make in
         make.font = .pretendardMedium14
         make.textColor = .black
-        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.privacy)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 16, length: 4))
-        make.attributedText = attributedString
+        make.attributedText = NSMutableAttributedString(string: L10n.SignUp.Agree.privacy)
+            .addBlueStringStyleToRange(ranges: [NSRange(location: 16, length: 4)])
     }
     
     private var seePrivacyLabel = UILabel().then{ make in
         make.font = .pretendardMedium14
         make.textColor = .black
         make.text = L10n.SignUp.Agree.seecontent
-        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.seecontent)
-        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSRange.init(location: 0, length: 4))
-        make.attributedText = attributedString
+        make.attributedText = NSMutableAttributedString(string: L10n.SignUp.Agree.seecontent)
+            .style(attrs: [.underlineStyle: 1], range: NSRange(location: 0, length: 4))
     }
     
     private var privacyButton = UIButton().then{ make in
@@ -653,9 +631,8 @@ class SignUpFirstViewController: BaseViewController {
         make.font = .pretendardMedium14
         make.textColor = .black
         make.text = L10n.SignUp.Agree.year14
-        let attributedString = NSMutableAttributedString.init(string: L10n.SignUp.Agree.year14)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 13, length: 4))
-        make.attributedText = attributedString
+        make.attributedText = NSMutableAttributedString(string: L10n.SignUp.Agree.year14)
+            .addBlueStringStyleToRange(ranges: [NSRange(location: 13, length: 4)])
     }
     
     private var year14Button = UIButton().then { make in
@@ -715,6 +692,13 @@ extension SignUpFirstViewController {
             year14Button,
             nextButton
         ])
+        
+        emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordConfirmTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        authcodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        phoneTextField.delegate = self
     }
 
     private func initialLayout() {

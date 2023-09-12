@@ -13,9 +13,6 @@ import UIKit
 import SnapKit
 
 final class SignUpFinalViewController: BaseViewController {
-    
-    var titleLabelString = "\(UserInfo.shared.nickName)\(L10n.SignUp.Final.title)"
-    var attributedtitleLabelString = NSMutableAttributedString()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +21,6 @@ final class SignUpFinalViewController: BaseViewController {
         initialLayout()
 
         viewModelInput()
-//        viewModelOutput()
         
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // 뒤로 못넘어가게 수정
     }
@@ -46,15 +42,6 @@ final class SignUpFinalViewController: BaseViewController {
             .bind(to: viewModel.inputs.tapNext)
             .disposed(by: disposeBag)
     }
-//
-//    private func viewModelOutput() {
-//
-//        viewModel.toast
-//            .subscribe(onNext: { message in
-//                AppContext.shared.makeToast(message)
-//            })
-//            .disposed(by: disposeBag)
-//    }
 
     private var navBar = NavBar().then{ make in
         make.leftBtnItem.isHidden = true
@@ -91,10 +78,8 @@ extension SignUpFinalViewController {
             nextButton
         ])
         
-        attributedtitleLabelString = NSMutableAttributedString(string: titleLabelString)
-        attributedtitleLabelString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: UserInfo.shared.nickName.count + 3, length: 4))
-        
-        titleLabel.attributedText = attributedtitleLabelString
+        titleLabel.attributedText = NSMutableAttributedString(string: UserInfo.shared.nickName + L10n.SignUp.Final.title)
+            .addBlueStringStyleToRange(ranges: [NSRange(location: UserInfo.shared.nickName.count + 3, length: 4)])
     }
 
     private func initialLayout() {

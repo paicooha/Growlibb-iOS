@@ -16,8 +16,6 @@ import FirebaseMessaging
 
 final class LoginViewController: BaseViewController {
     
-    var titleLabelString = L10n.Login.title
-    var attributedTitleString = NSMutableAttributedString()
     lazy var loginDataManager = LoginDataManager()
     private var loginKeyChainService: LoginKeyChainService
     private var userKeyChainService: UserKeychainService
@@ -29,7 +27,6 @@ final class LoginViewController: BaseViewController {
         initialLayout()
 
         viewModelInput()
-        viewModelOutput()
         
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -82,15 +79,6 @@ final class LoginViewController: BaseViewController {
                 self.viewModel.inputs.goToFindEmailorPassword.onNext(())
             })
             .disposed(by: disposeBag)
-    }
-//
-    private func viewModelOutput() {
-//
-//        viewModel.toast
-//            .subscribe(onNext: { message in
-//                AppContext.shared.makeToast(message)
-//            })
-//            .disposed(by: disposeBag)
     }
 
     private var navBar = NavBar()
@@ -186,10 +174,8 @@ extension LoginViewController {
             loginButton
         ])
         
-        attributedTitleString = NSMutableAttributedString(string: titleLabelString)
-        attributedTitleString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.primaryBlue, range: NSRange(location: 6, length: 9))
-        
-        titleLabel.attributedText = attributedTitleString
+        titleLabel.attributedText = NSMutableAttributedString(string: L10n.Login.title)
+            .addBlueStringStyleToRange(ranges: [NSRange(location: 6, length: 9)])
     }
 
     private func initialLayout() {
