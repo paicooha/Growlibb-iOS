@@ -20,4 +20,8 @@ extension UITextView {
     func isEmpty() -> Bool {
         return (self.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "").isEmpty
     }
+    
+    var content: String? {
+        return self.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }

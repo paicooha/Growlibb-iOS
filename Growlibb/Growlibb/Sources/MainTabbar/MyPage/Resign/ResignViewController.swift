@@ -246,7 +246,7 @@ extension ResignViewController: UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if textView.isEmpty() {
             // 비어있을 경우 placeholder 노출
             textView.text = L10n.MyPage.Resign.placeholder
             textView.textColor = .gray61

@@ -327,7 +327,7 @@ final class EditRetrospectViewController: BaseViewController {
         for index in 0..<doneList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if !cell.textView.isEmpty() {
                     return false
                 }
             }
@@ -339,7 +339,7 @@ final class EditRetrospectViewController: BaseViewController {
         for index in 0..<keepList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if cell.textView.isEmpty() {
                     return false
                 }
             }
@@ -351,7 +351,7 @@ final class EditRetrospectViewController: BaseViewController {
         for index in 0..<keepList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if !cell.textView.isEmpty() {
                     return false
                 }
             }
@@ -363,7 +363,7 @@ final class EditRetrospectViewController: BaseViewController {
         for index in 0..<problemList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if cell.textView.isEmpty() {
                     return false
                 }
             }
@@ -375,7 +375,7 @@ final class EditRetrospectViewController: BaseViewController {
         for index in 0..<problemList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if !cell.textView.isEmpty() {
                     return false
                 }
             }
@@ -387,7 +387,7 @@ final class EditRetrospectViewController: BaseViewController {
         for index in 0..<tryList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if cell.textView.isEmpty() {
                     return false
                 }
             }
@@ -399,7 +399,7 @@ final class EditRetrospectViewController: BaseViewController {
         for index in 0..<tryList.count {
             let indexpath = IndexPath(row: index, section: 0)
             if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
-                if !cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if !cell.textView.isEmpty() {
                     return false
                 }
             }
@@ -414,7 +414,7 @@ final class EditRetrospectViewController: BaseViewController {
                 let indexpath = IndexPath(row: index, section: 0)
                 if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                     
-                    self.editedDoneList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    self.editedDoneList.append(RetrospectItem(content: cell.textView.content!))
                 }
             }
         }
@@ -426,8 +426,8 @@ final class EditRetrospectViewController: BaseViewController {
                     let indexpath = IndexPath(row: i, section: 0)
                     if let cell = doneTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                             
-                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalDoneList[j].content { //수정된 경우
-                            self.editedDoneList.append(RetrospectItem(id: originalDoneList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        if cell.textView.content != originalDoneList[j].content { //수정된 경우
+                            self.editedDoneList.append(RetrospectItem(id: originalDoneList[j].id, content: cell.textView.content!, deletionStatus: "N"))
                         }
                         else{ //수정 안한 경우
                             self.editedDoneList.append(RetrospectItem(id: originalDoneList[j].id, content: originalDoneList[j].content, deletionStatus: "N"))
@@ -443,7 +443,7 @@ final class EditRetrospectViewController: BaseViewController {
                 let indexpath = IndexPath(row: index, section: 0)
                 if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                     
-                    self.editedKeepList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    self.editedKeepList.append(RetrospectItem(content: cell.textView.content!))
                 }
             }
         }
@@ -455,8 +455,8 @@ final class EditRetrospectViewController: BaseViewController {
                     let indexpath = IndexPath(row: i, section: 0)
                     if let cell = keepTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                             
-                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalKeepList[j].content { //수정된 경우
-                            self.editedKeepList.append(RetrospectItem(id: originalKeepList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        if cell.textView.content != originalKeepList[j].content { //수정된 경우
+                            self.editedKeepList.append(RetrospectItem(id: originalKeepList[j].id, content: cell.textView.content!, deletionStatus: "N"))
                         }
                         else{ //수정 안한 경우
                             self.editedKeepList.append(RetrospectItem(id: originalKeepList[j].id, content: originalKeepList[j].content, deletionStatus: "N"))
@@ -472,7 +472,7 @@ final class EditRetrospectViewController: BaseViewController {
                 let indexpath = IndexPath(row: index, section: 0)
                 if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                     
-                    self.editedProblemList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    self.editedProblemList.append(RetrospectItem(content: cell.textView.content!))
                 }
             }
         }
@@ -484,8 +484,8 @@ final class EditRetrospectViewController: BaseViewController {
                     let indexpath = IndexPath(row: i, section: 0)
                     if let cell = problemTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                             
-                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalProblemList[j].content { //수정된 경우
-                            self.editedProblemList.append(RetrospectItem(id: originalProblemList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        if cell.textView.content != originalProblemList[j].content { //수정된 경우
+                            self.editedProblemList.append(RetrospectItem(id: originalProblemList[j].id, content: cell.textView.content!, deletionStatus: "N"))
                         }
                         else{ //수정 안한 경우
                             self.editedProblemList.append(RetrospectItem(id: originalProblemList[j].id, content: originalProblemList[j].content, deletionStatus: "N"))
@@ -501,7 +501,7 @@ final class EditRetrospectViewController: BaseViewController {
                 let indexpath = IndexPath(row: index, section: 0)
                 if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                     
-                    self.editedTryList.append(RetrospectItem(content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    self.editedTryList.append(RetrospectItem(content: cell.textView.content!))
                 }
             }
         }
@@ -513,8 +513,8 @@ final class EditRetrospectViewController: BaseViewController {
                     let indexpath = IndexPath(row: i, section: 0)
                     if let cell = tryTableView.cellForRow(at: indexpath) as? WriteRetrospectCell {
                             
-                        if cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines) != originalTryList[j].content { //수정된 경우
-                            self.editedTryList.append(RetrospectItem(id: originalTryList[j].id, content: cell.textView.text.trimmingCharacters(in: .whitespacesAndNewlines), deletionStatus: "N"))
+                        if cell.textView.content != originalTryList[j].content { //수정된 경우
+                            self.editedTryList.append(RetrospectItem(id: originalTryList[j].id, content: cell.textView.content!, deletionStatus: "N"))
                         }
                         else{ //수정 안한 경우
                             self.editedTryList.append(RetrospectItem(id: originalTryList[j].id, content: originalTryList[j].content, deletionStatus: "N"))

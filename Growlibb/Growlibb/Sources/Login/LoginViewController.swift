@@ -36,7 +36,7 @@ final class LoginViewController: BaseViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if !(emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) && !(passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) {
+        if !emailTextField.isEmpty() && !passwordTextField.isEmpty() {
             loginButton.setEnable()
         }
         else{
@@ -69,7 +69,11 @@ final class LoginViewController: BaseViewController {
         
         loginButton.rx.tap
             .subscribe(onNext: { _ in
-                self.loginDataManager.postLogin(viewController: self, email: self.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), password: self.passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                guard (self.emailTextField.content != nil), (self.passwordTextField.content != nil) else {
+                    AppContext.shared.makeToast("ID와 비밀번호 모두 입력해주세요.")
+                    return
+                }
+                self.loginDataManager.postLogin(viewController: self, email: self.emailTextField.content!, password: self.passwordTextField.content!)
             })
             .disposed(by: disposeBag)
         
@@ -151,8 +155,6 @@ final class LoginViewController: BaseViewController {
         make.setTitle(L10n.Login.Button.title, for: .normal)
         make.isEnabled = false
     }
-    
-    
 }
 
 // MARK: - Layout

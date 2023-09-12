@@ -42,7 +42,7 @@ final class EditPasswordSecondViewController: BaseViewController {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if textField == passwordTextField {
-            if !Regex().isValidPassword(input: passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+            if !Regex().isValidPassword(input: passwordTextField.content ?? " "){
                 passwordGuideLabel.isHidden = false
             }
             else{
@@ -50,21 +50,25 @@ final class EditPasswordSecondViewController: BaseViewController {
             }
             
             //비밀번호 입력창에서도 비밀번호 확인 입력창과 일치하는지 검증해야함
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" != passwordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" { //같지않으면
+            guard !textField.isEmpty(), passwordConfirmTextField.isEmpty() else { return }
+            
+            if textField.content! != passwordConfirmTextField.content! { //같지않으면
                 passwordConfirmGuideLabel.isHidden = false
                 confirmButton.setDisable()
             }
-            else if !textField.text!.isEmpty && !passwordConfirmTextField.text!.isEmpty && textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" == passwordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" {
+            else if textField.content! == passwordConfirmTextField.content! {
                 passwordConfirmGuideLabel.isHidden = true
                 confirmButton.setEnable()
             }
         }
         else if textField == passwordConfirmTextField {
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" != passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" { //같지않으면
+            guard !textField.isEmpty(), passwordTextField.isEmpty() else { return }
+            
+            if textField.content! != passwordTextField.content! { //같지않으면
                 passwordConfirmGuideLabel.isHidden = false
                 confirmButton.setDisable()
             }
-            else if !textField.text!.isEmpty && !passwordTextField.text!.isEmpty && textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" == passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" {
+            else if textField.content! == passwordTextField.content! {
                 confirmButton.setEnable()
                 passwordConfirmGuideLabel.isHidden = true
             }
@@ -81,7 +85,7 @@ final class EditPasswordSecondViewController: BaseViewController {
         
         confirmButton.rx.tap
             .subscribe({ _ in
-                UserInfo.shared.password = self.passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                UserInfo.shared.password = self.passwordTextField.content!
                 self.viewModel.inputs.modify.onNext(UserInfo.shared)
             })
             .disposed(by: disposeBag)

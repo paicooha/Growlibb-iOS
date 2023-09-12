@@ -69,7 +69,7 @@ final class EditPasswordFirstViewController: BaseViewController {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if textField == emailTextField {
-            if !Regex().isValidEmail(input: emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+            if !Regex().isValidEmail(input: emailTextField.content ?? " "){
                 emailGuideLabel.isHidden = false
                 emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
                 validCheckArray[0] = false
@@ -77,7 +77,7 @@ final class EditPasswordFirstViewController: BaseViewController {
                 nextButton.setDisable() //후에 다시수정할 수 있으므로
             }
             else{ //이메일 도메인 길이 체크
-                if ((emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
+                if ((emailTextField.content?.components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.content?.components(separatedBy: "@")[1].count)! > 255){
                     emailGuideLabel.isHidden = false
                     emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
                     validCheckArray[0] = false
@@ -95,7 +95,7 @@ final class EditPasswordFirstViewController: BaseViewController {
         else if textField == authcodeTextField {
             checkMaxLength(textField: textField, maxLength: 6)
             
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+            if !textField.isEmpty(), textField.content!.count == 6{
                 authcodeButton.setEnable()
             }
             else{
@@ -188,7 +188,7 @@ final class EditPasswordFirstViewController: BaseViewController {
         
         nextButton.rx.tap
             .subscribe({ _ in
-                let postCheckPasswordRequest = PostCheckPasswordRequest(phoneNumber: self.phoneTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), email: self.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                let postCheckPasswordRequest = PostCheckPasswordRequest(phoneNumber: self.phoneTextField.content!, email: self.emailTextField.content!)
                 UserInfo.shared.phoneNumber = postCheckPasswordRequest.phoneNumber
                 UserInfo.shared.email =
                 postCheckPasswordRequest.email
@@ -429,7 +429,7 @@ extension EditPasswordFirstViewController: UITextFieldDelegate {
         let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
         textField.selectedTextRange = textField.textRange(from: position, to: position)
         
-        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let textFieldText = textField.content ?? ""
         if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때 인증문자 발송 버튼 비활성화
             phoneButton.setDisable()
         }

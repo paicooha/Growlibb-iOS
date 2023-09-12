@@ -75,7 +75,7 @@ final class EditProfileViewController: BaseViewController {
         validCheck = false
         nicknameGuideLabel.isHidden = true
         
-        if nicknameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0 >= 1 && nicknameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) != UserInfo.shared.nickName {
+        if !nicknameTextField.isEmpty(), nicknameTextField.content!.count >= 1 && nicknameTextField.content! != UserInfo.shared.nickName {
             nicknameButton.setEnable()
             checkMaxLength(textField: textField, maxLength: 10)
         }
@@ -558,7 +558,7 @@ extension EditProfileViewController: UITextFieldDelegate{
         let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
         textField.selectedTextRange = textField.textRange(from: position, to: position)
         
-        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let textFieldText = textField.content ?? ""
         
         if textFieldText.count == 10 && Regex().isValidBirthday(input: textFieldText.replacingOccurrences(of: "-", with: "")) {
             self.validCheck = true

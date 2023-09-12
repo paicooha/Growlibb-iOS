@@ -47,7 +47,7 @@ class SignUpFirstViewController: BaseViewController {
         authcodeTextField.text = ""
         authGuideLabel.isHidden = true
         
-        if (phoneTextField.text ?? "").isEmpty { //2번째 화면에서 인증했다가 다시 돌아온 상황이 아니라면 disable 상태
+        if phoneTextField.isEmpty() { //2번째 화면에서 인증했다가 다시 돌아온 상황이 아니라면 disable 상태
             phoneButton.setDisable()
         }
         phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)
@@ -68,7 +68,7 @@ class SignUpFirstViewController: BaseViewController {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if textField == emailTextField {
-            if !Regex().isValidEmail(input: emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+            if !Regex().isValidEmail(input: emailTextField.content ?? " "){
                 emailGuideLabel.isHidden = false
                 emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
                 validCheckArray[0] = false
@@ -76,7 +76,7 @@ class SignUpFirstViewController: BaseViewController {
                 nextButton.setDisable() //후에 다시수정할 수 있으므로
             }
             else{ //이메일 도메인 길이 체크
-                if ((emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.text?.components(separatedBy: "@")[1].count)! > 255){
+                if ((emailTextField.content?.components(separatedBy: "@").first?.count)! > 64) || ((emailTextField.content?.components(separatedBy: "@")[1].count)! > 255){
                     emailGuideLabel.isHidden = false
                     emailGuideLabel.text = L10n.SignUp.Email.Guidelabel.toolong
                     validCheckArray[0] = false
@@ -92,7 +92,7 @@ class SignUpFirstViewController: BaseViewController {
             }
         }
         else if textField == passwordTextField {
-            if !Regex().isValidPassword(input: passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+            if !Regex().isValidPassword(input: passwordTextField.content ?? " "){
                 passwordGuideLabel.isHidden = false
             }
             else{
@@ -100,7 +100,7 @@ class SignUpFirstViewController: BaseViewController {
             }
             
             //비밀번호 입력창에서도 비밀번호 확인 입력창과 일치하는지 검증해야함
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != passwordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " && !(passwordConfirmTextField.text ?? "").isEmpty {
+            if textField.content ?? " " != passwordConfirmTextField.content ?? " " && !(passwordConfirmTextField.isEmpty()) {
                 passwordConfirmGuideLabel.isHidden = false
                 validCheckArray[1] = false
                 
@@ -113,7 +113,7 @@ class SignUpFirstViewController: BaseViewController {
             }
         }
         else if textField == passwordConfirmTextField {
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " {
+            if textField.content ?? " " != passwordTextField.content ?? " " {
                 passwordConfirmGuideLabel.isHidden = false
                 validCheckArray[1] = false
                 nextButton.setDisable()
@@ -127,7 +127,7 @@ class SignUpFirstViewController: BaseViewController {
         else if textField == authcodeTextField {
             checkMaxLength(textField: textField, maxLength: 6)
             
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+            if textField.content?.count == 6{
                 authcodeButton.setEnable()
             }
             else{
@@ -163,8 +163,13 @@ class SignUpFirstViewController: BaseViewController {
                 self.authGuideLabel.isHidden = true
                 self.validCheckArray[2] = false //한번 더 인증할 수 있으므로 일단 false로 두기
                 
+                guard self.phoneTextField.content != nil else {
+                    
+                    AppContext.shared.makeToast("휴대폰 번호를 입력해주세요.")
+                    return
+                }
                 //휴대폰번호 중복 체크
-                self.signUpDataManager.postCheckPhone(viewController: self, phoneNumber: (self.phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                self.signUpDataManager.postCheckPhone(viewController: self, phoneNumber: self.phoneTextField.content!)
             })
             .disposed(by: disposeBag)
         
@@ -417,7 +422,7 @@ class SignUpFirstViewController: BaseViewController {
         
         nextButton.rx.tap
             .subscribe({ _ in
-                self.signUpDataManager.postCheckEmail(viewController: self, email: (self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                self.signUpDataManager.postCheckEmail(viewController: self, email: self.emailTextField.content!)
             })
             .disposed(by: disposeBag)
         
@@ -983,7 +988,7 @@ extension SignUpFirstViewController: UITextFieldDelegate {
         let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
         textField.selectedTextRange = textField.textRange(from: position, to: position)
         
-        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let textFieldText = textField.content ?? ""
         if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때 인증문자 발송 버튼 비활성화
             phoneButton.setDisable()
         }

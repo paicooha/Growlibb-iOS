@@ -56,7 +56,7 @@ final class EditPhoneNumberViewController: BaseViewController {
         if textField == authcodeTextField {
             checkMaxLength(textField: textField, maxLength: 6)
             
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+            if !textField.isEmpty(), textField.content!.count == 6 {
                 authcodeButton.setEnable()
             }
             else{
@@ -134,7 +134,6 @@ final class EditPhoneNumberViewController: BaseViewController {
                         self.authGuideLabel.isHidden = false
                         return
                     }
-//                    self.findEmailauthGuideLabel.isHidden = true //안내문구, 시간 모두 없애기
                     self.authGuideLabel.text = L10n.SignUp.Code.Correct.guidelabel
                     self.authTimerLabel.isHidden = true
                     self.authTimer?.invalidate()
@@ -147,8 +146,8 @@ final class EditPhoneNumberViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         bottomButton.rx.tap
-            .subscribe({ [self] _ in
-                viewModel.inputs.newPhone.onNext((self.phoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+            .subscribe({ _ in
+                self.viewModel.inputs.newPhone.onNext(self.phoneTextField.content!)
             })
             .disposed(by: disposeBag)
     }
@@ -334,7 +333,7 @@ extension EditPhoneNumberViewController: UITextFieldDelegate{
         let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
         textField.selectedTextRange = textField.textRange(from: position, to: position)
         
-        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let textFieldText = textField.content ?? ""
         if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
             phoneButton.setDisable()
             phoneButton.setTitle(L10n.SignUp.Phone.sendCode, for: .normal)

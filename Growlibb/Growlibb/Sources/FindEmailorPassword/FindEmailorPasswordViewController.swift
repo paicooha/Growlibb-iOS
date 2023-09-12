@@ -70,7 +70,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
         if textField == findEmailauthcodeTextField {
             checkMaxLength(textField: textField, maxLength: 6)
             
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+            if textField.content?.count == 6{
                 findEmailauthcodeButton.setEnable()
             }
             else{
@@ -78,7 +78,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
             }
         }
         else if textField == findpasswordemailTextField {
-            if !Regex().isValidEmail(input: findpasswordemailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+            if !Regex().isValidEmail(input: findpasswordemailTextField.content ?? " "){
                 findpasswordEmailGuideLabel.isHidden = false
                 findpasswordEmailGuideLabel.text = L10n.SignUp.Email.Guidelabel.notemail
                 
@@ -102,7 +102,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
         else if textField == findpasswordauthcodeTextField {
             checkMaxLength(textField: textField, maxLength: 6)
 
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 6{
+            if textField.content?.count == 6{
                 findpasswordauthcodeButton.setEnable()
             }
             else{
@@ -110,7 +110,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
             }
         }
         else if textField == findpasswordTextField {
-            if !Regex().isValidPassword(input: findpasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " "){
+            if !Regex().isValidPassword(input: findpasswordTextField.content ?? " "){
                 findpasswordGuideLabel.isHidden = false
             }
             else{
@@ -118,7 +118,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
             }
             
             //비밀번호 입력창에서도 비밀번호 확인 입력창과 일치하는지 검증해야함
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != findpasswordConfirmTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " && !(findpasswordConfirmTextField.text ?? "").isEmpty {
+            if (textField.content ?? " ") != (findpasswordConfirmTextField.content ?? " ") && !(findpasswordConfirmTextField.content ?? "").isEmpty {
                 findpasswordConfirmGuideLabel.isHidden = false
                 
                 bottomButton.setDisable()
@@ -129,7 +129,7 @@ final class FindEmailorPasswordViewController: BaseViewController {
             }
         }
         else if textField == findpasswordConfirmTextField {
-            if textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " != findpasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? " " {
+            if textField.content ?? " " != findpasswordTextField.content ?? " " {
                 findpasswordConfirmGuideLabel.isHidden = false
                 bottomButton.setDisable()
             }
@@ -165,16 +165,6 @@ final class FindEmailorPasswordViewController: BaseViewController {
             self.verificationId = ""
         }
     }
-    
-//    @objc func findPasswordsendCodeTimerCallback() {
-//        sendCodebuttonTime -= 1
-//
-//        if (sendCodebuttonTime == 0){
-//            sendCodeButtonTimer?.invalidate()
-//            findpasswordphoneButton.setEnable()
-//        }
-//
-//    }
     
     func checkAllPass(){
         if validCheckArray.allSatisfy({$0}){ //모두 true
@@ -268,7 +258,12 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 self.validCheckArray[0] = false //한번 더 인증할 수 있으므로 일단 false로 두기
                 
                 //휴대폰번호 중복 체크
-                self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findEmailphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                guard self.findEmailphoneTextField.content != nil else {
+                    AppContext.shared.makeToast("휴대폰 번호를 올바르게 입력해주세요.")
+                    return
+                }
+                
+                self.dataManager.postFindEmail(viewController: self, phoneNumber: self.findEmailphoneTextField.content!)
                 
             })
             .disposed(by: disposeBag)
@@ -276,8 +271,13 @@ final class FindEmailorPasswordViewController: BaseViewController {
         findEmailauthcodeButton.rx.tap
             .subscribe({ _ in
                 
+                guard self.findEmailauthcodeTextField.content != nil else {
+                    AppContext.shared.makeToast("인증번호를 입력해주세요.")
+                    return
+                }
+                
                 let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.verificationId,
-                                                                         verificationCode: self.findEmailauthcodeTextField.text!)
+                                                                         verificationCode: self.findEmailauthcodeTextField.content!)
                 
                 Auth.auth().signIn(with: credential) { (authData, error) in
                     if error != nil {
@@ -301,8 +301,13 @@ final class FindEmailorPasswordViewController: BaseViewController {
                 //버튼 연타 방지
                 self.findpasswordphoneButton.setDisable()
                 
+                guard self.findpasswordphoneTextField.content != nil else {
+                    AppContext.shared.makeToast("휴대폰 번호를 입력해주세요.")
+                    return
+                }
+                
                 //휴대폰번호 중복 체크
-                self.dataManager.postFindEmail(viewController: self, phoneNumber: (self.findpasswordphoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+                self.dataManager.postFindEmail(viewController: self, phoneNumber: self.findpasswordphoneTextField.content!)
             })
             .disposed(by: disposeBag)
         
@@ -1062,7 +1067,7 @@ extension FindEmailorPasswordViewController: UITextFieldDelegate{
         let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
         textField.selectedTextRange = textField.textRange(from: position, to: position)
         
-        let textFieldText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let textFieldText = textField.content ?? ""
         if (textFieldText.replacingOccurrences(of: "-", with: "").count) < 11 { //'-' 제외하고 11자리 미만일때
             if (textField == findEmailphoneTextField){
                 findEmailphoneButton.setDisable()
