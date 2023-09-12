@@ -23,7 +23,7 @@ final class WriteRetrospectTutorialModalCoordinator: BasicCoordinator<WriteRetro
     override func start(animated: Bool = true) {
         let scene = component.scene
         scene.VC.modalPresentationStyle = .overCurrentContext
-        navigationController.present(scene.VC, animated: animated)
+        navigationController.present(scene.VC, animated: false)
 
         closeSignal
             .subscribe(onNext: { _ in
