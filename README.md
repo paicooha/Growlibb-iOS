@@ -26,8 +26,9 @@
 
 <img width="800" src="https://github.com/paicooha/Growlibb-iOS/assets/37764504/dc730ec6-df58-492b-a1f9-f5c49d15c1e5"/> <br/>
 
-- **Base**: 앱의 ViewController, ViewModel, Coordinatord에 공통적으로 사용되는 속성을 정의하며, Feature의 각 클래스는 해당 Base 클래스를 상속하여 재사용성을 높임
-- **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, CustomView / 유용한 도구 모음 Util / Extension, Localization 등
+- **Common**: 앱 공통적으로 쓰이는 모달과 같은 컴포넌트, 모델, CommonViews / 유용한 도구 모음 Util / Extension, Localization 등
+  - 해당 그룹의 컴포넌트나 Common View, Extension, Util은 앱 공통적으로 사용하거나 자주 사용하는 코드 및 UI를 모듈화함으로써 코드 중복을 줄이고 재사용성을 높임
+- **Base**: 앱의 ViewController, ViewModel, Coordinator에 공통적으로 사용되는 속성을 정의하며, Feature의 각 요소는 해당 Base 클래스를 상속함으로써 코드 재사용성을 높임
 - **Feature**:
   - 튜토리얼, 회원가입, 로그인, 아이디/비밀번호 찾기
   - 탭바 기준으로 Home, Retrospect, MyPage로 분리
